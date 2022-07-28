@@ -19,3 +19,12 @@ extension UIImageView {
         }.resume()
     }
 }
+extension UIButton {
+    func setButton(image: UIImage) {
+        self.setImage(image, for: .normal)
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
+        self.contentHorizontalAlignment = .left
+        self.imageView?.contentMode = .scaleAspectFit
+    }
+}

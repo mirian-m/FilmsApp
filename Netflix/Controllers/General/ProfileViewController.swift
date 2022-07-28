@@ -6,9 +6,10 @@
 
 import UIKit
 
-class PopUpViewController: UIViewController {
-    static let identifier = "PopUpViewController"
+class ProfileViewController: UIViewController {
+//    static let identifier = "ProfileViewController"
     
+    var isAuthorized: Bool? = false
     private lazy var profileBackground: UIImageView = {
         let background = UIImageView()
         background.translatesAutoresizingMaskIntoConstraints = false
@@ -52,70 +53,100 @@ class PopUpViewController: UIViewController {
        return lb
     }()
     
-    private lazy var stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.distribution = .fillEqually
-        stack.axis = .vertical
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.addArrangedSubview(signIn)
-        stack.addArrangedSubview(favouriteFilms)
-        stack.addArrangedSubview(seenFilms)
-        stack.addArrangedSubview(signOut)
-        return stack
-        
-    }()
-    
-    private lazy var signIn: UIButton = {
+    private lazy var signInBtn: UIButton = {
         let btn = UIButton()
         btn.setTitle("Sign In", for: .normal)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
+
     
-    private lazy var favouriteFilms: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("Favourite", for: .normal)
-        return btn
+    private lazy var stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fillEqually
+        stack.translatesAutoresizingMaskIntoConstraints = false
+//        stack.addArrangedSubview(signIn)
+        stack.addArrangedSubview(profileBtn)
+        stack.addArrangedSubview(favouriteFilmsBtn)
+        stack.addArrangedSubview(settingBtn)
+        stack.addArrangedSubview(signOut)
+        stack.spacing = 0
+        stack.alignment = .leading
+//        stack.backgroundColor = .red
+        return stack
         
     }()
     
-    private lazy var seenFilms: UIButton = {
+    
+    private lazy var profileBtn: UIButton = {
         let btn = UIButton()
-        btn.setTitle("Seen", for: .normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        btn.setTitle("Profile", for: .normal)
         return btn
-        
     }()
     
+    private lazy var favouriteFilmsBtn: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("Favourite Films List", for: .normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        return btn
+    }()
+    
+    private lazy var settingBtn: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("Settings", for: .normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        return btn
+    }()
+
     private lazy var signOut: UIButton = {
         let btn = UIButton()
         btn.setTitle("Sign Out", for: .normal)
         return btn
     }()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .clear
         profileBackground.frame = self.view.bounds
+        view.addSubview(signInBtn)
         view.addSubview(stackView)
         adjustConstraints()
-        //        self.view.translatesAutoresizingMaskIntoConstraints = false
-        //        topLevelView.backgroundColor = .red
-        //        let fittingSize = self.view.sizeThatFits(UIView.layoutFittingCompressedSize)
-        //        self.view.frame.size = CGSize(width: fittingSize.width, height: fittingSize.height)
-        //                view.addSubview(stackView)
+        setButtonsIcon()
+        setupViewControllerLayout()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         profileImg.layer.cornerRadius = profileImg.frame.height / 2
+        
+    }
+
+    func setupViewControllerLayout() {
+        signInBtn.isHidden = isAuthorized ?? false
+        stackView.isHidden = !(isAuthorized ?? false)
     }
     
+    func setButtonsIcon() {
+        signInBtn.setButton(image: getConfigImage("arrow.forward.circle.fill"))
+        profileBtn.setButton(image: getConfigImage("person.fill"))
+        favouriteFilmsBtn.setButton(image: getConfigImage("star.fill"))
+        settingBtn.setButton(image: getConfigImage("gearshape.fill"))
+        signOut.setButton(image: getConfigImage("arrowshape.turn.up.right"))
+    }
+    
+    func getConfigImage(_ imageName: String) -> UIImage {
+        let largConfig = UIImage.SymbolConfiguration(pointSize: 20,
+                                                     weight: .bold,
+                                                     scale: .large)
+        let image = UIImage(systemName: imageName, withConfiguration: largConfig)?.withTintColor(UIColor(named: "CustomColor")!,renderingMode: .alwaysOriginal)
+        return image!
+    }
+    
+    
     func adjustConstraints() {
-//        let profileBackgroundConstraints = [
-//            profileBackground
-//        ]
-        
+
         let cancelBtnConstraints = [
             cancelBtn.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 12),
             cancelBtn.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 21)
@@ -133,21 +164,44 @@ class PopUpViewController: UIViewController {
             nameLb.topAnchor.constraint(equalTo: profileImg.bottomAnchor, constant: 14)
             
         ]
+        
+        let signInConstraints = [
+            signInBtn.widthAnchor.constraint(equalTo: signOut.widthAnchor, multiplier: 1),
+            signInBtn.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ]
+
         let stackViewConstraints = [
-            stackView.topAnchor.constraint(equalTo: profileImg.bottomAnchor, constant: 156.4),
-            stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            stackView.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -100),
+            stackView.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor),
+            stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -215)
         ]
         
-        let signUpConstraints = [
-            signIn.heightAnchor.constraint(equalToConstant: 30),
-            signIn.widthAnchor.constraint(equalToConstant: 100)
+        let profileConstraints = [
+            profileBtn.widthAnchor.constraint(equalTo: stackView.widthAnchor)
         ]
+        
+        let favouriteFilmsConstraints = [
+            favouriteFilmsBtn.widthAnchor.constraint(equalTo: stackView.widthAnchor)
+        ]
+        
+        let settingBtnConstraints = [
+            settingBtn.widthAnchor.constraint(equalTo: stackView.widthAnchor)
+        ]
+        
+        let signOutConstraints = [
+            signOut.widthAnchor.constraint(equalTo: stackView.widthAnchor)
+        ]
+        
         
         NSLayoutConstraint.activate(cancelBtnConstraints)
         NSLayoutConstraint.activate(profileImgConstraints)
         NSLayoutConstraint.activate(nameLbConstraints)
+        NSLayoutConstraint.activate(signInConstraints)
         NSLayoutConstraint.activate(stackViewConstraints)
-        NSLayoutConstraint.activate(signUpConstraints)
+        NSLayoutConstraint.activate(favouriteFilmsConstraints)
+        NSLayoutConstraint.activate(profileConstraints)
+        NSLayoutConstraint.activate(settingBtnConstraints)
+        NSLayoutConstraint.activate(signOutConstraints)
         
     }
     

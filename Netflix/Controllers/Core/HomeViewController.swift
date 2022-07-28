@@ -60,7 +60,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc func presentProfile() {
-        let vc = PopUpViewController()
+        let vc = ProfileViewController()
         present(vc, animated: true, completion: nil)
     }
 }

@@ -183,22 +183,28 @@
             </objects>
             <point key="canvasLocation" x="5941" y="826"/>
         </scene>
-        <!--Pop Up View Controller-->
+        <!--Profile View Controller-->
         <scene sceneID="7Ha-BA-uq7">
             <objects>
-                <viewController storyboardIdentifier="PopUpViewController" id="EUf-UK-BJw" customClass="PopUpViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PopUpViewController" id="EUf-UK-BJw" customClass="ProfileViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QQH-Jg-G8a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BqG-Th-l4E">
-                                <rect key="frame" x="149" y="351" width="73" height="22"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" alignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="0GS-jR-adm">
+                                <rect key="frame" x="94" y="308" width="200" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="square.and.arrow.up" catalog="system"/>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5pz-Tn-czg">
+                                <rect key="frame" x="171" y="559" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5sa-8o-Zif"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="5pz-Tn-czg" firstAttribute="leading" secondItem="5sa-8o-Zif" secondAttribute="leading" constant="171" id="KuO-Qj-7zS"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RQf-Bg-lTC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -290,7 +296,6 @@
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="perso" width="128" height="128"/>
         <image name="play.rectangle" catalog="system" width="128" height="93"/>
-        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
