@@ -1,29 +1,49 @@
 import Foundation
 import UIKit
 
-struct API {
-    static var dictionariOfAPI = ["Top":"\(Constant.baseURL)/3/movie/top_rated?api_key=\(Constant.API_Key)\(Constant.endUrl)",
-                                  "Upcoming movies":"\(Constant.baseURL)/3/movie/upcoming?api_key=\(Constant.API_Key)\(Constant.endUrl)", "Popular":"\(Constant.baseURL)/3/movie/popular?api_key=\(Constant.API_Key)\(Constant.endUrl)",
-                                  "Trending tv":"\(Constant.baseURL)/3/trending/Tv/day?api_key=\(Constant.API_Key)",
-                                  "Trending movies":"\(Constant.baseURL)/3/trending/movie/day?api_key=\(Constant.API_Key)"]
+public struct API {
+    static var dictionariOfAPI =
+        [
+            "Top": "\(Constant.baseURL)/3/movie/top_rated?api_key=\(Constant.API_Key)\(Constant.endUrl)",
+            "Upcoming movies": "\(Constant.baseURL)/3/movie/upcoming?api_key=\(Constant.API_Key)\(Constant.endUrl)",
+            "Popular": "\(Constant.baseURL)/3/movie/popular?api_key=\(Constant.API_Key)\(Constant.endUrl)",
+            "Trending tv": "\(Constant.baseURL)/3/movie/latest?api_key=\(Constant.API_Key)\(Constant.endUrl)",
+            "Trending movies": "\(Constant.baseURL)/3/trending/movie/day?api_key=\(Constant.API_Key)"
+        ]
+    //    static var dictionariOfAPI = [
+    //        "Top": "https://imdb-api.com/en/API/Top250Movies/k_58z4goj1",
+    //        "Upcoming movies": "https://imdb-api.com/en/API/Top250Movies/k_58z4goj1",
+    //        "Popular": "https://imdb-api.com/en/API/MostPopularTVs/k_58z4goj1",
+    //        "Trending tv": "https://imdb-api.com/en/API/Top250TVs/k_58z4goj1",
+    //        "Trending movies": "https://imdb-api.com/en/API/MostPopularMovies/k_58z4goj1"
+    //    ]
+    
 }
-enum APICollerError: Error {
+
+public enum APICollerError: Error {
     case faldeToGetData
 }
 
-struct Constant {
+public struct Constant {
     static let API_Key = "793b50b3b4c6ef37ce18bda27b1cbf67"
+    
+    //        "k_58z4goj1"
     static let baseURL = "https://api.themoviedb.org"
-    static let endUrl = "&language=en-US&page=1"
+    
+    //        "https://imdb-api.com/en/API/"
+    static let endUrl = ""
+    //        "&language=en-US&page=1"
     static let PosterBaseURL = "https://image.tmdb.org/t/p/w500/"
     static let YoutubeAPI_KEY = "AIzaSyCFAeVXHQbpbirLUloOmQwuUJBkavE-2rQ"
     static let YoutubeBaseUrl = "https://youtube.googleapis.com/youtube/v3/search?"
 }
 
 class APIColler {
+    
     static var shared = APIColler()
-    func fetchMovieFromAPI (url: String, completion: @escaping (Result <Movies, APICollerError>) -> Void) {
-        guard let url = URL(string: url) else{return}
+    
+    func fetchMovieFromAPI (url: String, completion: @escaping (Result<Movies, APICollerError>) -> Void) {
+        guard let url = URL(string: url) else { return }
         URLSession.shared.dataTask(with: URLRequest(url: url)) { (data, _, error) in
             guard let data = data, error == nil else {return}
             do {
@@ -35,12 +55,12 @@ class APIColler {
         }.resume()
     }
     
-    func fetchTvShowFromAPI (url: String, completion: @escaping (Result<Tv,APICollerError>)-> Void) {
+    func fetchTvShowFromAPI (url: String, completion: @escaping (Result<Movies, APICollerError>)-> Void) {
         guard let url = URL(string: url) else { return }
         URLSession.shared.dataTask(with: URLRequest(url: url)) { (data, _, error) in
             guard let data = data, error == nil else { return }
             do {
-                let tvShow = try JSONDecoder().decode(Tv.self, from: data)
+                let tvShow = try JSONDecoder().decode(Movies.self, from: data)
                 completion(.success(tvShow))
             } catch {
                 completion(.failure(.faldeToGetData))
@@ -78,4 +98,16 @@ class APIColler {
             }
         }.resume()
     }
+    func getImageFromWeb(by url: String,  callback: @escaping ((UIImage?, String)) -> Void) {
+        guard let ApiUrl = URL(string: url) else { return }
+        URLSession.shared.dataTask(with: ApiUrl) { (data, _, error) in
+            guard let data = data, error == nil else { return }
+            
+            DispatchQueue.main.async {
+                let image = UIImage(data: data)
+                callback((image, url))
+            }
+        }.resume()
+    }
+
 }

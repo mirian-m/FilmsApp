@@ -2,27 +2,30 @@ import UIKit
 import WebKit
 
 class TrailerVideoViewController: UIViewController {
-    private var webView: WKWebView = {
+    
+    private lazy var webView: WKWebView = {
         let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
     }()
     
-    private var titleLb: UILabel = {
+    private lazy var titleLb: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
+        lb.numberOfLines = 0
         lb.font = .systemFont(ofSize: 22, weight: .bold)
         return lb
     }()
     
-    private var overviewLb: UILabel = {
+    private lazy var overviewLb: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
         lb.font = .systemFont(ofSize: 18, weight: .regular)
         lb.numberOfLines = 0
         return lb
     }()
-    private var downloadButton: UIButton = {
+    
+    private lazy var downloadButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Download", for: .normal)
@@ -44,7 +47,7 @@ class TrailerVideoViewController: UIViewController {
         setConstraints()
     }
     
-    func setConstraints(){
+    private func setConstraints(){
 //view.layoutMarginsGuide get constraint to safe area
         
         let webViewConstraint = [
@@ -55,7 +58,8 @@ class TrailerVideoViewController: UIViewController {
         ]
         let titleLbConstraint = [
             titleLb.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 10),
-            titleLb.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
+            titleLb.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            titleLb.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
         ]
         let overviewLbconstraint = [
             overviewLb.topAnchor.constraint(equalTo: titleLb.bottomAnchor, constant: 10),
@@ -75,10 +79,10 @@ class TrailerVideoViewController: UIViewController {
         NSLayoutConstraint.activate(downloadButtonConstraint)
     }
     
-    func configure(with model: TrailerViewModel){
+   public func configure(with model: TrailerViewModel){
         self.titleLb.text = model.movieTitle
         self.overviewLb.text = model.overview
-        guard let url = URL(string: "https://www.youtube.com/watch?v=\(model.youtubeId.videoId)") else{return}
+        guard let url = URL(string: "https://www.youtube.com/watch?v=\(model.youtubeId.videoId)") else { return }
         self.webView.load(URLRequest(url: url))
     }
 }

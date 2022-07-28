@@ -5,9 +5,6 @@ protocol CollectionViewTableViewCelldelegat: class {
 }
 
 class CollectionViewTableViewCell: UITableViewCell {
-    var movies = Movies(details: [])
-    var tvShow = Tv(details: [])
-    weak var delegat: CollectionViewTableViewCelldelegat!
     
     @IBOutlet weak var collectionView: UICollectionView!{
         didSet {
@@ -15,47 +12,44 @@ class CollectionViewTableViewCell: UITableViewCell {
             collectionView.delegate = self
         }
     }
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    
+    public var movies = Movies(details: [])
+    //    var tvShow = Tv(details: [], errorMessage: nil)
+    weak var delegat: CollectionViewTableViewCelldelegat!
 
-    func updateViewFromModel(movies: Any){
-        DispatchQueue.main.async {[weak self] in
-            if (movies as? Movies) != nil {
-                self?.movies = (movies as? Movies)!
-                self?.movies.details.shuffle()
-            }else{
-                self?.tvShow = (movies as? Tv)!
-            }
+    func updateViewFromModel(movies: Movies) {
+        DispatchQueue.main.async { [weak self] in
+            self?.movies = movies
             self?.collectionView.reloadData()
         }
     }
 }
 
-// Create Collection View in Table View
+// MARK:- Create Collection View in Table View
+
 extension CollectionViewTableViewCell: UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return movies.details.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let collection = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? CollectionViewCell else{return UICollectionViewCell()}
-        var url: String!
-        url = movies.details[indexPath.row].poster_path
-        url = Constant.PosterBaseURL + url
-        collection.posterImage.getImageFromWeb(by: url)
-        return collection
+        guard let collectionView = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? CollectionViewCell else { return UICollectionViewCell() }
+        guard let imageUrl = movies.details[indexPath.row].poster_path else { return UICollectionViewCell() }
+        
+        let url = Constant.PosterBaseURL + imageUrl
+        collectionView.loadImage(by: url)
+        return collectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
         return CGSize(width: 120, height: 150)
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        var title: String!
-        var overview: String!
-        title = (movies.details[indexPath.row].original_name ?? movies.details[indexPath.row].name) ?? " "
-        overview = movies.details[indexPath.row].overview
+        
+        let title = (movies.details[indexPath.row].original_name ?? movies.details[indexPath.row].name) ?? ""
+        let overview = movies.details[indexPath.row].overview
         
         APIColler.shared.getMovie(with: title + "trailer") { (result) in
             switch result {

@@ -54,7 +54,8 @@ class SearchViewControler: UIViewController {
     }
 }
 extension SearchViewControler: UITableViewDataSource, UITableViewDelegate, SearchResultViewControllerDelegat {
-    func SearchResultViewControllerDidselet(with model: TrailerViewModel) {
+    
+    func SearchResultViewControllerDidSelet(with model: TrailerViewModel) {
         DispatchQueue.main.async {[weak self] in
                 let vc = TrailerVideoViewController()
             vc.configure(with: model)
@@ -77,6 +78,7 @@ extension SearchViewControler: UITableViewDataSource, UITableViewDelegate, Searc
     
         let title = details[indexPath.row].original_name ?? details[indexPath.row].name ?? ""
         let overview = details[indexPath.row].overview ?? ""
+
         APIColler.shared.getMovie(with: title + " trailer") { (result) in
             switch result{
             case .success(let result):

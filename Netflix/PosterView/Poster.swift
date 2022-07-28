@@ -1,8 +1,10 @@
 import UIKit
+
 class Poster: UIView {
     var posterUrl: String?
     
     private var playButton: UIButton = {
+        
         var button = UIButton()
         button.setTitle("Play", for: .normal)
         button.layer.borderWidth = 1
@@ -12,6 +14,7 @@ class Poster: UIView {
         button.backgroundColor = UIColor.black
         return button
     }()
+    
     private var downloadButton: UIButton = {
         var button = UIButton()
         button.setTitle("Download", for: .normal)
@@ -23,12 +26,15 @@ class Poster: UIView {
         return button
     }()
     
-    private var posterView: UIImageView = {
+    private lazy var posterView: UIImageView = {
         var imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 10
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
         return imageView
     }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(posterView)
@@ -49,21 +55,30 @@ class Poster: UIView {
             downloadButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -25),
             downloadButton.widthAnchor.constraint(equalToConstant: 100)
         ]
+        
+//        let posterViewConstraint = [
+//            posterView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+//            posterView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+//            posterView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+//            posterView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+//        ]
+        
         NSLayoutConstraint.activate(playButtonConstraints)
         NSLayoutConstraint.activate(downloadButtonConstraint)
+//        NSLayoutConstraint.activate(posterViewConstraint)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         posterView.frame = bounds
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError()
     }
+    
     func configure(with posterUrl: String){
-        let url = Constant.PosterBaseURL + posterUrl
+        let url =  Constant.PosterBaseURL + posterUrl
         posterView.getImageFromWeb(by: url)
     }
 }

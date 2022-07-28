@@ -2,7 +2,7 @@
 import UIKit
 
 protocol SearchResultViewControllerDelegat: class {
-    func SearchResultViewControllerDidselet(with model: TrailerViewModel)
+    func SearchResultViewControllerDidSelet(with model: TrailerViewModel)
 }
 
 class SearchResultViewController: UIViewController {
@@ -22,8 +22,6 @@ class SearchResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
-        var st = "dadada"
-        print(st.upperCasedFirstLetter())
         searchResultCollectionView.dataSource = self
         searchResultCollectionView.delegate = self
         view.addSubview(searchResultCollectionView)
@@ -52,11 +50,11 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         
         let title = details[indexPath.row].name ?? details[indexPath.row].original_name ?? ""
         let overview = details[indexPath.row].overview
-        
+
         APIColler.shared.getMovie(with: title + " trailer") { [weak self](result) in
-            switch result{
+            switch result {
             case .success(let result):
-                self?.delegat.SearchResultViewControllerDidselet(with: TrailerViewModel(movieTitle: title, overview: overview, youtubeId: result.items[0].id))
+                self?.delegat.SearchResultViewControllerDidSelet(with: TrailerViewModel(movieTitle: title, overview: overview, youtubeId: result.items[0].id))
             case .failure(let error):
                 print(error)
             }

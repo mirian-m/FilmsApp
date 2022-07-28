@@ -1,4 +1,5 @@
 import Foundation
+
 struct TitleViewModel {
     var titleName: String
     var posterUrl: String

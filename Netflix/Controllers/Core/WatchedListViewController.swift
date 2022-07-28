@@ -1,10 +1,10 @@
 
 import UIKit
 
-class DownloadViewController: UIViewController {
+class WatchedListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Download"
+        title = "Watched List"
     }
 }
