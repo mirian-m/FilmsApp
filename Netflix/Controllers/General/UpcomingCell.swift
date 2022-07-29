@@ -16,19 +16,22 @@ class UpcomingCell: UITableViewCell {
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
         title.numberOfLines = 0
+        title.textColor = UIColor.white
         return title
     }()
     
     private let posterImage: UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleToFill
+        image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         image.clipsToBounds = true
+        image.layer.cornerRadius = 5
         return image
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = UIColor(white: 1, alpha: 0)
         contentView.addSubview(posterImage)
         contentView.addSubview(titleLabel)
         contentView.addSubview(playButton)
@@ -48,7 +51,7 @@ class UpcomingCell: UITableViewCell {
         ]
         
         let posterImageConstraints = [
-            posterImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            posterImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             posterImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             posterImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             posterImage.widthAnchor.constraint(equalToConstant: 100)

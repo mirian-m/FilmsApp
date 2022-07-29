@@ -7,7 +7,7 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-//    static let identifier = "ProfileViewController"
+    static let identifier = "ProfileViewController"
     
     var isAuthorized: Bool? = false
     private lazy var profileBackground: UIImageView = {

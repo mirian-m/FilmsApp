@@ -1,6 +1,6 @@
 import UIKit
 
-protocol CollectionViewTableViewCelldelegat: class {
+protocol CollectionViewTableViewCelldelegat: AnyObject {
     func collectionViewTableViewCellDidTap(cell: CollectionViewTableViewCell, model: TrailerViewModel)
 }
 
@@ -11,6 +11,10 @@ class CollectionViewTableViewCell: UITableViewCell {
             collectionView.dataSource = self
             collectionView.delegate = self
         }
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        collectionView.backgroundColor = .none
     }
     
     public var movies = Movies(details: [])

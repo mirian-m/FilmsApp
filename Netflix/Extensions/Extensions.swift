@@ -28,3 +28,19 @@ extension UIButton {
         self.imageView?.contentMode = .scaleAspectFit
     }
 }
+
+extension String {
+    func createAttributedString() -> NSMutableAttributedString {
+        let color = UIColor.red;
+//        let textToFind = "redword"
+        let attrsString =  NSMutableAttributedString(string: self);
+        // search for word occurrence
+//        let range = (self as NSString).range(of: textToFind)
+//        if (range.length > 0) {
+        attrsString.addAttribute(NSAttributedString.Key.foregroundColor,value: color, range: _NSRange())
+//        }
+        print(attrsString)
+        return attrsString
+        // set attributed text
+    }
+}

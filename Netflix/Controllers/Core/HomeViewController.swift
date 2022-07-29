@@ -1,7 +1,7 @@
 import UIKit
 
 
-class HomeViewController: UIViewController {
+class HomeViewController:  BackgroundImageViewControlller {
     @IBOutlet weak var personBtn: UIBarButtonItem! {
         didSet {
             personBtn.image = UIImage(systemName: "person")?.withRenderingMode(.alwaysOriginal).withTintColor(.white)
@@ -9,13 +9,20 @@ class HomeViewController: UIViewController {
     }
     @IBOutlet weak var filmTableView: UITableView!
     
-    let headerForSection = ["Trending movies", "Trending tv", "Popular", "Upcoming movies", "Top"]
-    var headerView: Poster?
-    var paintedSection: [Int] = []
+    private let headerForSection = ["Trending movies", "Trending tv", "Popular", "Upcoming movies", "Top"]
+    private var headerView: Poster?
+    private var paintedSection: [Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        controllerSetup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    func controllerSetup() {
         headerView = Poster(frame: CGRect(x: 0,
                                           y: 0,
                                           width: view.bounds.width,
@@ -23,10 +30,6 @@ class HomeViewController: UIViewController {
         filmTableView.tableHeaderView = headerView
         setNavBarItem()
         setRandomPoster()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     func setRandomPoster(){
@@ -44,8 +47,10 @@ class HomeViewController: UIViewController {
     func setNavBarItem() {
         navigationController?.navigationBar.tintColor = .white
         tabBarItem.badgeColor = .label
+        
         var image = UIImage(named: "Netflix-new")
         image = image?.withRenderingMode(.alwaysOriginal)
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(image: UIImage(systemName: "person")?
@@ -126,9 +131,9 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate{
 //
 //    }
 
-extension HomeViewController: CollectionViewTableViewCelldelegat{
+extension HomeViewController: CollectionViewTableViewCelldelegat {
     func collectionViewTableViewCellDidTap(cell: CollectionViewTableViewCell, model: TrailerViewModel) {
-        DispatchQueue.main.async {[weak self] in
+        DispatchQueue.main.async { [weak self] in
             let vc =  TrailerVideoViewController()
             vc.configure(with: model)
             self?.navigationController?.pushViewController(vc, animated: true)

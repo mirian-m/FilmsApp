@@ -1,7 +1,7 @@
 
 import UIKit
 
-class WatchedListViewController: UIViewController {
+class WatchedListViewController: BackgroundImageViewControlller {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -1,6 +1,6 @@
 import UIKit
 
-class SearchViewControler: UIViewController {
+class SearchViewControler: BackgroundImageViewControlller {
     
     private var details = [Details]()
     
@@ -19,16 +19,7 @@ class SearchViewControler: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        title = "Search"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        discoveredTable.dataSource = self
-        discoveredTable.delegate = self
-        navigationItem.searchController = searchController
-        navigationController?.navigationBar.tintColor = .white
-        view.addSubview(discoveredTable)
-        searchController.searchResultsUpdater = self
-        fetchDiscoveredMovie()
+        controllerSetup()
     }
     
     override func viewDidLayoutSubviews() {
@@ -36,7 +27,20 @@ class SearchViewControler: UIViewController {
         discoveredTable.frame = view.bounds
     }
     
-    func fetchDiscoveredMovie(){
+    func controllerSetup() {
+        title = "Search"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        discoveredTable.dataSource = self
+        discoveredTable.delegate = self
+        discoveredTable.backgroundColor = .none
+        navigationItem.searchController = searchController
+        navigationController?.navigationBar.tintColor = .white
+        view.addSubview(discoveredTable)
+        searchController.searchResultsUpdater = self
+        fetchDiscoveredMovie()
+    }
+    
+    func fetchDiscoveredMovie() {
         let url =  "\(Constant.baseURL)/3/discover/movie?api_key=\(Constant.API_Key)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
         APIColler.shared.fetchMovieFromAPI(url: url) { (result) in
             switch result{
@@ -56,10 +60,10 @@ class SearchViewControler: UIViewController {
 extension SearchViewControler: UITableViewDataSource, UITableViewDelegate, SearchResultViewControllerDelegat {
     
     func SearchResultViewControllerDidSelet(with model: TrailerViewModel) {
-        DispatchQueue.main.async {[weak self] in
-                let vc = TrailerVideoViewController()
+        DispatchQueue.main.async { [weak self] in
+            let vc = TrailerVideoViewController()
             vc.configure(with: model)
-                self?.navigationController?.pushViewController(vc, animated: true)
+            self?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
@@ -75,14 +79,14 @@ extension SearchViewControler: UITableViewDataSource, UITableViewDelegate, Searc
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-    
+        
         let title = details[indexPath.row].original_name ?? details[indexPath.row].name ?? ""
         let overview = details[indexPath.row].overview ?? ""
-
-        APIColler.shared.getMovie(with: title + " trailer") { (result) in
-            switch result{
+        
+        APIColler.shared.getMovie(with: title + " trailer") { result in
+            switch result {
             case .success(let result):
-                DispatchQueue.main.async {[weak self] in
+                DispatchQueue.main.async { [weak self] in
                     let vc = TrailerVideoViewController()
                     vc.configure(with: TrailerViewModel(movieTitle: title, overview: overview, youtubeId: result.items[0].id) )
                     self?.navigationController?.pushViewController(vc, animated: true)
@@ -92,10 +96,8 @@ extension SearchViewControler: UITableViewDataSource, UITableViewDelegate, Searc
             }
         }
     }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        150
-    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 140 }
 }
 extension SearchViewControler: UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
@@ -104,11 +106,12 @@ extension SearchViewControler: UISearchResultsUpdating{
               !query.trimmingCharacters(in: .whitespaces).isEmpty,
               query.trimmingCharacters(in: .whitespaces).count >= 3,
               let resultController = searchController.searchResultsController as? SearchResultViewController
-        else {return}
+        else { return }
+        
         resultController.delegat = self
-        APIColler.shared.search(with: query) { (result) in
+        APIColler.shared.search(with: query) { result in
             DispatchQueue.main.async {
-                switch result{
+                switch result {
                 case .success(let movie):
                     resultController.details = movie.details
                     resultController.searchResultCollectionView.reloadData()
