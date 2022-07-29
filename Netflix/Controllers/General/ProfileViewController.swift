@@ -10,36 +10,38 @@ class ProfileViewController: UIViewController {
     static let identifier = "ProfileViewController"
     
     var isAuthorized: Bool? = false
+    
     private lazy var profileBackground: UIImageView = {
-        let background = UIImageView()
-        background.translatesAutoresizingMaskIntoConstraints = false
+        let backgroundImage = UIImageView()
+        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         let layer = CAGradientLayer()
         layer.frame = self.view.bounds
         layer.colors = [UIColor.blue.cgColor, UIColor.purple.cgColor]
-        background.layer.addSublayer(layer)
-        self.view.addSubview(background)
-        return background
+        backgroundImage.layer.addSublayer(layer)
+        self.view.addSubview(backgroundImage)
+        return backgroundImage
     }()
     
     private lazy var cancelBtn: UIButton = {
         let btn = UIButton()
-        let largConfig = UIImage.SymbolConfiguration(pointSize: 20,
-                                                     weight: .thin,
-                                                     scale: .large)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        
+        let configImage = UIImage.SymbolConfiguration(pointSize: 20,
+                                                      weight: .thin,
+                                                      scale: .large)
         let image = UIImage(systemName:"multiply",
-                            withConfiguration: largConfig)?
-            .withRenderingMode(.alwaysOriginal).withTintColor(.white)
+                            withConfiguration: configImage)?
+            .withTintColor(.white, renderingMode: .alwaysOriginal)
         btn.setImage(image, for: .normal)
         btn.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
-        btn.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(btn)
         return btn
     }()
     
     private lazy var profileImg: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .red
         self.view.addSubview(imageView)
         return imageView
     }()
@@ -50,30 +52,27 @@ class ProfileViewController: UIViewController {
         lb.font = UIFont(name: "Inter-Bold", size: 16)
         lb.text = "Mirian Maglakelidze"
         self.view.addSubview(lb)
-       return lb
+        return lb
     }()
     
     private lazy var signInBtn: UIButton = {
         let btn = UIButton()
-        btn.setTitle("Sign In", for: .normal)
         btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setTitle("Sign In", for: .normal)
         return btn
     }()
-
     
     private lazy var stackView: UIStackView = {
         let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.distribution = .fillEqually
-        stack.translatesAutoresizingMaskIntoConstraints = false
-//        stack.addArrangedSubview(signIn)
         stack.addArrangedSubview(profileBtn)
         stack.addArrangedSubview(favouriteFilmsBtn)
         stack.addArrangedSubview(settingBtn)
         stack.addArrangedSubview(signOut)
         stack.spacing = 0
         stack.alignment = .leading
-//        stack.backgroundColor = .red
         return stack
         
     }()
@@ -99,33 +98,37 @@ class ProfileViewController: UIViewController {
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         return btn
     }()
-
+    
     private lazy var signOut: UIButton = {
         let btn = UIButton()
         btn.setTitle("Sign Out", for: .normal)
         return btn
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .clear
-        profileBackground.frame = self.view.bounds
-        view.addSubview(signInBtn)
-        view.addSubview(stackView)
-        adjustConstraints()
-        setButtonsIcon()
         setupViewControllerLayout()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         profileImg.layer.cornerRadius = profileImg.frame.height / 2
-        
     }
-
+    
     func setupViewControllerLayout() {
+        self.view.backgroundColor = .clear
+        profileBackground.frame = self.view.bounds
+        view.addSubview(signInBtn)
+        view.addSubview(stackView)
+        adjustConstraints()
+        setButtonsIcon()
         signInBtn.isHidden = isAuthorized ?? false
         stackView.isHidden = !(isAuthorized ?? false)
+    }
+    
+    // Cancel Button Action
+    @objc private func cancelAction() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     func setButtonsIcon() {
@@ -146,7 +149,7 @@ class ProfileViewController: UIViewController {
     
     
     func adjustConstraints() {
-
+        
         let cancelBtnConstraints = [
             cancelBtn.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 12),
             cancelBtn.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 21)
@@ -169,7 +172,7 @@ class ProfileViewController: UIViewController {
             signInBtn.widthAnchor.constraint(equalTo: signOut.widthAnchor, multiplier: 1),
             signInBtn.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ]
-
+        
         let stackViewConstraints = [
             stackView.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -100),
             stackView.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor),
@@ -192,6 +195,7 @@ class ProfileViewController: UIViewController {
             signOut.widthAnchor.constraint(equalTo: stackView.widthAnchor)
         ]
         
+        // Activate contraints
         
         NSLayoutConstraint.activate(cancelBtnConstraints)
         NSLayoutConstraint.activate(profileImgConstraints)
@@ -203,9 +207,5 @@ class ProfileViewController: UIViewController {
         NSLayoutConstraint.activate(settingBtnConstraints)
         NSLayoutConstraint.activate(signOutConstraints)
         
-    }
-    
-    @objc private func cancelAction() {
-        self.dismiss(animated: true, completion: nil)
     }
 }

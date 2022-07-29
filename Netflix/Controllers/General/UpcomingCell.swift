@@ -32,12 +32,17 @@ class UpcomingCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = UIColor(white: 1, alpha: 0)
+        addItemsToView()
+        applyConstreints()
+    }
+    
+    func addItemsToView() {
         contentView.addSubview(posterImage)
         contentView.addSubview(titleLabel)
         contentView.addSubview(playButton)
-        applyConstreints()
     }
-    func applyConstreints(){
+    
+    func applyConstreints() {
         let playButtonConstraints = [
             playButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             playButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
@@ -51,11 +56,12 @@ class UpcomingCell: UITableViewCell {
         ]
         
         let posterImageConstraints = [
-            posterImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            posterImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             posterImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             posterImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             posterImage.widthAnchor.constraint(equalToConstant: 100)
         ]
+        
         NSLayoutConstraint.activate(playButtonConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(posterImageConstraints)

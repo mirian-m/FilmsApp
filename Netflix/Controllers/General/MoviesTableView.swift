@@ -1,43 +1,53 @@
 import UIKit
 
 protocol CollectionViewTableViewCelldelegat: AnyObject {
-    func collectionViewTableViewCellDidTap(cell: CollectionViewTableViewCell, model: TrailerViewModel)
+    func collectionViewTableViewCellDidTap(cell: MoviesTableView, model: TrailerViewModel)
 }
 
-class CollectionViewTableViewCell: UITableViewCell {
+class MoviesTableView: UITableViewCell {
     
-    @IBOutlet weak var collectionView: UICollectionView!{
+    @IBOutlet weak var moviesCollectionView: UICollectionView!{
         didSet {
-            collectionView.dataSource = self
-            collectionView.delegate = self
+            moviesCollectionView.dataSource = self
+            moviesCollectionView.delegate = self
         }
     }
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        collectionView.backgroundColor = .none
-    }
-    
     public var movies = Movies(details: [])
     //    var tvShow = Tv(details: [], errorMessage: nil)
     weak var delegat: CollectionViewTableViewCelldelegat!
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        moviesCollectionView.backgroundColor = .none
+    }
+    
+
     func updateViewFromModel(movies: Movies) {
         DispatchQueue.main.async { [weak self] in
             self?.movies = movies
-            self?.collectionView.reloadData()
+            self?.moviesCollectionView.reloadData()
         }
     }
 }
 
 // MARK:- Create Collection View in Table View
 
-extension CollectionViewTableViewCell: UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
+extension MoviesTableView: UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+    
+    func setScrollPosition(x: CGFloat) {
+        moviesCollectionView.setContentOffset(CGPoint(x: x, y: 0), animated: false)
+    }
+
+    func getScrollPosition() -> CGFloat {
+        return moviesCollectionView.contentOffset.x
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return movies.details.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let collectionView = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? CollectionViewCell else { return UICollectionViewCell() }
+        guard let collectionView = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? MovieCollectionViewCell else { return UICollectionViewCell() }
         guard let imageUrl = movies.details[indexPath.row].poster_path else { return UICollectionViewCell() }
         
         let url = Constant.PosterBaseURL + imageUrl

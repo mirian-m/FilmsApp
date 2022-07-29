@@ -12,6 +12,7 @@ class HomeViewController:  BackgroundImageViewControlller {
     private let headerForSection = ["Trending movies", "Trending tv", "Popular", "Upcoming movies", "Top"]
     private var headerView: Poster?
     private var paintedSection: [Int] = []
+    var offsets = [IndexPath:CGFloat]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,10 +94,12 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? CollectionViewTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? MoviesTableView else { return UITableViewCell() }
+        cell.setScrollPosition(x: offsets[indexPath] ?? 0)
+        
         let title = headerForSection[indexPath.section]
         let url = API.dictionariOfAPI[title]!
-        if !paintedSection.contains(indexPath.section) {
+//        if !paintedSection.contains(indexPath.section) {
             //            if title == "Trending tv" {
             //                APIColler.shared.fetchTvShowFromAPI(url: url) { results in
             //                    switch results {
@@ -115,13 +118,17 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate{
                     print(error)
                 }
             }
-            paintedSection.append(indexPath.section)
+//            paintedSection.append(indexPath.section)
             
-        }
+//        }
         cell.delegat = self
         return cell
-        
     }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        offsets[indexPath] = (cell as! MoviesTableView).getScrollPosition()
+    }
+    
 }
 
 //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -132,7 +139,7 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate{
 //    }
 
 extension HomeViewController: CollectionViewTableViewCelldelegat {
-    func collectionViewTableViewCellDidTap(cell: CollectionViewTableViewCell, model: TrailerViewModel) {
+    func collectionViewTableViewCellDidTap(cell: MoviesTableView, model: TrailerViewModel) {
         DispatchQueue.main.async { [weak self] in
             let vc =  TrailerVideoViewController()
             vc.configure(with: model)

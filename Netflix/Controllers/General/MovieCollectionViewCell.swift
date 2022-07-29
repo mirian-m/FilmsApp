@@ -1,9 +1,11 @@
 import UIKit
-class CollectionViewCell: UICollectionViewCell {
+
+class MovieCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var viewCell: UIView!
     
     private var imageUrl: String?
+    
     
     func loadImage(by imageUrl: String) {
         self.posterImage.image = UIImage(named: "defaultImage")

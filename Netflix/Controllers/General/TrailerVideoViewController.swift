@@ -48,7 +48,6 @@ class TrailerVideoViewController: UIViewController {
     }
     
     private func setConstraints(){
-//view.layoutMarginsGuide get constraint to safe area
         
         let webViewConstraint = [
             webView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: -40),

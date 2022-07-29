@@ -19,6 +19,7 @@ extension UIImageView {
         }.resume()
     }
 }
+
 extension UIButton {
     func setButton(image: UIImage) {
         self.setImage(image, for: .normal)
