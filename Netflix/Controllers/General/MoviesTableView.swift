@@ -12,6 +12,7 @@ class MoviesTableView: UITableViewCell {
             moviesCollectionView.delegate = self
         }
     }
+    
     public var movies = Movies(details: [])
     //    var tvShow = Tv(details: [], errorMessage: nil)
     weak var delegat: CollectionViewTableViewCelldelegat!

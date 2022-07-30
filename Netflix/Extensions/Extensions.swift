@@ -30,18 +30,10 @@ extension UIButton {
     }
 }
 
-extension String {
-    func createAttributedString() -> NSMutableAttributedString {
-        let color = UIColor.red;
-//        let textToFind = "redword"
-        let attrsString =  NSMutableAttributedString(string: self);
-        // search for word occurrence
-//        let range = (self as NSString).range(of: textToFind)
-//        if (range.length > 0) {
-        attrsString.addAttribute(NSAttributedString.Key.foregroundColor,value: color, range: _NSRange())
-//        }
-        print(attrsString)
-        return attrsString
-        // set attributed text
+extension UITextField {
+    func setLeftPaddingPoints(_ amount:CGFloat){
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.leftView = paddingView
+        self.leftViewMode = .always
     }
 }

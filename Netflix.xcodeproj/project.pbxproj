@@ -29,6 +29,10 @@
 		8434FA0427CF86BE00377DE2 /* UpcomingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434FA0327CF86BC00377DE2 /* UpcomingCell.swift */; };
 		8434FA0727CF920500377DE2 /* TitleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434FA0627CF920400377DE2 /* TitleViewModel.swift */; };
 		848FCFAB2893CC4D0056582C /* BackgroundImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FCFAA2893CC4C0056582C /* BackgroundImage.swift */; };
+		848FCFB228952A690056582C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FCFB128952A680056582C /* User.swift */; };
+		848FCFB528952CF50056582C /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FCFB428952CF50056582C /* RegistrationViewController.swift */; };
+		848FCFB9289536540056582C /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FCFB8289536530056582C /* WelcomeViewController.swift */; };
+		848FCFC028954DF00056582C /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FCFBF28954DEF0056582C /* RegistrationView.swift */; };
 		84B3909A28900FF100B8CC2F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3909928900FF100B8CC2F /* ProfileViewController.swift */; };
 		84DB254427D36A8A0063685F /* TrailerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB254327D36A8A0063685F /* TrailerViewModel.swift */; };
 		84DB254A27D393F50063685F /* TvShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB254927D393F50063685F /* TvShow.swift */; };
@@ -59,6 +63,10 @@
 		8434FA0327CF86BC00377DE2 /* UpcomingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingCell.swift; sourceTree = "<group>"; };
 		8434FA0627CF920400377DE2 /* TitleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewModel.swift; sourceTree = "<group>"; };
 		848FCFAA2893CC4C0056582C /* BackgroundImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundImage.swift; sourceTree = "<group>"; };
+		848FCFB128952A680056582C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		848FCFB428952CF50056582C /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		848FCFB8289536530056582C /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		848FCFBF28954DEF0056582C /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		84B3909928900FF100B8CC2F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		84DB254327D36A8A0063685F /* TrailerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerViewModel.swift; sourceTree = "<group>"; };
 		84DB254927D393F50063685F /* TvShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvShow.swift; sourceTree = "<group>"; };
@@ -94,7 +102,7 @@
 		84209C7427C775AB003CE71D /* Netflix */ = {
 			isa = PBXGroup;
 			children = (
-				8434F9EB27C8F54700377DE2 /* PosterView */,
+				848FCFBC28954D900056582C /* Views */,
 				84209C9027C7B43F003CE71D /* Controllers */,
 				8434F9F027CA4ABC00377DE2 /* Managers */,
 				8434F9F427CB8CAE00377DE2 /* Models */,
@@ -122,6 +130,8 @@
 		842FA09227D23CA200B206F6 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				848FCFB8289536530056582C /* WelcomeViewController.swift */,
+				848FCFB428952CF50056582C /* RegistrationViewController.swift */,
 				84209C7927C775AC003CE71D /* HomeViewController.swift */,
 				84209C9427C7B488003CE71D /* ComingSoonViewContorller.swift */,
 				84209C9127C7B475003CE71D /* SearchViewControler.swift */,
@@ -168,6 +178,7 @@
 				8434FA0627CF920400377DE2 /* TitleViewModel.swift */,
 				842FA08F27D2275600B206F6 /* YoutubeSearchResponse.swift */,
 				84DB254327D36A8A0063685F /* TrailerViewModel.swift */,
+				848FCFB128952A680056582C /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -178,6 +189,23 @@
 				8434F9F927CB8D3500377DE2 /* Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		848FCFBC28954D900056582C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				848FCFBE28954D9F0056582C /* RegistrationView */,
+				8434F9EB27C8F54700377DE2 /* PosterView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		848FCFBE28954D9F0056582C /* RegistrationView */ = {
+			isa = PBXGroup;
+			children = (
+				848FCFBF28954DEF0056582C /* RegistrationView.swift */,
+			);
+			path = RegistrationView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,9 +281,11 @@
 				84209C9227C7B475003CE71D /* SearchViewControler.swift in Sources */,
 				8434F9F227CA4ADA00377DE2 /* APIColler.swift in Sources */,
 				84DB254A27D393F50063685F /* TvShow.swift in Sources */,
+				848FCFC028954DF00056582C /* RegistrationView.swift in Sources */,
 				84209C8E27C77A7F003CE71D /* MovieCollectionViewCell.swift in Sources */,
 				84209C7A27C775AC003CE71D /* HomeViewController.swift in Sources */,
 				84209C9527C7B488003CE71D /* ComingSoonViewContorller.swift in Sources */,
+				848FCFB9289536540056582C /* WelcomeViewController.swift in Sources */,
 				84209C9827C7B498003CE71D /* WatchedListViewController.swift in Sources */,
 				848FCFAB2893CC4D0056582C /* BackgroundImage.swift in Sources */,
 				842FA09627D2405700B206F6 /* TrailerVideoViewController.swift in Sources */,
@@ -268,10 +298,12 @@
 				842FA09027D2275600B206F6 /* YoutubeSearchResponse.swift in Sources */,
 				84209C8B27C776C1003CE71D /* MoviesTableView.swift in Sources */,
 				84B3909A28900FF100B8CC2F /* ProfileViewController.swift in Sources */,
+				848FCFB528952CF50056582C /* RegistrationViewController.swift in Sources */,
 				84209C7627C775AB003CE71D /* AppDelegate.swift in Sources */,
 				8434FA0727CF920500377DE2 /* TitleViewModel.swift in Sources */,
 				8434FA0427CF86BE00377DE2 /* UpcomingCell.swift in Sources */,
 				84209C7827C775AC003CE71D /* SceneDelegate.swift in Sources */,
+				848FCFB228952A690056582C /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

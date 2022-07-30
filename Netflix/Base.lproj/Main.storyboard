@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pt5-sb-ud0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VkQ-9E-IBg">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -14,7 +15,7 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="qjb-cz-Jj2">
@@ -139,7 +140,7 @@
             <objects>
                 <viewController storyboardIdentifier="SecondViewController" id="c8Q-32-zpE" customClass="SearchViewControler" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DA4-76-zJ5">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="1cB-iW-1q5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -175,7 +176,7 @@
             <objects>
                 <viewController storyboardIdentifier="FourthViewController" id="dib-71-m1g" customClass="WatchedListViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fJ7-sR-t7I">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="EYY-pP-G0T"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -186,40 +187,120 @@
             </objects>
             <point key="canvasLocation" x="5941" y="826"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Registration View Controller-->
         <scene sceneID="7Ha-BA-uq7">
             <objects>
-                <viewController storyboardIdentifier="PopUpViewController" id="EUf-UK-BJw" customClass="ProfileViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegistrationViewController" id="EUf-UK-BJw" customClass="RegistrationViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QQH-Jg-G8a">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" alignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="0GS-jR-adm">
-                                <rect key="frame" x="94" y="308" width="200" height="110"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5pz-Tn-czg">
-                                <rect key="frame" x="171" y="559" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="5sa-8o-Zif"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="5pz-Tn-czg" firstAttribute="leading" secondItem="5sa-8o-Zif" secondAttribute="leading" constant="171" id="KuO-Qj-7zS"/>
-                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="B0Z-9s-t3v"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RQf-Bg-lTC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7023" y="837"/>
+            <point key="canvasLocation" x="2730" y="-670"/>
+        </scene>
+        <!--Test View Controller-->
+        <scene sceneID="Vvm-jr-XTD">
+            <objects>
+                <viewController storyboardIdentifier="TestViewController" id="nF0-jh-zai" customClass="TestViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="33m-Q5-sq0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="ACY-FB-12d"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZV8-41-7bC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3671" y="-670"/>
+        </scene>
+        <!--Welcome View Controller-->
+        <scene sceneID="mLc-03-Tko">
+            <objects>
+                <viewController storyboardIdentifier="WelcomeViewController" id="g2B-jV-xfz" customClass="WelcomeViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KaW-ec-g2k">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlimited movies, TV shows, and more." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Riy-5x-j4R">
+                                <rect key="frame" x="16" y="438" width="382" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Watch anywhere. Cancel anytime. Tap the link below to sign up." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKU-6A-qBr">
+                                <rect key="frame" x="45" y="478.5" width="324" height="40"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cih-Rk-0in">
+                                <rect key="frame" x="16" y="818" width="382" height="30"/>
+                                <state key="normal" title="Get Started"/>
+                                <connections>
+                                    <action selector="moveToRegitrationPage:" destination="g2B-jV-xfz" eventType="touchUpInside" id="tTt-gA-JJO"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NetflixLogo" translatesAutoresizingMaskIntoConstraints="NO" id="QhH-Jc-xzp">
+                                <rect key="frame" x="16" y="104" width="86" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="ldh-tt-rsj"/>
+                                    <constraint firstAttribute="width" constant="86" id="vhd-PH-DLh"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kB6-ib-QxO">
+                                <rect key="frame" x="348" y="105" width="50" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="lpB-yW-8u3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Sign In"/>
+                                <connections>
+                                    <action selector="moveToRegitrationPage:" destination="g2B-jV-xfz" eventType="touchUpInside" id="EV2-gy-IhF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="iDj-0v-1wz"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="kB6-ib-QxO" secondAttribute="trailing" constant="16" id="6WJ-5A-OpC"/>
+                            <constraint firstItem="WKU-6A-qBr" firstAttribute="centerX" secondItem="KaW-ec-g2k" secondAttribute="centerX" id="CQC-nT-yTB"/>
+                            <constraint firstAttribute="trailing" secondItem="WKU-6A-qBr" secondAttribute="trailing" constant="45" id="DEy-U5-tlL"/>
+                            <constraint firstItem="kB6-ib-QxO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QhH-Jc-xzp" secondAttribute="trailing" constant="8" symbolic="YES" id="Fj2-F5-kCL"/>
+                            <constraint firstAttribute="trailing" secondItem="cih-Rk-0in" secondAttribute="trailing" constant="16" id="JTy-sE-y1c"/>
+                            <constraint firstItem="Riy-5x-j4R" firstAttribute="centerX" secondItem="KaW-ec-g2k" secondAttribute="centerX" id="MGT-Br-H8d"/>
+                            <constraint firstItem="WKU-6A-qBr" firstAttribute="top" secondItem="Riy-5x-j4R" secondAttribute="bottom" constant="20" id="TkW-F1-iiS"/>
+                            <constraint firstItem="cih-Rk-0in" firstAttribute="centerX" secondItem="KaW-ec-g2k" secondAttribute="centerX" id="UHR-Hz-Fji"/>
+                            <constraint firstItem="kB6-ib-QxO" firstAttribute="centerY" secondItem="QhH-Jc-xzp" secondAttribute="centerY" id="gh9-vn-OWx"/>
+                            <constraint firstAttribute="trailing" secondItem="Riy-5x-j4R" secondAttribute="trailing" constant="16" id="hgl-O4-3T3"/>
+                            <constraint firstItem="QhH-Jc-xzp" firstAttribute="top" secondItem="iDj-0v-1wz" secondAttribute="top" constant="16" id="i93-LN-aM7"/>
+                            <constraint firstItem="Riy-5x-j4R" firstAttribute="centerY" secondItem="KaW-ec-g2k" secondAttribute="centerY" id="omK-Nq-LSK"/>
+                            <constraint firstItem="iDj-0v-1wz" firstAttribute="bottom" secondItem="cih-Rk-0in" secondAttribute="bottom" constant="14" id="xOc-EY-fXr"/>
+                            <constraint firstItem="QhH-Jc-xzp" firstAttribute="leading" secondItem="iDj-0v-1wz" secondAttribute="leading" constant="16" id="zf4-k9-Suv"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hBX-eD-5dj"/>
+                    <connections>
+                        <outlet property="getStaredBtn" destination="cih-Rk-0in" id="W38-8v-Ryd"/>
+                        <outlet property="lb" destination="Riy-5x-j4R" id="Qpe-vI-ZRZ"/>
+                        <outlet property="lb2" destination="WKU-6A-qBr" id="y60-Lb-pUH"/>
+                        <outlet property="sigInBtn" destination="kB6-ib-QxO" id="cp1-oW-YXN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6aj-fO-LQs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1817" y="-670"/>
         </scene>
         <!--Coming Soon View Contorller-->
         <scene sceneID="KRW-2T-oWO">
             <objects>
                 <viewController storyboardIdentifier="ThirdViewController" id="fHE-QG-5sr" customClass="ComingSoonViewContorller" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VGb-bB-x95">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="73N-Pe-RGz"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -261,7 +342,6 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nLF-BZ-bHj">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -293,8 +373,27 @@
             </objects>
             <point key="canvasLocation" x="5086.9565217391309" y="825.66964285714278"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="pSs-2O-3E5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VkQ-9E-IBg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="D4w-Rq-icw">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="g2B-jV-xfz" kind="relationship" relationship="rootViewController" id="Xyn-p7-l3F"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xsP-Ue-5y6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1031.8840579710145" y="-669.64285714285711"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="NetflixLogo" width="43" height="11"/>
         <image name="eye.fill" catalog="system" width="128" height="78"/>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
