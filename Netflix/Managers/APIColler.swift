@@ -7,7 +7,7 @@ public struct API {
             "Top": "\(Constant.baseURL)/3/movie/top_rated?api_key=\(Constant.API_Key)\(Constant.endUrl)",
             "Upcoming movies": "\(Constant.baseURL)/3/movie/upcoming?api_key=\(Constant.API_Key)\(Constant.endUrl)",
             "Popular": "\(Constant.baseURL)/3/movie/popular?api_key=\(Constant.API_Key)\(Constant.endUrl)",
-            "Trending tv": "\(Constant.baseURL)/3/movie/latest?api_key=\(Constant.API_Key)\(Constant.endUrl)",
+            "Trending tv": "\(Constant.baseURL)/3/movie/top_rated?api_key=\(Constant.API_Key)\(Constant.endUrl)",
             "Trending movies": "\(Constant.baseURL)/3/trending/movie/day?api_key=\(Constant.API_Key)"
         ]
     //    static var dictionariOfAPI = [
@@ -68,38 +68,55 @@ class APIColler {
         }.resume()
     }
     
-    func search(with query: String, completion: @escaping (Result<Movies,APICollerError>)->Void) {
-        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else{return}
+    func search(with query: String, completion: @escaping (Result<Movies,APICollerError>) -> Void) {
+        
+        // Make String Encoding to use Creation Of search Url
+        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
+        
+        // Create Url with given query
         let urlString = "\(Constant.baseURL)/3/search/movie?api_key=\(Constant.API_Key)&query=\(query)"
-        guard let url = URL(string: urlString) else{return}
+        
+        guard let url = URL(string: urlString) else { return }
+        
         URLSession.shared.dataTask(with: url) { (data, _, error) in
-            guard let data = data, error == nil else{return}
+            
+            guard let data = data, error == nil else { return }
+            
             do {
                 let movie = try JSONDecoder().decode(Movies.self, from: data)
-                print(movie.details)
                 completion(.success(movie))
             } catch {
                 completion(.failure(.faldeToGetData))
             }
+            
         }.resume()
     }
     
-    func getMovie (with query: String, completion: @escaping (Result<YoutubeSearchResponse, APICollerError>)->Void) {
-        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
+    func getMovie(with query: String, completion: @escaping (Result<YoutubeSearchResponse, APICollerError>) -> Void) {
+        
+        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
+        
         let urlString = "\(Constant.YoutubeBaseUrl)q=\(query)&key=\(Constant.YoutubeAPI_KEY)"
+        
         guard let url = URL(string: urlString) else { return }
+        
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             guard let data = data, error == nil else { return }
-            do{
+            
+            do {
                 let yotubeVideo = try JSONDecoder().decode(YoutubeSearchResponse.self, from: data)
                 completion (.success(yotubeVideo))
-            }catch{
+            } catch {
                 completion (.failure(APICollerError.faldeToGetData))
             }
+            
         }.resume()
     }
+    
     func getImageFromWeb(by url: String,  callback: @escaping ((UIImage?, String)) -> Void) {
+        
         guard let ApiUrl = URL(string: url) else { return }
+        
         URLSession.shared.dataTask(with: ApiUrl) { (data, _, error) in
             guard let data = data, error == nil else { return }
             
@@ -107,7 +124,7 @@ class APIColler {
                 let image = UIImage(data: data)
                 callback((image, url))
             }
+            
         }.resume()
     }
-
 }

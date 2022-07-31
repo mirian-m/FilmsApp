@@ -10,28 +10,28 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home View Controller-->
+        <!--Item-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="qjb-cz-Jj2">
-                                <rect key="frame" x="10" y="44" width="580" height="507"/>
+                                <rect key="frame" x="10" y="0.0" width="394" height="725"/>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="111" id="gRH-gh-WXq" customClass="MoviesTableView" customModule="Netflix" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="580" height="111"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="394" height="111"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gRH-gh-WXq" id="RiM-aY-rkq">
-                                            <rect key="frame" x="0.0" y="0.0" width="580" height="111"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="394" height="111"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yjQ-uf-v7W">
-                                                    <rect key="frame" x="0.0" y="0.0" width="580" height="111"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="394" height="111"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fqb-Ai-vEr">
                                                         <size key="itemSize" width="128" height="128"/>
@@ -99,6 +99,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qjb-cz-Jj2" secondAttribute="trailing" constant="10" id="m0k-bK-8V2"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="DQ6-Qy-xBW"/>
                     <navigationItem key="navigationItem" id="p36-MJ-kzR">
                         <barButtonItem key="rightBarButtonItem" id="BUh-cs-JWp" userLabel="Button">
                             <imageReference key="image" image="perso" symbolScale="large" renderingMode="original"/>
@@ -112,12 +113,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3022" y="102"/>
+            <point key="canvasLocation" x="2326" y="102"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="pM2-Ty-NbB">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="pt5-sb-ud0" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" id="pt5-sb-ud0" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sW4-y5-SnD">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -125,7 +126,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="ZS3-Qr-z2g" kind="relationship" relationship="viewControllers" id="EOY-SA-DYT"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="A8E-TC-YZh"/>
                         <segue destination="mEq-Ie-njR" kind="relationship" relationship="viewControllers" id="d3q-tM-vkM"/>
                         <segue destination="ub2-ef-4RE" kind="relationship" relationship="viewControllers" id="yBB-HU-Re0"/>
                         <segue destination="12M-KV-m74" kind="relationship" relationship="viewControllers" id="Z1A-SU-nTR"/>
@@ -150,26 +151,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TxW-OB-5iT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2286.9565217391305" y="826.33928571428567"/>
-        </scene>
-        <!--Home-->
-        <scene sceneID="jPG-WQ-7TV">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZS3-Qr-z2g" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" selectedImage="house" id="fhC-9E-y2g"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JYg-L1-9cp">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ZcI-Id-wmg"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ctp-J2-NqG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1942.0289855072465" y="102.45535714285714"/>
         </scene>
         <!--Title-->
         <scene sceneID="FWv-Vb-0zL">
@@ -202,21 +183,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RQf-Bg-lTC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2730" y="-670"/>
-        </scene>
-        <!--Test View Controller-->
-        <scene sceneID="Vvm-jr-XTD">
-            <objects>
-                <viewController storyboardIdentifier="TestViewController" id="nF0-jh-zai" customClass="TestViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="33m-Q5-sq0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="ACY-FB-12d"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZV8-41-7bC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3671" y="-670"/>
         </scene>
         <!--Welcome View Controller-->
         <scene sceneID="mLc-03-Tko">
@@ -395,7 +361,6 @@
     <resources>
         <image name="NetflixLogo" width="43" height="11"/>
         <image name="eye.fill" catalog="system" width="128" height="78"/>
-        <image name="house" catalog="system" width="128" height="106"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="perso" width="128" height="128"/>
         <image name="play.rectangle" catalog="system" width="128" height="93"/>

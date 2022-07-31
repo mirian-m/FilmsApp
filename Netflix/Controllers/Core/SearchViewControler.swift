@@ -13,7 +13,7 @@ class SearchViewControler: BackgroundImageViewControlller {
     
     private var discoveredTable: UITableView = {
         var table = UITableView()
-        table.register(UpcomingCell.self, forCellReuseIdentifier: UpcomingCell.identifier)
+        table.register(MoviegCell.self, forCellReuseIdentifier: MoviegCell.identifier)
         return table
     }()
     
@@ -72,11 +72,12 @@ extension SearchViewControler: UITableViewDataSource, UITableViewDelegate, Searc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: UpcomingCell.identifier, for: indexPath) as? UpcomingCell else{return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MoviegCell.identifier, for: indexPath) as? MoviegCell else { return UITableViewCell() }
         let movie = details[indexPath.row]
         cell.configure(with: TitleViewModel(titleName: movie.name  ?? movie.original_name ?? "I dont kwnow", posterUrl: movie.poster_path ?? ""))
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -99,9 +100,13 @@ extension SearchViewControler: UITableViewDataSource, UITableViewDelegate, Searc
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 140 }
 }
-extension SearchViewControler: UISearchResultsUpdating{
+
+extension SearchViewControler: UISearchResultsUpdating {
+    
     func updateSearchResults(for searchController: UISearchController) {
+        
         let searchBar = searchController.searchBar
+        
         guard let query = searchBar.text,
               !query.trimmingCharacters(in: .whitespaces).isEmpty,
               query.trimmingCharacters(in: .whitespaces).count >= 3,
@@ -109,6 +114,7 @@ extension SearchViewControler: UISearchResultsUpdating{
         else { return }
         
         resultController.delegat = self
+        
         APIColler.shared.search(with: query) { result in
             DispatchQueue.main.async {
                 switch result {

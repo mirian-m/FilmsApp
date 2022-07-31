@@ -1,13 +1,18 @@
 import UIKit
 
 
-class HomeViewController:  BackgroundImageViewControlller {
+class HomeViewController:  BackgroundImageViewControlller, ProfileViewControllerDelegate {
+    func backToRootViewController() {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
     @IBOutlet weak var personBtn: UIBarButtonItem! {
         didSet {
             personBtn.image = UIImage(systemName: "person")?.withRenderingMode(.alwaysOriginal).withTintColor(.white)
         }
     }
     @IBOutlet weak var filmTableView: UITableView!
+    private var isNavigate: Bool = false
     
     private let headerForSection = ["Trending movies", "Trending tv", "Popular", "Upcoming movies", "Top"]
     private var headerView: Poster?
@@ -18,12 +23,26 @@ class HomeViewController:  BackgroundImageViewControlller {
         super.viewDidLoad()
         controllerSetup()
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        isNavigate = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        if !isNavigate {
+            navigationController?.setNavigationBarHidden(true, animated: false)
+        }
     }
     
     func controllerSetup() {
+        self.tabBarController?.navigationItem.hidesBackButton = true
+        
+        tabBarItem.badgeColor = .label
+        tabBarItem.image = UIImage(systemName: "house.fill")
+        tabBarItem.title = "Home"
+
         headerView = Poster(frame: CGRect(x: 0,
                                           y: 0,
                                           width: view.bounds.width,
@@ -43,17 +62,15 @@ class HomeViewController:  BackgroundImageViewControlller {
                 print(error)
             }
         }
+
     }
     
     func setNavBarItem() {
-        navigationController?.navigationBar.tintColor = .white
-        tabBarItem.badgeColor = .label
-        
         var image = UIImage(named: "Netflix-new")
         image = image?.withRenderingMode(.alwaysOriginal)
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
-        navigationItem.rightBarButtonItems = [
+        tabBarController?.navigationItem.leftBarButtonItem  = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
+        tabBarController?.navigationItem.rightBarButtonItems = [
             UIBarButtonItem(image: UIImage(systemName: "person")?
                                 .withTintColor(UIColor(named: "CustomColor")!,
                                                renderingMode: .alwaysOriginal),
@@ -63,10 +80,13 @@ class HomeViewController:  BackgroundImageViewControlller {
                                 .withTintColor(UIColor(named: "CustomColor")!,
                                                renderingMode: .alwaysOriginal), style: .done, target: self, action: nil)
         ]
+        tabBarController?.navigationController?.navigationBar.tintColor = .white
+
     }
     
     @objc func presentProfile() {
         let vc = ProfileViewController()
+        vc.delegate = self
         present(vc, animated: true, completion: nil)
     }
 }
@@ -118,8 +138,6 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate{
                     print(error)
                 }
             }
-//            paintedSection.append(indexPath.section)
-            
 //        }
         cell.delegat = self
         return cell
@@ -139,10 +157,12 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate{
 //    }
 
 extension HomeViewController: CollectionViewTableViewCelldelegat {
+    
     func collectionViewTableViewCellDidTap(cell: MoviesTableView, model: TrailerViewModel) {
         DispatchQueue.main.async { [weak self] in
             let vc =  TrailerVideoViewController()
             vc.configure(with: model)
+            self?.isNavigate = true
             self?.navigationController?.pushViewController(vc, animated: true)
         }
     }

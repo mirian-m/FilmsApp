@@ -1,9 +1,6 @@
-//
 //  RegistrationView.swift
 //  Netflix
-//
 //  Created by Admin on 7/30/22.
-//
 
 import UIKit
 
@@ -19,7 +16,7 @@ class RegistrationView: UIView {
         return logo
     }()
     
-    lazy var segment: UISegmentedControl = {
+    lazy var segmentControl: UISegmentedControl = {
         let segments = ["Sign In", "Register"]
         let segment = UISegmentedControl(items: segments)
         segment.translatesAutoresizingMaskIntoConstraints = false
@@ -33,12 +30,11 @@ class RegistrationView: UIView {
         stack.axis = .vertical
         stack.distribution = .fillEqually
         stack.spacing = 15
-        stack.center = self.center
         addSubview(stack)
         return stack
     }()
     
-    lazy var userName: UITextField = {
+    lazy var userNameTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "User Name"
@@ -75,7 +71,7 @@ class RegistrationView: UIView {
         return textField
     }()
 
-    lazy var confirm: UITextField = {
+    lazy var confirmPasswordTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Confirm Password"
@@ -98,6 +94,7 @@ class RegistrationView: UIView {
         return button
     }()
     
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.frame = frame
@@ -110,15 +107,15 @@ class RegistrationView: UIView {
     
     override func layoutSubviews() {
         super .layoutSubviews()
-        embedItemsInstackView()
+        embedItemsInStackView()
         adjustConstraints()
     }
     
-    func embedItemsInstackView() {
-        regitrationStackView.addArrangedSubview(userName)
+    func embedItemsInStackView() {
+        regitrationStackView.addArrangedSubview(userNameTextField)
         regitrationStackView.addArrangedSubview(emailTextField)
         regitrationStackView.addArrangedSubview(passwordTextField)
-        regitrationStackView.addArrangedSubview(confirm)
+        regitrationStackView.addArrangedSubview(confirmPasswordTextField)
     }
     
     func adjustConstraints() {
@@ -130,10 +127,10 @@ class RegistrationView: UIView {
         ]
         
         let segmentConstraints = [
-            segment.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            segment.leadingAnchor.constraint(equalTo: regitrationStackView.leadingAnchor),
-            segment.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 40),
-            segment.heightAnchor.constraint(equalToConstant: 35)
+            segmentControl.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            segmentControl.leadingAnchor.constraint(equalTo: regitrationStackView.leadingAnchor),
+            segmentControl.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 40),
+            segmentControl.heightAnchor.constraint(equalToConstant: 35)
         ]
 
         let stackViewConstraints = [

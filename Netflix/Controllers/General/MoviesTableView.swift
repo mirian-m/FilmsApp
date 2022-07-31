@@ -22,10 +22,10 @@ class MoviesTableView: UITableViewCell {
         moviesCollectionView.backgroundColor = .none
     }
     
-
     func updateViewFromModel(movies: Movies) {
         DispatchQueue.main.async { [weak self] in
             self?.movies = movies
+            self?.movies.details.shuffle()
             self?.moviesCollectionView.reloadData()
         }
     }
@@ -49,9 +49,11 @@ extension MoviesTableView: UICollectionViewDataSource,UICollectionViewDelegate,U
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let collectionView = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? MovieCollectionViewCell else { return UICollectionViewCell() }
+        
         guard let imageUrl = movies.details[indexPath.row].poster_path else { return UICollectionViewCell() }
         
         let url = Constant.PosterBaseURL + imageUrl
+        
         collectionView.loadImage(by: url)
         return collectionView
     }
@@ -66,7 +68,7 @@ extension MoviesTableView: UICollectionViewDataSource,UICollectionViewDelegate,U
         let title = (movies.details[indexPath.row].original_name ?? movies.details[indexPath.row].name) ?? ""
         let overview = movies.details[indexPath.row].overview
         
-        APIColler.shared.getMovie(with: title + "trailer") { (result) in
+        APIColler.shared.getMovie(with: title + "trailer") { result in
             switch result {
             case .success(let video):
                 self.delegat.collectionViewTableViewCellDidTap(cell: self, model: TrailerViewModel(movieTitle: title, overview: overview, youtubeId: video.items[0].id))

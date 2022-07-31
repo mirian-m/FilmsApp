@@ -36,8 +36,13 @@ class TrailerVideoViewController: UIViewController {
         button.tintColor = .white
         return button
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupController()
+    }
+    
+    private func setupController() {
         navigationController?.navigationBar.tintColor = .white
         view.backgroundColor = .systemBackground
         view.addSubview(webView)
@@ -45,6 +50,7 @@ class TrailerVideoViewController: UIViewController {
         view.addSubview(overviewLb)
         view.addSubview(downloadButton)
         setConstraints()
+        
     }
     
     private func setConstraints(){
@@ -70,15 +76,16 @@ class TrailerVideoViewController: UIViewController {
             downloadButton.topAnchor.constraint(equalTo: overviewLb.bottomAnchor, constant: 20),
             downloadButton.widthAnchor.constraint(equalToConstant: 140),
             downloadButton.heightAnchor.constraint(equalToConstant: 50)
-        
+            
         ]
+        
         NSLayoutConstraint.activate(webViewConstraint)
         NSLayoutConstraint.activate(titleLbConstraint)
         NSLayoutConstraint.activate(overviewLbconstraint)
         NSLayoutConstraint.activate(downloadButtonConstraint)
     }
     
-   public func configure(with model: TrailerViewModel){
+    public func configure(with model: TrailerViewModel) {
         self.titleLb.text = model.movieTitle
         self.overviewLb.text = model.overview
         guard let url = URL(string: "https://www.youtube.com/watch?v=\(model.youtubeId.videoId)") else { return }

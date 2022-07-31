@@ -47,8 +47,8 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func moveToRegitrationPage(_ sender: Any) {
-        guard let cv = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RegistrationViewController") as? RegistrationViewController else { return }
-        
+        guard let cv = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: RegistrationViewController.identifier) as? RegistrationViewController else { return }
+//        let cv = RegistrationViewController()
         guard let tag = (sender as? UIButton)?.tag else { return }
         cv.tag = tag
         self.navigationController?.pushViewController(cv, animated: true)
