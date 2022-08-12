@@ -24,13 +24,21 @@ class RegistrationView: UIView {
         return segment
     }()
     
+    lazy var viewConteiner: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .none
+        addSubview(view)
+        return view
+    }()
+    
     lazy var regitrationStackView: UIStackView = {
        let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.distribution = .fillEqually
         stack.spacing = 15
-        addSubview(stack)
+        viewConteiner.addSubview(stack)
         return stack
     }()
     
@@ -147,10 +155,17 @@ class RegistrationView: UIView {
             segmentControl.heightAnchor.constraint(equalToConstant: 35)
         ]
 
+        let viewConteinerConstraints = [
+            viewConteiner.topAnchor.constraint(equalTo: segmentControl.bottomAnchor),
+            viewConteiner.bottomAnchor.constraint(equalTo: button.topAnchor),
+            viewConteiner.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            viewConteiner.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16)
+        ]
+        
         let stackViewConstraints = [
-            regitrationStackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            regitrationStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            regitrationStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            regitrationStackView.leadingAnchor.constraint(equalTo: viewConteiner.leadingAnchor),
+            regitrationStackView.centerXAnchor.constraint(equalTo: viewConteiner.centerXAnchor),
+            regitrationStackView.centerYAnchor.constraint(equalTo: viewConteiner.centerYAnchor)
         ]
         
         let passwordTextFieldConstraints = [
@@ -165,6 +180,7 @@ class RegistrationView: UIView {
         ]
 
         NSLayoutConstraint.activate(logoConstraints)
+        NSLayoutConstraint.activate(viewConteinerConstraints)
         NSLayoutConstraint.activate(stackViewConstraints)
         NSLayoutConstraint.activate(segmentConstraints)
         NSLayoutConstraint.activate(passwordTextFieldConstraints)
