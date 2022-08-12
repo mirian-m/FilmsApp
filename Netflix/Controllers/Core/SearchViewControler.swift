@@ -13,7 +13,7 @@ class SearchViewControler: BackgroundImageViewControlller {
     
     private var discoveredTable: UITableView = {
         var table = UITableView()
-        table.register(MoviegCell.self, forCellReuseIdentifier: MoviegCell.identifier)
+        table.register(MoviesCell.self, forCellReuseIdentifier: MoviesCell.identifier)
         return table
     }()
     
@@ -47,7 +47,7 @@ class SearchViewControler: BackgroundImageViewControlller {
             case .success(let movies):
                 self.details = movies.details
                 self.details.shuffle()
-                DispatchQueue.main.async {[weak self] in
+                DispatchQueue.main.async { [weak self] in
                     self?.discoveredTable.reloadData()
                 }
             case .failure(let error):
@@ -72,9 +72,9 @@ extension SearchViewControler: UITableViewDataSource, UITableViewDelegate, Searc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MoviegCell.identifier, for: indexPath) as? MoviegCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MoviesCell.identifier, for: indexPath) as? MoviesCell else { return UITableViewCell() }
         let movie = details[indexPath.row]
-        cell.configure(with: TitleViewModel(titleName: movie.name  ?? movie.original_name ?? "I dont kwnow", posterUrl: movie.poster_path ?? ""))
+        cell.configure(with: TitleViewModel(titleName: movie.name ?? movie.original_name ?? "I dont kwnow", posterUrl: movie.poster_path ?? ""))
         return cell
     }
     

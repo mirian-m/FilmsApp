@@ -5,7 +5,7 @@ class ComingSoonViewContorller: BackgroundImageViewControlller {
     
     private let upcomingMoviesTableView : UITableView = {
         var tableView = UITableView()
-        tableView.register(MoviegCell.self, forCellReuseIdentifier: MoviegCell.identifier)
+        tableView.register(MoviesCell.self, forCellReuseIdentifier: MoviesCell.identifier)
         return tableView
     }()
     
@@ -52,7 +52,7 @@ extension ComingSoonViewContorller: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MoviegCell.identifier, for: indexPath) as? MoviegCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MoviesCell.identifier, for: indexPath) as? MoviesCell else { return UITableViewCell() }
         let movieDetails = details[indexPath.row]
         cell.configure(with: TitleViewModel(titleName: movieDetails.original_name ?? movieDetails.name ?? "Unknon film", posterUrl: movieDetails.poster_path ?? ""))
         return cell

@@ -6,7 +6,9 @@ import Foundation
 import UIKit
 
 struct UserData {
-    var userName: String
-    var email: String
+    var firstName: String
+    var lastName: String
+    var mail: String
     var password: String
+    var seenMoviesList: [Int] = []
 }

@@ -17,12 +17,14 @@ class HomeViewController:  BackgroundImageViewControlller, ProfileViewController
     private let headerForSection = ["Trending movies", "Trending tv", "Popular", "Upcoming movies", "Top"]
     private var headerView: Poster?
     private var paintedSection: [Int] = []
-    var offsets = [IndexPath:CGFloat]()
+    var offsets = [IndexPath: CGFloat]()
+    var sigInUserData: UserData!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         controllerSetup()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)

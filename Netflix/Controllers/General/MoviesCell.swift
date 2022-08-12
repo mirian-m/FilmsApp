@@ -1,6 +1,6 @@
 import UIKit
 
-class MoviegCell: UITableViewCell {
+class MoviesCell: UITableViewCell {
     static var identifier = "MoviegCell"
     
     private let playButton: UIButton = {
@@ -35,6 +35,9 @@ class MoviegCell: UITableViewCell {
         addItemsToView()
         applyConstreints()
     }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func addItemsToView() {
         contentView.addSubview(posterImage)
@@ -67,9 +70,6 @@ class MoviegCell: UITableViewCell {
         NSLayoutConstraint.activate(posterImageConstraints)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     func configure(with model: TitleViewModel){
         let url = Constant.PosterBaseURL + model.posterUrl

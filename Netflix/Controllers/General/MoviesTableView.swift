@@ -1,4 +1,6 @@
 import UIKit
+import FirebaseCore
+
 
 protocol CollectionViewTableViewCelldelegat: AnyObject {
     func collectionViewTableViewCellDidTap(cell: MoviesTableView, model: TrailerViewModel)
@@ -14,7 +16,6 @@ class MoviesTableView: UITableViewCell {
     }
     
     public var movies = Movies(details: [])
-    //    var tvShow = Tv(details: [], errorMessage: nil)
     weak var delegat: CollectionViewTableViewCelldelegat!
 
     override func layoutSubviews() {

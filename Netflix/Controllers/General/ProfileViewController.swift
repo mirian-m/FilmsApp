@@ -10,7 +10,13 @@ protocol ProfileViewControllerDelegate: AnyObject {
 }
 
 
-class ProfileViewController: BackgroundImageViewControlller {
+class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewControllerDelegate {
+    func signOutFromProfile() {
+        dismiss(animated: true) { [weak self] in
+            self?.delegate?.backToRootViewController()
+        }
+    }
+
     static let identifier = "ProfileViewController"
     
     var isAuthorized: Bool? = true
@@ -55,17 +61,11 @@ class ProfileViewController: BackgroundImageViewControlller {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
         lb.font = UIFont(name: "Inter-Bold", size: 16)
+        lb.textColor = .white
         lb.text = "Mirian Maglakelidze"
         self.view.addSubview(lb)
         return lb
     }()
-    
-//    private lazy var signInBtn: UIButton = {
-//        let btn = UIButton()
-//        btn.translatesAutoresizingMaskIntoConstraints = false
-//        btn.setTitle("Sign In", for: .normal)
-//        return btn
-//    }()
     
     private lazy var stackView: UIStackView = {
         let stack = UIStackView()
@@ -136,10 +136,11 @@ class ProfileViewController: BackgroundImageViewControlller {
     @objc private func cancelAction() {
         self.dismiss(animated: true, completion: nil)
     }
+    
     @objc func signOutBtnAction() {
-        dismiss(animated: true) { [weak self] in
-            self?.delegate?.backToRootViewController()
-        }
+        let confirmed = ConfirmedViewController()
+        confirmed.delegate = self
+        present(confirmed, animated: true, completion: nil)
     }
     
     func setButtonsIcon() {
@@ -154,7 +155,7 @@ class ProfileViewController: BackgroundImageViewControlller {
         let largConfig = UIImage.SymbolConfiguration(pointSize: 20,
                                                      weight: .bold,
                                                      scale: .large)
-        let image = UIImage(systemName: imageName, withConfiguration: largConfig)?.withTintColor(UIColor(named: "CustomColor")!,renderingMode: .alwaysOriginal)
+        let image = UIImage(systemName: imageName, withConfiguration: largConfig)?.withTintColor(.white, renderingMode: .alwaysOriginal)
         return image!
     }
     

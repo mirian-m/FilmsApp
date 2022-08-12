@@ -1,13 +1,21 @@
 //  RegistrationViewController.swift
 //  Netflix
 //  Created by Admin on 7/30/22.
-import UIKit
 
-protocol RegistrationViewControllerDelegate {
+import UIKit
+import FirebaseAuth
+import Firebase
+
+
+
+
+protocol RegistrationChecker {
     func checkEmailValidation(_ email: String) -> Bool
     func checkPasswordValidation(_ password: String) -> Bool
     func confirmPassword(_ confirmedPassword: String, _ password: String) -> Bool
-    //    func registrait(user: UserData)
+    func showAlertWith(title: String, text: String)
+    func checkAllFields(_ user: UserData)
+    func saveUserData(_ userData: UserData)
 }
 
 class RegistrationViewController: BackgroundImageViewControlller {
@@ -15,21 +23,31 @@ class RegistrationViewController: BackgroundImageViewControlller {
     
     lazy var registrationView = RegistrationView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
     
-    var tag: Int!
+    //    lazy var logInView: RegistrationView = {
+    //       let view = RegistrationView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+    //        view.emailTextField.alpha = 0
+    //        view.confirmPasswordTextField.alpha = 0
+    //        return view
+    //    }()
     
     private let numberString: [String] = (0...9).map { String($0) }
     private let alphabet = [
         "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
     ]
+    private let db = Firestore.firestore()
+    private var isDoingSigIn: Bool!
+    private var user: UserData!
+    var signInUserData: UserData = UserData(firstName: "", lastName: "", mail: "", password: "")
+    //    let  d =
     
-    
+    var tag: Int!
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewController()
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-//        navigationController?.navigationBar.isHidden = true
     }
     
     func setupViewController() {
@@ -44,24 +62,64 @@ class RegistrationViewController: BackgroundImageViewControlller {
     }
     
     func addTargets() {
-        registrationView.segmentControl.addTarget(self, action: #selector(setup(_:)), for: .allEvents)
+        registrationView.segmentControl.addTarget(self, action: #selector(setup(_ :)), for: .allEvents)
         registrationView.button.addTarget(self, action: #selector(registrait), for: .touchUpInside)
+        
     }
     
     @objc func registrait(_ sender: UIButton) {
-         let tbVc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarController")
-        navigationController?.pushViewController(tbVc, animated: true)
+        let tbVc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarController")
+        if isDoingSigIn {
+            let email = registrationView.emailTextField.text?.trimmingCharacters(in: .whitespaces)
+            let password = registrationView.passwordTextField.text?.trimmingCharacters(in: .whitespaces)
+            
+            Auth.auth().signIn(withEmail: email!, password: password!) { [weak self] user, error in
+                if error != nil {
+                    self?.showAlertWith(title: "ERROR", text: "\(error!.localizedDescription)")
+                } else {
+                    
+                    //TODO:- Download the data of User's into a variable
+                    let ref = self?.db.collection("Users")
+                    ref?.getDocuments(completion: { snapshot, error in
+                        guard error == nil else {
+                            print ("error")
+                            return
+                        }
+                        if let snapshot = snapshot {
+                            let userData = snapshot.documents.filter  {$0.documentID == user?.user.uid }.first
+                            userData?.data()
+                            self?.signInUserData.lastName = (userData?["lastName"] as? String) ?? ""
+                            self?.signInUserData.firstName = (userData?["firstName"] as? String) ?? ""
+                            self?.signInUserData.mail = (userData?["mail"] as? String) ?? ""
+                            self?.signInUserData.seenMoviesList = (userData?["movies"] as? [Int]) ?? []
+                        }
+                    })
+                    self?.navigationController?.pushViewController(tbVc, animated: true)
+                }
+            }
+        } else {
+            user = UserData(firstName: registrationView.firstNameTextField.text ?? "",
+                            lastName: registrationView.lastNameTextField.text ?? "",
+                            mail: registrationView.emailTextField.text ?? "",
+                            password: registrationView.passwordTextField.text ?? "")
+            doRegistarion(of: user)
+            navigationController?.pushViewController(tbVc, animated: true)
+        }
     }
     
     @objc func setup(_ sender: UISegmentedControl) {
         
         switch sender.selectedSegmentIndex {
         case 0:
-            registrationView.emailTextField.isHidden = true
+            registrationView.lastNameTextField.isHidden = true
+            registrationView.firstNameTextField.isHidden = true
             registrationView.confirmPasswordTextField.isHidden = true
+            isDoingSigIn = true
         case 1:
-            registrationView.emailTextField.isHidden = false
+            registrationView.lastNameTextField.isHidden = false
+            registrationView.firstNameTextField.isHidden = false
             registrationView.confirmPasswordTextField.isHidden = false
+            isDoingSigIn = false
         default:
             return
         }
@@ -77,6 +135,7 @@ class RegistrationViewController: BackgroundImageViewControlller {
     }
     
     func addSubviewWithAnimation() {
+        clearTextFields()
         UIView.animate(withDuration: 1.5) {
             self.registrationView.regitrationStackView.center.x = -self.view.frame.width
             self.registrationView.button.alpha = 0
@@ -89,27 +148,79 @@ class RegistrationViewController: BackgroundImageViewControlller {
             }
         }
     }
+    
+    func clearTextFields() {
+        registrationView.firstNameTextField.text = ""
+        registrationView.emailTextField.text = ""
+        registrationView.passwordTextField.text = ""
+        registrationView.confirmPasswordTextField.text = ""
+    }
 }
 
-extension RegistrationViewController: RegistrationViewControllerDelegate {
-    //    func registrait(user: UserData) {
-    //        switch false {
-    //        case checkEmailValidation(user.email):
-    //            print("ada")
-    ////            showAlertWith(title: "ERROR", text: "Email is not Valid")
-    //        case checkEmailValidation(user.password):
-    //            print("ada")
-    ////            showAlertWith(title: "ERROR", text: "This password is not Secure")
-    //        case confirmPassword(user.password, registrationView.confirmPasswordTextField.text ?? ""):
-    //            print("ada")
-    ////            showAlertWith(title: "ERROR", text: "Passwords doesn't Match")
-    //        case !name.isEmpty:
-    ////            showAlertWith(title: "ERROR", text: "Please fill in all Fields")
-    //        default:
-    ////            showSuccessMessageAndGoBackToLogIn()
+extension RegistrationViewController: RegistrationChecker {
+    
+    func doRegistarion(of user: UserData) {
+        checkAllFields(user)
+        saveUserData(user)
+    }
+    
+    func saveUserData(_ userData: UserData) {
+        Auth.auth().createUser(withEmail: userData.mail, password: userData.password) { [weak self] user, error in
+            if error == nil {
+                self?.db.collection("Users").document("\(String(describing: user!.user.uid))").setData(
+                    [
+                        "mail": "\(userData.mail)",
+                        "firstName": "\(userData.firstName)",
+                        "lastName": "\(userData.lastName)",
+                        "movies": userData.seenMoviesList
+                    ])
+            } else {
+                self?.showAlertWith(title: "ERROR", text: "This user already exist")
+            }
+        }
+    }
+    
+    func checkAllFields(_ user: UserData) {
+        switch false {
+        
+        // TODO:- Check userName uniqueness
+        // If this user name is not in core data then add this user to core data
+        case !(user.lastName.isEmpty ||
+                user.mail.isEmpty ||
+                user.password.isEmpty ||
+                registrationView.confirmPasswordTextField.text!.isEmpty ||
+                registrationView.firstNameTextField.text!.isEmpty):
+            showAlertWith(title: "ERROR", text: "Please fill in all fields")
+        case checkEmailValidation(user.mail):
+            showAlertWith(title: "ERROR", text: "Email is not valid")
+        case checkPasswordValidation(user.password):
+            showAlertWith(title: "ERROR", text: "This password is not secure")
+        case confirmPassword(user.password, registrationView.confirmPasswordTextField.text ?? ""):
+            showAlertWith(title: "ERROR", text: "Passwords doesn't match")
+        default:
+            break
+        //                showSuccessMessageAndGoBackToLogIn()
+        }
+    }
+    
+    //    func showSuccessMessageAndGoBackToLogIn() {
+    //        let alert = UIAlertController(title: "SUCCESS", message: "\nRegistration completed Successfully\nClick 'OK' to return to the LogIn page", preferredStyle: .alert)
+    //        let action = UIAlertAction(title: "OK", style: .default) { [weak self] (result: UIAlertAction) -> Void in
+    //            self?.delegat?.getInfo(user: self!.user)
+    //            self?.navigationController?.popViewController(animated: true)
     //        }
+    //        alert.addAction(action)
+    //        alert.view.tintColor = .green
+    //        present(alert, animated: true, completion: nil)
     //    }
     
+    func showAlertWith(title: String, text: String) {
+        let alert = UIAlertController(title: title, message: "\n\(text)", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alert.addAction(action)
+        alert.view.tintColor = .red
+        present(alert, animated: true, completion: nil)
+    }
     
     func confirmPassword(_ confirmedPassword: String, _ password: String) -> Bool {
         return confirmedPassword == password

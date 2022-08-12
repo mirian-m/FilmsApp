@@ -34,10 +34,10 @@ class RegistrationView: UIView {
         return stack
     }()
     
-    lazy var userNameTextField: UITextField = {
+    lazy var firstNameTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "User Name"
+        textField.placeholder = "First Name"
         textField.backgroundColor = .systemGray6
         textField.font = UIFont(name: "Helvetica Neue", size: 15)
         textField.textColor = UIColor.white
@@ -45,6 +45,19 @@ class RegistrationView: UIView {
         textField.setLeftPaddingPoints(10)
         return textField
     }()
+    
+    lazy var lastNameTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Last name"
+        textField.backgroundColor = .systemGray6
+        textField.font = UIFont(name: "Helvetica Neue", size: 15)
+        textField.textColor = UIColor.white
+        textField.layer.cornerRadius = 5
+        textField.setLeftPaddingPoints(10)
+        return textField
+    }()
+
     
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
@@ -112,7 +125,8 @@ class RegistrationView: UIView {
     }
     
     func embedItemsInStackView() {
-        regitrationStackView.addArrangedSubview(userNameTextField)
+        regitrationStackView.addArrangedSubview(firstNameTextField)
+        regitrationStackView.addArrangedSubview(lastNameTextField)
         regitrationStackView.addArrangedSubview(emailTextField)
         regitrationStackView.addArrangedSubview(passwordTextField)
         regitrationStackView.addArrangedSubview(confirmPasswordTextField)
