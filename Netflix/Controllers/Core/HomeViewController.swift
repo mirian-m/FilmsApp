@@ -23,6 +23,7 @@ class HomeViewController:  BackgroundImageViewControlller, ProfileViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         controllerSetup()
+        print(UserManger.shared.getSigInUserData())
     }
     
     override func viewWillAppear(_ animated: Bool) {

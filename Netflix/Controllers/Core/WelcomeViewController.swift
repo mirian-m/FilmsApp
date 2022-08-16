@@ -36,11 +36,12 @@ class WelcomeViewController: UIViewController {
             lb2.textAlignment = .center
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.navigationBar.isHidden = true

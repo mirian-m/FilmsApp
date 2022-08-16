@@ -95,6 +95,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84106C8D28ABA577009B38E8 /* CustomBackgroundViewController */ = {
+			isa = PBXGroup;
+			children = (
+				848FCFAA2893CC4C0056582C /* BackgroundImage.swift */,
+			);
+			path = CustomBackgroundViewController;
+			sourceTree = "<group>";
+		};
 		84209C6927C775AB003CE71D = {
 			isa = PBXGroup;
 			children = (
@@ -133,7 +141,7 @@
 		84209C9027C7B43F003CE71D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				848FCFAA2893CC4C0056582C /* BackgroundImage.swift */,
+				84106C8D28ABA577009B38E8 /* CustomBackgroundViewController */,
 				842FA09327D23CDE00B206F6 /* General */,
 				842FA09227D23CA200B206F6 /* Core */,
 			);

@@ -5,8 +5,7 @@
 import UIKit
 import FirebaseAuth
 import Firebase
-
-
+import FirebaseFirestoreTarget
 
 
 protocol RegistrationChecker {
@@ -20,7 +19,6 @@ protocol RegistrationChecker {
 
 class RegistrationViewController: BackgroundImageViewControlller {
     static let identifier = "RegistrationViewController"
-    
     lazy var registrationView = RegistrationView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
     
     //    lazy var logInView: RegistrationView = {
@@ -82,19 +80,15 @@ class RegistrationViewController: BackgroundImageViewControlller {
                     let ref = self?.db.collection("Users")
                     ref?.getDocuments(completion: { snapshot, error in
                         guard error == nil else {
-                            print ("error")
+                            print (error!.localizedDescription)
                             return
                         }
                         if let snapshot = snapshot {
-                            let userData = snapshot.documents.filter  {$0.documentID == user?.user.uid }.first
-                            userData?.data()
-                            self?.signInUserData.lastName = (userData?["lastName"] as? String) ?? ""
-                            self?.signInUserData.firstName = (userData?["firstName"] as? String) ?? ""
-                            self?.signInUserData.mail = (userData?["mail"] as? String) ?? ""
-                            self?.signInUserData.seenMoviesList = (userData?["movies"] as? [Int]) ?? []
+                            guard  let userData = snapshot.documents.filter({$0.documentID == user?.user.uid }).first else { return }
+                            UserManger.shared.getUser(data: userData)
                         }
                     })
-                    self?.navigationController?.pushViewController(tbVc, animated: true)
+//                    self?.navigationController?.pushViewController(tbVc, animated: true)
                 }
             }
         } else {
