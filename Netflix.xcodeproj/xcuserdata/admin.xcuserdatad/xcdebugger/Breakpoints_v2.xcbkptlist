@@ -23,65 +23,37 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "69341867-DE84-41C0-B71B-61E9492A8160"
+            uuid = "00B5C8C2-825E-45BB-A2E5-68F375C0D072"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Netflix/Models/UserManager.swift"
+            filePath = "Netflix/Scenes/Registation/RegistationViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "getUser(data:)"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "displayViewWithConfig(viewModel:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "6BC12FE1-816E-4798-BEA5-38D7023D1F5A"
+            uuid = "C11538D5-BC61-472B-A508-12A90D5BACE5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Netflix/Controllers/Core/RegistrationViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "registrait(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6BC12FE1-816E-4798-BEA5-38D7023D1F5A - 66cf4ab99655874d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Netflix.RegistrationViewController.registrait(__C.UIButton) -&gt; ()"
-                  moduleName = "Netflix"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Desktop/Smart%20Academi%20(IOS)/IOS/Netflix/Netflix/Controllers/Core/RegistrationViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "76"
-                  endingLineNumber = "76"
-                  offsetFromSymbolStart = "1711">
-               </Location>
-               <Location
-                  uuid = "6BC12FE1-816E-4798-BEA5-38D7023D1F5A - b571e910146d1f69"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Netflix.RegistrationViewController.registrait(__C.UIButton) -&gt; ()"
-                  moduleName = "Netflix"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Desktop/Smart%20Academi%20(IOS)/IOS/Netflix/Netflix/Controllers/Core/RegistrationViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "76"
-                  endingLineNumber = "76"
-                  offsetFromSymbolStart = "201">
-               </Location>
-            </Locations>
+            breakpointStackSelectionBehavior = "1"
+            scope = "0"
+            stopOnStyle = "0">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

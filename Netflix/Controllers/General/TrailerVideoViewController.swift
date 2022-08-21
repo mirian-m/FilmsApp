@@ -28,7 +28,7 @@ class TrailerVideoViewController: UIViewController {
     private lazy var downloadButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Download", for: .normal)
+        button.setTitle("Add Watched List", for: .normal)
         button.backgroundColor = .red
         button.layer.borderWidth = 2
         button.layer.cornerRadius = 8

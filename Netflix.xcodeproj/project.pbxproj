@@ -18,6 +18,11 @@
 		84209C9227C7B475003CE71D /* SearchViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84209C9127C7B475003CE71D /* SearchViewControler.swift */; };
 		84209C9527C7B488003CE71D /* ComingSoonViewContorller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84209C9427C7B488003CE71D /* ComingSoonViewContorller.swift */; };
 		84209C9827C7B498003CE71D /* WatchedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84209C9727C7B498003CE71D /* WatchedListViewController.swift */; };
+		8424EF4428ABD91800F30E6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8424EF4328ABD91800F30E6C /* GoogleService-Info.plist */; };
+		8424EF5D28ABDF0B00F30E6C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8424EF5C28ABDF0B00F30E6C /* FirebaseAuth */; };
+		8424EF5F28ABDF0B00F30E6C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8424EF5E28ABDF0B00F30E6C /* FirebaseDatabase */; };
+		8424EF6728ACCD7300F30E6C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8424EF6628ACCD7300F30E6C /* FirebaseFirestore */; };
+		8424EF6B28AD16C900F30E6C /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424EF6A28AD16C900F30E6C /* Constant.swift */; };
 		842FA08927D0E07200B206F6 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FA08827D0E07200B206F6 /* SearchResultViewController.swift */; };
 		842FA08C27D0EAD900B206F6 /* SearchCollectionViewcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FA08B27D0EAD900B206F6 /* SearchCollectionViewcell.swift */; };
 		842FA09027D2275600B206F6 /* YoutubeSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FA08F27D2275600B206F6 /* YoutubeSearchResponse.swift */; };
@@ -33,13 +38,21 @@
 		84634F8228A3B88F0050DB63 /* ConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84634F8128A3B88F0050DB63 /* ConfirmedViewController.swift */; };
 		848FCFAB2893CC4D0056582C /* BackgroundImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FCFAA2893CC4C0056582C /* BackgroundImage.swift */; };
 		848FCFB228952A690056582C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FCFB128952A680056582C /* User.swift */; };
-		848FCFB528952CF50056582C /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FCFB428952CF50056582C /* RegistrationViewController.swift */; };
-		848FCFB9289536540056582C /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FCFB8289536530056582C /* WelcomeViewController.swift */; };
+		848FCFB528952CF50056582C /* RegistrationViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FCFB428952CF50056582C /* RegistrationViewController1.swift */; };
 		848FCFC028954DF00056582C /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FCFBF28954DEF0056582C /* RegistrationView.swift */; };
-		84A880BC2899644D001821B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84A880BB2899644D001821B4 /* GoogleService-Info.plist */; };
-		84A880C02899694A001821B4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 84A880BF2899694A001821B4 /* FirebaseAuth */; };
-		84A880C22899694A001821B4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 84A880C12899694A001821B4 /* FirebaseFirestore */; };
 		84B3909A28900FF100B8CC2F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3909928900FF100B8CC2F /* ProfileViewController.swift */; };
+		84CF7EC828AF944A00297004 /* WelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7EC228AF944A00297004 /* WelcomePresenter.swift */; };
+		84CF7EC928AF944A00297004 /* WelcomeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7EC328AF944A00297004 /* WelcomeWorker.swift */; };
+		84CF7ECA28AF944A00297004 /* WelcomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7EC428AF944A00297004 /* WelcomeRouter.swift */; };
+		84CF7ECB28AF944A00297004 /* WelcomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7EC528AF944A00297004 /* WelcomeModels.swift */; };
+		84CF7ECC28AF944A00297004 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7EC628AF944A00297004 /* WelcomeViewController.swift */; };
+		84CF7ECD28AF944A00297004 /* WelcomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7EC728AF944A00297004 /* WelcomeInteractor.swift */; };
+		84CF7ED828AF9A8D00297004 /* RegistationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED228AF9A8D00297004 /* RegistationPresenter.swift */; };
+		84CF7ED928AF9A8D00297004 /* RegistationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED328AF9A8D00297004 /* RegistationWorker.swift */; };
+		84CF7EDA28AF9A8D00297004 /* RegistationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED428AF9A8D00297004 /* RegistationRouter.swift */; };
+		84CF7EDB28AF9A8D00297004 /* RegistationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED528AF9A8D00297004 /* RegistationModels.swift */; };
+		84CF7EDC28AF9A8D00297004 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED628AF9A8D00297004 /* RegistrationViewController.swift */; };
+		84CF7EDD28AF9A8D00297004 /* RegistationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED728AF9A8D00297004 /* RegistationInteractor.swift */; };
 		84DB254427D36A8A0063685F /* TrailerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB254327D36A8A0063685F /* TrailerViewModel.swift */; };
 		84DB254A27D393F50063685F /* TvShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB254927D393F50063685F /* TvShow.swift */; };
 /* End PBXBuildFile section */
@@ -58,6 +71,8 @@
 		84209C9127C7B475003CE71D /* SearchViewControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewControler.swift; sourceTree = "<group>"; };
 		84209C9427C7B488003CE71D /* ComingSoonViewContorller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComingSoonViewContorller.swift; sourceTree = "<group>"; };
 		84209C9727C7B498003CE71D /* WatchedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchedListViewController.swift; sourceTree = "<group>"; };
+		8424EF4328ABD91800F30E6C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8424EF6A28AD16C900F30E6C /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		842FA08827D0E07200B206F6 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		842FA08B27D0EAD900B206F6 /* SearchCollectionViewcell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewcell.swift; sourceTree = "<group>"; };
 		842FA08F27D2275600B206F6 /* YoutubeSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeSearchResponse.swift; sourceTree = "<group>"; };
@@ -73,11 +88,21 @@
 		84634F8128A3B88F0050DB63 /* ConfirmedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmedViewController.swift; sourceTree = "<group>"; };
 		848FCFAA2893CC4C0056582C /* BackgroundImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundImage.swift; sourceTree = "<group>"; };
 		848FCFB128952A680056582C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		848FCFB428952CF50056582C /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
-		848FCFB8289536530056582C /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		848FCFB428952CF50056582C /* RegistrationViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController1.swift; sourceTree = "<group>"; };
 		848FCFBF28954DEF0056582C /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
-		84A880BB2899644D001821B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84B3909928900FF100B8CC2F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		84CF7EC228AF944A00297004 /* WelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenter.swift; sourceTree = "<group>"; };
+		84CF7EC328AF944A00297004 /* WelcomeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeWorker.swift; sourceTree = "<group>"; };
+		84CF7EC428AF944A00297004 /* WelcomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeRouter.swift; sourceTree = "<group>"; };
+		84CF7EC528AF944A00297004 /* WelcomeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeModels.swift; sourceTree = "<group>"; };
+		84CF7EC628AF944A00297004 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		84CF7EC728AF944A00297004 /* WelcomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeInteractor.swift; sourceTree = "<group>"; };
+		84CF7ED228AF9A8D00297004 /* RegistationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationPresenter.swift; sourceTree = "<group>"; };
+		84CF7ED328AF9A8D00297004 /* RegistationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationWorker.swift; sourceTree = "<group>"; };
+		84CF7ED428AF9A8D00297004 /* RegistationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationRouter.swift; sourceTree = "<group>"; };
+		84CF7ED528AF9A8D00297004 /* RegistationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationModels.swift; sourceTree = "<group>"; };
+		84CF7ED628AF9A8D00297004 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		84CF7ED728AF9A8D00297004 /* RegistationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationInteractor.swift; sourceTree = "<group>"; };
 		84DB254327D36A8A0063685F /* TrailerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerViewModel.swift; sourceTree = "<group>"; };
 		84DB254927D393F50063685F /* TvShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvShow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,8 +112,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84A880C02899694A001821B4 /* FirebaseAuth in Frameworks */,
-				84A880C22899694A001821B4 /* FirebaseFirestore in Frameworks */,
+				8424EF5F28ABDF0B00F30E6C /* FirebaseDatabase in Frameworks */,
+				8424EF5D28ABDF0B00F30E6C /* FirebaseAuth in Frameworks */,
+				8424EF6728ACCD7300F30E6C /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +134,7 @@
 			children = (
 				84209C7427C775AB003CE71D /* Netflix */,
 				84209C7327C775AB003CE71D /* Products */,
+				8424EF6128ABE75300F30E6C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,6 +149,8 @@
 		84209C7427C775AB003CE71D /* Netflix */ = {
 			isa = PBXGroup;
 			children = (
+				8424EF6E28AF8D5C00F30E6C /* Scenes */,
+				8424EF6928AD16B700F30E6C /* Constant */,
 				848FCFBC28954D900056582C /* Views */,
 				84209C9027C7B43F003CE71D /* Controllers */,
 				8434F9F027CA4ABC00377DE2 /* Managers */,
@@ -133,7 +162,7 @@
 				84209C7E27C775B8003CE71D /* Assets.xcassets */,
 				84209C8027C775B8003CE71D /* LaunchScreen.storyboard */,
 				84209C8327C775B8003CE71D /* Info.plist */,
-				84A880BB2899644D001821B4 /* GoogleService-Info.plist */,
+				8424EF4328ABD91800F30E6C /* GoogleService-Info.plist */,
 			);
 			path = Netflix;
 			sourceTree = "<group>";
@@ -148,11 +177,34 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		8424EF6128ABE75300F30E6C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8424EF6928AD16B700F30E6C /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				8424EF6A28AD16C900F30E6C /* Constant.swift */,
+			);
+			path = Constant;
+			sourceTree = "<group>";
+		};
+		8424EF6E28AF8D5C00F30E6C /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				84CF7ED128AF9A6E00297004 /* Registation */,
+				84CF7EC128AF942A00297004 /* Welcome */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
 		842FA09227D23CA200B206F6 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				848FCFB8289536530056582C /* WelcomeViewController.swift */,
-				848FCFB428952CF50056582C /* RegistrationViewController.swift */,
+				848FCFB428952CF50056582C /* RegistrationViewController1.swift */,
 				84209C7927C775AC003CE71D /* HomeViewController.swift */,
 				84209C9427C7B488003CE71D /* ComingSoonViewContorller.swift */,
 				84209C9127C7B475003CE71D /* SearchViewControler.swift */,
@@ -232,6 +284,32 @@
 			path = RegistrationView;
 			sourceTree = "<group>";
 		};
+		84CF7EC128AF942A00297004 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				84CF7EC628AF944A00297004 /* WelcomeViewController.swift */,
+				84CF7EC728AF944A00297004 /* WelcomeInteractor.swift */,
+				84CF7EC228AF944A00297004 /* WelcomePresenter.swift */,
+				84CF7EC328AF944A00297004 /* WelcomeWorker.swift */,
+				84CF7EC428AF944A00297004 /* WelcomeRouter.swift */,
+				84CF7EC528AF944A00297004 /* WelcomeModels.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		84CF7ED128AF9A6E00297004 /* Registation */ = {
+			isa = PBXGroup;
+			children = (
+				84CF7ED628AF9A8D00297004 /* RegistrationViewController.swift */,
+				84CF7ED728AF9A8D00297004 /* RegistationInteractor.swift */,
+				84CF7ED228AF9A8D00297004 /* RegistationPresenter.swift */,
+				84CF7ED328AF9A8D00297004 /* RegistationWorker.swift */,
+				84CF7ED428AF9A8D00297004 /* RegistationRouter.swift */,
+				84CF7ED528AF9A8D00297004 /* RegistationModels.swift */,
+			);
+			path = Registation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -249,8 +327,9 @@
 			);
 			name = Netflix;
 			packageProductDependencies = (
-				84A880BF2899694A001821B4 /* FirebaseAuth */,
-				84A880C12899694A001821B4 /* FirebaseFirestore */,
+				8424EF5C28ABDF0B00F30E6C /* FirebaseAuth */,
+				8424EF5E28ABDF0B00F30E6C /* FirebaseDatabase */,
+				8424EF6628ACCD7300F30E6C /* FirebaseFirestore */,
 			);
 			productName = Netflix;
 			productReference = 84209C7227C775AB003CE71D /* Netflix.app */;
@@ -280,7 +359,7 @@
 			);
 			mainGroup = 84209C6927C775AB003CE71D;
 			packageReferences = (
-				84A880BE2899694A001821B4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				8424EF5B28ABDF0B00F30E6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 84209C7327C775AB003CE71D /* Products */;
 			projectDirPath = "";
@@ -297,9 +376,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				84209C8227C775B8003CE71D /* LaunchScreen.storyboard in Resources */,
-				84A880BC2899644D001821B4 /* GoogleService-Info.plist in Resources */,
 				84209C7F27C775B8003CE71D /* Assets.xcassets in Resources */,
 				84209C7D27C775AC003CE71D /* Main.storyboard in Resources */,
+				8424EF4428ABD91800F30E6C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,32 +390,44 @@
 			buildActionMask = 2147483647;
 			files = (
 				84209C9227C7B475003CE71D /* SearchViewControler.swift in Sources */,
+				84CF7EDA28AF9A8D00297004 /* RegistationRouter.swift in Sources */,
 				8434F9F227CA4ADA00377DE2 /* APIColler.swift in Sources */,
 				84634F5928A175900050DB63 /* UserManager.swift in Sources */,
 				84634F8228A3B88F0050DB63 /* ConfirmedViewController.swift in Sources */,
 				84DB254A27D393F50063685F /* TvShow.swift in Sources */,
 				848FCFC028954DF00056582C /* RegistrationView.swift in Sources */,
+				84CF7ECC28AF944A00297004 /* WelcomeViewController.swift in Sources */,
+				84CF7EC828AF944A00297004 /* WelcomePresenter.swift in Sources */,
 				84209C8E27C77A7F003CE71D /* MovieCollectionViewCell.swift in Sources */,
+				84CF7ED928AF9A8D00297004 /* RegistationWorker.swift in Sources */,
 				84209C7A27C775AC003CE71D /* HomeViewController.swift in Sources */,
 				84209C9527C7B488003CE71D /* ComingSoonViewContorller.swift in Sources */,
-				848FCFB9289536540056582C /* WelcomeViewController.swift in Sources */,
+				84CF7ED828AF9A8D00297004 /* RegistationPresenter.swift in Sources */,
 				84209C9827C7B498003CE71D /* WatchedListViewController.swift in Sources */,
+				84CF7EDD28AF9A8D00297004 /* RegistationInteractor.swift in Sources */,
 				848FCFAB2893CC4D0056582C /* BackgroundImage.swift in Sources */,
 				842FA09627D2405700B206F6 /* TrailerVideoViewController.swift in Sources */,
 				8430959A28992961007B6431 /* KeyChainManeger.swift in Sources */,
 				842FA08C27D0EAD900B206F6 /* SearchCollectionViewcell.swift in Sources */,
 				8434F9EE27C8F58200377DE2 /* Poster.swift in Sources */,
 				842FA08927D0E07200B206F6 /* SearchResultViewController.swift in Sources */,
+				84CF7ECA28AF944A00297004 /* WelcomeRouter.swift in Sources */,
+				8424EF6B28AD16C900F30E6C /* Constant.swift in Sources */,
 				8434F9FA27CB8D3500377DE2 /* Extensions.swift in Sources */,
+				84CF7EC928AF944A00297004 /* WelcomeWorker.swift in Sources */,
+				84CF7EDC28AF9A8D00297004 /* RegistrationViewController.swift in Sources */,
+				84CF7ECB28AF944A00297004 /* WelcomeModels.swift in Sources */,
 				8434F9F627CB8CE200377DE2 /* Movie.swift in Sources */,
 				84DB254427D36A8A0063685F /* TrailerViewModel.swift in Sources */,
 				842FA09027D2275600B206F6 /* YoutubeSearchResponse.swift in Sources */,
 				84209C8B27C776C1003CE71D /* MoviesTableView.swift in Sources */,
+				84CF7EDB28AF9A8D00297004 /* RegistationModels.swift in Sources */,
 				84B3909A28900FF100B8CC2F /* ProfileViewController.swift in Sources */,
-				848FCFB528952CF50056582C /* RegistrationViewController.swift in Sources */,
+				848FCFB528952CF50056582C /* RegistrationViewController1.swift in Sources */,
 				84209C7627C775AB003CE71D /* AppDelegate.swift in Sources */,
 				8434FA0727CF920500377DE2 /* TitleViewModel.swift in Sources */,
 				8434FA0427CF86BE00377DE2 /* MoviesCell.swift in Sources */,
+				84CF7ECD28AF944A00297004 /* WelcomeInteractor.swift in Sources */,
 				84209C7827C775AC003CE71D /* SceneDelegate.swift in Sources */,
 				848FCFB228952A690056582C /* User.swift in Sources */,
 			);
@@ -540,25 +631,30 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		84A880BE2899694A001821B4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		8424EF5B28ABDF0B00F30E6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 9.3.0;
+				minimumVersion = 8.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		84A880BF2899694A001821B4 /* FirebaseAuth */ = {
+		8424EF5C28ABDF0B00F30E6C /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 84A880BE2899694A001821B4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 8424EF5B28ABDF0B00F30E6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		84A880C12899694A001821B4 /* FirebaseFirestore */ = {
+		8424EF5E28ABDF0B00F30E6C /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 84A880BE2899694A001821B4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 8424EF5B28ABDF0B00F30E6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		8424EF6628ACCD7300F30E6C /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8424EF5B28ABDF0B00F30E6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -48,7 +48,7 @@ class RegistrationView: UIView {
         textField.placeholder = "First Name"
         textField.backgroundColor = .systemGray6
         textField.font = UIFont(name: "Helvetica Neue", size: 15)
-        textField.textColor = UIColor.white
+        textField.textColor = UIColor(named: "CustomColor")
         textField.layer.cornerRadius = 5
         textField.setLeftPaddingPoints(10)
         return textField
@@ -60,7 +60,7 @@ class RegistrationView: UIView {
         textField.placeholder = "Last name"
         textField.backgroundColor = .systemGray6
         textField.font = UIFont(name: "Helvetica Neue", size: 15)
-        textField.textColor = UIColor.white
+        textField.textColor = UIColor(named: "CustomColor")
         textField.layer.cornerRadius = 5
         textField.setLeftPaddingPoints(10)
         return textField
@@ -73,7 +73,7 @@ class RegistrationView: UIView {
         textField.placeholder = "Email"
         textField.backgroundColor = .systemGray6
         textField.font = UIFont(name: "Helvetica Neue", size: 15)
-        textField.textColor = UIColor.white
+        textField.textColor = UIColor(named: "CustomColor")
         textField.layer.cornerRadius = 5
         textField.setLeftPaddingPoints(10)
         return textField
@@ -86,7 +86,7 @@ class RegistrationView: UIView {
         textField.backgroundColor = .white
         textField.font = UIFont(name: "Helvetica Neue", size: 15)
         textField.backgroundColor = .systemGray6
-        textField.textColor = UIColor.white
+        textField.textColor = UIColor(named: "CustomColor")
         textField.layer.cornerRadius = 5
         textField.setLeftPaddingPoints(10)
         return textField
@@ -99,7 +99,7 @@ class RegistrationView: UIView {
         textField.backgroundColor = .white
         textField.font = UIFont(name: "Helvetica Neue", size: 15)
         textField.backgroundColor = .systemGray6
-        textField.textColor = UIColor.white
+        textField.textColor = UIColor(named: "CustomColor")
         textField.layer.cornerRadius = 5
         textField.setLeftPaddingPoints(10)
         return textField

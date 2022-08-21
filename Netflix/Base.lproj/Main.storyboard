@@ -15,23 +15,23 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="qjb-cz-Jj2">
-                                <rect key="frame" x="10" y="0.0" width="394" height="725"/>
+                                <rect key="frame" x="10" y="0.0" width="580" height="551"/>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="111" id="gRH-gh-WXq" customClass="MoviesTableView" customModule="Netflix" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="394" height="111"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="580" height="111"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gRH-gh-WXq" id="RiM-aY-rkq">
-                                            <rect key="frame" x="0.0" y="0.0" width="394" height="111"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="580" height="111"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yjQ-uf-v7W">
-                                                    <rect key="frame" x="0.0" y="0.0" width="394" height="111"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="580" height="111"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fqb-Ai-vEr">
                                                         <size key="itemSize" width="128" height="128"/>
@@ -171,7 +171,7 @@
         <!--Registration View Controller-->
         <scene sceneID="7Ha-BA-uq7">
             <objects>
-                <viewController storyboardIdentifier="RegistrationViewController" id="EUf-UK-BJw" customClass="RegistrationViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegistationViewController" id="EUf-UK-BJw" customClass="RegistrationViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QQH-Jg-G8a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -327,7 +327,6 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YdM-jQ-sUD">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

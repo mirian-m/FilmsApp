@@ -1,5 +1,6 @@
 import UIKit
-
+import FirebaseAuth
+import FirebaseDatabase
 
 class HomeViewController:  BackgroundImageViewControlller, ProfileViewControllerDelegate {
     func backToRootViewController() {
@@ -23,7 +24,6 @@ class HomeViewController:  BackgroundImageViewControlller, ProfileViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         controllerSetup()
-        print(UserManger.shared.getSigInUserData())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,7 +40,8 @@ class HomeViewController:  BackgroundImageViewControlller, ProfileViewController
     }
     
     func controllerSetup() {
-        self.tabBarController?.navigationItem.hidesBackButton = true
+        tabBarController?.navigationController?.navigationBar.isHidden = false
+//        self.tabBarController?.navigationItem.hidesBackButton = true
         
         tabBarItem.badgeColor = .label
         tabBarItem.image = UIImage(systemName: "house.fill")

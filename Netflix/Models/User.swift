@@ -10,5 +10,5 @@ struct UserData {
     var lastName: String
     var mail: String
     var password: String
-    var seenMoviesList: [Int] = []
+    var seenMoviesList: [Int]
 }

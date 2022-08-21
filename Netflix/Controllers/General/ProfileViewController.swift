@@ -5,6 +5,9 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
+
 protocol ProfileViewControllerDelegate: AnyObject {
     func backToRootViewController()
 }
@@ -82,7 +85,6 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
         
     }()
     
-    
     private lazy var profileBtn: UIButton = {
         let btn = UIButton()
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -114,6 +116,10 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewControllerLayout()
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        UserManger.shared.getUserData(by: userId) { userData in
+            self.nameLb.text = "\(userData.firstName) \(userData.lastName)"
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -122,14 +128,9 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
     }
     
     func setupViewControllerLayout() {
-//        self.view.backgroundColor = .clear
-//        profileBackground.frame = self.view.bounds
-//        view.addSubview(signInBtn)
         view.addSubview(stackView)
         adjustConstraints()
         setButtonsIcon()
-//        signInBtn.isHidden = isAuthorized ?? false
-//        stackView.isHidden = !(isAuthorized ?? false)
     }
     
     // Cancel Button Action
@@ -144,7 +145,6 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
     }
     
     func setButtonsIcon() {
-//        signInBtn.setButton(image: getConfigImage("arrow.forward.circle.fill"))
         profileBtn.setButton(image: getConfigImage("person.fill"))
         favouriteFilmsBtn.setButton(image: getConfigImage("star.fill"))
         settingBtn.setButton(image: getConfigImage("gearshape.fill"))
@@ -180,11 +180,6 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
             
         ]
         
-//        let signInConstraints = [
-//            signInBtn.widthAnchor.constraint(equalTo: signOut.widthAnchor, multiplier: 1),
-//            signInBtn.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-//        ]
-        
         let stackViewConstraints = [
             stackView.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -100),
             stackView.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor),
@@ -208,11 +203,9 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
         ]
         
         // Activate contraints
-        
         NSLayoutConstraint.activate(cancelBtnConstraints)
         NSLayoutConstraint.activate(profileImgConstraints)
         NSLayoutConstraint.activate(nameLbConstraints)
-//        NSLayoutConstraint.activate(signInConstraints)
         NSLayoutConstraint.activate(stackViewConstraints)
         NSLayoutConstraint.activate(favouriteFilmsConstraints)
         NSLayoutConstraint.activate(profileConstraints)

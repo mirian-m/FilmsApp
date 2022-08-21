@@ -5,7 +5,6 @@
 import UIKit
 import FirebaseAuth
 import Firebase
-import FirebaseFirestoreTarget
 
 
 protocol RegistrationChecker {
@@ -17,10 +16,10 @@ protocol RegistrationChecker {
     func saveUserData(_ userData: UserData)
 }
 
-class RegistrationViewController: BackgroundImageViewControlller {
+class RegistrationViewController1: BackgroundImageViewControlller {
     static let identifier = "RegistrationViewController"
     lazy var registrationView = RegistrationView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-    
+    var registrationCheker: RegistrationChecker?
     //    lazy var logInView: RegistrationView = {
     //       let view = RegistrationView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
     //        view.emailTextField.alpha = 0
@@ -32,13 +31,12 @@ class RegistrationViewController: BackgroundImageViewControlller {
     private let alphabet = [
         "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
     ]
-    private let db = Firestore.firestore()
+    let ref = Database.database().reference(fromURL: "https://netflixclone-343110-default-rtdb.firebaseio.com/")
+    //    let ref = Database.database().reference()
     private var isDoingSigIn: Bool!
     private var user: UserData!
-    var signInUserData: UserData = UserData(firstName: "", lastName: "", mail: "", password: "")
-    //    let  d =
-    
     var tag: Int!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewController()
@@ -72,33 +70,22 @@ class RegistrationViewController: BackgroundImageViewControlller {
             let password = registrationView.passwordTextField.text?.trimmingCharacters(in: .whitespaces)
             
             Auth.auth().signIn(withEmail: email!, password: password!) { [weak self] user, error in
-                if error != nil {
+                if  error != nil {
                     self?.showAlertWith(title: "ERROR", text: "\(error!.localizedDescription)")
                 } else {
-                    
-                    //TODO:- Download the data of User's into a variable
-                    let ref = self?.db.collection("Users")
-                    ref?.getDocuments(completion: { snapshot, error in
-                        guard error == nil else {
-                            print (error!.localizedDescription)
-                            return
-                        }
-                        if let snapshot = snapshot {
-                            guard  let userData = snapshot.documents.filter({$0.documentID == user?.user.uid }).first else { return }
-                            UserManger.shared.getUser(data: userData)
-                        }
-                    })
-//                    self?.navigationController?.pushViewController(tbVc, animated: true)
+                    self?.navigationController?.pushViewController(tbVc, animated: true)
                 }
             }
         } else {
             user = UserData(firstName: registrationView.firstNameTextField.text ?? "",
                             lastName: registrationView.lastNameTextField.text ?? "",
                             mail: registrationView.emailTextField.text ?? "",
-                            password: registrationView.passwordTextField.text ?? "")
+                            password: registrationView.passwordTextField.text ?? "",
+                            seenMoviesList: [])
             doRegistarion(of: user)
-            navigationController?.pushViewController(tbVc, animated: true)
+            self.navigationController?.pushViewController(tbVc, animated: true)
         }
+        
     }
     
     @objc func setup(_ sender: UISegmentedControl) {
@@ -119,7 +106,7 @@ class RegistrationViewController: BackgroundImageViewControlller {
         }
         let title = registrationView.segmentControl.titleForSegment(at: registrationView.segmentControl.selectedSegmentIndex)
         registrationView.button.setTitle(title, for: .normal)
-        
+
         if tag != nil {
             self.view.addSubview(registrationView)
             tag = nil
@@ -151,7 +138,7 @@ class RegistrationViewController: BackgroundImageViewControlller {
     }
 }
 
-extension RegistrationViewController: RegistrationChecker {
+extension RegistrationViewController1: RegistrationChecker {
     
     func doRegistarion(of user: UserData) {
         checkAllFields(user)
@@ -161,13 +148,7 @@ extension RegistrationViewController: RegistrationChecker {
     func saveUserData(_ userData: UserData) {
         Auth.auth().createUser(withEmail: userData.mail, password: userData.password) { [weak self] user, error in
             if error == nil {
-                self?.db.collection("Users").document("\(String(describing: user!.user.uid))").setData(
-                    [
-                        "mail": "\(userData.mail)",
-                        "firstName": "\(userData.firstName)",
-                        "lastName": "\(userData.lastName)",
-                        "movies": userData.seenMoviesList
-                    ])
+                self?.ref.child("Users").child(user!.user.uid).setValue(["firstName": userData.firstName, "lastName": userData.lastName, "email": userData.mail, "movies": []])
             } else {
                 self?.showAlertWith(title: "ERROR", text: "This user already exist")
             }
@@ -176,8 +157,6 @@ extension RegistrationViewController: RegistrationChecker {
     
     func checkAllFields(_ user: UserData) {
         switch false {
-        
-        // TODO:- Check userName uniqueness
         // If this user name is not in core data then add this user to core data
         case !(user.lastName.isEmpty ||
                 user.mail.isEmpty ||
