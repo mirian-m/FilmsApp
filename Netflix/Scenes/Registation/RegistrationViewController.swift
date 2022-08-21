@@ -76,6 +76,8 @@ class RegistrationViewController: BackgroundImageViewControlller, RegistationDis
     
     @objc func registrait(_ sender: UIButton) {
         contentView.button.isEnabled = false
+        contentView.button.alpha = 0.5
+        contentView.activiteIndicator.startAnimating()
         if isDoingSigIn {
             interactor?.sigInUser(request: Registation.SigInUser.Request(
                                     detail: Registation.SignInDetail(
@@ -171,6 +173,8 @@ class RegistrationViewController: BackgroundImageViewControlller, RegistationDis
     
     func showAlertWith(title: String, text: String) {
         contentView.button.isEnabled = true
+        contentView.button.alpha = 1
+        contentView.activiteIndicator.stopAnimating()
         let alert = UIAlertController(title: title, message: "\n\(text)", preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         alert.addAction(action)

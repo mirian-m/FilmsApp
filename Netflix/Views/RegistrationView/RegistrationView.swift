@@ -115,6 +115,14 @@ class RegistrationView: UIView {
         return button
     }()
     
+    lazy var activiteIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.hidesWhenStopped = true
+        indicator.color = .blue
+        button.addSubview(indicator)
+        return indicator
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -179,12 +187,17 @@ class RegistrationView: UIView {
             button.heightAnchor.constraint(equalToConstant: 48)
         ]
 
+        let activiteIndicatorConstraints = [
+            activiteIndicator.centerXAnchor.constraint(equalTo: self.button.centerXAnchor),
+            activiteIndicator.centerYAnchor.constraint(equalTo: self.button.centerYAnchor)
+        ]
         NSLayoutConstraint.activate(logoConstraints)
         NSLayoutConstraint.activate(viewConteinerConstraints)
         NSLayoutConstraint.activate(stackViewConstraints)
         NSLayoutConstraint.activate(segmentConstraints)
         NSLayoutConstraint.activate(passwordTextFieldConstraints)
         NSLayoutConstraint.activate(buttonConstraints)
+        NSLayoutConstraint.activate(activiteIndicatorConstraints)
     }
     
 }
