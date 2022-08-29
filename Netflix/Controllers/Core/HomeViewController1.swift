@@ -2,7 +2,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class HomeViewController:  BackgroundImageViewControlller, ProfileViewControllerDelegate {
+class HomeViewController1:  BackgroundImageViewControlller, ProfileViewControllerDelegate {
     func backToRootViewController() {
         self.navigationController?.popToRootViewController(animated: true)
     }
@@ -41,12 +41,12 @@ class HomeViewController:  BackgroundImageViewControlller, ProfileViewController
     
     func controllerSetup() {
         tabBarController?.navigationController?.navigationBar.isHidden = false
-//        self.tabBarController?.navigationItem.hidesBackButton = true
+        //        self.tabBarController?.navigationItem.hidesBackButton = true
         
         tabBarItem.badgeColor = .label
         tabBarItem.image = UIImage(systemName: "house.fill")
         tabBarItem.title = "Home"
-
+        
         headerView = Poster(frame: CGRect(x: 0,
                                           y: 0,
                                           width: view.bounds.width,
@@ -66,7 +66,7 @@ class HomeViewController:  BackgroundImageViewControlller, ProfileViewController
                 print(error)
             }
         }
-
+        
     }
     
     func setNavBarItem() {
@@ -85,7 +85,7 @@ class HomeViewController:  BackgroundImageViewControlller, ProfileViewController
                                                renderingMode: .alwaysOriginal), style: .done, target: self, action: nil)
         ]
         tabBarController?.navigationController?.navigationBar.tintColor = .white
-
+        
     }
     
     @objc func presentProfile() {
@@ -95,12 +95,12 @@ class HomeViewController:  BackgroundImageViewControlller, ProfileViewController
     }
 }
 
-extension HomeViewController: UITableViewDataSource,UITableViewDelegate{
+extension HomeViewController1: UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        150
+        Constans.heightForRow
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         headerForSection.count
@@ -118,37 +118,37 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? MoviesTableView else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? MoviesTableViewCell else { return UITableViewCell() }
         cell.setScrollPosition(x: offsets[indexPath] ?? 0)
         
         let title = headerForSection[indexPath.section]
         let url = API.dictionariOfAPI[title]!
-//        if !paintedSection.contains(indexPath.section) {
-            //            if title == "Trending tv" {
-            //                APIColler.shared.fetchTvShowFromAPI(url: url) { results in
-            //                    switch results {
-            //                    case .success(let results):
-            //                        cell.updateViewFromModel(movies: results)
-            //                    case .failure(let error):
-            //                        print(error)
-            //                    }
-            //                }
-            //            } else {
-            APIColler.shared.fetchMovieFromAPI(url: url) { results in
-                switch results {
-                case .success(let results):
-                    cell.updateViewFromModel(movies: results)
-                case .failure(let error):
-                    print(error)
-                }
-            }
-//        }
+        //        if !paintedSection.contains(indexPath.section) {
+        //            if title == "Trending tv" {
+        //                APIColler.shared.fetchTvShowFromAPI(url: url) { results in
+        //                    switch results {
+        //                    case .success(let results):
+        //                        cell.updateViewFromModel(movies: results)
+        //                    case .failure(let error):
+        //                        print(error)
+        //                    }
+        //                }
+        //            } else {
+        //            APIColler.shared.fetchMovieFromAPI(url: url) { results in
+        //                switch results {
+        //                case .success(let results):
+        //                    cell.updateViewFromModel(movies: results)
+        //                case .failure(let error):
+        //                    print(error)
+        //                }
+        //            }
+        //        }
         cell.delegat = self
         return cell
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        offsets[indexPath] = (cell as! MoviesTableView).getScrollPosition()
+        offsets[indexPath] = (cell as! MoviesTableViewCell).getScrollPosition()
     }
     
 }
@@ -160,9 +160,9 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate{
 //
 //    }
 
-extension HomeViewController: CollectionViewTableViewCelldelegat {
+extension HomeViewController1: CollectionViewTableViewCelldelegat {
     
-    func collectionViewTableViewCellDidTap(cell: MoviesTableView, model: TrailerViewModel) {
+    func collectionViewTableViewCellDidTap(cell: MoviesTableViewCell, model: TrailerViewModel) {
         DispatchQueue.main.async { [weak self] in
             let vc =  TrailerVideoViewController()
             vc.configure(with: model)

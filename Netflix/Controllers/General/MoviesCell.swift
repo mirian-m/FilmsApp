@@ -72,7 +72,7 @@ class MoviesCell: UITableViewCell {
     
     
     func configure(with model: TitleViewModel){
-        let url = Constant.PosterBaseURL + model.posterUrl
+        let url = APIConstants.posterBaseURL + model.posterUrl
         posterImage.getImageFromWeb(by: url)
         titleLabel.text = model.titleName
     }

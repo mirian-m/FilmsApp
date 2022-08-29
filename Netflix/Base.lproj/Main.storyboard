@@ -13,7 +13,7 @@
         <!--Item-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" id="BYZ-38-t0r" customClass="HomeViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,7 +23,7 @@
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="111" id="gRH-gh-WXq" customClass="MoviesTableView" customModule="Netflix" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MoviesTableViewCell" rowHeight="111" id="gRH-gh-WXq" customClass="MoviesTableViewCell" customModule="Netflix" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="580" height="111"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gRH-gh-WXq" id="RiM-aY-rkq">
@@ -64,7 +64,7 @@
                                                             </collectionViewCellContentView>
                                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.014474529109589041" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <connections>
-                                                                <outlet property="posterImage" destination="6zR-1r-AKV" id="JLw-18-9T8"/>
+                                                                <outlet property="posterImageView" destination="6zR-1r-AKV" id="JLw-18-9T8"/>
                                                                 <outlet property="viewCell" destination="6I1-Wz-Ti9" id="si7-8H-0za"/>
                                                             </connections>
                                                         </collectionViewCell>

@@ -159,7 +159,7 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
         return image!
     }
     
-    
+//  MARK: Constraints
     func adjustConstraints() {
         
         let cancelBtnConstraints = [

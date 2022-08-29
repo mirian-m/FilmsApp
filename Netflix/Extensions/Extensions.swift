@@ -8,6 +8,7 @@ extension String{
 }
 
 extension UIImageView {
+    
     func getImageFromWeb(by url: String) {
         guard let ApiUrl = URL(string: url) else { return }
         URLSession.shared.dataTask(with: ApiUrl) { (data, _, error) in

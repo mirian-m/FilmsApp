@@ -78,7 +78,7 @@ class Poster: UIView {
     }
     
     func configure(with posterUrl: String){
-        let url =  Constant.PosterBaseURL + posterUrl
+        let url =  APIConstants.posterBaseURL + posterUrl
         posterView.getImageFromWeb(by: url)
     }
 }

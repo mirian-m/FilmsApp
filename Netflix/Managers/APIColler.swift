@@ -2,13 +2,15 @@ import Foundation
 import UIKit
 
 public struct API {
+    
+//    static let top = "\(APIConstants.baseURL)/3/movie/top_rated?api_key=\(APIConstants.API_Key)\(APIConstants.endUrl)"
     static var dictionariOfAPI =
         [
-            "Top": "\(Constant.baseURL)/3/movie/top_rated?api_key=\(Constant.API_Key)\(Constant.endUrl)",
-            "Upcoming movies": "\(Constant.baseURL)/3/movie/upcoming?api_key=\(Constant.API_Key)\(Constant.endUrl)",
-            "Popular": "\(Constant.baseURL)/3/movie/popular?api_key=\(Constant.API_Key)\(Constant.endUrl)",
-            "Trending tv": "\(Constant.baseURL)/3/movie/top_rated?api_key=\(Constant.API_Key)\(Constant.endUrl)",
-            "Trending movies": "\(Constant.baseURL)/3/trending/movie/day?api_key=\(Constant.API_Key)"
+            "Top": "\(APIConstants.baseURL)/3/movie/top_rated?api_key=\(APIConstants.API_Key)\(APIConstants.endUrl)",
+            "Upcoming movies": "\(APIConstants.baseURL)/3/movie/upcoming?api_key=\(APIConstants.API_Key)\(APIConstants.endUrl)",
+            "Popular": "\(APIConstants.baseURL)/3/movie/popular?api_key=\(APIConstants.API_Key)\(APIConstants.endUrl)",
+            "Trending tv": "\(APIConstants.baseURL)/3/movie/top_rated?api_key=\(APIConstants.API_Key)\(APIConstants.endUrl)",
+            "Trending movies": "\(APIConstants.baseURL)/3/trending/movie/day?api_key=\(APIConstants.API_Key)"
         ]
     //    static var dictionariOfAPI = [
     //        "Top": "https://imdb-api.com/en/API/Top250Movies/k_58z4goj1",
@@ -61,7 +63,7 @@ class APIColler {
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
         
         // Create Url with given query
-        let urlString = "\(Constant.baseURL)/3/search/movie?api_key=\(Constant.API_Key)&query=\(query)"
+        let urlString = "\(APIConstants.baseURL)/3/search/movie?api_key=\(APIConstants.API_Key)&query=\(query)"
         
         guard let url = URL(string: urlString) else { return }
         
@@ -83,7 +85,7 @@ class APIColler {
         
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
         
-        let urlString = "\(Constant.YoutubeBaseUrl)q=\(query)&key=\(Constant.YoutubeAPI_KEY)"
+        let urlString = "\(APIConstants.youtubeBaseUrl)q=\(query)&key=\(APIConstants.youtubeAPI_KEY)"
         
         guard let url = URL(string: urlString) else { return }
         

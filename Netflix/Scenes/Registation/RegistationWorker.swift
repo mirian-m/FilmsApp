@@ -46,7 +46,7 @@ class RegistationWorker {
     func createUserDataOnFireBase(_ userData: Registation.UserInfo, complition: @escaping (String?) -> Void) {
         Auth.auth().createUser(withEmail: userData.email, password: userData.password) { dataResult, error in
             if  error == nil  {
-                let ref = Database.database().reference(fromURL: Constant.firebaseDataBaseReferrensUrl)
+                let ref = Database.database().reference(fromURL: APIConstants.firebaseDataBaseReferencUrl)
                 ref.child("Users").child(dataResult!.user.uid).setValue(
                     [
                         "firstName": userData.firstName,

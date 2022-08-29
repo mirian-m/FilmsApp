@@ -41,7 +41,7 @@ class SearchViewControler: BackgroundImageViewControlller {
     }
     
     func fetchDiscoveredMovie() {
-        let url =  "\(Constant.baseURL)/3/discover/movie?api_key=\(Constant.API_Key)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
+        let url =  "\(APIConstants.baseURL)/3/discover/movie?api_key=\(APIConstants.API_Key)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
         APIColler.shared.fetchMovieFromAPI(url: url) { (result) in
             switch result{
             case .success(let movies):

@@ -13,7 +13,7 @@ class UserManger {
     static let shared = UserManger()
 
     func getUserData(by userId: String, complition: @escaping (UserData) -> Void) {
-        let ref = Database.database().reference(fromURL: Constant.firebaseDataBaseReferrensUrl)
+        let ref = Database.database().reference(fromURL: APIConstants.firebaseDataBaseReferencUrl)
         ref.child("Users").child(userId).observeSingleEvent(of: .value, with: { data in
             guard let value = data.value as? NSDictionary else { return }
             let user = UserData(firstName: value["firstName"] as? String ?? "",
