@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MoviesWoker {
+class APIWoker {
     
     func fetchMoviesDetails<T: Codable>(url: String, completion: @escaping (Result<T, APICollerError>) -> Void) {
         guard let url = URL(string: url) else { return }

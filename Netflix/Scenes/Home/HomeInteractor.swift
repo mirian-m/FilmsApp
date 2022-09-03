@@ -24,23 +24,23 @@ protocol HomeDataStore {
 
 class HomeInteractor: HomeBusinessLogic, HomeDataStore {
     var presenter: HomePresentationLogic?
-    var worker: MoviesWoker?
+    var worker: APIWoker?
     //var name: String = ""
     
     // MARK: Do something
     
     //    func fetchMovies(request: Home.MovieInfo.Request) {
     func fetchMovies(request: Home.MovieInfo.Request, complition: @escaping (Bool) -> Void) {
-        worker = MoviesWoker()
-//        var response = Home.MovieInfo.Response()
+        worker = APIWoker()
+        //        var response = Home.MovieInfo.Response()
         worker?.fetchMoviesDetails(url: request.url, completion: { [weak self] (result: Result<Home.Movies, APICollerError>) in
-                        let response = Home.MovieInfo.Response(result: result)
-//            switch result {
-//            case .success(let movies):
-//                response = Home.MovieInfo.Response(error: nil, moviesDetails: movies.details)
-//            case .failure(let error):
-//                response = Home.MovieInfo.Response(error: error, moviesDetails: nil)
-//            }
+            let response = Home.MovieInfo.Response(result: result)
+            //            switch result {
+            //            case .success(let movies):
+            //                response = Home.MovieInfo.Response(error: nil, moviesDetails: movies.details)
+            //            case .failure(let error):
+            //                response = Home.MovieInfo.Response(error: error, moviesDetails: nil)
+            //            }
             self?.presenter?.presentMovies(response: response)
             complition(true)
         })

@@ -35,6 +35,7 @@ class MoviesCollectionViewController: UICollectionViewController, MoviesCollecti
     // MARK: Setup
     
     private func setup() {
+        collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         let viewController = self
         let interactor = MoviesCollectionInteractor()
         let presenter = MoviesCollectionPresenter()
@@ -80,6 +81,47 @@ class MoviesCollectionViewController: UICollectionViewController, MoviesCollecti
 }
 
 extension MoviesCollectionViewController {
+    
+//    func setScrollPosition(x: CGFloat) {
+//        self.setContentOffset(CGPoint(x: x, y: 0), animated: false)
+//    }
+//
+//    func getScrollPosition() -> CGFloat {
+//        return self.contentOffset.x
+//    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let collectionView = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? MovieCollectionViewCell else { return UICollectionViewCell() }
         
+//        guard let imageUrl = movies[indexPath.row].poster_path else { return UICollectionViewCell() }
+//        let url = APIConstants.posterBaseURL + imageUrl
+        
+//        collectionView.loadImage(by: url)
+        return collectionView
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
+        return CGSize(width: 120, height: Constans.heightForRow)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+//        let title = (movies[indexPath.row].original_title ?? movies[indexPath.row].title) ?? ""
+//        let overview = movies[indexPath.row].overview
+        
+//        APIColler.shared.getMovie(with: title + "trailer") { result in
+//            switch result {
+//            case .success(let video):
+//                self.delegat.collectionViewTableViewCellDidTap(cell: self, model: TrailerViewModel(movieTitle: title, overview: overview, youtubeId: video.items[0].id))
+//            case .failure(let error):
+//                print (error)
+//            }
+//        }
+    }
+
 }
 

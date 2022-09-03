@@ -1,7 +1,7 @@
 import UIKit
 
-class MoviesCell: UITableViewCell {
-    static var identifier = "MoviegCell"
+class MovieCell: UITableViewCell {
+    static var identifier = "MovieCell"
     
     private let playButton: UIButton = {
         let button = UIButton()
@@ -71,9 +71,9 @@ class MoviesCell: UITableViewCell {
     }
     
     
-    func configure(with model: TitleViewModel){
+    func configure(with model: MovieViewModel) {
         let url = APIConstants.posterBaseURL + model.posterUrl
         posterImage.getImageFromWeb(by: url)
-        titleLabel.text = model.titleName
+        titleLabel.text = model.title
     }
 }

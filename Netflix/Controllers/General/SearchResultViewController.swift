@@ -46,7 +46,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        let title = details[indexPath.row].name ?? details[indexPath.row].original_name ?? ""
+        let title = details[indexPath.row].title ?? details[indexPath.row].original_title ?? ""
         let overview = details[indexPath.row].overview
 
         APIColler.shared.getMovie(with: title + " trailer") { [weak self](result) in

@@ -261,10 +261,10 @@
             </objects>
             <point key="canvasLocation" x="1817" y="-670"/>
         </scene>
-        <!--Coming Soon View Contorller-->
+        <!--Coming Soon View Controller-->
         <scene sceneID="KRW-2T-oWO">
             <objects>
-                <viewController storyboardIdentifier="ThirdViewController" id="fHE-QG-5sr" customClass="ComingSoonViewContorller" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ThirdViewController" id="fHE-QG-5sr" customClass="ComingSoonViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VGb-bB-x95">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

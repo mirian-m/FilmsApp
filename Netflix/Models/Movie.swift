@@ -33,19 +33,19 @@ struct Details: Codable {
 //         case imDbRatingCount
 //     }
      
-    enum CodingKeys: String, CodingKey {
-        case poster_path
-        case original_name = "original_title"
-        case name = "title"
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case poster_path, id, overview, release_date
+//        case original_name = "original_title"
+//        case name = "title"
+//    }
         var id: Int!
         var original_language: String?
-        var original_name: String?
+        var original_title: String?
         var overview: String?
         var popularity: Double?
         var poster_path: String?
         var release_date: String?
-        var name: String?
+        var title: String?
         var vote_average: Double?
         var vote_count: Int?
 }

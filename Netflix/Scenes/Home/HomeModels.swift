@@ -31,7 +31,6 @@ enum Home {
             var vote_average: Double?
             var vote_count: Int?
         }
-        
     }
     // MARK: Use cases
     

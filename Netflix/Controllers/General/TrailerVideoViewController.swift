@@ -20,6 +20,7 @@ class TrailerVideoViewController: UIViewController {
     private lazy var overviewLb: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
+        lb.minimumScaleFactor = 8
         lb.font = .systemFont(ofSize: 18, weight: .regular)
         lb.numberOfLines = 0
         return lb
@@ -28,7 +29,9 @@ class TrailerVideoViewController: UIViewController {
     private lazy var downloadButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Add Watched List", for: .normal)
+        button.titleLabel?.lineBreakMode = .byWordWrapping
+        button.titleLabel?.textAlignment = .center
+        button.setTitle("Add \nWatched List", for: .normal)
         button.backgroundColor = .red
         button.layer.borderWidth = 2
         button.layer.cornerRadius = 8
@@ -50,7 +53,6 @@ class TrailerVideoViewController: UIViewController {
         view.addSubview(overviewLb)
         view.addSubview(downloadButton)
         setConstraints()
-        
     }
     
     private func setConstraints(){

@@ -37,7 +37,7 @@ class HomeViewController: BackgroundImageViewControlller, HomeDisplayLogic, Coll
     
     private let headerForSection = ["Trending movies", "Trending tv", "Popular", "Upcoming movies", "Top"]
     private var headerView: Poster?
-    private var  posterIsSeted = false
+    private var posterIsSeted = false
     private var fetchedMoviesDetails: [Home.Movies.Details] = []
     private var isNavigate: Bool = false
     
@@ -135,7 +135,6 @@ class HomeViewController: BackgroundImageViewControlller, HomeDisplayLogic, Coll
                 self?.headerView?.configure(with: randomPosterUrl)
                 self?.posterIsSeted = true
             }
-//            self?.filmTableView.reloadData()
         }
     }
 }
@@ -177,7 +176,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return headerForSection[section]
+        headerForSection[section]
     }
     
     // MARK: PROTOCOL FUNC

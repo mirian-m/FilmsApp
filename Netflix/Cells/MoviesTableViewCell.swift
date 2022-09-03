@@ -7,6 +7,7 @@ protocol CollectionViewTableViewCelldelegat: AnyObject {
 
 class MoviesTableViewCell: UITableViewCell {
     
+//    var moviesCollectionView: MoviesCollectionViewController =  MoviesCollectionViewController(coder: NSCoder())!
     @IBOutlet weak var moviesCollectionView: UICollectionView! {
         didSet {
             moviesCollectionView.dataSource = self
