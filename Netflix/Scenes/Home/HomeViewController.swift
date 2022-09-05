@@ -180,12 +180,13 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     // MARK: PROTOCOL FUNC
+    
     func collectionViewTableViewCellDidTap(cell: MoviesTableViewCell, model: TrailerViewModel) {
         DispatchQueue.main.async { [weak self] in
-            let vc =  TrailerVideoViewController()
-            vc.configure(with: model)
+//            let vc =  TrailerVideoViewController()
+//            vc.configure(with: model)
             self?.isNavigate = true
-            self?.navigationController?.pushViewController(vc, animated: true)
+//            self?.navigationController?.pushViewController(vc, animated: true)
 //                        self?.router?.routToVideoVC(segue: nil)
         }
     }

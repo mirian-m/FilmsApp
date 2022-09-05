@@ -100,7 +100,6 @@ class ComingSoonViewController: BackgroundImageViewControlller, ComingSoonDispla
     func displaySelectedMovie(viewModel: ComingSoon.MovieDetail.ViewModel) {
         router?.routeToTrailerVC(segue: nil)
     }
-    
 }
 
 extension ComingSoonViewController: UITableViewDataSource, UITableViewDelegate  {

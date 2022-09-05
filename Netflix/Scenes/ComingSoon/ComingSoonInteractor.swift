@@ -26,7 +26,7 @@ class ComingSoonInteractor: ComingSoonBusinessLogic, ComingSoonDataStore {
     var presenter: ComingSoonPresentationLogic?
     var worker: APIWoker?
     private var fetchedMovies = Movies(details: [])
-    var movieDetails: Details = Details()
+    var movieDetails = Details()
     
     // MARK: Do something
     
@@ -47,7 +47,7 @@ class ComingSoonInteractor: ComingSoonBusinessLogic, ComingSoonDataStore {
     }
 
     func tappedMovie(requset: ComingSoon.MovieDetail.Request) {
-        self.movieDetails = fetchedMovies.details.filter { $0.id == requset.selectedMovieId }.first!
+        movieDetails = fetchedMovies.details.filter { $0.id! == requset.selectedMovieId }[0]
         presenter?.presentSelectedMovie(response: ComingSoon.MovieDetail.Response())
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 class APIWoker {
     
-    func fetchMoviesDetails<T: Codable>(url: String, completion: @escaping (Result<T, APICollerError>) -> Void) {
+    func fetchMoviesDetails<T: Decodable>(url: String, completion: @escaping (Result<T, APICollerError>) -> Void) {
         guard let url = URL(string: url) else { return }
         URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             guard let data = data, error == nil else {return}

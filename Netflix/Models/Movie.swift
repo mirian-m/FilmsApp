@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-struct Movies: Codable {
+struct Movies: Decodable {
     enum CodingKeys: String, CodingKey {
         case details = "results"
     }
@@ -9,7 +9,7 @@ struct Movies: Codable {
 //    var errorMessage: String?
 }
 
-struct Details: Codable {
+struct Details: Decodable {
 //    var id: String
 //    var rank: String
 //    var name: String

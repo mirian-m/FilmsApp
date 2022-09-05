@@ -27,9 +27,9 @@ class ComingSoonRouter: NSObject, ComingSoonRoutingLogic, ComingSoonDataPassing 
     // MARK: Routing
     
     func routeToTrailerVC(segue: UIStoryboardSegue?) {
-        let destinationVC = TrailerVideoViewController()
-        //      var destinationDS = destinationVC.router!.dataStore!
-        //      passDataToSomewhere(source: dataStore!, destination: &destinationDS)
+        let destinationVC = MovieTrailerViewController()
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToSomewhere(source: dataStore!, destination: &destinationDS)
         navigateToTrailerVC(source: viewController!, destination: destinationVC)
     }
     
@@ -41,8 +41,7 @@ class ComingSoonRouter: NSObject, ComingSoonRoutingLogic, ComingSoonDataPassing 
     
     // MARK: Passing data
     
-    //func passDataToSomewhere(source: ComingSoonDataStore, destination: inout SomewhereDataStore)
-    //{
-    //  destination.name = source.name
-    //}
+    func passDataToSomewhere(source: ComingSoonDataStore, destination: inout MovieTrailerDataStore) {
+        destination.movieDetails = source.movieDetails
+    }
 }
