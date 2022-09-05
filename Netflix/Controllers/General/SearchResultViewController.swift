@@ -34,10 +34,11 @@ class SearchResultViewController: UIViewController {
 }
 // Create search result collection view
 extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { details.count }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewcell.identifier, for: indexPath) as? SearchCollectionViewcell else{return UICollectionViewCell()}
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewcell.identifier, for: indexPath) as? SearchCollectionViewcell else { return UICollectionViewCell() }
         let posterURL = APIConstants.posterBaseURL + (details[indexPath.row].poster_path ?? "")
         cell.posterImage.getImageFromWeb(by: posterURL)
         return cell
