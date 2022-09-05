@@ -5,7 +5,7 @@ class SearchViewControler: BackgroundImageViewControlller {
     private var details = [Details]()
 
     let searchController: UISearchController = {
-        var controller = UISearchController(searchResultsController: SearchResultViewController())
+        var controller = UISearchController(searchResultsController: SearchResultViewController1())
         controller.searchBar.placeholder = "Search Movie or TV Show "
         controller.searchBar.searchBarStyle = .minimal
         return controller
@@ -110,7 +110,7 @@ extension SearchViewControler: UISearchResultsUpdating {
         guard let query = searchBar.text,
               !query.trimmingCharacters(in: .whitespaces).isEmpty,
               query.trimmingCharacters(in: .whitespaces).count >= 3,
-              let resultController = searchController.searchResultsController as? SearchResultViewController
+              let resultController = searchController.searchResultsController as? SearchResultViewController1
         else { return }
 
         resultController.delegat = self

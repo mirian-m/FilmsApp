@@ -44,12 +44,12 @@ extension MoviesTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
         return moviesCollectionView.contentOffset.x
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return movies.count
-    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { return movies.count }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let collectionView = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? MovieCollectionViewCell else { return UICollectionViewCell() }
+        guard let collectionView = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "CollectionViewCell",
+                for: indexPath) as? MovieCollectionViewCell else { return UICollectionViewCell() }
         
         guard let imageUrl = movies[indexPath.row].poster_path else { return UICollectionViewCell() }
         let url = APIConstants.posterBaseURL + imageUrl

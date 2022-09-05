@@ -15,14 +15,13 @@ import UIKit
 protocol SearchMoviePresentationLogic {
     func presenMovies(response: SearchMovie.GetMovies.Response)
     func presentSelectedMovie(response: SearchMovie.MovieDetail.Response)
+    func presentSearchedMovies(response: SearchMovie.GetSearchedMovies.Response)
 }
 
 class SearchMoviePresenter: SearchMoviePresentationLogic {
-    
     weak var viewController: SearchMovieDisplayLogic?
     
     // MARK: Do something
-    
     func presenMovies(response: SearchMovie.GetMovies.Response) {
         
         //    TODO: - Do error hendiling
@@ -30,6 +29,17 @@ class SearchMoviePresenter: SearchMoviePresentationLogic {
         viewController?.displayMovies(viewModel: viewModel)
     }
     
+    func presentSelectedMovie(response: SearchMovie.MovieDetail.Response) {
+        viewController?.displaySelectedMovie(vieModel: SearchMovie.MovieDetail.ViewModel())
+    }
+    
+    func presentSearchedMovies(response: SearchMovie.GetSearchedMovies.Response) {
+        //    TODO: - Do error hendiling
+        let viewModel = SearchMovie.GetSearchedMovies.ViewModel(movieViewModel: convert(model: response.searchedMovies!))
+        viewController?.displaySearchedMovies(viewModel: viewModel)
+    }
+    
+//  MARK: VIEWMODEL CONVERT FUNCTION
     func convert(model: Movies) -> [MovieViewModel] {
         var movieViewModel = [MovieViewModel]()
         
@@ -42,9 +52,5 @@ class SearchMoviePresenter: SearchMoviePresentationLogic {
             movieViewModel.append(movieModel)
         }
         return movieViewModel
-    }
-    
-    func presentSelectedMovie(response: SearchMovie.MovieDetail.Response) {
-        viewController?.displaySelectedMovie(vieModel: SearchMovie.MovieDetail.ViewModel())
     }
 }

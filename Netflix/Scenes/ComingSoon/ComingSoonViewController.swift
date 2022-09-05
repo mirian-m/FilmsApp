@@ -117,7 +117,7 @@ extension ComingSoonViewController: UITableViewDataSource, UITableViewDelegate  
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        interactor?.tappedMovie(requset: ComingSoon.MovieDetail.Request(selectedMovieId: moviesViewModel[indexPath.row].id))
+        interactor?.didTapMovie(requset: ComingSoon.MovieDetail.Request(selectedMovieId: moviesViewModel[indexPath.row].id))
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { Constans.heightForRow }

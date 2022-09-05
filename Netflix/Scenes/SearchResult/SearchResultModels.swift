@@ -1,5 +1,5 @@
 //
-//  SearchMovieModels.swift
+//  SearchResultModels.swift
 //  Netflix
 //
 //  Created by Admin on 9/5/22.
@@ -12,19 +12,18 @@
 
 import UIKit
 
-enum SearchMovie {
+enum SearchResult {
     // MARK: Use cases
     
-    enum GetMovies {
-        struct Request{}
+    enum GetSearchResult {
+        struct Request { }
         
         struct Response {
-            var error: APICollerError?
-            var movies: Movies?
+            var searchedMoviesDetails: Movies
         }
         
         struct ViewModel {
-            var movie: [MovieViewModel]
+            var movieViewModel: [MovieViewModel]
         }
     }
     
@@ -36,20 +35,5 @@ enum SearchMovie {
         struct Response {}
         
         struct ViewModel {}
-    }
-    
-    enum GetSearchedMovies {
-        struct Request{
-            var query: String
-        }
-        
-        struct Response {
-            var error: APICollerError?
-            var searchedMovies: Movies?
-        }
-        
-        struct ViewModel {
-            var movieViewModel: [MovieViewModel]
-        }
     }
 }

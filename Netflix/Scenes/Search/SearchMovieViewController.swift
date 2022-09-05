@@ -15,11 +15,11 @@ import UIKit
 protocol SearchMovieDisplayLogic: class {
     func displayMovies(viewModel: SearchMovie.GetMovies.ViewModel)
     func displaySelectedMovie(vieModel: SearchMovie.MovieDetail.ViewModel)
+    func displaySearchedMovies(viewModel: SearchMovie.GetSearchedMovies.ViewModel)
 }
 
 class SearchMovieViewController: BackgroundImageViewControlller, SearchMovieDisplayLogic {
-    
-    
+
     let searchController: UISearchController = {
         var controller = UISearchController(searchResultsController: SearchResultViewController())
         controller.searchBar.placeholder = "Search Movie or TV Show "
@@ -84,12 +84,13 @@ class SearchMovieViewController: BackgroundImageViewControlller, SearchMovieDisp
     func controllerSetup() {
         title = "Search"
         navigationController?.navigationBar.prefersLargeTitles = true
+        //        discoveredTable.dataSource = self
+        //        discoveredTable.delegate = self
         discoveredTable.backgroundColor = .none
         navigationItem.searchController = searchController
         navigationController?.navigationBar.tintColor = .white
         view.addSubview(discoveredTable)
-        //        searchController.searchResultsUpdater = self
-        //        fetchDiscoveredMovie()
+        searchController.searchResultsUpdater = self
     }
     
     //  MARK: Do something
@@ -110,6 +111,12 @@ class SearchMovieViewController: BackgroundImageViewControlller, SearchMovieDisp
     
     func displaySelectedMovie(vieModel: SearchMovie.MovieDetail.ViewModel) {
         router?.routeToTrailerVC(segue: nil)
+    }
+    
+    func displaySearchedMovies(viewModel: SearchMovie.GetSearchedMovies.ViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            self?.router?.routeToSearcheResulte(segue: nil)
+        }
     }
 }
 
@@ -132,6 +139,19 @@ extension SearchMovieViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        interactor?.tappedMovie(requset: SearchMovie.MovieDetail.Request(selectedMovieId: moviesViewModel[indexPath.row].id))
+        interactor?.didTapMovie(requset: SearchMovie.MovieDetail.Request(selectedMovieId: moviesViewModel[indexPath.row].id))
+    }
+}
+extension SearchMovieViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        
+        guard let query = searchBar.text,
+              !query.trimmingCharacters(in: .whitespaces).isEmpty,
+              query.trimmingCharacters(in: .whitespaces).count >= 3
+        else { return }
+        
+        interactor?.updateSearchResult(requset: SearchMovie.GetSearchedMovies.Request(query: query))
     }
 }

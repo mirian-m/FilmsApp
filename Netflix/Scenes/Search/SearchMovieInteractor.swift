@@ -14,25 +14,29 @@ import UIKit
 
 protocol SearchMovieBusinessLogic {
     func getMovies(request: SearchMovie.GetMovies.Request)
-    func tappedMovie(requset: SearchMovie.MovieDetail.Request)
+    func didTapMovie(requset: SearchMovie.MovieDetail.Request)
+    func updateSearchResult(requset: SearchMovie.GetSearchedMovies.Request)
 
 }
 
 protocol SearchMovieDataStore {
     var movieDetails: Details { get set }
+    var searchedMovies: Movies { get set }
 }
 
 class SearchMovieInteractor: SearchMovieBusinessLogic, SearchMovieDataStore {
-    
     var presenter: SearchMoviePresentationLogic?
-    var worker: APIWoker?
+    var worker: APIWoker? = APIWoker()
+
     var movieDetails: Details = Details()
+    var searchedMovies = Movies(details: [])
+
     private var fetchedMovies = Movies(details: [])
     
-    // MARK: Do something
+    
+    //  MARK: SearchMovieBusinessLogic Protocol Functions
     
     func getMovies(request: SearchMovie.GetMovies.Request) {
-        worker = APIWoker()
         let url =  "\(APIConstants.baseURL)/3/discover/movie?api_key=\(APIConstants.API_Key)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
         
         worker?.fetchMoviesDetails(url: url, completion: { [weak self] (result: Result<Movies, APICollerError>) in
@@ -48,9 +52,23 @@ class SearchMovieInteractor: SearchMovieBusinessLogic, SearchMovieDataStore {
         })
     }
     
-    func tappedMovie(requset: SearchMovie.MovieDetail.Request) {
+    func didTapMovie(requset: SearchMovie.MovieDetail.Request) {
         movieDetails = fetchedMovies.details.filter { $0.id! == requset.selectedMovieId }[0]
         presenter?.presentSelectedMovie(response: SearchMovie.MovieDetail.Response())
     }
 
+    func updateSearchResult(requset: SearchMovie.GetSearchedMovies.Request) {
+        var response = SearchMovie.GetSearchedMovies.Response()
+
+        worker?.searchMoviees(with: requset.query, completion: { [weak self] (result: Result<Movies, APICollerError>) in
+            switch result {
+            case .success(let searchedMovies):
+                self?.searchedMovies = searchedMovies
+                response.searchedMovies = searchedMovies
+            case .failure(let error):
+                response.error = error
+            }
+            self?.presenter?.presentSearchedMovies(response: response)
+        })
+    }
 }

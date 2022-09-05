@@ -5,11 +5,11 @@ protocol SearchResultViewControllerDelegat: AnyObject {
     func SearchResultViewControllerDidSelet(with model: TrailerViewModel)
 }
 
-class SearchResultViewController: UIViewController {
+class SearchResultViewController1: UIViewController {
     var details = [Details]()
-    
+
     public weak var delegat: SearchResultViewControllerDelegat!
-    
+
     var searchResultCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3 - 10, height: 200)
@@ -18,35 +18,37 @@ class SearchResultViewController: UIViewController {
         collectionView.register(SearchCollectionViewcell.self, forCellWithReuseIdentifier: SearchCollectionViewcell.identifier)
         return collectionView
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
         searchResultCollectionView.dataSource = self
         searchResultCollectionView.delegate = self
         view.addSubview(searchResultCollectionView)
+        print("something")
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         searchResultCollectionView.frame = view.bounds
     }
 }
+
 // Create search result collection view
-extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
+extension SearchResultViewController1: UICollectionViewDelegate, UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { details.count }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewcell.identifier, for: indexPath) as? SearchCollectionViewcell else { return UICollectionViewCell() }
         let posterURL = APIConstants.posterBaseURL + (details[indexPath.row].poster_path ?? "")
         cell.posterImage.getImageFromWeb(by: posterURL)
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        
+
         let title = details[indexPath.row].title ?? details[indexPath.row].original_title ?? ""
         let overview = details[indexPath.row].overview
 

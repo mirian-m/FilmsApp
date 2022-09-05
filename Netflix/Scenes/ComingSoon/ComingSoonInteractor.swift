@@ -14,7 +14,7 @@ import UIKit
 
 protocol ComingSoonBusinessLogic {
     func getUpcomingMovies(request: ComingSoon.GetUpcomingMovies.Request)
-    func tappedMovie(requset: ComingSoon.MovieDetail.Request)
+    func didTapMovie(requset: ComingSoon.MovieDetail.Request)
 }
 
 protocol ComingSoonDataStore {
@@ -46,7 +46,7 @@ class ComingSoonInteractor: ComingSoonBusinessLogic, ComingSoonDataStore {
         })
     }
 
-    func tappedMovie(requset: ComingSoon.MovieDetail.Request) {
+    func didTapMovie(requset: ComingSoon.MovieDetail.Request) {
         movieDetails = fetchedMovies.details.filter { $0.id! == requset.selectedMovieId }[0]
         presenter?.presentSelectedMovie(response: ComingSoon.MovieDetail.Response())
     }

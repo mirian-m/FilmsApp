@@ -14,6 +14,7 @@ import UIKit
 
 @objc protocol SearchMovieRoutingLogic {
     func routeToTrailerVC(segue: UIStoryboardSegue?)
+    func routeToSearcheResulte(segue: UIStoryboardSegue?)
 }
 
 protocol SearchMovieDataPassing {
@@ -21,6 +22,7 @@ protocol SearchMovieDataPassing {
 }
 
 class SearchMovieRouter: NSObject, SearchMovieRoutingLogic, SearchMovieDataPassing {
+    
     weak var viewController: SearchMovieViewController?
     var dataStore: SearchMovieDataStore?
     
@@ -42,6 +44,19 @@ class SearchMovieRouter: NSObject, SearchMovieRoutingLogic, SearchMovieDataPassi
     
     // MARK: Passing data
     
+    func routeToSearcheResulte(segue: UIStoryboardSegue?) {
+        guard let destinationVC = viewController?.searchController.searchResultsController as? SearchResultViewController else { return }
+        var destinationDS = destinationVC.router!.dataStore!
+        passSearchedData(source: dataStore!, destination: &destinationDS)
+//        destinationVC.searchResultCollectionView.reloadData()
+        destinationVC.searchResultIsUpdated.toggle()
+        
+    }
+
+    func passSearchedData(source: SearchMovieDataStore, destination: inout SearchResultDataStore) {
+        destination.searchedMovies = source.searchedMovies
+    }
+
     func passDataToSomewhere(source: SearchMovieDataStore, destination: inout MovieTrailerDataStore) {
         destination.movieDetails = source.movieDetails
     }
