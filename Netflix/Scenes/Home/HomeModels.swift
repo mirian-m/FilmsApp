@@ -13,25 +13,25 @@
 import UIKit
 
 enum Home {
-    struct Movies: Codable {
-        enum CodingKeys: String, CodingKey {
-            case details = "results"
-        }
-        var details: [Details]
-        
-        struct Details: Codable {
-            var id: Int
-            var original_language: String?
-            var original_title: String?
-            var overview: String?
-            var popularity: Double?
-            var poster_path: String?
-            var release_date: String?
-            var title: String?
-            var vote_average: Double?
-            var vote_count: Int?
-        }
-    }
+//    struct Movies: Codable {
+//        enum CodingKeys: String, CodingKey {
+//            case details = "results"
+//        }
+//        var details: [Details]
+//
+//        struct Details: Codable {
+//            var id: Int
+//            var original_language: String?
+//            var original_title: String?
+//            var overview: String?
+//            var popularity: Double?
+//            var poster_path: String?
+//            var release_date: String?
+//            var title: String?
+//            var vote_average: Double?
+//            var vote_count: Int?
+//        }
+//    }
     // MARK: Use cases
     
     enum MovieInfo {
@@ -39,12 +39,24 @@ enum Home {
             let url: String
         }
         struct Response {
-            var result: Result<Movies, APICollerError>
+            var error: APICollerError?
+            var movies: Movies?
         }
         struct ViewModel {
             var error: String?
-            var moviesDetails: [Movies.Details]?
+            var moviesViewModel: [MovieViewModel]
         }
     }
+    
+    enum MovieDetail {
+        struct Request{
+            var selectedMovieId: Int
+        }
+        
+        struct Response {}
+        
+        struct ViewModel {}
+    }
+
 }
 

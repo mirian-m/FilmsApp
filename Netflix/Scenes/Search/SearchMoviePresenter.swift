@@ -35,7 +35,7 @@ class SearchMoviePresenter: SearchMoviePresentationLogic {
     
     func presentSearchedMovies(response: SearchMovie.GetSearchedMovies.Response) {
         //    TODO: - Do error hendiling
-        let viewModel = SearchMovie.GetSearchedMovies.ViewModel(movieViewModel: convert(model: response.searchedMovies!))
+        let viewModel = SearchMovie.GetSearchedMovies.ViewModel(movieViewModel: (response.searchedMovies?.convert())!)
         viewController?.displaySearchedMovies(viewModel: viewModel)
     }
     

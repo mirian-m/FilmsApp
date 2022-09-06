@@ -19,10 +19,19 @@ protocol MovieTrailerDisplayLogic: class {
 
 class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLogic {
     
+    //  MARK: - Fields
+    
     private lazy var webView: WKWebView = {
         let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
+    }()
+    
+    private lazy var scrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        scroll.isScrollEnabled = true
+        return scroll
     }()
     
     private lazy var titleLb: UILabel = {
@@ -42,6 +51,21 @@ class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLogic {
         return lb
     }()
     
+    private lazy var add: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.lineBreakMode = .byWordWrapping
+        button.titleLabel?.textAlignment = .center
+        button.setTitle("Add \nWatched List", for: .normal)
+        button.backgroundColor = .red
+        button.layer.borderWidth = 2
+        button.layer.cornerRadius = 8
+        button.setTitleColor(.white, for: .normal)
+        button.tintColor = .white
+        return button
+    }()
+    
+    //  MARK:- Clean Components
     
     var interactor: MovieTrailerBusinessLogic?
     var router: (NSObjectProtocol & MovieTrailerRoutingLogic & MovieTrailerDataPassing)?
@@ -65,23 +89,6 @@ class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLogic {
         doSomething()
     }
     
-    
-    
-    private lazy var add: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.lineBreakMode = .byWordWrapping
-        button.titleLabel?.textAlignment = .center
-        button.setTitle("Add \nWatched List", for: .normal)
-        button.backgroundColor = .red
-        button.layer.borderWidth = 2
-        button.layer.cornerRadius = 8
-        button.setTitleColor(.white, for: .normal)
-        button.tintColor = .white
-        return button
-    }()
-    
-    
     // MARK: Setup
     private func setup() {
         let viewController = self
@@ -96,18 +103,24 @@ class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLogic {
         router.dataStore = interactor
     }
     
+    
     private func setupController() {
         navigationController?.navigationBar.tintColor = .white
         view.backgroundColor = .systemBackground
         view.addSubview(webView)
         view.addSubview(titleLb)
-        view.addSubview(overviewLb)
-        view.addSubview(add)
+        //        view.addSubview(overviewLb)
+        //        view.addSubview(add)
+        view.addSubview(scrollView)
+        scrollView.addSubview(overviewLb)
+        scrollView.addSubview(add)
+        //        contenView.addSubview(overviewLb)
+        //        contenView.addSubview(add)
         setConstraints()
     }
     
     
-    //    MARK: - ADD Constraints
+    //  MARK: - ADD Constraints
     private func setConstraints(){
         let webViewConstraint = [
             webView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: -40),
@@ -115,33 +128,50 @@ class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLogic {
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             webView.heightAnchor.constraint(equalToConstant: 500)
         ]
+        
+        
         let titleLbConstraint = [
             titleLb.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 10),
             titleLb.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             titleLb.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
         ]
-        let overviewLbconstraint = [
-            overviewLb.topAnchor.constraint(equalTo: titleLb.bottomAnchor, constant: 10),
-            overviewLb.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            overviewLb.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        
+        let scrollViewCostraint = [
+            scrollView.topAnchor.constraint(equalTo: titleLb.bottomAnchor, constant: 10),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10)
+            
         ]
+        
+        //        let contentViewConstraint = [
+        //            contenView.topAnchor.constraint(equalTo: scrollView.bottomAnchor),
+        //            contenView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+        //            contenView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+        //            contenView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+        //        ]
+        
+        
+        let overviewLbconstraint = [
+            overviewLb.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10),
+            overviewLb.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 10),
+            overviewLb.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+        ]
+        
         let downloadButtonConstraint = [
-            add.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            add.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             add.topAnchor.constraint(equalTo: overviewLb.bottomAnchor, constant: 20),
             add.widthAnchor.constraint(equalToConstant: 140),
             add.heightAnchor.constraint(equalToConstant: 50)
-            
         ]
         
         NSLayoutConstraint.activate(webViewConstraint)
         NSLayoutConstraint.activate(titleLbConstraint)
         NSLayoutConstraint.activate(overviewLbconstraint)
         NSLayoutConstraint.activate(downloadButtonConstraint)
+        NSLayoutConstraint.activate(scrollViewCostraint)
+        //        NSLayoutConstraint.activate(contentViewConstraint)
     }
-    
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
     
     func doSomething() {
         let request = MovieTrailer.GetTrailer.Request()

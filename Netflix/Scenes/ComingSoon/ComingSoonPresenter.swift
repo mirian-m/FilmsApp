@@ -24,25 +24,10 @@ class ComingSoonPresenter: ComingSoonPresentationLogic {
     // MARK: Do something
     
     func presentUpcomingMovies(response: ComingSoon.GetUpcomingMovies.Response) {
-        guard let upcomingMovies = response.movies, response.error == nil else { return }
-        let viewModel = ComingSoon.GetUpcomingMovies.ViewModel(movie: convert(model: upcomingMovies))
+        let viewModel = ComingSoon.GetUpcomingMovies.ViewModel(movie: (response.movies?.convert())!)
         viewController?.displayUpcomingMovies(viewModel: viewModel)
     }
-    
-    func convert(model: Movies) -> [MovieViewModel] {
-        var movieViewModel = [MovieViewModel]()
-        
-        model.details.forEach { movieDetails in
-            let movieModel = MovieViewModel(
-                title: movieDetails.original_title ?? movieDetails.title ?? "unknown Film",
-                posterUrl: movieDetails.poster_path ?? "",
-                id: movieDetails.id ?? -1)
-            
-            movieViewModel.append(movieModel)
-        }
-        return movieViewModel
-    }
-    
+
     func presentSelectedMovie(response: ComingSoon.MovieDetail.Response) {
         viewController?.displaySelectedMovie(viewModel: ComingSoon.MovieDetail.ViewModel())
     }

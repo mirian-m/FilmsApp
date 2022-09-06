@@ -22,7 +22,6 @@ protocol ComingSoonDataStore {
 }
 
 class ComingSoonInteractor: ComingSoonBusinessLogic, ComingSoonDataStore {
-    
     var presenter: ComingSoonPresentationLogic?
     var worker: APIWoker?
     private var fetchedMovies = Movies(details: [])

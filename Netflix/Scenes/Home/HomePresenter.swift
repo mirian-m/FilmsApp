@@ -14,25 +14,22 @@ import UIKit
 
 protocol HomePresentationLogic {
     func presentMovies(response: Home.MovieInfo.Response)
+    func presentSelectedMovie(response: Home.MovieDetail.Response)
 }
 
 class HomePresenter: HomePresentationLogic {
+    
     weak var viewController: HomeDisplayLogic?
     
     // MARK: Do something
-//    , complition: @escaping (Bool) -> Void
+    
     func presentMovies(response: Home.MovieInfo.Response) {
-        var viewModel = Home.MovieInfo.ViewModel()
-        switch response.result {
-        case .success(let movies):
-            viewModel.moviesDetails = movies.details
-//            response = Home.MovieInfo.Response(
-        case .failure(let error):
-            viewModel.error = error.localizedDescription
-//            response = Home.MovieInfo.Response(error: error, moviesDetails: nil)
-        }
-        
-//        let viewModel = Home.MovieInfo.ViewModel(error: response.error, moviesDetails: response.moviesDetails)
+        let viewModel = Home.MovieInfo.ViewModel(error: nil, moviesViewModel: (response.movies?.convert())!)
         viewController?.displayMovies(viewModel: viewModel)
     }
+    
+    func presentSelectedMovie(response: Home.MovieDetail.Response) {
+        viewController?.displaySelectedMovie(viewModel: Home.MovieDetail.ViewModel())
+    }
+
 }

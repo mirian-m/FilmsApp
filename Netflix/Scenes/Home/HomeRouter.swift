@@ -56,10 +56,9 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
         source.navigationController?.pushViewController(destination, animated: true)
     }
 
-
     // MARK: Passing data
     
     func passDataToSomewhere(source: HomeDataStore, destination: inout MovieTrailerDataStore) {
-//      destination.name = source.name
+        destination.movieDetails = source.movieDetails
     }
 }

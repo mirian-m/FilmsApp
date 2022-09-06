@@ -24,7 +24,7 @@ class SearchResultPresenter: SearchResultPresentationLogic {
     // MARK: Do something
     
     func presentSearchResult(response: SearchResult.GetSearchResult.Response) {
-        let viewModel = SearchResult.GetSearchResult.ViewModel(movieViewModel: convert(model: response.searchedMoviesDetails))
+        let viewModel = SearchResult.GetSearchResult.ViewModel(movieViewModel: response.searchedMoviesDetails.convert())
         viewController?.displaySearchResult(viewModel: viewModel)
     }
     
@@ -32,19 +32,17 @@ class SearchResultPresenter: SearchResultPresentationLogic {
         viewController?.displaySelectedMovie(viewModel: SearchResult.MovieDetail.ViewModel())
     }
     
-    func convert(model: Movies) -> [MovieViewModel] {
-        var movieViewModel = [MovieViewModel]()
-        
-        model.details.forEach { movieDetails in
-            let movieModel = MovieViewModel(
-                title: movieDetails.original_title ?? movieDetails.title ?? "unknown Film",
-                posterUrl: movieDetails.poster_path ?? "",
-                id: movieDetails.id ?? -1)
-            
-            movieViewModel.append(movieModel)
-        }
-        return movieViewModel
-    }
-    
-    
+//    func convert(model: Movies) -> [MovieViewModel] {
+//        var movieViewModel = [MovieViewModel]()
+//
+//        model.details.forEach { movieDetails in
+//            let movieModel = MovieViewModel(
+//                title: movieDetails.original_title ?? movieDetails.title ?? "unknown Film",
+//                posterUrl: movieDetails.poster_path ?? "",
+//                id: movieDetails.id ?? -1)
+//
+//            movieViewModel.append(movieModel)
+//        }
+//        return movieViewModel
+//    }
 }

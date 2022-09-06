@@ -15,12 +15,11 @@ import UIKit
 
 protocol HomeDisplayLogic: AnyObject {
     func displayMovies(viewModel: Home.MovieInfo.ViewModel)
+    func displaySelectedMovie(viewModel: Home.MovieDetail.ViewModel)
 }
 
-//protocol CollectionViewTableViewCelldelegat: AnyObject {
-//    func collectionViewTableViewCellDidTap(cell: MoviesTableViewCell, model: TrailerViewModel)
-//}
 class HomeViewController: BackgroundImageViewControlller, HomeDisplayLogic, CollectionViewTableViewCelldelegat, ProfileViewControllerDelegate {
+    
     
     //  MARK: @IBOutlet
     @IBOutlet weak var personBtn: UIBarButtonItem! {
@@ -38,7 +37,7 @@ class HomeViewController: BackgroundImageViewControlller, HomeDisplayLogic, Coll
     private let headerForSection = ["Trending movies", "Trending tv", "Popular", "Upcoming movies", "Top"]
     private var headerView: Poster?
     private var posterIsSeted = false
-    private var fetchedMoviesDetails: [Home.Movies.Details] = []
+    private var fetchedMoviesDetails: [MovieViewModel] = []
     private var isNavigate: Bool = false
     
     
@@ -88,6 +87,8 @@ class HomeViewController: BackgroundImageViewControlller, HomeDisplayLogic, Coll
     
     private func controllerSetup() {
         tabBarController?.navigationController?.navigationBar.isHidden = false
+//                self.tabBarController?.navigationItem.hidesBackButton = true
+
         tabBarItem.badgeColor = .label
         tabBarItem.image = UIImage(systemName: "house.fill")
         tabBarItem.title = "Home"
@@ -127,16 +128,21 @@ class HomeViewController: BackgroundImageViewControlller, HomeDisplayLogic, Coll
     }
     
     func displayMovies(viewModel: Home.MovieInfo.ViewModel) {
-        guard let movies = viewModel.moviesDetails else { return }
+        let movies = viewModel.moviesViewModel
         self.fetchedMoviesDetails = movies
         DispatchQueue.main.async { [weak self] in
             if !self!.posterIsSeted {
-                guard let randomPosterUrl = viewModel.moviesDetails!.randomElement()?.poster_path else { return }
+                guard let randomPosterUrl = viewModel.moviesViewModel.randomElement()?.imageUrl else { return }
                 self?.headerView?.configure(with: randomPosterUrl)
                 self?.posterIsSeted = true
             }
         }
     }
+    func displaySelectedMovie(viewModel: Home.MovieDetail.ViewModel) {
+        self.isNavigate = true
+        router?.routToTrailerVc(segue: nil)
+    }
+    
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -181,17 +187,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: PROTOCOL FUNC
     
-    func collectionViewTableViewCellDidTap(cell: MoviesTableViewCell, model: TrailerViewModel) {
-        DispatchQueue.main.async { [weak self] in
-//            let vc =  TrailerVideoViewController()
-//            vc.configure(with: model)
-            self?.isNavigate = true
-//            self?.navigationController?.pushViewController(vc, animated: true)
-//                        self?.router?.routToVideoVC(segue: nil)
-        }
+    func collectionViewTableViewCellDidTap(movieId: Int) {
+        interactor?.didTapMovie(requset: Home.MovieDetail.Request(selectedMovieId: movieId))
     }
+
     func backToRootViewController() {
         router?.routeToWelcomePage(segue: nil)
     }
-    
 }

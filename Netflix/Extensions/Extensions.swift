@@ -38,3 +38,19 @@ extension UITextField {
         self.leftViewMode = .always
     }
 }
+
+extension Movies {
+    func convert() -> [MovieViewModel] {
+        var movieViewModel = [MovieViewModel]()
+        
+        self.details.forEach { movieDetails in
+            let movieModel = MovieViewModel(
+                title: movieDetails.original_title ?? movieDetails.title ?? "unknown Film",
+                posterUrl: movieDetails.poster_path ?? "",
+                id: movieDetails.id ?? -1)
+            
+            movieViewModel.append(movieModel)
+        }
+        return movieViewModel
+    }
+}

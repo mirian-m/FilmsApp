@@ -28,7 +28,6 @@ class SearchResultInteractor: SearchResultBusinessLogic, SearchResultDataStore {
     var movieDetails: Details = Details()
     var presenter: SearchResultPresentationLogic?
     var worker: SearchResultWorker?
-    //var name: String = ""
     
     // MARK: Do something
     

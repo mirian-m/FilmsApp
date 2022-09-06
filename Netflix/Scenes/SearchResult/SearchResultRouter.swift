@@ -25,7 +25,7 @@ class SearchResultRouter: NSObject, SearchResultRoutingLogic, SearchResultDataPa
     weak var viewController: SearchResultViewController?
     var dataStore: SearchResultDataStore?
     
-    // MARK: Routing
+    //  MARK: Routing
     
     func routeToTrailerVC(segue: UIStoryboardSegue?) {
         let destinationVC = MovieTrailerViewController()
@@ -34,28 +34,13 @@ class SearchResultRouter: NSObject, SearchResultRoutingLogic, SearchResultDataPa
         navigateToTrailerVC(source: viewController!, destination: destinationVC)
     }
     
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
-    //{
-    //  if let segue = segue {
-    //    let destinationVC = segue.destination as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //  } else {
-    //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-    //  }
-    //}
-    
-    // MARK: Navigation
+    //  MARK: Navigation
     
     func navigateToTrailerVC(source: SearchResultViewController, destination: UIViewController) {
         source.show(destination, sender: nil)
     }
     
-    // MARK: Passing data
+    //  MARK: Passing data
     
     func passDataToTrailerVC(source: SearchResultDataStore, destination: inout MovieTrailerDataStore) {
         destination.movieDetails = source.movieDetails

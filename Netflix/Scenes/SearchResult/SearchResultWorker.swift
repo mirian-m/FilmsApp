@@ -12,9 +12,6 @@
 
 import UIKit
 
-class SearchResultWorker
-{
-  func doSomeWork()
-  {
-  }
+class SearchResultWorker {
+  func doSomeWork() { }
 }

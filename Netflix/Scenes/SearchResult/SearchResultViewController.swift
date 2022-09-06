@@ -17,12 +17,11 @@ protocol SearchResultDisplayLogic: class {
     func displaySelectedMovie(viewModel: SearchResult.MovieDetail.ViewModel)
 }
 
-class SearchResultViewController: UIViewController, SearchResultDisplayLogic {
-    
+class SearchResultViewController: BackgroundImageViewControlller, SearchResultDisplayLogic {
     
     private var searchResultCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3 - 10, height: 200)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3 - 10, height: Constans.heightForRow)
         layout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(SearchCollectionViewcell.self, forCellWithReuseIdentifier: SearchCollectionViewcell.identifier)
@@ -95,15 +94,18 @@ class SearchResultViewController: UIViewController, SearchResultDisplayLogic {
     func displaySelectedMovie(viewModel: SearchResult.MovieDetail.ViewModel) {
         router?.routeToTrailerVC(segue: nil)
     }
-
+    
 }
 
 extension SearchResultViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    //  MARK:- CollectionView DataSource & Delegate Functions
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { moviesViewModel.count }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewcell.identifier, for: indexPath) as? SearchCollectionViewcell else { return UICollectionViewCell() }
-        let posterURL = APIConstants.posterBaseURL + (moviesViewModel[indexPath.row].posterUrl)
+        let posterURL = APIConstants.posterBaseURL + (moviesViewModel[indexPath.row].imageUrl)
         cell.posterImage.getImageFromWeb(by: posterURL)
         return cell
     }
@@ -111,17 +113,5 @@ extension SearchResultViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         interactor?.didTapMovie(requset: SearchResult.MovieDetail.Request(selectedMovieId: moviesViewModel[indexPath.row].id))
-        //        let title = details[indexPath.row].title ?? details[indexPath.row].original_title ?? ""
-        //        let overview = details[indexPath.row].overview
-        //
-        //        APIColler.shared.getMovie(with: title + " trailer") { [weak self](result) in
-        //            switch result {
-        //            case .success(let result):
-        //                self?.delegat.SearchResultViewControllerDidSelet(with: TrailerViewModel(movieTitle: title, overview: overview, youtubeId: result.items[0].id))
-        //            case .failure(let error):
-        //                print(error)
-        //            }
-        //        }
     }
-    
 }

@@ -2,12 +2,11 @@ import UIKit
 import FirebaseCore
 
 protocol CollectionViewTableViewCelldelegat: AnyObject {
-    func collectionViewTableViewCellDidTap(cell: MoviesTableViewCell, model: TrailerViewModel)
+    func collectionViewTableViewCellDidTap(movieId: Int)
 }
 
 class MoviesTableViewCell: UITableViewCell {
     
-//    var moviesCollectionView: MoviesCollectionViewController =  MoviesCollectionViewController(coder: NSCoder())!
     @IBOutlet weak var moviesCollectionView: UICollectionView! {
         didSet {
             moviesCollectionView.dataSource = self
@@ -15,7 +14,7 @@ class MoviesTableViewCell: UITableViewCell {
         }
     }
     
-    public var movies: [Home.Movies.Details] = []
+    public var movies: [MovieViewModel] = []
     weak var delegat: CollectionViewTableViewCelldelegat!
     
     override func layoutSubviews() {
@@ -23,7 +22,7 @@ class MoviesTableViewCell: UITableViewCell {
         moviesCollectionView.backgroundColor = .none
     }
     
-    func updateViewFromModel(movies: [Home.Movies.Details]) {
+    func updateViewFromModel(movies: [MovieViewModel]) {
         DispatchQueue.main.async { [weak self] in
             self?.movies = movies
             self?.movies.shuffle()
@@ -51,7 +50,7 @@ extension MoviesTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
                 withReuseIdentifier: "CollectionViewCell",
                 for: indexPath) as? MovieCollectionViewCell else { return UICollectionViewCell() }
         
-        guard let imageUrl = movies[indexPath.row].poster_path else { return UICollectionViewCell() }
+        let imageUrl = movies[indexPath.row].imageUrl
         let url = APIConstants.posterBaseURL + imageUrl
         
         collectionView.loadImage(by: url)
@@ -64,16 +63,17 @@ extension MoviesTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        let title = (movies[indexPath.row].original_title ?? movies[indexPath.row].title) ?? ""
-        let overview = movies[indexPath.row].overview
+        self.delegat.collectionViewTableViewCellDidTap(movieId: movies[indexPath.row].id)
+//        let title = (movies[indexPath.row].original_title ?? movies[indexPath.row].title) ?? ""
+//        let overview = movies[indexPath.row].overview
         
-        APIColler.shared.getMovie(with: title + "trailer") { result in
-            switch result {
-            case .success(let video):
-                self.delegat.collectionViewTableViewCellDidTap(cell: self, model: TrailerViewModel(movieTitle: title, overview: overview, youtubeId: video.items[0].id))
-            case .failure(let error):
-                print (error)
-            }
-        }
+//        APIColler.shared.getMovie(with: title + "trailer") { result in
+//            switch result {
+//            case .success(let video):
+//                self.delegat.collectionViewTableViewCellDidTap(cell: self, model: TrailerViewModel(movieTitle: title, overview: overview, youtubeId: video.items[0].id))
+//            case .failure(let error):
+//                print (error)
+//            }
+//        }
     }
 }
