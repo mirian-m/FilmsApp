@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VkQ-9E-IBg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pt5-sb-ud0">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -123,24 +123,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G24-zP-26X">
-                                <rect key="frame" x="87" y="220" width="240" height="421"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ex-jw-h5w">
+                                <rect key="frame" x="20" y="94" width="374" height="128"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BCd-Zr-1tq">
-                                        <rect key="frame" x="56" y="56" width="42" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="film dasdad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Arm-ln-Yap">
+                                        <rect key="frame" x="180.5" y="28" width="88.5" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <viewLayoutGuide key="contentLayoutGuide" id="w29-y7-Hwm"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="dDv-49-zuK"/>
-                            </scrollView>
+                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                <constraints>
+                                    <constraint firstItem="Arm-ln-Yap" firstAttribute="top" secondItem="4Ex-jw-h5w" secondAttribute="top" constant="28" id="1Y5-Tp-wYw"/>
+                                    <constraint firstAttribute="trailing" secondItem="Arm-ln-Yap" secondAttribute="trailing" constant="105" id="3br-Wb-bua"/>
+                                    <constraint firstAttribute="height" constant="128" id="BQ5-8j-fvg"/>
+                                    <constraint firstAttribute="bottom" secondItem="Arm-ln-Yap" secondAttribute="bottom" constant="79" id="x1E-la-b56"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aeh-uT-q4p">
+                                <rect key="frame" x="20" y="64" width="157" height="244"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="244" id="CCB-FB-yYk"/>
+                                    <constraint firstAttribute="width" constant="157" id="aLB-Iw-VhQ"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WW3-cI-o2k"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="WW3-cI-o2k" firstAttribute="trailing" secondItem="4Ex-jw-h5w" secondAttribute="trailing" constant="20" id="3wH-SG-JT2"/>
+                            <constraint firstItem="aeh-uT-q4p" firstAttribute="leading" secondItem="WW3-cI-o2k" secondAttribute="leading" constant="20" id="6bL-Zu-NQg"/>
+                            <constraint firstItem="4Ex-jw-h5w" firstAttribute="leading" secondItem="WW3-cI-o2k" secondAttribute="leading" constant="20" id="AIE-xT-UDt"/>
+                            <constraint firstItem="4Ex-jw-h5w" firstAttribute="top" secondItem="WW3-cI-o2k" secondAttribute="top" constant="50" id="R67-Cj-qn6"/>
+                            <constraint firstItem="aeh-uT-q4p" firstAttribute="top" secondItem="WW3-cI-o2k" secondAttribute="top" constant="20" id="edz-n2-opt"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aSp-Qg-Rvl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -183,22 +200,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TxW-OB-5iT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2286.9565217391305" y="826.33928571428567"/>
-        </scene>
-        <!--Title-->
-        <scene sceneID="FWv-Vb-0zL">
-            <objects>
-                <viewController storyboardIdentifier="FourthViewController" id="dib-71-m1g" customClass="WatchedListViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fJ7-sR-t7I">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="EYY-pP-G0T"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Title" leftItemsSupplementBackButton="YES" id="xBn-sL-5UL"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ixs-sb-mwo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5941" y="826"/>
         </scene>
         <!--Registration View Controller-->
         <scene sceneID="7Ha-BA-uq7">
@@ -364,12 +365,28 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="dib-71-m1g" kind="relationship" relationship="rootViewController" id="vRr-z9-Wpc"/>
+                        <segue destination="Hfb-yw-zcv" kind="relationship" relationship="rootViewController" id="dYU-Sq-9hP"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ixc-jk-wxf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5086.9565217391309" y="825.66964285714278"/>
+        </scene>
+        <!--Watched List View Controller-->
+        <scene sceneID="1iC-90-dsV">
+            <objects>
+                <viewController storyboardIdentifier="WatchedListViewController" id="Hfb-yw-zcv" customClass="WatchedListViewController" customModule="Netflix" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="18K-jh-Xky">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="7Qa-bP-3ue"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="MNI-L5-ape"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QBQ-e8-9sP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5980" y="826"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pSs-2O-3E5">
@@ -398,6 +415,9 @@
         <image name="play.rectangle" catalog="system" width="128" height="93"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

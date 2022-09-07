@@ -18,11 +18,11 @@ protocol HomeBusinessLogic {
 }
 
 protocol HomeDataStore {
-    var movieDetails: Details { get set }
+    var selectedMovieDetails: MovieDetails { get set }
 }
 
 class HomeInteractor: HomeBusinessLogic, HomeDataStore {
-    var movieDetails: Details = Details()
+    var selectedMovieDetails: MovieDetails = MovieDetails()
     var presenter: HomePresentationLogic?
     var worker: APIWoker?
     private var fetchedMovies: Movies = Movies(details: [])
@@ -46,7 +46,7 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore {
     }
 
     func didTapMovie(requset: Home.MovieDetail.Request) {
-        movieDetails = fetchedMovies.details.filter { $0.id! == requset.selectedMovieId }[0]
+        selectedMovieDetails = fetchedMovies.details.filter { $0.id! == requset.selectedMovieId }[0]
         presenter?.presentSelectedMovie(response: Home.MovieDetail.Response())
     }
 }

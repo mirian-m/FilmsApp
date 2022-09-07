@@ -19,22 +19,22 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
             self?.delegate?.backToRootViewController()
         }
     }
-
+    
     static let identifier = "ProfileViewController"
     
-    var isAuthorized: Bool? = true
+    //    var isAuthorized: Bool? = true
     weak var delegate: ProfileViewControllerDelegate?
     
-//    private lazy var profileBackground: UIImageView = {
-//        let backgroundImage = UIImageView()
-//        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
-//        let layer = CAGradientLayer()
-//        layer.frame = self.view.bounds
-//        layer.colors = [UIColor.blue.cgColor, UIColor.purple.cgColor]
-//        backgroundImage.layer.addSublayer(layer)
-//        self.view.addSubview(backgroundImage)
-//        return backgroundImage
-//    }()
+    //    private lazy var profileBackground: UIImageView = {
+    //        let backgroundImage = UIImageView()
+    //        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
+    //        let layer = CAGradientLayer()
+    //        layer.frame = self.view.bounds
+    //        layer.colors = [UIColor.blue.cgColor, UIColor.purple.cgColor]
+    //        backgroundImage.layer.addSublayer(layer)
+    //        self.view.addSubview(backgroundImage)
+    //        return backgroundImage
+    //    }()
     
     private lazy var cancelBtn: UIButton = {
         let btn = UIButton()
@@ -76,7 +76,7 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
         stack.axis = .vertical
         stack.distribution = .fillEqually
         stack.addArrangedSubview(profileBtn)
-        stack.addArrangedSubview(favouriteFilmsBtn)
+//        stack.addArrangedSubview(favouriteFilmsBtn)
         stack.addArrangedSubview(settingBtn)
         stack.addArrangedSubview(signOut)
         stack.spacing = 0
@@ -92,12 +92,12 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
         return btn
     }()
     
-    private lazy var favouriteFilmsBtn: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("Favourite Films List", for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        return btn
-    }()
+//    private lazy var favouriteFilmsBtn: UIButton = {
+//        let btn = UIButton()
+//        btn.setTitle("Favourite Films List", for: .normal)
+//        btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+//        return btn
+//    }()
     
     private lazy var settingBtn: UIButton = {
         let btn = UIButton()
@@ -133,7 +133,8 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
         setButtonsIcon()
     }
     
-    // Cancel Button Action
+    // MARK:- Cancel Button Action
+    
     @objc private func cancelAction() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -146,7 +147,7 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
     
     func setButtonsIcon() {
         profileBtn.setButton(image: getConfigImage("person.fill"))
-        favouriteFilmsBtn.setButton(image: getConfigImage("star.fill"))
+//        favouriteFilmsBtn.setButton(image: getConfigImage("star.fill"))
         settingBtn.setButton(image: getConfigImage("gearshape.fill"))
         signOut.setButton(image: getConfigImage("arrowshape.turn.up.right"))
     }
@@ -159,7 +160,7 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
         return image!
     }
     
-//  MARK: Constraints
+    //  MARK: Constraints
     func adjustConstraints() {
         
         let cancelBtnConstraints = [
@@ -190,9 +191,9 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
             profileBtn.widthAnchor.constraint(equalTo: stackView.widthAnchor)
         ]
         
-        let favouriteFilmsConstraints = [
-            favouriteFilmsBtn.widthAnchor.constraint(equalTo: stackView.widthAnchor)
-        ]
+//        let favouriteFilmsConstraints = [
+//            favouriteFilmsBtn.widthAnchor.constraint(equalTo: stackView.widthAnchor)
+//        ]
         
         let settingBtnConstraints = [
             settingBtn.widthAnchor.constraint(equalTo: stackView.widthAnchor)
@@ -202,12 +203,13 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
             signOut.widthAnchor.constraint(equalTo: stackView.widthAnchor)
         ]
         
-        // Activate contraints
+        //  MARK:- Activate contraints
+        
         NSLayoutConstraint.activate(cancelBtnConstraints)
         NSLayoutConstraint.activate(profileImgConstraints)
         NSLayoutConstraint.activate(nameLbConstraints)
         NSLayoutConstraint.activate(stackViewConstraints)
-        NSLayoutConstraint.activate(favouriteFilmsConstraints)
+//        NSLayoutConstraint.activate(favouriteFilmsConstraints)
         NSLayoutConstraint.activate(profileConstraints)
         NSLayoutConstraint.activate(settingBtnConstraints)
         NSLayoutConstraint.activate(signOutConstraints)

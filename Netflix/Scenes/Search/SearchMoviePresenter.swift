@@ -14,7 +14,7 @@ import UIKit
 
 protocol SearchMoviePresentationLogic {
     func presenMovies(response: SearchMovie.GetMovies.Response)
-    func presentSelectedMovie(response: SearchMovie.MovieDetail.Response)
+    func presentSelectedMovie(response: SearchMovie.GetSelectedMovie.Response)
     func presentSearchedMovies(response: SearchMovie.GetSearchedMovies.Response)
 }
 
@@ -25,32 +25,17 @@ class SearchMoviePresenter: SearchMoviePresentationLogic {
     func presenMovies(response: SearchMovie.GetMovies.Response) {
         
         //    TODO: - Do error hendiling
-        let viewModel = SearchMovie.GetMovies.ViewModel(movie: convert(model: response.movies!))
+        let viewModel = SearchMovie.GetMovies.ViewModel(movie: response.movies?.convert() ?? [])
         viewController?.displayMovies(viewModel: viewModel)
     }
     
-    func presentSelectedMovie(response: SearchMovie.MovieDetail.Response) {
-        viewController?.displaySelectedMovie(vieModel: SearchMovie.MovieDetail.ViewModel())
+    func presentSelectedMovie(response: SearchMovie.GetSelectedMovie.Response) {
+        viewController?.displaySelectedMovie(vieModel: SearchMovie.GetSelectedMovie.ViewModel())
     }
     
     func presentSearchedMovies(response: SearchMovie.GetSearchedMovies.Response) {
         //    TODO: - Do error hendiling
-        let viewModel = SearchMovie.GetSearchedMovies.ViewModel(movieViewModel: (response.searchedMovies?.convert())!)
+        let viewModel = SearchMovie.GetSearchedMovies.ViewModel(movieViewModel: (response.searchedMovies?.convert()) ?? [])
         viewController?.displaySearchedMovies(viewModel: viewModel)
-    }
-    
-//  MARK: VIEWMODEL CONVERT FUNCTION
-    func convert(model: Movies) -> [MovieViewModel] {
-        var movieViewModel = [MovieViewModel]()
-        
-        model.details.forEach { movieDetails in
-            let movieModel = MovieViewModel(
-                title: movieDetails.original_title ?? movieDetails.title ?? "unknown Film",
-                posterUrl: movieDetails.poster_path ?? "",
-                id: movieDetails.id ?? -1)
-            
-            movieViewModel.append(movieModel)
-        }
-        return movieViewModel
     }
 }

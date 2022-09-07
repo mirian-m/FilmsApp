@@ -17,6 +17,7 @@ class MovieCell: UITableViewCell {
         title.translatesAutoresizingMaskIntoConstraints = false
         title.numberOfLines = 0
         title.textColor = UIColor.white
+        title.font = title.font.withSize(13)
         return title
     }()
     
@@ -69,7 +70,6 @@ class MovieCell: UITableViewCell {
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(posterImageConstraints)
     }
-    
     
     func configure(with model: MovieViewModel) {
         let url = APIConstants.posterBaseURL + model.imageUrl

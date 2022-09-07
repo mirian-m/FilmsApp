@@ -14,7 +14,7 @@ import UIKit
 
 protocol SearchMovieDisplayLogic: class {
     func displayMovies(viewModel: SearchMovie.GetMovies.ViewModel)
-    func displaySelectedMovie(vieModel: SearchMovie.MovieDetail.ViewModel)
+    func displaySelectedMovie(vieModel: SearchMovie.GetSelectedMovie.ViewModel)
     func displaySearchedMovies(viewModel: SearchMovie.GetSearchedMovies.ViewModel)
 }
 
@@ -109,7 +109,7 @@ class SearchMovieViewController: BackgroundImageViewControlller, SearchMovieDisp
         }
     }
     
-    func displaySelectedMovie(vieModel: SearchMovie.MovieDetail.ViewModel) {
+    func displaySelectedMovie(vieModel: SearchMovie.GetSelectedMovie.ViewModel) {
         router?.routeToTrailerVC(segue: nil)
     }
     
@@ -139,7 +139,7 @@ extension SearchMovieViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        interactor?.didTapMovie(requset: SearchMovie.MovieDetail.Request(selectedMovieId: moviesViewModel[indexPath.row].id))
+        interactor?.didTapMovie(requset: SearchMovie.GetSelectedMovie.Request(selectedMovieId: moviesViewModel[indexPath.row].id))
     }
 }
 extension SearchMovieViewController: UISearchResultsUpdating {

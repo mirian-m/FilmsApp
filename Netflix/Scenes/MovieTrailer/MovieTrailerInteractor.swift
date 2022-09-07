@@ -17,13 +17,13 @@ protocol MovieTrailerBusinessLogic {
 }
 
 protocol MovieTrailerDataStore {
-  var movieDetails: Details { get set }
+  var movieDetails: MovieDetails { get set }
 }
 
 class MovieTrailerInteractor: MovieTrailerBusinessLogic, MovieTrailerDataStore {
   var presenter: MovieTrailerPresentationLogic?
   var worker: APIWoker?
-  var movieDetails: Details = Details()
+  var movieDetails: MovieDetails = MovieDetails()
   
   // MARK: Do something
   

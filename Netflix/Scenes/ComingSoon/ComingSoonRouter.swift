@@ -42,6 +42,6 @@ class ComingSoonRouter: NSObject, ComingSoonRoutingLogic, ComingSoonDataPassing 
     // MARK: Passing data
     
     func passDataToSomewhere(source: ComingSoonDataStore, destination: inout MovieTrailerDataStore) {
-        destination.movieDetails = source.movieDetails
+        destination.movieDetails = source.selectedMovieDetails
     }
 }

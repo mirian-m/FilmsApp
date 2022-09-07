@@ -14,18 +14,18 @@ import UIKit
 
 protocol SearchResultBusinessLogic {
     func getSearchResult(request: SearchResult.GetSearchResult.Request)
-    func didTapMovie(requset: SearchResult.MovieDetail.Request)
+    func didTapMovie(requset: SearchResult.GetSelectedMovie.Request)
 
 }
 
 protocol SearchResultDataStore {
-    var movieDetails: Details { get set }
+    var selectedMovieDetails: MovieDetails { get set }
     var searchedMovies: Movies { get set }
 }
 
 class SearchResultInteractor: SearchResultBusinessLogic, SearchResultDataStore {
     var searchedMovies = Movies(details: [])
-    var movieDetails: Details = Details()
+    var selectedMovieDetails: MovieDetails = MovieDetails()
     var presenter: SearchResultPresentationLogic?
     var worker: SearchResultWorker?
     
@@ -36,9 +36,9 @@ class SearchResultInteractor: SearchResultBusinessLogic, SearchResultDataStore {
         presenter?.presentSearchResult(response: response)
     }
     
-    func didTapMovie(requset: SearchResult.MovieDetail.Request) {
-        movieDetails = searchedMovies.details.filter { $0.id! == requset.selectedMovieId }[0]
-        presenter?.presentSelectedMovie(response: SearchResult.MovieDetail.Response())
+    func didTapMovie(requset: SearchResult.GetSelectedMovie.Request) {
+        selectedMovieDetails = searchedMovies.details.filter { $0.id! == requset.selectedMovieId }[0]
+        presenter?.presentSelectedMovie(response: SearchResult.GetSelectedMovie.Response())
 
     }
 }

@@ -58,7 +58,7 @@ class SearchMovieRouter: NSObject, SearchMovieRoutingLogic, SearchMovieDataPassi
     }
 
     func passDataToSomewhere(source: SearchMovieDataStore, destination: inout MovieTrailerDataStore) {
-        destination.movieDetails = source.movieDetails
+        destination.movieDetails = source.selectedMovieDetails
     }
     
     //func routeToSomewhere(segue: UIStoryboardSegue?)

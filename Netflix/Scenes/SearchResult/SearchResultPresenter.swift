@@ -14,7 +14,7 @@ import UIKit
 
 protocol SearchResultPresentationLogic {
     func presentSearchResult(response: SearchResult.GetSearchResult.Response)
-    func presentSelectedMovie(response: SearchResult.MovieDetail.Response)
+    func presentSelectedMovie(response: SearchResult.GetSelectedMovie.Response)
 }
 
 class SearchResultPresenter: SearchResultPresentationLogic {
@@ -24,25 +24,11 @@ class SearchResultPresenter: SearchResultPresentationLogic {
     // MARK: Do something
     
     func presentSearchResult(response: SearchResult.GetSearchResult.Response) {
-        let viewModel = SearchResult.GetSearchResult.ViewModel(movieViewModel: response.searchedMoviesDetails.convert())
+        let viewModel = SearchResult.GetSearchResult.ViewModel(movieViewModel: response.searchedMoviesDetails?.convert() ?? [])
         viewController?.displaySearchResult(viewModel: viewModel)
     }
     
-    func presentSelectedMovie(response: SearchResult.MovieDetail.Response) {
-        viewController?.displaySelectedMovie(viewModel: SearchResult.MovieDetail.ViewModel())
+    func presentSelectedMovie(response: SearchResult.GetSelectedMovie.Response) {
+        viewController?.displaySelectedMovie(viewModel: SearchResult.GetSelectedMovie.ViewModel())
     }
-    
-//    func convert(model: Movies) -> [MovieViewModel] {
-//        var movieViewModel = [MovieViewModel]()
-//
-//        model.details.forEach { movieDetails in
-//            let movieModel = MovieViewModel(
-//                title: movieDetails.original_title ?? movieDetails.title ?? "unknown Film",
-//                posterUrl: movieDetails.poster_path ?? "",
-//                id: movieDetails.id ?? -1)
-//
-//            movieViewModel.append(movieModel)
-//        }
-//        return movieViewModel
-//    }
 }

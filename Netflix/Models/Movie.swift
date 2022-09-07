@@ -5,11 +5,30 @@ struct Movies: Decodable {
     enum CodingKeys: String, CodingKey {
         case details = "results"
     }
-    var details: [Details]
-//    var errorMessage: String?
+    var details: [MovieDetails]
 }
 
-struct Details: Decodable {
+struct MovieDetails: Decodable {
+    var genres: [Genres]?
+    var id: Int!
+    var original_language: String?
+    var original_title: String?
+    var overview: String?
+    var popularity: Double?
+    var poster_path: String?
+    var release_date: String?
+    var runtime: Int?
+    var title: String?
+    var vote_average: Double?
+    var vote_count: Int?
+}
+
+struct Genres: Decodable {
+    var name: String?
+}
+
+
+
 //    var id: String
 //    var rank: String
 //    var name: String
@@ -32,20 +51,9 @@ struct Details: Decodable {
 //         case imDbRating
 //         case imDbRatingCount
 //     }
-     
+
 //    enum CodingKeys: String, CodingKey {
 //        case poster_path, id, overview, release_date
 //        case original_name = "original_title"
 //        case name = "title"
 //    }
-        var id: Int!
-        var original_language: String?
-        var original_title: String?
-        var overview: String?
-        var popularity: Double?
-        var poster_path: String?
-        var release_date: String?
-        var title: String?
-        var vote_average: Double?
-        var vote_count: Int?
-}

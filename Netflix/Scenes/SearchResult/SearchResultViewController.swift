@@ -14,10 +14,10 @@ import UIKit
 
 protocol SearchResultDisplayLogic: class {
     func displaySearchResult(viewModel: SearchResult.GetSearchResult.ViewModel)
-    func displaySelectedMovie(viewModel: SearchResult.MovieDetail.ViewModel)
+    func displaySelectedMovie(viewModel: SearchResult.GetSelectedMovie.ViewModel)
 }
 
-class SearchResultViewController: BackgroundImageViewControlller, SearchResultDisplayLogic {
+class SearchResultViewController: BackgroundImageViewControlller {
     
     private var searchResultCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -86,15 +86,6 @@ class SearchResultViewController: BackgroundImageViewControlller, SearchResultDi
         let request = SearchResult.GetSearchResult.Request()
         interactor?.getSearchResult(request: request)
     }
-    
-    func displaySearchResult(viewModel: SearchResult.GetSearchResult.ViewModel) {
-        self.moviesViewModel = viewModel.movieViewModel
-    }
-    
-    func displaySelectedMovie(viewModel: SearchResult.MovieDetail.ViewModel) {
-        router?.routeToTrailerVC(segue: nil)
-    }
-    
 }
 
 extension SearchResultViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -112,6 +103,18 @@ extension SearchResultViewController: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        interactor?.didTapMovie(requset: SearchResult.MovieDetail.Request(selectedMovieId: moviesViewModel[indexPath.row].id))
+        interactor?.didTapMovie(requset: SearchResult.GetSelectedMovie.Request(selectedMovieId: moviesViewModel[indexPath.row].id))
     }
+}
+//  MARK:- Display logic Protocol Functions
+
+extension SearchResultViewController: SearchResultDisplayLogic  {
+    func displaySearchResult(viewModel: SearchResult.GetSearchResult.ViewModel) {
+        self.moviesViewModel = viewModel.movieViewModel
+    }
+    
+    func displaySelectedMovie(viewModel: SearchResult.GetSelectedMovie.ViewModel) {
+        router?.routeToTrailerVC(segue: nil)
+    }
+    
 }

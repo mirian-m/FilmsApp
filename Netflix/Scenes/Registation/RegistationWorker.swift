@@ -47,12 +47,12 @@ class RegistationWorker {
         Auth.auth().createUser(withEmail: userData.email, password: userData.password) { dataResult, error in
             if  error == nil  {
                 let ref = Database.database().reference(fromURL: APIConstants.firebaseDataBaseReferencUrl)
-                ref.child("Users").child(dataResult!.user.uid).setValue(
+                ref.child(RegistrationField.users.rawValue).child(dataResult!.user.uid).setValue(
                     [
-                        "firstName": userData.firstName,
-                        "lastName": userData.lastName,
-                        "email": userData.email,
-                        "movies": userData.seenMoviesId
+                        RegistrationField.firstName.rawValue: userData.firstName,
+                        RegistrationField.lastName.rawValue: userData.lastName,
+                        RegistrationField.email.rawValue: userData.email,
+                        RegistrationField.watchedMovies.rawValue: userData.seenMoviesId
                     ])
             }
             complition(error?.localizedDescription)

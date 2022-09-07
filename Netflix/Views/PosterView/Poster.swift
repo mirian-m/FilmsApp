@@ -56,16 +56,16 @@ class Poster: UIView {
             downloadButton.widthAnchor.constraint(equalToConstant: 100)
         ]
         
-//        let posterViewConstraint = [
-//            posterView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-//            posterView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-//            posterView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-//            posterView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-//        ]
+        //        let posterViewConstraint = [
+        //            posterView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+        //            posterView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+        //            posterView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+        //            posterView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        //        ]
         
         NSLayoutConstraint.activate(playButtonConstraints)
         NSLayoutConstraint.activate(downloadButtonConstraint)
-//        NSLayoutConstraint.activate(posterViewConstraint)
+        //        NSLayoutConstraint.activate(posterViewConstraint)
     }
     
     override func layoutSubviews() {

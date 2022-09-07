@@ -59,6 +59,6 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
     // MARK: Passing data
     
     func passDataToSomewhere(source: HomeDataStore, destination: inout MovieTrailerDataStore) {
-        destination.movieDetails = source.movieDetails
+        destination.movieDetails = source.selectedMovieDetails
     }
 }

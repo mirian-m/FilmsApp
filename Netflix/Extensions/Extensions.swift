@@ -44,13 +44,19 @@ extension Movies {
         var movieViewModel = [MovieViewModel]()
         
         self.details.forEach { movieDetails in
-            let movieModel = MovieViewModel(
-                title: movieDetails.original_title ?? movieDetails.title ?? "unknown Film",
-                posterUrl: movieDetails.poster_path ?? "",
-                id: movieDetails.id ?? -1)
-            
+            let movieModel = MovieViewModel(with: movieDetails)
             movieViewModel.append(movieModel)
         }
         return movieViewModel
+    }
+}
+
+extension Double {
+    mutating func roundingNumber(at decimal: Int) {
+        var  m = 1.0
+        for _ in 1...decimal {
+            m *= 10
+        }
+        self = (self * m).rounded() / m
     }
 }

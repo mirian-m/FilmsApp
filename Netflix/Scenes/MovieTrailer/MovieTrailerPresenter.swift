@@ -22,7 +22,7 @@ class MovieTrailerPresenter: MovieTrailerPresentationLogic {
   // MARK: Do something
   
   func presentMovieTrailer(response: MovieTrailer.GetTrailer.Response) {
-    let trailerViewModel = TrailerViewModel(movieTitle: response.title, overview: response.overView, youtubeId: response.youtubeId!)
+    let trailerViewModel = TrailerViewModel(movieTitle: response.title, overview: response.overView, youtubeId: response.youtubeId ?? VideoId(kind: "", videoId: ""))
     let viewModel = MovieTrailer.GetTrailer.ViewModel(trailer: trailerViewModel)
     viewController?.displayMovieTrailer(viewModel: viewModel)
   }

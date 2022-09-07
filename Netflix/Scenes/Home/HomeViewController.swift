@@ -104,6 +104,7 @@ class HomeViewController: BackgroundImageViewControlller, HomeDisplayLogic, Coll
     //    MARK:- Navigation Item Set Func
     
     private func setNavBarItem() {
+        title = "Home"
         var image = UIImage(named: "Netflix-new")
         image = image?.withRenderingMode(.alwaysOriginal)
         
@@ -114,9 +115,9 @@ class HomeViewController: BackgroundImageViewControlller, HomeDisplayLogic, Coll
                                                renderingMode: .alwaysOriginal),
                             style: .done, target: self, action: #selector(presentProfile)),
             
-            UIBarButtonItem(image: UIImage(systemName: "play.rectangle")?
-                                .withTintColor(UIColor(named: "CustomColor")!,
-                                               renderingMode: .alwaysOriginal), style: .done, target: self, action: nil)
+//            UIBarButtonItem(image: UIImage(systemName: "play.rectangle")?
+//                                .withTintColor(UIColor(named: "CustomColor")!,
+//                                               renderingMode: .alwaysOriginal), style: .done, target: self, action: nil)
         ]
         tabBarController?.navigationController?.navigationBar.tintColor = .white
     }

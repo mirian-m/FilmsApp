@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 class APIWoker {
-    
+    static var shared = APIWoker()
+
     func fetchMoviesDetails<T: Decodable>(url: String, completion: @escaping (Result<T, APICollerError>) -> Void) {
         guard let url = URL(string: url) else { return }
         URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in

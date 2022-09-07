@@ -1,7 +1,7 @@
 import Foundation
 
 struct MovieViewModel {
-    var id: Int!
+    var id: Int
     var title: String
     var imageUrl: String
     
@@ -10,9 +10,11 @@ struct MovieViewModel {
         self.title = title
         self.imageUrl = posterUrl
     }
-    init() {
-        self.title = ""
-        self.imageUrl = ""
+    
+    init(with model: MovieDetails) {
+        self.id = model.id
+        self.title = model.title ?? model.original_title ?? ""
+        self.imageUrl = model.poster_path ?? ""
     }
 }
 
