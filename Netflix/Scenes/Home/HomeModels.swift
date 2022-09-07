@@ -48,7 +48,7 @@ enum Home {
         }
     }
     
-    enum MovieDetail {
+    enum GetSelectedMovie {
         struct Request{
             var selectedMovieId: Int
         }

@@ -17,7 +17,7 @@ protocol SearchResultPresentationLogic {
     func presentSelectedMovie(response: SearchResult.GetSelectedMovie.Response)
 }
 
-class SearchResultPresenter: SearchResultPresentationLogic {
+final class SearchResultPresenter: SearchResultPresentationLogic {
     
     weak var viewController: SearchResultDisplayLogic?
     

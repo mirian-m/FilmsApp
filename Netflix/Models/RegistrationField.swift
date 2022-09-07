@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum RegistrationField: String {
-    case users = "Users"
-    case firstName
-    case lastName
-    case email
-    case watchedMovies
+enum RegistrationField {
+    static var users = "Users"
+    static var firstName = "firstName"
+    static var lastName = "lastName"
+    static var email = "email"
+    static var watchedMovies = "watchedMovies"
 }

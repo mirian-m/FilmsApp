@@ -14,10 +14,10 @@ import UIKit
 
 protocol ComingSoonDisplayLogic: AnyObject {
     func displayUpcomingMovies(viewModel: ComingSoon.GetUpcomingMovies.ViewModel)
-    func displaySelectedMovie(viewModel: ComingSoon.MovieDetail.ViewModel)
+    func displaySelectedMovie(viewModel: ComingSoon.GetSelectedMovie.ViewModel)
 }
 
-class ComingSoonViewController: BackgroundImageViewControlller, ComingSoonDisplayLogic {
+final class ComingSoonViewController: BackgroundImageViewControlller, ComingSoonDisplayLogic {
     
     
     private var moviesViewModel = [MovieViewModel]()
@@ -92,12 +92,10 @@ class ComingSoonViewController: BackgroundImageViewControlller, ComingSoonDispla
     //    MARK:- Display Functions
     func displayUpcomingMovies(viewModel: ComingSoon.GetUpcomingMovies.ViewModel) {
         self.moviesViewModel = viewModel.movie
-        DispatchQueue.main.async { [weak self] in
-            self?.upcomingMoviesTableView.reloadData()
-        }
+        self.upcomingMoviesTableView.reloadData()
     }
     
-    func displaySelectedMovie(viewModel: ComingSoon.MovieDetail.ViewModel) {
+    func displaySelectedMovie(viewModel: ComingSoon.GetSelectedMovie.ViewModel) {
         router?.routeToTrailerVC(segue: nil)
     }
 }
@@ -117,7 +115,7 @@ extension ComingSoonViewController: UITableViewDataSource, UITableViewDelegate  
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        interactor?.didTapMovie(requset: ComingSoon.MovieDetail.Request(selectedMovieId: moviesViewModel[indexPath.row].id))
+        interactor?.didTapMovie(requset: ComingSoon.GetSelectedMovie.Request(selectedMovieId: moviesViewModel[indexPath.row].id))
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { Constans.heightForRow }

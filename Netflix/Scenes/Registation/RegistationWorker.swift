@@ -14,7 +14,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class RegistationWorker {
+final class RegistationWorker {
     
     func confirmPassword(_ confirmedPassword: String, _ password: String) -> Bool {
         return confirmedPassword == password
@@ -47,12 +47,12 @@ class RegistationWorker {
         Auth.auth().createUser(withEmail: userData.email, password: userData.password) { dataResult, error in
             if  error == nil  {
                 let ref = Database.database().reference(fromURL: APIConstants.firebaseDataBaseReferencUrl)
-                ref.child(RegistrationField.users.rawValue).child(dataResult!.user.uid).setValue(
+                ref.child(RegistrationField.users).child(dataResult!.user.uid).setValue(
                     [
-                        RegistrationField.firstName.rawValue: userData.firstName,
-                        RegistrationField.lastName.rawValue: userData.lastName,
-                        RegistrationField.email.rawValue: userData.email,
-                        RegistrationField.watchedMovies.rawValue: userData.seenMoviesId
+                        RegistrationField.firstName: userData.firstName,
+                        RegistrationField.lastName: userData.lastName,
+                        RegistrationField.email: userData.email,
+                        RegistrationField.watchedMovies: userData.seenMoviesId
                     ])
             }
             complition(error?.localizedDescription)

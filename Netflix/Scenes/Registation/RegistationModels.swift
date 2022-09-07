@@ -11,6 +11,7 @@
 //
 
 import UIKit
+// FIXME: - Do beter logic
 
 enum Registation {
     

@@ -12,9 +12,6 @@
 
 import UIKit
 
-class HomeWorker
-{
-  func fetchMovies() {
-    
-  }
+class HomeWorker {
+  func fetchMovies() { }
 }

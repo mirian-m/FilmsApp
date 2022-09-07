@@ -20,15 +20,14 @@ protocol RegistationDataPassing {
     var dataStore: RegistationDataStore? { get }
 }
 
-class RegistationRouter: NSObject, RegistationRoutingLogic, RegistationDataPassing {
+final class RegistationRouter: NSObject, RegistationRoutingLogic, RegistationDataPassing {
     weak var viewController: RegistrationViewController?
     var dataStore: RegistationDataStore?
     
     // MARK: Routing
     
     func routeToHomeVC(segue: UIStoryboardSegue?) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let destinationVC = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else { return }
+        guard let destinationVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else { return }
         navigateToHomeVC(source: viewController!, destination: destinationVC)
     }
     

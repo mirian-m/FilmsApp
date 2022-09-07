@@ -14,10 +14,10 @@ import UIKit
 
 protocol ComingSoonPresentationLogic {
     func presentUpcomingMovies(response: ComingSoon.GetUpcomingMovies.Response)
-    func presentSelectedMovie(response: ComingSoon.MovieDetail.Response)
+    func presentSelectedMovie(response: ComingSoon.GetSelectedMovie.Response)
 }
 
-class ComingSoonPresenter: ComingSoonPresentationLogic {
+final class ComingSoonPresenter: ComingSoonPresentationLogic {
     
     weak var viewController: ComingSoonDisplayLogic?
     
@@ -28,8 +28,8 @@ class ComingSoonPresenter: ComingSoonPresentationLogic {
         viewController?.displayUpcomingMovies(viewModel: viewModel)
     }
 
-    func presentSelectedMovie(response: ComingSoon.MovieDetail.Response) {
-        viewController?.displaySelectedMovie(viewModel: ComingSoon.MovieDetail.ViewModel())
+    func presentSelectedMovie(response: ComingSoon.GetSelectedMovie.Response) {
+        viewController?.displaySelectedMovie(viewModel: ComingSoon.GetSelectedMovie.ViewModel())
     }
 
 }

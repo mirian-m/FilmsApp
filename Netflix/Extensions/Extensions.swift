@@ -39,18 +39,6 @@ extension UITextField {
     }
 }
 
-extension Movies {
-    func convert() -> [MovieViewModel] {
-        var movieViewModel = [MovieViewModel]()
-        
-        self.details.forEach { movieDetails in
-            let movieModel = MovieViewModel(with: movieDetails)
-            movieViewModel.append(movieModel)
-        }
-        return movieViewModel
-    }
-}
-
 extension Double {
     mutating func roundingNumber(at decimal: Int) {
         var  m = 1.0

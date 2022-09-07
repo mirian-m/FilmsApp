@@ -41,9 +41,11 @@ extension WatchedListInteractor: WatchedListBusinessLogic {
     func getWatchedMovies(request: WatchedList.GetWatchedMovies.Request) {
         worker = WatchedListWorke()
         worker?.fetchWatchedMovies(compilition: { favouriteMovies in
-            self.movieDetail = favouriteMovies
-            let response = WatchedList.GetWatchedMovies.Response(error: nil, movies: favouriteMovies)
-            self.presenter?.presentWatchedMovies(response: response)
+            DispatchQueue.main.async { [weak self] in
+                self?.movieDetail = favouriteMovies
+                let response = WatchedList.GetWatchedMovies.Response(error: nil, movies: favouriteMovies)
+                self?.presenter?.presentWatchedMovies(response: response)
+            }
         })
     }
 

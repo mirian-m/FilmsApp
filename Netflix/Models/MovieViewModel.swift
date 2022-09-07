@@ -11,10 +11,10 @@ struct MovieViewModel {
         self.imageUrl = posterUrl
     }
     
+    //  MARK:- Initializer With model
     init(with model: MovieDetails) {
-        self.id = model.id
-        self.title = model.title ?? model.original_title ?? ""
-        self.imageUrl = model.poster_path ?? ""
+        self.init(title: model.title ?? model.original_title ?? "", posterUrl: model.poster_path ?? "", id: model.id)
     }
+    
 }
 

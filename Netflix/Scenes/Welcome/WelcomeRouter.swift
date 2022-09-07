@@ -20,10 +20,15 @@ protocol WelcomeDataPassing {
     var dataStore: WelcomeDataStore? { get }
 }
 
-class WelcomeRouter: NSObject, WelcomeRoutingLogic, WelcomeDataPassing {
+class WelcomeRouter: NSObject, WelcomeDataPassing {
+    
+    //    MARK:- Clean Components
     
     weak var viewController: WelcomeViewController?
     var dataStore: WelcomeDataStore?
+}
+
+extension WelcomeRouter: WelcomeRoutingLogic {
     
     // MARK: Routing
     
@@ -36,13 +41,13 @@ class WelcomeRouter: NSObject, WelcomeRoutingLogic, WelcomeDataPassing {
             guard let destinationVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RegistationViewController") as? RegistrationViewController else { return }
             var destinationDS = destinationVC.router!.dataStore!
             passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-            navigateToSomewhere(source: viewController!, destination: destinationVC)
+            navigateToRegistrationPage(source: viewController!, destination: destinationVC)
         }
     }
     
     // MARK: Navigation
     
-    func navigateToSomewhere(source: WelcomeViewController, destination: UIViewController) {
+    func navigateToRegistrationPage(source: WelcomeViewController, destination: UIViewController) {
         source.show(destination, sender: nil)
     }
     
@@ -50,4 +55,5 @@ class WelcomeRouter: NSObject, WelcomeRoutingLogic, WelcomeDataPassing {
     func passDataToSomewhere(source: WelcomeDataStore, destination: inout RegistationDataStore) {
         destination.tag = source.tag
     }
+
 }

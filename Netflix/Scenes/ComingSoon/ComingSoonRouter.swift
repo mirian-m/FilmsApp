@@ -20,7 +20,7 @@ protocol ComingSoonDataPassing {
     var dataStore: ComingSoonDataStore? { get }
 }
 
-class ComingSoonRouter: NSObject, ComingSoonRoutingLogic, ComingSoonDataPassing {
+final class ComingSoonRouter: NSObject, ComingSoonRoutingLogic, ComingSoonDataPassing {
     weak var viewController: ComingSoonViewController?
     var dataStore: ComingSoonDataStore?
     

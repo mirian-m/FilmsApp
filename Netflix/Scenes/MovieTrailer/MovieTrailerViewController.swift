@@ -17,7 +17,7 @@ protocol MovieTrailerDisplayLogic: class {
     func displayMovieTrailer(viewModel: MovieTrailer.GetTrailer.ViewModel)
 }
 
-class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLogic {
+final class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLogic {
     
     //  MARK: - Fields
     
@@ -179,11 +179,9 @@ class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLogic {
     }
     
     func displayMovieTrailer(viewModel: MovieTrailer.GetTrailer.ViewModel) {
-        DispatchQueue.main.async {
-            self.titleLb.text = viewModel.trailer.movieTitle
-            self.overviewLb.text = viewModel.trailer.overview
-            guard let url = URL(string: "https://www.youtube.com/watch?v=\(viewModel.trailer.youtubeId.videoId)") else { return }
-            self.webView.load(URLRequest(url: url))
-        }
+        self.titleLb.text = viewModel.trailer.movieTitle
+        self.overviewLb.text = viewModel.trailer.overview
+        guard let url = URL(string: "https://www.youtube.com/watch?v=\(viewModel.trailer.youtubeId.videoId)") else { return }
+        self.webView.load(URLRequest(url: url))
     }
 }

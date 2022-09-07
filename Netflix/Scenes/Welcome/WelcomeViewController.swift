@@ -14,9 +14,15 @@ import UIKit
 
 protocol WelcomeDisplayLogic: AnyObject {}
 
-class WelcomeViewController: BackgroundImageViewControlller, WelcomeDisplayLogic {
+class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogic {
     
-    // MARK: @IBOutlet weak var nameTextField: UITextField!
+    //  MARK:- Clean Components
+    
+    var interactor: WelcomeBusinessLogic?
+    var router: (NSObjectProtocol & WelcomeRoutingLogic & WelcomeDataPassing)?
+    
+    //  MARK: @IBOutlet
+    
     @IBOutlet weak var sigInBtn: UIButton! {
         didSet {
             sigInBtn.tintColor = .white
@@ -52,11 +58,9 @@ class WelcomeViewController: BackgroundImageViewControlller, WelcomeDisplayLogic
         super.viewWillAppear(true)
         navigationController?.navigationBar.isHidden = true
     }
-
-    var interactor: WelcomeBusinessLogic?
-    var router: (NSObjectProtocol & WelcomeRoutingLogic & WelcomeDataPassing)?
     
-    // MARK: Object lifecycle
+    
+    //  MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -68,22 +72,22 @@ class WelcomeViewController: BackgroundImageViewControlller, WelcomeDisplayLogic
         setup()
     }
     
-    // MARK: View lifecycle
+    //  MARK: View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
-    // MARK: Setup
+    
+    //  MARK: Setup
     private func setup() {
         let viewController = self
         let interactor = WelcomeInteractor()
-//        let presenter = WelcomePresenter()
+        let presenter = WelcomePresenter()
         let router = WelcomeRouter()
         viewController.interactor = interactor
         viewController.router = router
-//        interactor.presenter = presenter
-//        presenter.viewController = viewController
+        interactor.presenter = presenter
+        presenter.viewController = viewController
         router.viewController = viewController
         router.dataStore = interactor
     }
@@ -93,6 +97,6 @@ class WelcomeViewController: BackgroundImageViewControlller, WelcomeDisplayLogic
         interactor?.getSelectedButtonTag(tag)
         router?.routeToRegistration(segue: nil)
     }
-
+    
 }
 

@@ -12,14 +12,19 @@
 
 import UIKit
 
-protocol SearchMovieDisplayLogic: class {
+protocol SearchMovieDisplayLogic: AnyObject {
     func displayMovies(viewModel: SearchMovie.GetMovies.ViewModel)
     func displaySelectedMovie(vieModel: SearchMovie.GetSelectedMovie.ViewModel)
     func displaySearchedMovies(viewModel: SearchMovie.GetSearchedMovies.ViewModel)
 }
 
-class SearchMovieViewController: BackgroundImageViewControlller, SearchMovieDisplayLogic {
-
+final class SearchMovieViewController: BackgroundImageViewControlller {
+    
+    //    MARK:-
+    var interactor: SearchMovieBusinessLogic?
+    var router: (NSObjectProtocol & SearchMovieRoutingLogic & SearchMovieDataPassing)?
+    
+    
     let searchController: UISearchController = {
         var controller = UISearchController(searchResultsController: SearchResultViewController())
         controller.searchBar.placeholder = "Search Movie or TV Show "
@@ -37,9 +42,6 @@ class SearchMovieViewController: BackgroundImageViewControlller, SearchMovieDisp
     }()
     
     private var moviesViewModel = [MovieViewModel]()
-    
-    var interactor: SearchMovieBusinessLogic?
-    var router: (NSObjectProtocol & SearchMovieRoutingLogic & SearchMovieDataPassing)?
     
     //  MARK: Object lifecycle
     
@@ -84,8 +86,6 @@ class SearchMovieViewController: BackgroundImageViewControlller, SearchMovieDisp
     func controllerSetup() {
         title = "Search"
         navigationController?.navigationBar.prefersLargeTitles = true
-        //        discoveredTable.dataSource = self
-        //        discoveredTable.delegate = self
         discoveredTable.backgroundColor = .none
         navigationItem.searchController = searchController
         navigationController?.navigationBar.tintColor = .white
@@ -100,24 +100,6 @@ class SearchMovieViewController: BackgroundImageViewControlller, SearchMovieDisp
         interactor?.getMovies(request: request)
     }
     
-    //  MARK: DisplayLogic Protocol Functions
-    
-    func displayMovies(viewModel: SearchMovie.GetMovies.ViewModel) {
-        moviesViewModel = viewModel.movie
-        DispatchQueue.main.async { [weak self] in
-            self?.discoveredTable.reloadData()
-        }
-    }
-    
-    func displaySelectedMovie(vieModel: SearchMovie.GetSelectedMovie.ViewModel) {
-        router?.routeToTrailerVC(segue: nil)
-    }
-    
-    func displaySearchedMovies(viewModel: SearchMovie.GetSearchedMovies.ViewModel) {
-        DispatchQueue.main.async { [weak self] in
-            self?.router?.routeToSearcheResulte(segue: nil)
-        }
-    }
 }
 
 
@@ -154,4 +136,23 @@ extension SearchMovieViewController: UISearchResultsUpdating {
         
         interactor?.updateSearchResult(requset: SearchMovie.GetSearchedMovies.Request(query: query))
     }
+}
+
+extension SearchMovieViewController: SearchMovieDisplayLogic {
+    
+    //  MARK: DisplayLogic Protocol Functions
+    
+    func displayMovies(viewModel: SearchMovie.GetMovies.ViewModel) {
+        moviesViewModel = viewModel.movie
+        self.discoveredTable.reloadData()
+    }
+    
+    func displaySelectedMovie(vieModel: SearchMovie.GetSelectedMovie.ViewModel) {
+        router?.routeToTrailerVC(segue: nil)
+    }
+    
+    func displaySearchedMovies(viewModel: SearchMovie.GetSearchedMovies.ViewModel) {
+        self.router?.routeToSearcheResulte(segue: nil)
+    }
+
 }

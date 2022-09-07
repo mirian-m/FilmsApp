@@ -12,13 +12,13 @@
 
 import UIKit
 
-//protocol WelcomePresentationLogic {
-//    func presentSomething(response: Welcome.Something.Response)
-//}
+protocol WelcomePresentationLogic {
+    func presentSomething(response: Welcome.Something.Response)
+}
 
-//class WelcomePresenter: WelcomePresentationLogic {
-//    weak var viewController: WelcomeDisplayLogic?
-    // MARK: Do something
+class WelcomePresenter: WelcomePresentationLogic {
+    weak var viewController: WelcomeDisplayLogic?
+//     MARK: Do something
     
-//    func presentSomething(response: Welcome.Something.Response){}
-//}
+    func presentSomething(response: Welcome.Something.Response) { }
+}

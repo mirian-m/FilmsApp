@@ -21,7 +21,7 @@ protocol SearchMovieDataPassing {
     var dataStore: SearchMovieDataStore? { get }
 }
 
-class SearchMovieRouter: NSObject, SearchMovieRoutingLogic, SearchMovieDataPassing {
+final class SearchMovieRouter: NSObject, SearchMovieRoutingLogic, SearchMovieDataPassing {
     
     weak var viewController: SearchMovieViewController?
     var dataStore: SearchMovieDataStore?

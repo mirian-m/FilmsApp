@@ -14,14 +14,14 @@ import UIKit
 
 protocol ComingSoonBusinessLogic {
     func getUpcomingMovies(request: ComingSoon.GetUpcomingMovies.Request)
-    func didTapMovie(requset: ComingSoon.MovieDetail.Request)
+    func didTapMovie(requset: ComingSoon.GetSelectedMovie.Request)
 }
 
 protocol ComingSoonDataStore {
     var selectedMovieDetails: MovieDetails { get set }
 }
 
-class ComingSoonInteractor: ComingSoonBusinessLogic, ComingSoonDataStore {
+final class ComingSoonInteractor: ComingSoonBusinessLogic, ComingSoonDataStore {
     var presenter: ComingSoonPresentationLogic?
     var worker: APIWoker?
     private var fetchedMovies = Movies(details: [])
@@ -32,21 +32,23 @@ class ComingSoonInteractor: ComingSoonBusinessLogic, ComingSoonDataStore {
     func getUpcomingMovies(request: ComingSoon.GetUpcomingMovies.Request) {
         worker = APIWoker()
         let url = API.dictionariOfAPI["Upcoming movies"]!
-        worker?.fetchMoviesDetails(url: url, completion: { [weak self] (result: Result<Movies, APICollerError>) in
-            var response = ComingSoon.GetUpcomingMovies.Response()
-            switch result {
-            case .success(let upcomingMovies):
-                self?.fetchedMovies = upcomingMovies
-                response.movies = upcomingMovies
-            case .failure(let error):
-                response.error = error
+        worker?.fetchMoviesDetails(url: url, completion: { (result: Result<Movies, APICollerError>) in
+            DispatchQueue.main.async { [weak self] in
+                var response = ComingSoon.GetUpcomingMovies.Response()
+                switch result {
+                case .success(let upcomingMovies):
+                    self?.fetchedMovies = upcomingMovies
+                    response.movies = upcomingMovies
+                case .failure(let error):
+                    response.error = error
+                }
+                self?.presenter?.presentUpcomingMovies(response: response)
             }
-            self?.presenter?.presentUpcomingMovies(response: response)
         })
     }
-
-    func didTapMovie(requset: ComingSoon.MovieDetail.Request) {
+    
+    func didTapMovie(requset: ComingSoon.GetSelectedMovie.Request) {
         selectedMovieDetails = fetchedMovies.details.filter { $0.id! == requset.selectedMovieId }[0]
-        presenter?.presentSelectedMovie(response: ComingSoon.MovieDetail.Response())
+        presenter?.presentSelectedMovie(response: ComingSoon.GetSelectedMovie.Response())
     }
 }

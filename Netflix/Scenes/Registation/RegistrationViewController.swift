@@ -12,17 +12,21 @@
 
 import UIKit
 
-protocol RegistationDisplayLogic: class {
+protocol RegistationDisplayLogic: AnyObject {
     func displayViewWithConfig(viewModel: Registation.ViewItemVisibility.ViewModel)
     func displayUserRegistratonAlert(viewModel: Registation.CheckData.ViewModel)
     func displayUserCreationAlert(viewModel: Registation.UserData.ViewModel)
     func displaySigInAlert(viewModel: Registation.SigInUser.ViewModel)
 }
 
-class RegistrationViewController: BackgroundImageViewControlller, RegistationDisplayLogic {
-    static let identifier = "RegistrationViewController"
+final class RegistrationViewController: BackgroundImageViewControlller, RegistationDisplayLogic {
+    
+    //  MARK:- Clean Components
+    
     var interactor: RegistationBusinessLogic?
     var router: (NSObjectProtocol & RegistationRoutingLogic & RegistationDataPassing)?
+    
+    static let identifier = "RegistrationViewController"
     
     lazy var contentView = RegistrationView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
     private var isDoingSigIn: Bool!
@@ -49,7 +53,8 @@ class RegistrationViewController: BackgroundImageViewControlller, RegistationDis
         doSomething()
     }
     
-    // MARK: Setup
+    //  MARK: Setup
+    
     private func setup() {
         let viewController = self
         let interactor = RegistationInteractor()
@@ -125,9 +130,8 @@ class RegistrationViewController: BackgroundImageViewControlller, RegistationDis
         contentView.confirmPasswordTextField.text = ""
     }
     
-    // MARK: Routing
-    
     // MARK: Do something
+    
     func doSomething() {
         let tagId = contentView.segmentControl.isSelected ? contentView.segmentControl.selectedSegmentIndex : nil
         let request = Registation.ViewItemVisibility.Request(tagId: tagId)

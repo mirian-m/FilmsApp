@@ -24,23 +24,25 @@ protocol RegistationBusinessLogic {
 protocol RegistationDataStore {
     var tag: Int! { get set }
 }
-
-class RegistationInteractor: RegistationBusinessLogic, RegistationDataStore {
- 
+final class RegistationInteractor: RegistationDataStore {
+    
     var presenter: RegistationPresentationLogic?
     var worker: RegistationWorker?
     var tag: Int!
     
+    
+}
+extension RegistationInteractor: RegistationBusinessLogic {
     // MARK: Do something
     
     func doSomthing(request: Registation.ViewItemVisibility.Request) {
-        var tagIdentifier: Int!
+        var tagIdentifier: Int?
         request.tagId == nil ? (tagIdentifier = self.tag) : (tagIdentifier = request.tagId!)
         if tagIdentifier == 0 {
-            let response = Registation.ViewItemVisibility.Response(visibility: true, id: tagIdentifier)
+            let response = Registation.ViewItemVisibility.Response(visibility: true, id: tagIdentifier ?? -1)
             presenter?.presentSomething(response: response)
         } else {
-            let response = Registation.ViewItemVisibility.Response(visibility: false, id: tagIdentifier)
+            let response = Registation.ViewItemVisibility.Response(visibility: false, id: tagIdentifier ?? -1)
             presenter?.presentSomething(response: response)
         }
     }

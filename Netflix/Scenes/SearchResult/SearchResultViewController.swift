@@ -12,12 +12,12 @@
 
 import UIKit
 
-protocol SearchResultDisplayLogic: class {
+protocol SearchResultDisplayLogic: AnyObject {
     func displaySearchResult(viewModel: SearchResult.GetSearchResult.ViewModel)
     func displaySelectedMovie(viewModel: SearchResult.GetSelectedMovie.ViewModel)
 }
 
-class SearchResultViewController: BackgroundImageViewControlller {
+final class SearchResultViewController: BackgroundImageViewControlller {
     
     private var searchResultCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

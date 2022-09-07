@@ -16,7 +16,7 @@ protocol SearchMovieBusinessLogic {
     func getMovies(request: SearchMovie.GetMovies.Request)
     func didTapMovie(requset: SearchMovie.GetSelectedMovie.Request)
     func updateSearchResult(requset: SearchMovie.GetSearchedMovies.Request)
-
+    
 }
 
 protocol SearchMovieDataStore {
@@ -24,13 +24,13 @@ protocol SearchMovieDataStore {
     var searchedMovies: Movies { get set }
 }
 
-class SearchMovieInteractor: SearchMovieBusinessLogic, SearchMovieDataStore {
+final class SearchMovieInteractor: SearchMovieBusinessLogic, SearchMovieDataStore {
     var presenter: SearchMoviePresentationLogic?
     var worker: APIWoker? = APIWoker()
-
+    
     var selectedMovieDetails: MovieDetails = MovieDetails()
     var searchedMovies = Movies(details: [])
-
+    
     private var fetchedMovies = Movies(details: [])
     
     
@@ -40,15 +40,17 @@ class SearchMovieInteractor: SearchMovieBusinessLogic, SearchMovieDataStore {
         let url =  "\(APIConstants.baseURL)/3/discover/movie?api_key=\(APIConstants.API_Key)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
         
         worker?.fetchMoviesDetails(url: url, completion: { [weak self] (result: Result<Movies, APICollerError>) in
-            var response = SearchMovie.GetMovies.Response()
-            switch result {
-            case .success(let movies):
-                self?.fetchedMovies = movies
-                response.movies = movies
-            case .failure(let error):
-                response.error = error
+            DispatchQueue.main.async {
+                var response = SearchMovie.GetMovies.Response()
+                switch result {
+                case .success(let movies):
+                    self?.fetchedMovies = movies
+                    response.movies = movies
+                case .failure(let error):
+                    response.error = error
+                }
+                self?.presenter?.presenMovies(response: response)
             }
-            self?.presenter?.presenMovies(response: response)
         })
     }
     
@@ -56,19 +58,21 @@ class SearchMovieInteractor: SearchMovieBusinessLogic, SearchMovieDataStore {
         selectedMovieDetails = fetchedMovies.details.filter { $0.id! == requset.selectedMovieId }[0]
         presenter?.presentSelectedMovie(response: SearchMovie.GetSelectedMovie.Response())
     }
-
+    
     func updateSearchResult(requset: SearchMovie.GetSearchedMovies.Request) {
         var response = SearchMovie.GetSearchedMovies.Response()
-
+        
         worker?.searchMoviees(with: requset.query, completion: { [weak self] (result: Result<Movies, APICollerError>) in
-            switch result {
-            case .success(let searchedMovies):
-                self?.searchedMovies = searchedMovies
-                response.searchedMovies = searchedMovies
-            case .failure(let error):
-                response.error = error
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let searchedMovies):
+                    self?.searchedMovies = searchedMovies
+                    response.searchedMovies = searchedMovies
+                case .failure(let error):
+                    response.error = error
+                }
+                self?.presenter?.presentSearchedMovies(response: response)
             }
-            self?.presenter?.presentSearchedMovies(response: response)
         })
     }
 }

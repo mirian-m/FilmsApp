@@ -15,10 +15,10 @@ import UIKit
 
 protocol HomeDisplayLogic: AnyObject {
     func displayMovies(viewModel: Home.MovieInfo.ViewModel)
-    func displaySelectedMovie(viewModel: Home.MovieDetail.ViewModel)
+    func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel)
 }
 
-class HomeViewController: BackgroundImageViewControlller, HomeDisplayLogic, CollectionViewTableViewCelldelegat, ProfileViewControllerDelegate {
+final class HomeViewController: BackgroundImageViewControlller {
     
     
     //  MARK: @IBOutlet
@@ -87,8 +87,8 @@ class HomeViewController: BackgroundImageViewControlller, HomeDisplayLogic, Coll
     
     private func controllerSetup() {
         tabBarController?.navigationController?.navigationBar.isHidden = false
-//                self.tabBarController?.navigationItem.hidesBackButton = true
-
+        //                self.tabBarController?.navigationItem.hidesBackButton = true
+        
         tabBarItem.badgeColor = .label
         tabBarItem.image = UIImage(systemName: "house.fill")
         tabBarItem.title = "Home"
@@ -115,9 +115,9 @@ class HomeViewController: BackgroundImageViewControlller, HomeDisplayLogic, Coll
                                                renderingMode: .alwaysOriginal),
                             style: .done, target: self, action: #selector(presentProfile)),
             
-//            UIBarButtonItem(image: UIImage(systemName: "play.rectangle")?
-//                                .withTintColor(UIColor(named: "CustomColor")!,
-//                                               renderingMode: .alwaysOriginal), style: .done, target: self, action: nil)
+            //            UIBarButtonItem(image: UIImage(systemName: "play.rectangle")?
+            //                                .withTintColor(UIColor(named: "CustomColor")!,
+            //                                               renderingMode: .alwaysOriginal), style: .done, target: self, action: nil)
         ]
         tabBarController?.navigationController?.navigationBar.tintColor = .white
     }
@@ -128,25 +128,12 @@ class HomeViewController: BackgroundImageViewControlller, HomeDisplayLogic, Coll
         router?.routeToProfile(segue: nil)
     }
     
-    func displayMovies(viewModel: Home.MovieInfo.ViewModel) {
-        let movies = viewModel.moviesViewModel
-        self.fetchedMoviesDetails = movies
-        DispatchQueue.main.async { [weak self] in
-            if !self!.posterIsSeted {
-                guard let randomPosterUrl = viewModel.moviesViewModel.randomElement()?.imageUrl else { return }
-                self?.headerView?.configure(with: randomPosterUrl)
-                self?.posterIsSeted = true
-            }
-        }
-    }
-    func displaySelectedMovie(viewModel: Home.MovieDetail.ViewModel) {
-        self.isNavigate = true
-        router?.routToTrailerVc(segue: nil)
-    }
     
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    //    MARK:- Tableview DataSource & Delegate Methods
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MoviesTableViewCell", for: indexPath) as? MoviesTableViewCell else { return UITableViewCell() }
@@ -185,14 +172,39 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         headerForSection[section]
     }
+}
+
+extension HomeViewController: HomeDisplayLogic {
     
-    // MARK: PROTOCOL FUNC
+    //  MARK:- DisplayLogic Protocol Functions
+    
+    func displayMovies(viewModel: Home.MovieInfo.ViewModel) {
+        let movies = viewModel.moviesViewModel
+        self.fetchedMoviesDetails = movies
+        
+        if !self.posterIsSeted {
+            guard let randomPosterUrl = viewModel.moviesViewModel.randomElement()?.imageUrl else { return }
+            self.headerView?.configure(with: randomPosterUrl)
+            self.posterIsSeted = true
+        }
+    }
+    
+    func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel) {
+        self.isNavigate = true
+        router?.routToTrailerVc(segue: nil)
+    }
+}
+
+extension HomeViewController: CollectionViewTableViewCelldelegat, ProfileViewControllerDelegate {
+    
+    // MARK: Delegate PROTOCOL FUNCtions
     
     func collectionViewTableViewCellDidTap(movieId: Int) {
-        interactor?.didTapMovie(requset: Home.MovieDetail.Request(selectedMovieId: movieId))
+        interactor?.didTapMovie(requset: Home.GetSelectedMovie.Request(selectedMovieId: movieId))
     }
-
+    
     func backToRootViewController() {
         router?.routeToWelcomePage(segue: nil)
     }
+    
 }

@@ -27,6 +27,18 @@ struct Genres: Decodable {
     var name: String?
 }
 
+extension Movies {
+    func convert() -> [MovieViewModel] {
+        var movieViewModel = [MovieViewModel]()
+        
+        self.details.forEach { movieDetails in
+            let movieModel = MovieViewModel(with: movieDetails)
+            movieViewModel.append(movieModel)
+        }
+        return movieViewModel
+    }
+}
+
 
 
 //    var id: String

@@ -21,8 +21,8 @@ protocol WelcomeDataStore {
 }
 
 class WelcomeInteractor: WelcomeBusinessLogic, WelcomeDataStore {
-//    var presenter: WelcomePresentationLogic?
-//    var worker: WelcomeWorker?
+    var presenter: WelcomePresentationLogic?
+    var worker: WelcomeWorker?
     var tag: Int = 0
     
     // MARK: Do something

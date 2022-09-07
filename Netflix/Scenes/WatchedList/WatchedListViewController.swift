@@ -18,7 +18,7 @@ protocol WatchedListDisplayLogic: AnyObject {
     
 }
 
-class WatchedListViewController: BackgroundImageViewControlller {
+final class WatchedListViewController: BackgroundImageViewControlller {
     
     private lazy var watchedFilmTableView: UITableView = {
         var table = UITableView()
@@ -109,9 +109,9 @@ extension WatchedListViewController:  WatchedListDisplayLogic {
         router?.routeToTrailerVC(segue: nil)
     }
     func displayWatchedMovies(viewModel: WatchedList.GetWatchedMovies.ViewModel) {
-        DispatchQueue.main.async { [weak self] in
-            self?.watchedListViewModel = viewModel.watchedMoviesModel
-            self?.watchedFilmTableView.reloadData()
-        }
+//        DispatchQueue.main.async { [weak self] in
+            self.watchedListViewModel = viewModel.watchedMoviesModel
+            self.watchedFilmTableView.reloadData()
+//        }
     }
 }

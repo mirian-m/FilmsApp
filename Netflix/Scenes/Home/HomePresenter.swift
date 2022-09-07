@@ -14,10 +14,10 @@ import UIKit
 
 protocol HomePresentationLogic {
     func presentMovies(response: Home.MovieInfo.Response)
-    func presentSelectedMovie(response: Home.MovieDetail.Response)
+    func presentSelectedMovie(response: Home.GetSelectedMovie.Response)
 }
 
-class HomePresenter: HomePresentationLogic {
+final class HomePresenter: HomePresentationLogic {
     
     weak var viewController: HomeDisplayLogic?
     
@@ -28,8 +28,8 @@ class HomePresenter: HomePresentationLogic {
         viewController?.displayMovies(viewModel: viewModel)
     }
     
-    func presentSelectedMovie(response: Home.MovieDetail.Response) {
-        viewController?.displaySelectedMovie(viewModel: Home.MovieDetail.ViewModel())
+    func presentSelectedMovie(response: Home.GetSelectedMovie.Response) {
+        viewController?.displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel())
     }
 
 }

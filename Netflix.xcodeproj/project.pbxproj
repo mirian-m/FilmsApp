@@ -198,7 +198,6 @@
 			children = (
 				84209C7427C775AB003CE71D /* Netflix */,
 				84209C7327C775AB003CE71D /* Products */,
-				8424EF6128ABE75300F30E6C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -242,13 +241,6 @@
 				842FA09227D23CA200B206F6 /* Core */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		8424EF6128ABE75300F30E6C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		8424EF6928AD16B700F30E6C /* Constant */ = {

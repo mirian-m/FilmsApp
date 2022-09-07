@@ -22,7 +22,7 @@ protocol HomeDataPassing {
     var dataStore: HomeDataStore? { get }
 }
 
-class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
+final class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
     
     weak var viewController: HomeViewController?
     var dataStore: HomeDataStore?
@@ -48,7 +48,7 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
     func routToTrailerVc(segue: UIStoryboardSegue?) {
         let destinationVC = MovieTrailerViewController()
         var destinationDS = destinationVC.router!.dataStore!
-        passDataToSomewhere(source: dataStore!, destination: &destinationDS)
+        passDataToTrailerVc(source: dataStore!, destination: &destinationDS)
         navigate(source: viewController!, destination: destinationVC)
     }
     
@@ -58,7 +58,7 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
 
     // MARK: Passing data
     
-    func passDataToSomewhere(source: HomeDataStore, destination: inout MovieTrailerDataStore) {
+    func passDataToTrailerVc(source: HomeDataStore, destination: inout MovieTrailerDataStore) {
         destination.movieDetails = source.selectedMovieDetails
     }
 }

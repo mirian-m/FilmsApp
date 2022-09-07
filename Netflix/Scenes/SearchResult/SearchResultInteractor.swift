@@ -23,7 +23,7 @@ protocol SearchResultDataStore {
     var searchedMovies: Movies { get set }
 }
 
-class SearchResultInteractor: SearchResultBusinessLogic, SearchResultDataStore {
+final class SearchResultInteractor: SearchResultBusinessLogic, SearchResultDataStore {
     var searchedMovies = Movies(details: [])
     var selectedMovieDetails: MovieDetails = MovieDetails()
     var presenter: SearchResultPresentationLogic?

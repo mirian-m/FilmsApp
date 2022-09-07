@@ -64,16 +64,5 @@ extension MoviesTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         self.delegat.collectionViewTableViewCellDidTap(movieId: movies[indexPath.row].id)
-//        let title = (movies[indexPath.row].original_title ?? movies[indexPath.row].title) ?? ""
-//        let overview = movies[indexPath.row].overview
-        
-//        APIColler.shared.getMovie(with: title + "trailer") { result in
-//            switch result {
-//            case .success(let video):
-//                self.delegat.collectionViewTableViewCellDidTap(cell: self, model: TrailerViewModel(movieTitle: title, overview: overview, youtubeId: video.items[0].id))
-//            case .failure(let error):
-//                print (error)
-//            }
-//        }
     }
 }

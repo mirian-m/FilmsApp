@@ -36,13 +36,15 @@ class MovieTrailerInteractor: MovieTrailerBusinessLogic, MovieTrailerDataStore {
     let query = title + " trailer"
     
     worker?.getMovie(with: query, completion: { [weak self] result in
-        switch result {
-        case .success(let youtubeResult):
-            response.youtubeId = youtubeResult.items[0].id
-        case .failure(let error):
-            print(error.localizedDescription)
+        DispatchQueue.main.async { [weak self] in
+            switch result {
+            case .success(let youtubeResult):
+                response.youtubeId = youtubeResult.items[0].id
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            self?.presenter?.presentMovieTrailer(response: response)
         }
-        self?.presenter?.presentMovieTrailer(response: response)
     })
   }
 }

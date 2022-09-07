@@ -17,13 +17,10 @@ protocol RegistationPresentationLogic {
     func presentUserRegistrationAlertMessage(response: Registation.CheckData.Response)
     func presentUserCreationAlertMessage(response: Registation.UserData.Response)
     func presentSignAlertMessage(response: Registation.SigInUser.Response)
-
+    
 }
 
-class RegistationPresenter: RegistationPresentationLogic {
-    
-    
-  
+final class RegistationPresenter: RegistationPresentationLogic {
     weak var viewController: RegistationDisplayLogic?
     
     // MARK: Do something
@@ -47,5 +44,5 @@ class RegistationPresenter: RegistationPresentationLogic {
         let viewModel = Registation.SigInUser.ViewModel(errorMessage: response.errorMessage)
         viewController?.displaySigInAlert(viewModel: viewModel)
     }
-
+    
 }
