@@ -148,7 +148,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.updateViewFromModel(movies: self!.fetchedMoviesDetails)
             }
         })
-        cell.delegat = self
+        cell.delegate = self
         return cell
     }
     
@@ -195,7 +195,7 @@ extension HomeViewController: HomeDisplayLogic {
     }
 }
 
-extension HomeViewController: CollectionViewTableViewCelldelegat, ProfileViewControllerDelegate {
+extension HomeViewController: CollectionViewTableViewCelldelegate, ProfileViewControllerDelegate {
     
     // MARK: Delegate PROTOCOL FUNCtions
     

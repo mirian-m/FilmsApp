@@ -15,11 +15,15 @@ import UIKit
 protocol WatchedListDisplayLogic: AnyObject {
     func displayWatchedMovies(viewModel: WatchedList.GetWatchedMovies.ViewModel)
     func displaySelectedMovie(viewModel: WatchedList.GetSelectedMovie.ViewModel)
-    
 }
 
 final class WatchedListViewController: BackgroundImageViewControlller {
     
+    //  MARK:- Clean Components
+    var interactor: WatchedListBusinessLogic?
+    var router: (NSObjectProtocol & WatchedListRoutingLogic & WatchedListDataPassing)?
+    
+    //  MARK:- Private Var
     private lazy var watchedFilmTableView: UITableView = {
         var table = UITableView()
         table.register(WatchedFilmTableViewCell.self, forCellReuseIdentifier: WatchedFilmTableViewCell.identifier)
@@ -30,14 +34,18 @@ final class WatchedListViewController: BackgroundImageViewControlller {
         return table
     }()
     
+    private lazy var activateIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.hidesWhenStopped = true
+        indicator.color = .blue
+        view.addSubview(indicator)
+        return indicator
+    }()
+    
     private var watchedListViewModel = [WatchedListViewModel]()
     
-    var interactor: WatchedListBusinessLogic?
-    var router: (NSObjectProtocol & WatchedListRoutingLogic & WatchedListDataPassing)?
-    
-    
-    // MARK: Object lifecycle
-    
+    //  MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -48,8 +56,7 @@ final class WatchedListViewController: BackgroundImageViewControlller {
         setup()
     }
     
-    // MARK: Setup
-    
+    //  MARK: Setup
     private func setup() {
         let viewController = self
         let interactor = WatchedListInteractor()
@@ -63,29 +70,30 @@ final class WatchedListViewController: BackgroundImageViewControlller {
         router.dataStore = interactor
     }
     
-    // MARK: View lifecycle
-    
+    //  MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Watched List"
-        print("something")
+        activateIndicator.startAnimating()
         getWatchedMovies()
     }
+    
     override func viewDidLayoutSubviews() {
         super .viewDidLayoutSubviews()
         watchedFilmTableView.frame = view.bounds
+        activateIndicator.center = view.center
     }
     
-    // MARK: Get Movies
-    
+    //  MARK: Get Movies
     func getWatchedMovies() {
         let request = WatchedList.GetWatchedMovies.Request()
         interactor?.getWatchedMovies(request: request)
     }
-    
 }
 
 extension WatchedListViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    //  MARK:- TableView DataSource & Delegate Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         watchedListViewModel.count
     }
@@ -94,8 +102,10 @@ extension WatchedListViewController: UITableViewDataSource, UITableViewDelegate 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WatchedFilmTableViewCell.identifier, for: indexPath) as? WatchedFilmTableViewCell else { return UITableViewCell() }
         let movies = watchedListViewModel[indexPath.row]
         cell.configure(with: movies)
+        cell.delegate = self
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         interactor?.didTapMovie(requset: WatchedList.GetSelectedMovie.Request(selectedMovieId: watchedListViewModel[indexPath.row].id))
@@ -105,13 +115,24 @@ extension WatchedListViewController: UITableViewDataSource, UITableViewDelegate 
 }
 
 extension WatchedListViewController:  WatchedListDisplayLogic {
+    
+    //  MARK:- DisplayLogic Protocol Function
     func displaySelectedMovie(viewModel: WatchedList.GetSelectedMovie.ViewModel) {
         router?.routeToTrailerVC(segue: nil)
     }
+    
     func displayWatchedMovies(viewModel: WatchedList.GetWatchedMovies.ViewModel) {
-//        DispatchQueue.main.async { [weak self] in
-            self.watchedListViewModel = viewModel.watchedMoviesModel
-            self.watchedFilmTableView.reloadData()
-//        }
+        activateIndicator.stopAnimating()
+        self.watchedListViewModel = viewModel.watchedMoviesModel
+        self.watchedFilmTableView.reloadData()
+    }
+}
+
+// FIXME: ----
+extension WatchedListViewController: WatchedFilmTableViewCellDelegate{
+    func genreInCellDidTapped(genre: Genres) {
+        let list = watchedListViewModel.filter { movie in
+            movie.genres.contains { $0 == genre }
+        }
     }
 }

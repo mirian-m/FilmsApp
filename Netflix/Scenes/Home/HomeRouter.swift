@@ -27,20 +27,19 @@ final class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
     weak var viewController: HomeViewController?
     var dataStore: HomeDataStore?
     
-    // MARK: Routing
+    //  MARK: Routing
     
     func routeToProfile(segue: UIStoryboardSegue?) {
         let destinationVC = ProfileViewController()
         destinationVC.delegate = self.viewController
-        navigate(source: viewController!, destination: destinationVC)
+        present(source: viewController!, destination: destinationVC)
     }
-    
-    // MARK: Navigation
     
     func routeToWelcomePage(segue: UIStoryboardSegue?) {
         popToWelcomePage(source: viewController!, destination: nil)
     }
 
+    //  MARK: Navigation
     func popToWelcomePage(source: HomeViewController, destination: UIViewController?) {
         source.navigationController?.popToRootViewController(animated: true)
     }
@@ -56,8 +55,11 @@ final class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
         source.navigationController?.pushViewController(destination, animated: true)
     }
 
-    // MARK: Passing data
+    func present(source: HomeViewController, destination: UIViewController) {
+        source.present(destination, animated: true, completion: nil)
+    }
     
+    // MARK: Passing data
     func passDataToTrailerVc(source: HomeDataStore, destination: inout MovieTrailerDataStore) {
         destination.movieDetails = source.selectedMovieDetails
     }

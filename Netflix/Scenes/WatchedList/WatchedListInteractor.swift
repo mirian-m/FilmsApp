@@ -26,7 +26,7 @@ class WatchedListInteractor: WatchedListDataStore {
     var selectedMovieDetails: MovieDetails = MovieDetails()
     var presenter: WatchedListPresentationLogic?
     var worker: WatchedListWorke?
-    private var movieDetail = [MovieDetails]()
+    private var moviesList = [MovieDetails]()
     
     // MARK: Do something
     
@@ -34,19 +34,35 @@ class WatchedListInteractor: WatchedListDataStore {
 
 extension WatchedListInteractor: WatchedListBusinessLogic {
     func didTapMovie(requset: WatchedList.GetSelectedMovie.Request) {
-        selectedMovieDetails = movieDetail.filter { $0.id == requset.selectedMovieId }[0]
+        selectedMovieDetails = moviesList.filter { $0.id == requset.selectedMovieId }[0]
         presenter?.presentSelectedMovie(response: WatchedList.GetSelectedMovie.Response())
     }
     
     func getWatchedMovies(request: WatchedList.GetWatchedMovies.Request) {
+        var counter = 0
         worker = WatchedListWorke()
-        worker?.fetchWatchedMovies(compilition: { favouriteMovies in
-            DispatchQueue.main.async { [weak self] in
-                self?.movieDetail = favouriteMovies
-                let response = WatchedList.GetWatchedMovies.Response(error: nil, movies: favouriteMovies)
-                self?.presenter?.presentWatchedMovies(response: response)
+        let apiWorker = APIWoker()
+        
+        worker?.getSigInUserData(compilition: { data in
+            data.seenMoviesList.forEach { movieId in
+                let url = "https://api.themoviedb.org/3/movie/\(movieId)?api_key=793b50b3b4c6ef37ce18bda27b1cbf67&language=en-US"
+                apiWorker.fetchMoviesDetails(url: url) { [weak self] (result: Result<MovieDetails, APICollerError>) in
+                    counter += 1
+                    switch result {
+                    case .success(let details):
+                        self?.moviesList.append(details)
+                    case .failure(let error):
+                        print(error)
+                    //  TODO:- Error hendling
+                    }
+                    if  counter == data.seenMoviesList.count {
+                        DispatchQueue.main.async { [weak self] in
+                            let response = WatchedList.GetWatchedMovies.Response(error: nil, movies: self?.moviesList)
+                            self?.presenter?.presentWatchedMovies(response: response)
+                        }
+                    }
+                }
             }
         })
     }
-
 }

@@ -22,7 +22,7 @@ protocol WelcomeDataPassing {
 
 class WelcomeRouter: NSObject, WelcomeDataPassing {
     
-    //    MARK:- Clean Components
+    //  MARK:- Clean Components
     
     weak var viewController: WelcomeViewController?
     var dataStore: WelcomeDataStore?
@@ -30,30 +30,25 @@ class WelcomeRouter: NSObject, WelcomeDataPassing {
 
 extension WelcomeRouter: WelcomeRoutingLogic {
     
-    // MARK: Routing
-    
+    //  MARK: Routing
     func routeToRegistration(segue: UIStoryboardSegue?) {
-        if let segue = segue {
-            let destinationVC = segue.destination as! RegistrationViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-        } else {
-            guard let destinationVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RegistationViewController") as? RegistrationViewController else { return }
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-            navigateToRegistrationPage(source: viewController!, destination: destinationVC)
-        }
+        guard let destinationVC = UIStoryboard.init(
+                name: "Main", bundle: nil).instantiateViewController(
+                    withIdentifier: "RegistationViewController") as? RegistrationViewController else { return }
+        
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToSomewhere(source: dataStore!, destination: &destinationDS)
+        navigateToRegistrationPage(source: viewController!, destination: destinationVC)
     }
     
-    // MARK: Navigation
-    
+    //  MARK: Navigation
     func navigateToRegistrationPage(source: WelcomeViewController, destination: UIViewController) {
         source.show(destination, sender: nil)
     }
     
-    // MARK: Passing data
+    //  MARK: Passing data
     func passDataToSomewhere(source: WelcomeDataStore, destination: inout RegistationDataStore) {
         destination.tag = source.tag
     }
-
+    
 }

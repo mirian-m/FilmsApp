@@ -14,29 +14,11 @@ import UIKit
 import FirebaseAuth
 
 class WatchedListWorke {
-    private var moviesList = [MovieDetails]()
-    private var counter = 0
-    func fetchWatchedMovies(compilition: @escaping ([MovieDetails]) -> Void) {
+    //    private var moviesList = [MovieDetails]()
+    func getSigInUserData(compilition: @escaping (UserData) -> Void) {
         guard let currentUser = Auth.auth().currentUser else { return }
-        
         UserManger.shared.getUserData(by: currentUser.uid) {  userData in
-            userData.seenMoviesList.forEach { movieId in
-                let url = "https://api.themoviedb.org/3/movie/\(movieId)?api_key=793b50b3b4c6ef37ce18bda27b1cbf67&language=en-US"
-                APIWoker.shared.fetchMoviesDetails(url: url, completion: { [weak self] (result: Result<MovieDetails, APICollerError>) in
-                    self?.counter += 1
-                    switch result {
-                    case .success(let details):
-                        self?.moviesList.append(details)
-                    case .failure(let error):
-                        print(error)
-                    //  TODO:- Error hendling
-                    }
-                    if  self?.counter == userData.seenMoviesList.count {
-                        compilition(self?.moviesList ?? [])
-                    }
-                })
-            }
-            
+            compilition(userData)
         }
     }
 }

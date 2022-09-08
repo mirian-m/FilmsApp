@@ -10,7 +10,7 @@ struct Movies: Decodable {
 
 struct MovieDetails: Decodable {
     var genres: [Genres]?
-    var id: Int!
+    var id: Int?
     var original_language: String?
     var original_title: String?
     var overview: String?
@@ -23,9 +23,14 @@ struct MovieDetails: Decodable {
     var vote_count: Int?
 }
 
-struct Genres: Decodable {
+struct Genres: Decodable, Equatable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.id == rhs.id
+    }
+    var id: Int?
     var name: String?
 }
+
 
 extension Movies {
     func convert() -> [MovieViewModel] {

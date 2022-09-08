@@ -19,4 +19,5 @@ public struct APIConstants {
 
 public struct Constans {
     static let heightForRow: CGFloat = 150
+    static let fontSize: CGFloat = 12
 }

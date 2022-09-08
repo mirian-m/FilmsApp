@@ -7,8 +7,16 @@
 
 import UIKit
 
+protocol WatchedFilmTableViewCellDelegate: AnyObject {
+    func genreInCellDidTapped(genre: Genres)
+}
+
 class WatchedFilmTableViewCell: UITableViewCell {
     static var identifier = "WatchedFilmTableViewCell"
+    private var genreButtons = [UIButton]()
+    weak var delegate: WatchedFilmTableViewCellDelegate?
+    private var filmGenre = [Genres]()
+    
     private lazy var customView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 20
@@ -22,9 +30,67 @@ class WatchedFilmTableViewCell: UITableViewCell {
         title.translatesAutoresizingMaskIntoConstraints = false
         title.numberOfLines = 0
         title.textColor = UIColor.white
-        title.font = title.font.withSize(13)
+        title.font = title.font.withSize(Constans.fontSize)
         return title
     }()
+    
+    private lazy var stackViewForButtons: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.spacing = 4
+        stack.addArrangedSubview(firstGenre)
+        stack.addArrangedSubview(secondGenre)
+        stack.addArrangedSubview(thirdGenre)
+        return stack
+    }()
+    
+    private lazy var firstGenre: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 5
+        button.layer.borderColor = UIColor.gray.cgColor
+        button.tag = 0
+        button.setTitle("Action", for: .normal)
+        button.titleLabel?.font = UIFont(descriptor: UIFontDescriptor(), size: Constans.fontSize)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.addTarget(self, action: #selector(genreButtonTapped), for: .touchUpInside)
+        self.genreButtons.append(button)
+        return button
+    }()
+    
+    private lazy var secondGenre: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 5
+        button.layer.borderColor = UIColor.gray.cgColor
+        button.tag = 1
+        button.setTitle("Action", for: .normal)
+        button.titleLabel?.font = UIFont(descriptor: UIFontDescriptor(),  size: Constans.fontSize)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.addTarget(self, action: #selector(genreButtonTapped), for: .touchUpInside)
+        self.genreButtons.append(button)
+        return button
+    }()
+    
+    private lazy var thirdGenre: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 5
+        button.layer.borderColor = UIColor.gray.cgColor
+        button.tag = 2
+        button.setTitle("Action", for: .normal)
+        button.titleLabel?.font = UIFont(descriptor: UIFontDescriptor(), size: Constans.fontSize)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.addTarget(self, action: #selector(genreButtonTapped), for: .touchUpInside)
+        self.genreButtons.append(button)
+        return button
+    }()
+    
     
     private lazy var removeBtn: UIButton = {
         let button = UIButton()
@@ -68,7 +134,7 @@ class WatchedFilmTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = UIColor(white: 1, alpha: 0)
         addItemsToView()
-        applyConstreints()
+        applyConstraints()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -79,17 +145,28 @@ class WatchedFilmTableViewCell: UITableViewCell {
         customView.addSubview(removeBtn)
         customView.addSubview(star)
         customView.addSubview(voteLb)
+        customView.addSubview(stackViewForButtons)
         contentView.addSubview(customView)
         contentView.addSubview(posterImage)
     }
     
-    func applyConstreints() {
+    //  MARK:- Constraints
+    func applyConstraints() {
         
         let customViewConstraints = [
             customView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             customView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             customView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             customView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
+        ]
+        
+        let stackViewForButtonsConstaints = [
+            stackViewForButtons.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            stackViewForButtons.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            stackViewForButtons.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: -5)
+        ]
+        let firstGenreConstraints = [
+            firstGenre.widthAnchor.constraint(equalToConstant: 35)
         ]
         
         let removeBtnConstraints = [
@@ -124,7 +201,10 @@ class WatchedFilmTableViewCell: UITableViewCell {
             posterImage.widthAnchor.constraint(equalToConstant: 100)
         ]
         
+        //  MARK:- Activate Constraints
         NSLayoutConstraint.activate(customViewConstraints)
+        NSLayoutConstraint.activate(stackViewForButtonsConstaints)
+        NSLayoutConstraint.activate(firstGenreConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(starImageConstraints)
         NSLayoutConstraint.activate(removeBtnConstraints)
@@ -133,11 +213,38 @@ class WatchedFilmTableViewCell: UITableViewCell {
     }
     
     func configure(with model: WatchedListViewModel) {
+        self.filmGenre = model.genres
         let url = APIConstants.posterBaseURL + model.imageUrl
         posterImage.getImageFromWeb(by: url)
         titleLabel.text = model.title
-        var vote = model.rate
-        vote.roundingNumber(at: 1)
-        voteLb.text = "\(vote)/10"
+        voteLb.text = "\(round(number: model.rate))/10"
+        genreButtons.forEach { button in
+            set(title: model.genres, for: button)
+        }
+    }
+    
+    //  MARK:- Private Functions
+    private func round(number: Double) -> Double {
+        var roundidNumber = number
+        roundidNumber.roundingNumber(at: 1)
+        return roundidNumber
+    }
+    
+    private func set(title genre: [Genres], for button: UIButton) {
+        guard let titleForButton = getGenre(by: button.tag, from: genre) else {
+            button.alpha = 0
+            return
+        }
+        button.setTitle(titleForButton, for: .normal)
+        
+    }
+    private func getGenre(by index: Int, from genre: [Genres]) -> String? {
+        return (index < genre.count) ? genre[index].name : nil
+    }
+    
+    //  MARK:- Genre Button Action
+    @objc func genreButtonTapped(button: UIButton) {
+        button.backgroundColor = (button.backgroundColor == .none) ? .systemBlue : .none
+        delegate?.genreInCellDidTapped(genre: filmGenre[button.tag])
     }
 }

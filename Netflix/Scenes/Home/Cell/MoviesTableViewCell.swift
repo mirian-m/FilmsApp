@@ -1,7 +1,7 @@
 import UIKit
 import FirebaseCore
 
-protocol CollectionViewTableViewCelldelegat: AnyObject {
+protocol CollectionViewTableViewCelldelegate: AnyObject {
     func collectionViewTableViewCellDidTap(movieId: Int)
 }
 
@@ -15,7 +15,7 @@ class MoviesTableViewCell: UITableViewCell {
     }
     
     public var movies: [MovieViewModel] = []
-    weak var delegat: CollectionViewTableViewCelldelegat!
+    weak var delegate: CollectionViewTableViewCelldelegate?
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -63,6 +63,6 @@ extension MoviesTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        self.delegat.collectionViewTableViewCellDidTap(movieId: movies[indexPath.row].id)
+        self.delegate?.collectionViewTableViewCellDidTap(movieId: movies[indexPath.row].id)
     }
 }

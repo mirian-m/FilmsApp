@@ -13,7 +13,7 @@ struct MovieViewModel {
     
     //  MARK:- Initializer With model
     init(with model: MovieDetails) {
-        self.init(title: model.title ?? model.original_title ?? "", posterUrl: model.poster_path ?? "", id: model.id)
+        self.init(title: model.title ?? model.original_title ?? "", posterUrl: model.poster_path ?? "", id: model.id ?? -1)
     }
     
 }

@@ -22,18 +22,16 @@ protocol RegistationDisplayLogic: AnyObject {
 final class RegistrationViewController: BackgroundImageViewControlller, RegistationDisplayLogic {
     
     //  MARK:- Clean Components
-    
     var interactor: RegistationBusinessLogic?
     var router: (NSObjectProtocol & RegistationRoutingLogic & RegistationDataPassing)?
     
+    //  MARK:- Fields
     static let identifier = "RegistrationViewController"
-    
     lazy var contentView = RegistrationView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
     private var isDoingSigIn: Bool!
     private var registrationIsSuccessful = false
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -45,7 +43,6 @@ final class RegistrationViewController: BackgroundImageViewControlller, Registat
     }
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(contentView)
@@ -54,7 +51,6 @@ final class RegistrationViewController: BackgroundImageViewControlller, Registat
     }
     
     //  MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = RegistationInteractor()
@@ -66,7 +62,6 @@ final class RegistrationViewController: BackgroundImageViewControlller, Registat
         presenter.viewController = viewController
         router.viewController = viewController
         router.dataStore = interactor
-        
     }
     
     func addTargetsFunc() {

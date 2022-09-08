@@ -17,12 +17,10 @@ protocol WelcomeDisplayLogic: AnyObject {}
 class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogic {
     
     //  MARK:- Clean Components
-    
     var interactor: WelcomeBusinessLogic?
     var router: (NSObjectProtocol & WelcomeRoutingLogic & WelcomeDataPassing)?
     
     //  MARK: @IBOutlet
-    
     @IBOutlet weak var sigInBtn: UIButton! {
         didSet {
             sigInBtn.tintColor = .white
@@ -61,7 +59,6 @@ class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogi
     
     
     //  MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -73,7 +70,6 @@ class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogi
     }
     
     //  MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -92,6 +88,7 @@ class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogi
         router.dataStore = interactor
     }
     
+    //  MARK:- Button Action
     @IBAction func moveToRegitrationPage(_ sender: Any) {
         guard let tag = (sender as? UIButton)?.tag else { return }
         interactor?.getSelectedButtonTag(tag)
