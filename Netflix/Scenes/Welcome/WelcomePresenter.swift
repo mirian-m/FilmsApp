@@ -18,7 +18,6 @@ protocol WelcomePresentationLogic {
 
 class WelcomePresenter: WelcomePresentationLogic {
     weak var viewController: WelcomeDisplayLogic?
-//     MARK: Do something
-    
+
     func presentSomething(response: Welcome.Something.Response) { }
 }

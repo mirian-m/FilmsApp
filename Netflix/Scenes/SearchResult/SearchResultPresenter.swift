@@ -24,7 +24,7 @@ final class SearchResultPresenter: SearchResultPresentationLogic {
     // MARK: Do something
     
     func presentSearchResult(response: SearchResult.GetSearchResult.Response) {
-        let viewModel = SearchResult.GetSearchResult.ViewModel(movieViewModel: response.searchedMoviesDetails?.convert() ?? [])
+        let viewModel = SearchResult.GetSearchResult.ViewModel(movieViewModel: response.searchedMovies?.details.convert() ?? [])
         viewController?.displaySearchResult(viewModel: viewModel)
     }
     

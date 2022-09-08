@@ -19,7 +19,7 @@ enum SearchResult {
         struct Request { }
         
         struct Response {
-            var searchedMoviesDetails: Movies?
+            var searchedMovies: Movies?
         }
         
         struct ViewModel {

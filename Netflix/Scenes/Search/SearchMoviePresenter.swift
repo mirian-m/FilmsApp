@@ -25,7 +25,7 @@ final class SearchMoviePresenter: SearchMoviePresentationLogic {
     func presenMovies(response: SearchMovie.GetMovies.Response) {
         
         //    TODO: - Do error hendiling
-        let viewModel = SearchMovie.GetMovies.ViewModel(movie: response.movies?.convert() ?? [])
+        let viewModel = SearchMovie.GetMovies.ViewModel(movie: response.movies?.details.convert() ?? [])
         viewController?.displayMovies(viewModel: viewModel)
     }
     
@@ -35,7 +35,7 @@ final class SearchMoviePresenter: SearchMoviePresentationLogic {
     
     func presentSearchedMovies(response: SearchMovie.GetSearchedMovies.Response) {
         //    TODO: - Do error hendiling
-        let viewModel = SearchMovie.GetSearchedMovies.ViewModel(movieViewModel: (response.searchedMovies?.convert()) ?? [])
+        let viewModel = SearchMovie.GetSearchedMovies.ViewModel(movieViewModel: (response.searchedMovies?.details.convert()) ?? [])
         viewController?.displaySearchedMovies(viewModel: viewModel)
     }
 }

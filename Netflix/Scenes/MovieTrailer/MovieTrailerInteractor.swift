@@ -31,7 +31,7 @@ class MovieTrailerInteractor: MovieTrailerBusinessLogic, MovieTrailerDataStore {
     
     worker = APIWoker()
     let overView = movieDetails.overview ?? ""
-    let title = movieDetails.title ?? movieDetails.original_title ?? ""
+    let title = movieDetails.title ?? movieDetails.originalTitle ?? ""
     var response = MovieTrailer.GetTrailer.Response(youtubeId: nil, overView: overView, title: title)
     let query = title + " trailer"
     

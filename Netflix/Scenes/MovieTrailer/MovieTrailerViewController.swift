@@ -109,13 +109,9 @@ final class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLog
         view.backgroundColor = .systemBackground
         view.addSubview(webView)
         view.addSubview(titleLb)
-        //        view.addSubview(overviewLb)
-        //        view.addSubview(add)
         view.addSubview(scrollView)
         scrollView.addSubview(overviewLb)
         scrollView.addSubview(add)
-        //        contenView.addSubview(overviewLb)
-        //        contenView.addSubview(add)
         setConstraints()
     }
     
@@ -144,14 +140,6 @@ final class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLog
             
         ]
         
-        //        let contentViewConstraint = [
-        //            contenView.topAnchor.constraint(equalTo: scrollView.bottomAnchor),
-        //            contenView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-        //            contenView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-        //            contenView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
-        //        ]
-        
-        
         let overviewLbconstraint = [
             overviewLb.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10),
             overviewLb.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 10),
@@ -170,7 +158,6 @@ final class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLog
         NSLayoutConstraint.activate(overviewLbconstraint)
         NSLayoutConstraint.activate(downloadButtonConstraint)
         NSLayoutConstraint.activate(scrollViewCostraint)
-        //        NSLayoutConstraint.activate(contentViewConstraint)
     }
     
     func doSomething() {

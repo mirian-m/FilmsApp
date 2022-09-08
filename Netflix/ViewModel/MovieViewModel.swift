@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct WatchedListViewModel {
+struct MovieViewModel {
     var id: Int
     var title: String
     var genres: [Genres]
@@ -26,10 +26,19 @@ struct WatchedListViewModel {
     init(with model: MovieDetails) {
         self.init(
             id: model.id ?? -1,
-            title: model.title ?? model.original_title ?? "",
+            title: model.title ?? model.originalTitle ?? "",
             genres: model.genres ?? [],
-            imageUrl: model.poster_path ?? "",
-            rate: model.vote_average ?? 0.0
+            imageUrl: model.posterPath ?? "",
+            rate: model.voteAverage ?? 0.0
+        )
+    }
+    init() {
+        self.init(
+            id: 0,
+            title: "",
+            genres: [],
+            imageUrl: "",
+            rate: 0.0
         )
     }
 }

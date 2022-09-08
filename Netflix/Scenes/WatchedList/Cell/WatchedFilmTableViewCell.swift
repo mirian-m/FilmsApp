@@ -9,14 +9,19 @@ import UIKit
 
 protocol WatchedFilmTableViewCellDelegate: AnyObject {
     func genreInCellDidTapped(genre: Genres)
+    func removeMovieFromList(by movieId: Int)
 }
 
 class WatchedFilmTableViewCell: UITableViewCell {
     static var identifier = "WatchedFilmTableViewCell"
+    
+    //  MARK:- Properties
     private var genreButtons = [UIButton]()
     weak var delegate: WatchedFilmTableViewCellDelegate?
     private var filmGenre = [Genres]()
+    private var filmId = 0
     
+    //  MARK:- Create objects Programmatically
     private lazy var customView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 20
@@ -91,13 +96,13 @@ class WatchedFilmTableViewCell: UITableViewCell {
         return button
     }()
     
-    
     private lazy var removeBtn: UIButton = {
         let button = UIButton()
         let image = UIImage(systemName: "xmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
         button.setImage(image, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .red
+        button.addTarget(self, action: #selector(removeMovieFromList), for: .touchUpInside)
         return button
     }()
     
@@ -130,6 +135,7 @@ class WatchedFilmTableViewCell: UITableViewCell {
         return image
     }()
     
+    //  MARK:- Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = UIColor(white: 1, alpha: 0)
@@ -140,6 +146,7 @@ class WatchedFilmTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //  MARK:- Setup
     func addItemsToView() {
         customView.addSubview(titleLabel)
         customView.addSubview(removeBtn)
@@ -150,6 +157,18 @@ class WatchedFilmTableViewCell: UITableViewCell {
         contentView.addSubview(posterImage)
     }
     
+    func configure(with model: MovieViewModel) {
+        self.filmGenre = model.genres
+        self.filmId = model.id
+        let url = APIConstants.posterBaseURL + model.imageUrl
+        posterImage.getImageFromWeb(by: url)
+        titleLabel.text = model.title
+        voteLb.text = "\(round(number: model.rate))/10"
+        genreButtons.forEach { button in
+            set(title: model.genres, for: button)
+        }
+    }
+
     //  MARK:- Constraints
     func applyConstraints() {
         
@@ -212,16 +231,11 @@ class WatchedFilmTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate(posterImageConstraints)
     }
     
-    func configure(with model: WatchedListViewModel) {
-        self.filmGenre = model.genres
-        let url = APIConstants.posterBaseURL + model.imageUrl
-        posterImage.getImageFromWeb(by: url)
-        titleLabel.text = model.title
-        voteLb.text = "\(round(number: model.rate))/10"
-        genreButtons.forEach { button in
-            set(title: model.genres, for: button)
-        }
-    }
+    
+    
+}
+
+extension WatchedFilmTableViewCell {
     
     //  MARK:- Private Functions
     private func round(number: Double) -> Double {
@@ -238,13 +252,19 @@ class WatchedFilmTableViewCell: UITableViewCell {
         button.setTitle(titleForButton, for: .normal)
         
     }
+    
     private func getGenre(by index: Int, from genre: [Genres]) -> String? {
         return (index < genre.count) ? genre[index].name : nil
     }
     
-    //  MARK:- Genre Button Action
+    //  MARK:- Button Actions
     @objc func genreButtonTapped(button: UIButton) {
         button.backgroundColor = (button.backgroundColor == .none) ? .systemBlue : .none
         delegate?.genreInCellDidTapped(genre: filmGenre[button.tag])
     }
+    
+    @objc func removeMovieFromList() {
+        delegate?.removeMovieFromList(by: filmId)
+    }
+    
 }

@@ -24,7 +24,7 @@ final class ComingSoonPresenter: ComingSoonPresentationLogic {
     // MARK: Do something
     
     func presentUpcomingMovies(response: ComingSoon.GetUpcomingMovies.Response) {
-        let viewModel = ComingSoon.GetUpcomingMovies.ViewModel(movie: (response.movies?.convert()) ?? [])
+        let viewModel = ComingSoon.GetUpcomingMovies.ViewModel(movie: (response.movies?.details.convert()) ?? [])
         viewController?.displayUpcomingMovies(viewModel: viewModel)
     }
 

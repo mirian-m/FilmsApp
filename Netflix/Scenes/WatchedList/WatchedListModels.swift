@@ -23,7 +23,7 @@ enum WatchedList {
             var movies: [MovieDetails]?
         }
         struct ViewModel {
-            var watchedMoviesModel: [WatchedListViewModel]
+            var watchedMoviesModel: [MovieViewModel]
         }
     }
     
@@ -35,5 +35,15 @@ enum WatchedList {
         struct Response {}
         
         struct ViewModel {}
+    }
+    
+    enum RemoveSelectedMovie {
+        struct Request{
+            var selectedMovieId: Int
+        }
+        
+        struct Response {}
+        
+        struct ViewModel { }
     }
 }

@@ -24,7 +24,7 @@ final class HomePresenter: HomePresentationLogic {
     // MARK: Do something
     
     func presentMovies(response: Home.MovieInfo.Response) {
-        let viewModel = Home.MovieInfo.ViewModel(error: nil, moviesViewModel: (response.movies?.convert())!)
+        let viewModel = Home.MovieInfo.ViewModel(error: nil, moviesViewModel: (response.movies?.details.convert() ?? []))
         viewController?.displayMovies(viewModel: viewModel)
     }
     

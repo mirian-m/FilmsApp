@@ -16,6 +16,7 @@ import FirebaseAuth
 protocol WatchedListBusinessLogic {
     func getWatchedMovies(request: WatchedList.GetWatchedMovies.Request)
     func didTapMovie(requset: WatchedList.GetSelectedMovie.Request)
+    func removeMovieFromWatchedList(request: WatchedList.RemoveSelectedMovie.Request)
 }
 
 protocol WatchedListDataStore {
@@ -27,12 +28,19 @@ class WatchedListInteractor: WatchedListDataStore {
     var presenter: WatchedListPresentationLogic?
     var worker: WatchedListWorke?
     private var moviesList = [MovieDetails]()
-    
-    // MARK: Do something
+
     
 }
 
 extension WatchedListInteractor: WatchedListBusinessLogic {
+    func removeMovieFromWatchedList(request: WatchedList.RemoveSelectedMovie.Request) {
+        moviesList.removeAll { $0.id ==  request.selectedMovieId }
+        guard let urser = Auth.auth().currentUser else { return }
+        let movieId = moviesList.map { $0.id }
+        UserManger.shared.updateUserData(userId: urser.uid, data: [RegistrationField.watchedMovies: movieId])
+        presenter?.presentWatchedMovies(response: WatchedList.GetWatchedMovies.Response(movies: moviesList))
+    }
+    
     func didTapMovie(requset: WatchedList.GetSelectedMovie.Request) {
         selectedMovieDetails = moviesList.filter { $0.id == requset.selectedMovieId }[0]
         presenter?.presentSelectedMovie(response: WatchedList.GetSelectedMovie.Response())

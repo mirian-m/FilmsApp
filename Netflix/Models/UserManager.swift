@@ -11,7 +11,7 @@ import Firebase
 
 class UserManger {
     static let shared = UserManger()
-
+    
     func getUserData(by userId: String, complition: @escaping (UserData) -> Void) {
         let ref = Database.database().reference(fromURL: APIConstants.firebaseDataBaseReferencUrl)
         ref.child(RegistrationField.users).child(userId).observeSingleEvent(of: .value, with: { data in
@@ -29,5 +29,4 @@ class UserManger {
             }
         }
     }
-
 }

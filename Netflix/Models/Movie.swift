@@ -9,18 +9,28 @@ struct Movies: Decodable {
 }
 
 struct MovieDetails: Decodable {
+    private enum CodingKeys: String, CodingKey {
+        case genres, id, overview, popularity, runtime, title
+        case originalLanguage = "original_language"
+        case originalTitle = "original_title"
+        case releaseDate = "release_date"
+        case posterPath = "poster_path"
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
+    }
+    
     var genres: [Genres]?
     var id: Int?
-    var original_language: String?
-    var original_title: String?
+    var originalLanguage: String?
+    var originalTitle: String?
     var overview: String?
     var popularity: Double?
-    var poster_path: String?
-    var release_date: String?
+    var posterPath: String?
+    var releaseDate: String?
     var runtime: Int?
     var title: String?
-    var vote_average: Double?
-    var vote_count: Int?
+    var voteAverage: Double?
+    var voteCount: Int?
 }
 
 struct Genres: Decodable, Equatable {
@@ -32,45 +42,20 @@ struct Genres: Decodable, Equatable {
 }
 
 
-extension Movies {
+extension MovieDetails: Equatable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+extension Array  where Element == MovieDetails {
     func convert() -> [MovieViewModel] {
         var movieViewModel = [MovieViewModel]()
         
-        self.details.forEach { movieDetails in
+        self.forEach { movieDetails in
             let movieModel = MovieViewModel(with: movieDetails)
             movieViewModel.append(movieModel)
         }
         return movieViewModel
     }
 }
-
-
-
-//    var id: String
-//    var rank: String
-//    var name: String
-//    var original_name: String
-//    var release_date: String
-//    var poster_path: String?
-//    var crew: String
-//    var imDbRating: String
-//    var imDbRatingCount: String
-//    var overview: String = ""
-//
-//    private enum CodingKeys: String, CodingKey {
-//         case id
-//         case rank
-//         case name = "title"
-//         case original_name = "fullTitle"
-//         case release_date = "year"
-//         case poster_path = "image"
-//         case crew
-//         case imDbRating
-//         case imDbRatingCount
-//     }
-
-//    enum CodingKeys: String, CodingKey {
-//        case poster_path, id, overview, release_date
-//        case original_name = "original_title"
-//        case name = "title"
-//    }

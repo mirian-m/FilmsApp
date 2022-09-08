@@ -32,7 +32,7 @@ final class SearchResultInteractor: SearchResultBusinessLogic, SearchResultDataS
     // MARK: Do something
     
     func getSearchResult(request: SearchResult.GetSearchResult.Request) {
-        let response = SearchResult.GetSearchResult.Response(searchedMoviesDetails: searchedMovies)
+        let response = SearchResult.GetSearchResult.Response(searchedMovies: searchedMovies)
         presenter?.presentSearchResult(response: response)
     }
     

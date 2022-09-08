@@ -43,7 +43,7 @@ final class WatchedListViewController: BackgroundImageViewControlller {
         return indicator
     }()
     
-    private var watchedListViewModel = [WatchedListViewModel]()
+    private var watchedListViewModel = [MovieViewModel]()
     
     //  MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -128,10 +128,16 @@ extension WatchedListViewController:  WatchedListDisplayLogic {
     }
 }
 
-// FIXME: ----
-extension WatchedListViewController: WatchedFilmTableViewCellDelegate{
+extension WatchedListViewController: WatchedFilmTableViewCellDelegate {
+    
+    //  MARK:- Remove Movie From Watched List
+    func removeMovieFromList(by movieId: Int) {
+        interactor?.removeMovieFromWatchedList(request: WatchedList.RemoveSelectedMovie.Request(selectedMovieId: movieId))
+    }
+    
+    // FIXME: ----
     func genreInCellDidTapped(genre: Genres) {
-        let list = watchedListViewModel.filter { movie in
+        _ = watchedListViewModel.filter { movie in
             movie.genres.contains { $0 == genre }
         }
     }

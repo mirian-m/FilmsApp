@@ -19,7 +19,7 @@ protocol RegistationDisplayLogic: AnyObject {
     func displaySigInAlert(viewModel: Registation.SigInUser.ViewModel)
 }
 
-final class RegistrationViewController: BackgroundImageViewControlller, RegistationDisplayLogic {
+final class RegistrationViewController: BackgroundImageViewControlller {
     
     //  MARK:- Clean Components
     var interactor: RegistationBusinessLogic?
@@ -133,6 +133,21 @@ final class RegistrationViewController: BackgroundImageViewControlller, Registat
         interactor?.doSomthing(request: request)
     }
     
+    func showAlertWith(title: String, text: String) {
+        contentView.button.isEnabled = true
+        contentView.button.alpha = 1
+        contentView.activiteIndicator.stopAnimating()
+        let alert = UIAlertController(title: title, message: "\n\(text)", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alert.addAction(action)
+        alert.view.tintColor = .red
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+extension RegistrationViewController: RegistationDisplayLogic {
+    
+    //  MARK: DisplayLogic Methods
     func displayViewWithConfig(viewModel: Registation.ViewItemVisibility.ViewModel) {
         contentView.lastNameTextField.isHidden = viewModel.textFieldVisibility
         contentView.firstNameTextField.isHidden = viewModel.textFieldVisibility
@@ -151,12 +166,12 @@ final class RegistrationViewController: BackgroundImageViewControlller, Registat
             return
         }
         registrationIsSuccessful = false
-        showAlertWith(title: "Registration Error", text: errorMessage)
+        showAlertWith(title: AlerTitle.Error.registration, text: errorMessage)
     }
     
     func displayUserCreationAlert(viewModel: Registation.UserData.ViewModel) {
         if viewModel.errorMessage != nil {
-            showAlertWith(title: "Create User Error", text: viewModel.errorMessage!)
+            showAlertWith(title: AlerTitle.Error.createUser, text: viewModel.errorMessage!)
         } else {
             router?.routeToHomeVC(segue: nil)
         }
@@ -164,20 +179,11 @@ final class RegistrationViewController: BackgroundImageViewControlller, Registat
     
     func displaySigInAlert(viewModel: Registation.SigInUser.ViewModel) {
         if viewModel.errorMessage != nil {
-            showAlertWith(title: "Sig In Error", text: viewModel.errorMessage!)
+            showAlertWith(title: AlerTitle.Error.sigIn, text: viewModel.errorMessage!)
         } else {
             router?.routeToHomeVC(segue: nil)
         }
     }
+
     
-    func showAlertWith(title: String, text: String) {
-        contentView.button.isEnabled = true
-        contentView.button.alpha = 1
-        contentView.activiteIndicator.stopAnimating()
-        let alert = UIAlertController(title: title, message: "\n\(text)", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        alert.addAction(action)
-        alert.view.tintColor = .red
-        present(alert, animated: true, completion: nil)
-    }
 }

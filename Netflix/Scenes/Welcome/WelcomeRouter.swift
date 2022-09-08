@@ -23,7 +23,6 @@ protocol WelcomeDataPassing {
 class WelcomeRouter: NSObject, WelcomeDataPassing {
     
     //  MARK:- Clean Components
-    
     weak var viewController: WelcomeViewController?
     var dataStore: WelcomeDataStore?
 }

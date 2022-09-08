@@ -191,7 +191,7 @@ extension HomeViewController: HomeDisplayLogic {
     
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel) {
         self.isNavigate = true
-        router?.routToTrailerVc(segue: nil)
+        router?.routToDetailsVc(segue: nil)
     }
 }
 

@@ -23,10 +23,10 @@ class WatchedListPresenter {
     // MARK: Do something
     
     
-   private func convert(model: [MovieDetails]) -> [WatchedListViewModel] {
-        var viewModel = [WatchedListViewModel]()
+   private func convert(model: [MovieDetails]) -> [MovieViewModel] {
+        var viewModel = [MovieViewModel]()
         model.forEach { movieDetail in
-            let model = WatchedListViewModel(with: movieDetail)
+            let model = MovieViewModel(with: movieDetail)
             viewModel.append(model)
         }
         return viewModel
