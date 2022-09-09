@@ -18,14 +18,14 @@ protocol ComingSoonBusinessLogic {
 }
 
 protocol ComingSoonDataStore {
-    var selectedMovieDetails: MovieDetails { get set }
+    var selectedMovieId: Int { get set }
 }
 
 final class ComingSoonInteractor: ComingSoonBusinessLogic, ComingSoonDataStore {
     var presenter: ComingSoonPresentationLogic?
     var worker: APIWoker?
     private var fetchedMovies = Movies(details: [])
-    var selectedMovieDetails = MovieDetails()
+    var selectedMovieId = 0
     
     // MARK: Do something
     
@@ -48,7 +48,7 @@ final class ComingSoonInteractor: ComingSoonBusinessLogic, ComingSoonDataStore {
     }
     
     func didTapMovie(requset: ComingSoon.GetSelectedMovie.Request) {
-        selectedMovieDetails = fetchedMovies.details.filter { $0.id! == requset.selectedMovieId }[0]
+        selectedMovieId = requset.selectedMovieId
         presenter?.presentSelectedMovie(response: ComingSoon.GetSelectedMovie.Response())
     }
 }

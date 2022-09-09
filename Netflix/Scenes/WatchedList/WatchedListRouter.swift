@@ -30,22 +30,22 @@ extension WatchedListRouter: WatchedListRoutingLogic, WatchedListDataPassing {
     // MARK: Routing
 
     func routeToTrailerVC(segue: UIStoryboardSegue?) {
-        let destinationVC = MovieTrailerViewController()
+        let destinationVC = DetailsViewController()
         var destinationDS = destinationVC.router!.dataStore!
-        passDataToTrailerVC(source: dataStore!, destination: &destinationDS)
-        navigateToTrailerVC(source: viewController!, destination: destinationVC)
+        passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
+        navigateToDetailsVc(source: viewController!, destination: destinationVC)
     }
 
     // MARK: Navigation
     
-    func navigateToTrailerVC(source: WatchedListViewController, destination: UIViewController) {
-        source.show(destination, sender: nil)
+    func navigateToDetailsVc(source: WatchedListViewController, destination: UIViewController) {
+        source.present(destination, animated: true, completion: nil)
     }
     
     // MARK: Passing data
     
-    func passDataToTrailerVC(source: WatchedListDataStore, destination: inout MovieTrailerDataStore) {
-        destination.movieDetails = source.selectedMovieDetails
+    func passDataToDetailsVc(source: WatchedListDataStore, destination: inout DetailsDataStore) {
+        destination.movieId = source.selectedMovieId
     }
     
 }

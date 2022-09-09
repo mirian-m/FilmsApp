@@ -14,13 +14,19 @@ struct MovieViewModel {
     var genres: [Genres]
     var imageUrl: String
     var rate: Double
+    var overview: String
+    var releaseDate: String
+    var runTime: Int
     
-    init(id: Int, title: String, genres: [Genres], imageUrl: String, rate: Double) {
+    init(id: Int, title: String, genres: [Genres], imageUrl: String, rate: Double, overview: String, releaseDate: String, runTime: Int) {
         self.id = id
         self.title = title
         self.imageUrl = imageUrl
         self.rate = rate
         self.genres = genres
+        self.overview = overview
+        self.releaseDate = releaseDate
+        self.runTime = runTime
     }
     
     init(with model: MovieDetails) {
@@ -29,7 +35,10 @@ struct MovieViewModel {
             title: model.title ?? model.originalTitle ?? "",
             genres: model.genres ?? [],
             imageUrl: model.posterPath ?? "",
-            rate: model.voteAverage ?? 0.0
+            rate: model.voteAverage ?? 0.0,
+            overview: model.overview ?? "",
+            releaseDate: model.releaseDate ?? "",
+            runTime: model.runtime ?? 0
         )
     }
     init() {
@@ -38,7 +47,10 @@ struct MovieViewModel {
             title: "",
             genres: [],
             imageUrl: "",
-            rate: 0.0
+            rate: 0.0,
+            overview: "",
+            releaseDate: "",
+            runTime: 0
         )
     }
 }

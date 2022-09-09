@@ -91,12 +91,12 @@ final class ComingSoonViewController: BackgroundImageViewControlller, ComingSoon
     
     //    MARK:- Display Functions
     func displayUpcomingMovies(viewModel: ComingSoon.GetUpcomingMovies.ViewModel) {
-        self.moviesViewModel = viewModel.movie
+        self.moviesViewModel = viewModel.movie.shuffled()
         self.upcomingMoviesTableView.reloadData()
     }
     
     func displaySelectedMovie(viewModel: ComingSoon.GetSelectedMovie.ViewModel) {
-        router?.routeToTrailerVC(segue: nil)
+        router?.routeToDetailsVc(segue: nil)
     }
 }
 

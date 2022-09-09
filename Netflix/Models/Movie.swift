@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 struct Movies: Decodable {
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case details = "results"
     }
     var details: [MovieDetails]
@@ -48,7 +48,7 @@ extension MovieDetails: Equatable {
     }
 }
 
-extension Array  where Element == MovieDetails {
+extension Array where Element == MovieDetails {
     func convert() -> [MovieViewModel] {
         var movieViewModel = [MovieViewModel]()
         

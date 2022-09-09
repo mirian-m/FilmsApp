@@ -12,7 +12,6 @@
 
 import UIKit
 
-
 protocol HomeDisplayLogic: AnyObject {
     func displayMovies(viewModel: Home.MovieInfo.ViewModel)
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel)
@@ -20,6 +19,9 @@ protocol HomeDisplayLogic: AnyObject {
 
 final class HomeViewController: BackgroundImageViewControlller {
     
+    //  MARK:- Clean Components
+    var interactor: HomeBusinessLogic?
+    var router: (NSObjectProtocol & HomeRoutingLogic & HomeDataPassing)?
     
     //  MARK: @IBOutlet
     @IBOutlet weak var personBtn: UIBarButtonItem! {
@@ -27,11 +29,7 @@ final class HomeViewController: BackgroundImageViewControlller {
             personBtn.image = UIImage(systemName: "person")?.withRenderingMode(.alwaysOriginal).withTintColor(.white)
         }
     }
-    
     @IBOutlet weak var filmTableView: UITableView!
-    
-    var interactor: HomeBusinessLogic?
-    var router: (NSObjectProtocol & HomeRoutingLogic & HomeDataPassing)?
     var offsets = [IndexPath: CGFloat]()
     
     private let headerForSection = ["Trending movies", "Trending tv", "Popular", "Upcoming movies", "Top"]
@@ -42,23 +40,23 @@ final class HomeViewController: BackgroundImageViewControlller {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //        self.navigationController?.hidesBarsOnSwipe = true
         controllerSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        //        navigationController?.setNavigationBarHidden(false, animated: false)
         isNavigate = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        if !isNavigate {
-            navigationController?.setNavigationBarHidden(true, animated: false)
-        }
+        //        if !isNavigate {
+        //            navigationController?.setNavigationBarHidden(true, animated: false)
+        //        }
     }
     
     // MARK: Object lifecycle
@@ -86,9 +84,7 @@ final class HomeViewController: BackgroundImageViewControlller {
     }
     
     private func controllerSetup() {
-        tabBarController?.navigationController?.navigationBar.isHidden = false
-        //                self.tabBarController?.navigationItem.hidesBackButton = true
-        
+        tabBarController?.navigationController?.navigationBar.isHidden = true
         tabBarItem.badgeColor = .label
         tabBarItem.image = UIImage(systemName: "house.fill")
         tabBarItem.title = "Home"
@@ -101,8 +97,7 @@ final class HomeViewController: BackgroundImageViewControlller {
         setNavBarItem()
     }
     
-    //    MARK:- Navigation Item Set Func
-    
+    //  MARK:- Navigation Item Set Func
     private func setNavBarItem() {
         title = "Home"
         var image = UIImage(named: "Netflix-new")
@@ -123,22 +118,19 @@ final class HomeViewController: BackgroundImageViewControlller {
     }
     
     // MARK: Routing
-    
     @objc private func presentProfile() {
         router?.routeToProfile(segue: nil)
     }
-    
-    
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
-    //    MARK:- Tableview DataSource & Delegate Methods
-    
+    //  MARK:- Tableview DataSource & Delegate Methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MoviesTableViewCell", for: indexPath) as? MoviesTableViewCell else { return UITableViewCell() }
         
         cell.setScrollPosition(x: offsets[indexPath] ?? 0)
+        
         let title = headerForSection[indexPath.section]
         let url = API.dictionariOfAPI[title]!
         let request = Home.MovieInfo.Request(url: url)
@@ -176,10 +168,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension HomeViewController: HomeDisplayLogic {
     
-    //  MARK:- DisplayLogic Protocol Functions
-    
+    //  MARK:- DisplayLogic Functions
     func displayMovies(viewModel: Home.MovieInfo.ViewModel) {
-        let movies = viewModel.moviesViewModel
+        let movies = viewModel.moviesViewModel.shuffled()
         self.fetchedMoviesDetails = movies
         
         if !self.posterIsSeted {
@@ -197,8 +188,7 @@ extension HomeViewController: HomeDisplayLogic {
 
 extension HomeViewController: CollectionViewTableViewCelldelegate, ProfileViewControllerDelegate {
     
-    // MARK: Delegate PROTOCOL FUNCtions
-    
+    //  MARK: Delegate Protocol FUNCtions
     func collectionViewTableViewCellDidTap(movieId: Int) {
         interactor?.didTapMovie(requset: Home.GetSelectedMovie.Request(selectedMovieId: movieId))
     }

@@ -10,22 +10,57 @@
 //  see http://clean-swift.com
 //
 
+
+
+
 import UIKit
 
 protocol DetailsDisplayLogic: AnyObject {
     func displayMovieDetails(viewModel: Details.GetMovie.ViewModel)
 }
 
-class DetailsViewController: UIViewController {
+final class DetailsViewController: BackgroundImageViewControlller {
     
     //  MARK:- Clean Components
     var interactor: DetailsBusinessLogic?
     var router: (NSObjectProtocol & DetailsRoutingLogic & DetailsDataPassing)?
     
+    private lazy var detailsTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(DetailsCell.self, forCellReuseIdentifier: DetailsCell.identifier)
+        tableView.register(DetailsOverviewCell.self, forCellReuseIdentifier: DetailsOverviewCell.identifier)
+        tableView.frame = self.view.bounds
+        tableView.backgroundColor = .none
+        view.addSubview(tableView)
+        return tableView
+    }()
+    
+    private lazy var watchTrailerBtn: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = MovieDetailsVCConst.cornerRadius
+        button.backgroundColor = .white
+        button.setTitle("Watche Trailer", for: .normal)
+        button.setButton(image: UIImage(systemName: "eye.fill")!)
+        view.addSubview(button)
+        return button
+    }()
+    
+    func buttonConstraints() {
+        let watchTrailerBtnConstraints = [
+            watchTrailerBtn.heightAnchor.constraint(equalToConstant: 50),
+            watchTrailerBtn.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            watchTrailerBtn.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            watchTrailerBtn.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
+        ]
+        NSLayoutConstraint.activate(watchTrailerBtnConstraints)
+    }
+    private var headerView: Poster?
     private var movieViewModel = MovieViewModel()
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -37,7 +72,6 @@ class DetailsViewController: UIViewController {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = DetailsInteractor()
@@ -52,21 +86,54 @@ class DetailsViewController: UIViewController {
     }
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        controllerSetup()
         getMovieDetails()
     }
     
+    private func controllerSetup() {
+        navigationController?.navigationBar.barStyle = .black
+        
+        headerView = Poster(frame: CGRect(
+                                x: 0,
+                                y: 0,
+                                width: view.bounds.width,
+                                height: UIScreen.main.bounds.height * (1/3))
+        )
+        
+        detailsTableView.tableHeaderView = headerView
+    }
     
     func getMovieDetails() {
         let request = Details.GetMovie.Request()
-        interactor?.doSomething(request: request)
+        interactor?.getMoveDetails(request: request)
     }
 }
 
 extension DetailsViewController: DetailsDisplayLogic {
     func displayMovieDetails(viewModel: Details.GetMovie.ViewModel) {
+        headerView?.configure(with: viewModel.movieViewModel.imageUrl)
         self.movieViewModel = viewModel.movieViewModel
+        detailsTableView.reloadData()
+    }
+}
+
+extension DetailsViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        MovieDetailsVCConst.numberOfRows
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 4 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailsOverviewCell.identifier, for: indexPath) as? DetailsOverviewCell else { return UITableViewCell() }
+            cell.configur(with: movieViewModel)
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailsCell.identifier, for: indexPath) as? DetailsCell else { return UITableViewCell() }
+            return cell
+        }
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        indexPath.row > 3 ? MovieDetailsVCConst.overViewCellHeight : MovieDetailsVCConst.detailCellHeight
     }
 }

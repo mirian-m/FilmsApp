@@ -13,7 +13,7 @@
 import UIKit
 
 @objc protocol ComingSoonRoutingLogic {
-    func routeToTrailerVC(segue: UIStoryboardSegue?)
+    func routeToDetailsVc(segue: UIStoryboardSegue?)
 }
 
 protocol ComingSoonDataPassing {
@@ -26,8 +26,8 @@ final class ComingSoonRouter: NSObject, ComingSoonRoutingLogic, ComingSoonDataPa
     
     // MARK: Routing
     
-    func routeToTrailerVC(segue: UIStoryboardSegue?) {
-        let destinationVC = MovieTrailerViewController()
+    func routeToDetailsVc(segue: UIStoryboardSegue?) {
+        let destinationVC = DetailsViewController()
         var destinationDS = destinationVC.router!.dataStore!
         passDataToSomewhere(source: dataStore!, destination: &destinationDS)
         navigateToTrailerVC(source: viewController!, destination: destinationVC)
@@ -36,12 +36,13 @@ final class ComingSoonRouter: NSObject, ComingSoonRoutingLogic, ComingSoonDataPa
     // MARK: Navigation
     
     func navigateToTrailerVC(source: ComingSoonViewController, destination: UIViewController) {
-        source.show(destination, sender: nil)
+//        source.show(destination, sender: nil)
+        source.present(destination, animated: true, completion: nil)
     }
     
     // MARK: Passing data
     
-    func passDataToSomewhere(source: ComingSoonDataStore, destination: inout MovieTrailerDataStore) {
-        destination.movieDetails = source.selectedMovieDetails
+    func passDataToSomewhere(source: ComingSoonDataStore, destination: inout DetailsDataStore) {
+        destination.movieId = source.selectedMovieId
     }
 }

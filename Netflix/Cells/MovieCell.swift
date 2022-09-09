@@ -1,7 +1,7 @@
 import UIKit
 
 class MovieCell: UITableViewCell {
-    static var identifier = "MovieCell"
+    static var identifier: String { .init(describing: self) }
     
     private let playButton: UIButton = {
         let button = UIButton()

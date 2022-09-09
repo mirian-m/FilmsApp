@@ -12,8 +12,8 @@
 
 import UIKit
 
-@objc protocol SearchResultRoutingLogic {
-    func routeToTrailerVC(segue: UIStoryboardSegue?)
+protocol SearchResultRoutingLogic {
+    func routeToDetailsVc(segue: UIStoryboardSegue?)
 }
 
 protocol SearchResultDataPassing {
@@ -22,27 +22,25 @@ protocol SearchResultDataPassing {
 
 final class SearchResultRouter: NSObject, SearchResultRoutingLogic, SearchResultDataPassing {
     
+    //  MARK:- Clean Components
     weak var viewController: SearchResultViewController?
     var dataStore: SearchResultDataStore?
     
     //  MARK: Routing
-    
-    func routeToTrailerVC(segue: UIStoryboardSegue?) {
-        let destinationVC = MovieTrailerViewController()
+    func routeToDetailsVc(segue: UIStoryboardSegue?) {
+        let destinationVC = DetailsViewController()
         var destinationDS = destinationVC.router!.dataStore!
-        passDataToTrailerVC(source: dataStore!, destination: &destinationDS)
-        navigateToTrailerVC(source: viewController!, destination: destinationVC)
+        passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
+        navigateToDetailsVc(source: viewController!, destination: destinationVC)
     }
     
     //  MARK: Navigation
-    
-    func navigateToTrailerVC(source: SearchResultViewController, destination: UIViewController) {
-        source.show(destination, sender: nil)
+    func navigateToDetailsVc(source: SearchResultViewController, destination: UIViewController) {
+        source.present(destination, animated: true, completion: nil)
     }
     
     //  MARK: Passing data
-    
-    func passDataToTrailerVC(source: SearchResultDataStore, destination: inout MovieTrailerDataStore) {
-        destination.movieDetails = source.selectedMovieDetails
+    func passDataToDetailsVc(source: SearchResultDataStore, destination: inout DetailsDataStore) {
+        destination.movieId = source.selectedMovieId
     }
 }

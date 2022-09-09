@@ -1,14 +1,15 @@
 import Foundation
 import UIKit
 
-extension String{
+extension String {
+    
+    //  MARK:- Upercased First letter of string and Return it
     func upperCasedFirstLetter() -> String{
         return self.prefix(1).uppercased() + self.dropFirst()
     }
 }
 
 extension UIImageView {
-    
     func getImageFromWeb(by url: String) {
         guard let ApiUrl = URL(string: url) else { return }
         URLSession.shared.dataTask(with: ApiUrl) { (data, _, error) in
@@ -22,6 +23,8 @@ extension UIImageView {
 }
 
 extension UIButton {
+    
+    //  MARK:- Set Image To Button With distans
     func setButton(image: UIImage) {
         self.setImage(image, for: .normal)
         self.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
@@ -32,7 +35,9 @@ extension UIButton {
 }
 
 extension UITextField {
-    func setLeftPaddingPoints(_ amount:CGFloat){
+    
+    //  MARK:- Set to UITextField Left Padding at given points
+    func setLeftPaddingPoints(_ amount: CGFloat) {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: 0))
         self.leftView = paddingView
         self.leftViewMode = .always
@@ -40,6 +45,8 @@ extension UITextField {
 }
 
 extension Double {
+    
+    //  MARK:- Rounds a number to the given precision
     mutating func roundingNumber(at decimal: Int) {
         var  m = 1.0
         for _ in 1...decimal {

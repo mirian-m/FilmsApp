@@ -13,17 +13,17 @@
 import UIKit
 
 protocol DetailsBusinessLogic {
-    func doSomething(request: Details.GetMovie.Request)
+    func getMoveDetails(request: Details.GetMovie.Request)
 }
 
 protocol DetailsDataStore {
-    var movieId: Int? { get set }
+    var movieId: Int { get set }
     var movieDetails: MovieDetails { get set }
 }
 
 class DetailsInteractor: DetailsDataStore {
     var movieDetails: MovieDetails = MovieDetails()
-    var movieId: Int?
+    var movieId: Int = 0
     var presenter: DetailsPresentationLogic?
     var worker: APIWoker?
     
@@ -31,10 +31,10 @@ class DetailsInteractor: DetailsDataStore {
 }
 
 extension DetailsInteractor: DetailsBusinessLogic {
-    func doSomething(request: Details.GetMovie.Request) {
+    func getMoveDetails(request: Details.GetMovie.Request) {
         worker = APIWoker()
         var response = Details.GetMovie.Response()
-        let url = "https://api.themoviedb.org/3/movie/\(String(describing: movieId))?api_key=793b50b3b4c6ef37ce18bda27b1cbf67&language=en-US"
+        let url = "https://api.themoviedb.org/3/movie/\(movieId)?api_key=793b50b3b4c6ef37ce18bda27b1cbf67&language=en-US"
         worker?.fetchMoviesDetails(url: url, completion: { (result: Result<MovieDetails, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 switch result {

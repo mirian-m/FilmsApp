@@ -114,7 +114,7 @@ extension SearchResultViewController: SearchResultDisplayLogic  {
     }
     
     func displaySelectedMovie(viewModel: SearchResult.GetSelectedMovie.ViewModel) {
-        router?.routeToTrailerVC(segue: nil)
+        router?.routeToDetailsVc(segue: nil)
     }
     
 }

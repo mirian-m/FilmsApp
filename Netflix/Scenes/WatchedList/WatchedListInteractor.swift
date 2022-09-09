@@ -20,11 +20,11 @@ protocol WatchedListBusinessLogic {
 }
 
 protocol WatchedListDataStore {
-    var selectedMovieDetails: MovieDetails { get set }
+    var selectedMovieId: Int { get set }
 }
 
 class WatchedListInteractor: WatchedListDataStore {
-    var selectedMovieDetails: MovieDetails = MovieDetails()
+    var selectedMovieId: Int = 0
     var presenter: WatchedListPresentationLogic?
     var worker: WatchedListWorke?
     private var moviesList = [MovieDetails]()
@@ -42,7 +42,7 @@ extension WatchedListInteractor: WatchedListBusinessLogic {
     }
     
     func didTapMovie(requset: WatchedList.GetSelectedMovie.Request) {
-        selectedMovieDetails = moviesList.filter { $0.id == requset.selectedMovieId }[0]
+        selectedMovieId = requset.selectedMovieId
         presenter?.presentSelectedMovie(response: WatchedList.GetSelectedMovie.Response())
     }
     

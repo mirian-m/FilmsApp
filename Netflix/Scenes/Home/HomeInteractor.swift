@@ -28,7 +28,6 @@ final class HomeInteractor: HomeBusinessLogic, HomeDataStore {
     private var fetchedMovies: Movies = Movies(details: [])
     
     // MARK: Do something
-    
     func fetchMovies(request: Home.MovieInfo.Request, complition: @escaping (Bool) -> Void) {
         worker = APIWoker()
         var response = Home.MovieInfo.Response()

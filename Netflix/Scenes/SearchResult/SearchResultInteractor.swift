@@ -19,13 +19,13 @@ protocol SearchResultBusinessLogic {
 }
 
 protocol SearchResultDataStore {
-    var selectedMovieDetails: MovieDetails { get set }
+    var selectedMovieId: Int { get set }
     var searchedMovies: Movies { get set }
 }
 
 final class SearchResultInteractor: SearchResultBusinessLogic, SearchResultDataStore {
     var searchedMovies = Movies(details: [])
-    var selectedMovieDetails: MovieDetails = MovieDetails()
+    var selectedMovieId: Int = 0
     var presenter: SearchResultPresentationLogic?
     var worker: SearchResultWorker?
     
@@ -37,7 +37,7 @@ final class SearchResultInteractor: SearchResultBusinessLogic, SearchResultDataS
     }
     
     func didTapMovie(requset: SearchResult.GetSelectedMovie.Request) {
-        selectedMovieDetails = searchedMovies.details.filter { $0.id! == requset.selectedMovieId }[0]
+        selectedMovieId = requset.selectedMovieId
         presenter?.presentSelectedMovie(response: SearchResult.GetSelectedMovie.Response())
 
     }

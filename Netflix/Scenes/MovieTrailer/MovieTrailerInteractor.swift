@@ -13,38 +13,41 @@
 import UIKit
 
 protocol MovieTrailerBusinessLogic {
-  func getTrailer(request: MovieTrailer.GetTrailer.Request)
+    func getTrailer(request: MovieTrailer.GetTrailer.Request)
 }
 
 protocol MovieTrailerDataStore {
-  var movieDetails: MovieDetails { get set }
+    var movieDetails: MovieDetails { get set }
 }
 
 class MovieTrailerInteractor: MovieTrailerBusinessLogic, MovieTrailerDataStore {
-  var presenter: MovieTrailerPresentationLogic?
-  var worker: APIWoker?
-  var movieDetails: MovieDetails = MovieDetails()
-  
-  // MARK: Do something
-  
-  func getTrailer(request: MovieTrailer.GetTrailer.Request) {
+    var presenter: MovieTrailerPresentationLogic?
+    var worker: APIWoker?
+    var movieDetails: MovieDetails = MovieDetails()
     
-    worker = APIWoker()
-    let overView = movieDetails.overview ?? ""
-    let title = movieDetails.title ?? movieDetails.originalTitle ?? ""
-    var response = MovieTrailer.GetTrailer.Response(youtubeId: nil, overView: overView, title: title)
-    let query = title + " trailer"
+    // MARK: Do something
     
-    worker?.getMovie(with: query, completion: { [weak self] result in
-        DispatchQueue.main.async { [weak self] in
-            switch result {
-            case .success(let youtubeResult):
-                response.youtubeId = youtubeResult.items[0].id
-            case .failure(let error):
-                print(error.localizedDescription)
+    func getTrailer(request: MovieTrailer.GetTrailer.Request) {
+        
+        worker = APIWoker()
+        let overView = movieDetails.overview ?? ""
+        let title = movieDetails.title ?? movieDetails.originalTitle ?? ""
+        var youtubeId: String = ""
+        let query = title + " trailer"
+        
+        worker?.getMovie(with: query, completion: { [weak self] result in
+            DispatchQueue.main.async { [weak self] in
+                switch result {
+                case .success(let youtubeResult):
+                    youtubeId = youtubeResult.items.first?.id.videoId ?? ""
+                case .failure(let error):
+                    
+                    //  TODO:- Error Hendling
+                    print(error.localizedDescription)
+                }
+                let response = MovieTrailer.GetTrailer.Response(youtubeId: youtubeId, overView: overView, title: title)
+                self?.presenter?.presentMovieTrailer(response: response)
             }
-            self?.presenter?.presentMovieTrailer(response: response)
-        }
-    })
-  }
+        })
+    }
 }

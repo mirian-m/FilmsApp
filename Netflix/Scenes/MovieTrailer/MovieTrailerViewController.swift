@@ -168,7 +168,7 @@ final class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLog
     func displayMovieTrailer(viewModel: MovieTrailer.GetTrailer.ViewModel) {
         self.titleLb.text = viewModel.trailer.movieTitle
         self.overviewLb.text = viewModel.trailer.overview
-        guard let url = URL(string: "https://www.youtube.com/watch?v=\(viewModel.trailer.youtubeId.videoId)") else { return }
+        guard let url = URL(string: "https://www.youtube.com/watch?v=\(viewModel.trailer.youtubeId ?? "")") else { return }
         self.webView.load(URLRequest(url: url))
     }
 }

@@ -94,14 +94,11 @@ final class SearchMovieViewController: BackgroundImageViewControlller {
     }
     
     //  MARK: Do something
-    
     func getMovies() {
         let request = SearchMovie.GetMovies.Request()
         interactor?.getMovies(request: request)
     }
-    
 }
-
 
 extension SearchMovieViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -143,7 +140,7 @@ extension SearchMovieViewController: SearchMovieDisplayLogic {
     //  MARK: DisplayLogic Protocol Functions
     
     func displayMovies(viewModel: SearchMovie.GetMovies.ViewModel) {
-        moviesViewModel = viewModel.movie
+        moviesViewModel = viewModel.movie.shuffled()
         self.discoveredTable.reloadData()
     }
     

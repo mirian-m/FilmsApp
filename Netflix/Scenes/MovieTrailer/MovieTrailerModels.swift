@@ -12,15 +12,14 @@
 
 import UIKit
 
-enum MovieTrailer
-{
+enum MovieTrailer {
   // MARK: Use cases
   
   enum GetTrailer {
     struct Request { }
     
     struct Response {
-        var youtubeId: VideoId?
+        var youtubeId: String
         var overView: String
         var title: String
     }

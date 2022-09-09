@@ -43,7 +43,7 @@ final class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
         let destinationVC = DetailsViewController()
         var destinationDS = destinationVC.router!.dataStore!
         passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
-        navigate(source: viewController!, destination: destinationVC)
+        present(source: viewController!, destination: destinationVC)
     }
     
     //  MARK: Navigation

@@ -12,7 +12,7 @@
 
 import UIKit
 
-@objc protocol SearchMovieRoutingLogic {
+protocol SearchMovieRoutingLogic {
     func routeToTrailerVC(segue: UIStoryboardSegue?)
     func routeToSearcheResulte(segue: UIStoryboardSegue?)
 }
@@ -21,45 +21,11 @@ protocol SearchMovieDataPassing {
     var dataStore: SearchMovieDataStore? { get }
 }
 
-final class SearchMovieRouter: NSObject, SearchMovieRoutingLogic, SearchMovieDataPassing {
+final class SearchMovieRouter: NSObject, SearchMovieDataPassing {
     
     weak var viewController: SearchMovieViewController?
     var dataStore: SearchMovieDataStore?
     
-    // MARK: Routing
-    
-    
-    func routeToTrailerVC(segue: UIStoryboardSegue?) {
-        let destinationVC = MovieTrailerViewController()
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-        navigateToTrailerVC(source: viewController!, destination: destinationVC)
-    }
-    
-    // MARK: Navigation
-    
-    func navigateToTrailerVC(source: SearchMovieViewController, destination: UIViewController) {
-        source.show(destination, sender: nil)
-    }
-    
-    // MARK: Passing data
-    
-    func routeToSearcheResulte(segue: UIStoryboardSegue?) {
-        guard let destinationVC = viewController?.searchController.searchResultsController as? SearchResultViewController else { return }
-        var destinationDS = destinationVC.router!.dataStore!
-        passSearchedData(source: dataStore!, destination: &destinationDS)
-//        destinationVC.searchResultCollectionView.reloadData()
-        destinationVC.searchResultIsUpdated.toggle()
-        
-    }
-
-    func passSearchedData(source: SearchMovieDataStore, destination: inout SearchResultDataStore) {
-        destination.searchedMovies = source.searchedMovies
-    }
-
-    func passDataToSomewhere(source: SearchMovieDataStore, destination: inout MovieTrailerDataStore) {
-        destination.movieDetails = source.selectedMovieDetails
-    }
     
     //func routeToSomewhere(segue: UIStoryboardSegue?)
     //{
@@ -89,4 +55,36 @@ final class SearchMovieRouter: NSObject, SearchMovieRoutingLogic, SearchMovieDat
     //{
     //  destination.name = source.name
     //}
+}
+extension SearchMovieRouter:  SearchMovieRoutingLogic {
+    
+    // MARK: Routing
+    func routeToTrailerVC(segue: UIStoryboardSegue?) {
+        let destinationVC = DetailsViewController()
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
+        navigateToDetailsVc(source: viewController!, destination: destinationVC)
+    }
+    
+    
+    // MARK: Passing data
+    func routeToSearcheResulte(segue: UIStoryboardSegue?) {
+        guard let destinationVC = viewController?.searchController.searchResultsController as? SearchResultViewController else { return }
+        var destinationDS = destinationVC.router!.dataStore!
+        passSearchedData(source: dataStore!, destination: &destinationDS)
+        destinationVC.searchResultIsUpdated = true
+    }
+    
+    func passSearchedData(source: SearchMovieDataStore, destination: inout SearchResultDataStore) {
+        destination.searchedMovies = source.searchedMovies
+    }
+
+    func passDataToDetailsVc(source: SearchMovieDataStore, destination: inout DetailsDataStore) {
+        destination.movieId = source.selectedMovieId
+    }
+    
+    // MARK: Navigation
+    func navigateToDetailsVc(source: SearchMovieViewController, destination: UIViewController) {
+        source.present(destination, animated: true, completion: nil)
+    }
 }

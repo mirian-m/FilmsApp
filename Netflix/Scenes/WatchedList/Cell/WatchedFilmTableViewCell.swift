@@ -142,6 +142,7 @@ class WatchedFilmTableViewCell: UITableViewCell {
         addItemsToView()
         applyConstraints()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -230,18 +231,15 @@ class WatchedFilmTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate(voteLbCostraints)
         NSLayoutConstraint.activate(posterImageConstraints)
     }
-    
-    
-    
 }
 
 extension WatchedFilmTableViewCell {
     
     //  MARK:- Private Functions
     private func round(number: Double) -> Double {
-        var roundidNumber = number
-        roundidNumber.roundingNumber(at: 1)
-        return roundidNumber
+        var roundedNumber = number
+        roundedNumber.roundingNumber(at: 1)
+        return roundedNumber
     }
     
     private func set(title genre: [Genres], for button: UIButton) {

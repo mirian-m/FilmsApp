@@ -40,10 +40,10 @@ extension MoviesTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func getScrollPosition() -> CGFloat {
-        return moviesCollectionView.contentOffset.x
+        moviesCollectionView.contentOffset.x
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { return movies.count }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { movies.count }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let collectionView = collectionView.dequeueReusableCell(
@@ -58,7 +58,7 @@ extension MoviesTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
-        return CGSize(width: 120, height: Constans.heightForRow)
+        CGSize(width: 120, height: Constans.heightForRow)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
