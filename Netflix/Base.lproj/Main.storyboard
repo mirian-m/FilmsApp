@@ -19,8 +19,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="qjb-cz-Jj2">
-                                <rect key="frame" x="5" y="-20" width="404" height="833"/>
-                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="5" y="0.0" width="404" height="813"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MoviesTableViewCell" rowHeight="111" id="gRH-gh-WXq" customClass="MoviesTableViewCell" customModule="Netflix" customModuleProvider="target">
@@ -95,7 +95,7 @@
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="qjb-cz-Jj2" secondAttribute="bottom" id="1kK-Gw-RHd"/>
                             <constraint firstItem="qjb-cz-Jj2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="21H-Rv-Oqz"/>
-                            <constraint firstItem="qjb-cz-Jj2" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="-20" id="BIh-5Q-bOn"/>
+                            <constraint firstItem="qjb-cz-Jj2" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="BIh-5Q-bOn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qjb-cz-Jj2" secondAttribute="trailing" constant="5" id="m0k-bK-8V2"/>
                         </constraints>
                     </view>
@@ -148,8 +148,8 @@
                                     <constraint firstAttribute="width" constant="157" id="aLB-Iw-VhQ"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zAy-Vc-DPC">
-                                <rect key="frame" x="87" y="472" width="240" height="128"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zAy-Vc-DPC">
+                                <rect key="frame" x="38" y="423" width="339" height="331"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -159,7 +159,7 @@
                             </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WW3-cI-o2k"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="WW3-cI-o2k" firstAttribute="trailing" secondItem="4Ex-jw-h5w" secondAttribute="trailing" constant="20" id="3wH-SG-JT2"/>
                             <constraint firstItem="aeh-uT-q4p" firstAttribute="leading" secondItem="WW3-cI-o2k" secondAttribute="leading" constant="20" id="6bL-Zu-NQg"/>

@@ -45,7 +45,14 @@ final class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
         passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
         present(source: viewController!, destination: destinationVC)
     }
-    
+
+    func routToTrailerVc(segue: UIStoryboardSegue?) {
+        let destinationVC = MovieTrailerViewController()
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToTrailerVc(source: dataStore!, destination: &destinationDS)
+        navigate(source: viewController!, destination: destinationVC)
+    }
+
     //  MARK: Navigation
     func popToWelcomePage(source: HomeViewController, destination: UIViewController?) {
         source.navigationController?.popToRootViewController(animated: true)
@@ -60,5 +67,8 @@ final class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
     // MARK: Passing data
     func passDataToDetailsVc(source: HomeDataStore, destination: inout DetailsDataStore) {
         destination.movieId = source.selectedMovieId
+    }
+    func passDataToTrailerVc(source: HomeDataStore, destination: inout MovieTrailerDataStore) {
+//        destination.movieDetails = source.selectedMovieId
     }
 }

@@ -9,32 +9,38 @@ import UIKit
 
 class DetailsOverviewCell: UITableViewCell {
     static var identifier: String { .init(describing: self) }
-    private let startingHeight: CGFloat = 60
     
-    private let buttonImageName = ["chevron.compact.down", "chevron.compact.up"]
-    lazy var heightConstraint = viewForBackground.heightAnchor.constraint(equalToConstant: startingHeight)
+    private let startingHeight: CGFloat = 50
     
-    private lazy var viewForBackground: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = MovieDetailsVCConst.cornerRadius
-        view.backgroundColor = .white
-        return view
+    private let buttonTitles = ["Show More", "Show Less"]
+    lazy var heightConstraint = overview.heightAnchor.constraint(equalToConstant: startingHeight)
+    
+    private lazy var synopsisLb: UILabel = {
+        let lb = UILabel()
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        lb.font = UIFont(name: "Lato-Medium", size: 16)
+        lb.textColor = .white
+        lb.text = "Synopsis"
+        return lb
     }()
     
     private lazy var overview: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.layer.cornerRadius = MovieDetailsVCConst.cornerRadius
+        textView.backgroundColor = UIColor(white: 1, alpha: 0)
+        textView.font = UIFont(name: "Lato-Regular", size: 12)
+        textView.isScrollEnabled = false
+        textView.text = "Rey (Daisy Ridley) finally manages to find the legendary Jedi knight, Luke Skywalker (Mark Hamill) on an island with a magical aura. The heroes of The Force Awakens including Leia, Finn Read moreRey (Daisy Ridley) finally manages to find the legendary Jedi knight, Luke Skywalkerinn Read moreRey (Daisy Ridley) finally manages to find the legendary Jedi knight, Luk inn Read moreRey (Daisy Ridley) finally manages to find the legendary Jedi knight, Luk"
         return textView
     }()
     
     private lazy var buttonForMoreContext: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("BUtton", for: .normal)
+        button.setTitle("Show More...", for: .normal)
+        button.tintColor = .white
+        button.titleLabel?.font = UIFont(descriptor: UIFontDescriptor(), size: 10)
         button.tag = 0
-        button.setImage(getImage(by: buttonImageName[button.tag]), for: .normal)
         button.addTarget(self, action: #selector(show), for: .touchUpInside)
         return button
     }()
@@ -52,6 +58,7 @@ class DetailsOverviewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
         backgroundColor = UIColor(white: 1, alpha: 0)
         heightConstraint.isActive = true
         addItemToSubView()
@@ -70,33 +77,31 @@ class DetailsOverviewCell: UITableViewCell {
 extension DetailsOverviewCell {
     
     private func addItemToSubView() {
-        contentView.addSubview(viewForBackground)
-        viewForBackground.addSubview(overview)
-        viewForBackground.addSubview(buttonForMoreContext)
+        contentView.addSubview(synopsisLb)
+        contentView.addSubview(overview)
+        contentView.addSubview(buttonForMoreContext)
     }
     
     //  MARK:- Adjust Constraints
     private func adjustConstraints() {
-        let viewForBackgroundConstraints = [
-            viewForBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            viewForBackground.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            viewForBackground.centerXAnchor.constraint(equalTo: centerXAnchor)
+        
+        let synopsisLbConstraints = [
+            synopsisLb.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+            synopsisLb.topAnchor.constraint(equalTo: topAnchor, constant: 16)
         ]
         
         let overviewConstraints = [
-            overview.leadingAnchor.constraint(equalTo: viewForBackground.leadingAnchor, constant: 5),
-            overview.heightAnchor.constraint(equalTo: viewForBackground.heightAnchor, multiplier: 1),
-            overview.trailingAnchor.constraint(equalTo: buttonForMoreContext.leadingAnchor, constant: -5),
+            overview.leadingAnchor.constraint(equalTo: synopsisLb.leadingAnchor, constant: -5),
+            overview.centerXAnchor.constraint(equalTo: centerXAnchor),
+            overview.topAnchor.constraint(equalTo: synopsisLb.bottomAnchor, constant: 5),
         ]
         
         let buttonForMoreContextConstraints = [
-            buttonForMoreContext.trailingAnchor.constraint(equalTo: viewForBackground.trailingAnchor, constant: -5),
-            buttonForMoreContext.centerYAnchor.constraint(equalTo: viewForBackground.centerYAnchor),
-            buttonForMoreContext.widthAnchor.constraint(equalToConstant: 30),
-            buttonForMoreContext.heightAnchor.constraint(equalTo: buttonForMoreContext.widthAnchor, multiplier: 1)
+            buttonForMoreContext.centerXAnchor.constraint(equalTo: centerXAnchor),
+            buttonForMoreContext.topAnchor.constraint(equalTo: overview.bottomAnchor, constant: -5)
         ]
         
-        NSLayoutConstraint.activate(viewForBackgroundConstraints)
+        NSLayoutConstraint.activate(synopsisLbConstraints)
         NSLayoutConstraint.activate(overviewConstraints)
         NSLayoutConstraint.activate(buttonForMoreContextConstraints)
     }
@@ -115,18 +120,7 @@ extension DetailsOverviewCell {
         default:
             break
         }
-        buttonForMoreContext.setImage(getImage(by: buttonImageName[buttonForMoreContext.tag]), for: .normal)
-    }
-    
-    private func getImage(by systemName: String) -> UIImage {
-        guard let buttonImage = UIImage(
-                systemName: systemName,
-                withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))?
-                .withRenderingMode(.alwaysOriginal)
-                .withTintColor(UIColor.black) else { return UIImage()
-            
-        }
-        return buttonImage
+        buttonForMoreContext.setTitle(buttonTitles[buttonForMoreContext.tag], for: .normal)
     }
 }
 
@@ -149,7 +143,7 @@ extension UITextView {
         
         size.height = txtFrame.size.height
         
-        return size.height
+        return size.height > 150 ? 150 : size.height
     }
     
     

@@ -10,9 +10,6 @@
 //  see http://clean-swift.com
 //
 
-
-
-
 import UIKit
 
 protocol DetailsDisplayLogic: AnyObject {
@@ -30,6 +27,7 @@ final class DetailsViewController: BackgroundImageViewControlller {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(DetailsCell.self, forCellReuseIdentifier: DetailsCell.identifier)
+        tableView.register(MoreDetailsTableViewCell.self, forCellReuseIdentifier: MoreDetailsTableViewCell.identifier)
         tableView.register(DetailsOverviewCell.self, forCellReuseIdentifier: DetailsOverviewCell.identifier)
         tableView.frame = self.view.bounds
         tableView.backgroundColor = .none
@@ -37,26 +35,6 @@ final class DetailsViewController: BackgroundImageViewControlller {
         return tableView
     }()
     
-    private lazy var watchTrailerBtn: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = MovieDetailsVCConst.cornerRadius
-        button.backgroundColor = .white
-        button.setTitle("Watche Trailer", for: .normal)
-        button.setButton(image: UIImage(systemName: "eye.fill")!)
-        view.addSubview(button)
-        return button
-    }()
-    
-    func buttonConstraints() {
-        let watchTrailerBtnConstraints = [
-            watchTrailerBtn.heightAnchor.constraint(equalToConstant: 50),
-            watchTrailerBtn.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            watchTrailerBtn.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            watchTrailerBtn.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
-        ]
-        NSLayoutConstraint.activate(watchTrailerBtnConstraints)
-    }
     private var headerView: Poster?
     private var movieViewModel = MovieViewModel()
     
@@ -93,18 +71,25 @@ final class DetailsViewController: BackgroundImageViewControlller {
     }
     
     private func controllerSetup() {
+        
+        // Add Observer To playButtonDidTapped Notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(playTrailer), name: .playButtonDidTapped, object: nil)
+        
         navigationController?.navigationBar.barStyle = .black
         
         headerView = Poster(frame: CGRect(
                                 x: 0,
                                 y: 0,
                                 width: view.bounds.width,
-                                height: UIScreen.main.bounds.height * (1/3))
+                                height: UIScreen.main.bounds.height * 0.45)
         )
-        
         detailsTableView.tableHeaderView = headerView
     }
     
+    @objc func playTrailer() {
+        interactor?.updateUserWatchedList(request: Details.UpdateUserData.Request(movieId: movieViewModel.id))
+        router?.routeToTraileVc(segue: nil)
+    }
     func getMovieDetails() {
         let request = Details.GetMovie.Request()
         interactor?.getMoveDetails(request: request)
@@ -113,7 +98,7 @@ final class DetailsViewController: BackgroundImageViewControlller {
 
 extension DetailsViewController: DetailsDisplayLogic {
     func displayMovieDetails(viewModel: Details.GetMovie.ViewModel) {
-        headerView?.configure(with: viewModel.movieViewModel.imageUrl)
+        headerView?.configure(with: viewModel.movieViewModel.imageUrl, backButtonIsHidden: false)
         self.movieViewModel = viewModel.movieViewModel
         detailsTableView.reloadData()
     }
@@ -121,19 +106,30 @@ extension DetailsViewController: DetailsDisplayLogic {
 
 extension DetailsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        MovieDetailsVCConst.numberOfRows
+        3
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 4 {
+        switch indexPath.row {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailsCell.identifier, for: indexPath) as? DetailsCell else { return UITableViewCell() }
+            cell.configure(with: movieViewModel)
+            return cell
+        case 1:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MoreDetailsTableViewCell.identifier, for: indexPath) as? MoreDetailsTableViewCell else { return UITableViewCell() }
+            cell.configure(with: movieViewModel)
+            return cell
+        case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailsOverviewCell.identifier, for: indexPath) as? DetailsOverviewCell else { return UITableViewCell() }
             cell.configur(with: movieViewModel)
             return cell
-        } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailsCell.identifier, for: indexPath) as? DetailsCell else { return UITableViewCell() }
-            return cell
+        default:
+            break
         }
+        return UITableViewCell()
+        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        indexPath.row > 3 ? MovieDetailsVCConst.overViewCellHeight : MovieDetailsVCConst.detailCellHeight
+        indexPath.row > 1 ? MovieDetailsVCConst.overViewCellHeight : MovieDetailsVCConst.detailCellHeight
     }
 }

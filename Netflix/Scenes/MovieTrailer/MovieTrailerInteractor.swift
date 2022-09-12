@@ -35,7 +35,7 @@ class MovieTrailerInteractor: MovieTrailerBusinessLogic, MovieTrailerDataStore {
         var youtubeId: String = ""
         let query = title + " trailer"
         
-        worker?.getMovie(with: query, completion: { [weak self] result in
+        worker?.getMovie(with: query, completion: { [weak self] (result: Result<YoutubeSearchResponse, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let youtubeResult):

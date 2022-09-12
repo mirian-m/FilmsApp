@@ -13,12 +13,13 @@ class BackgroundImageViewControlller: UIViewController {
     
     func addBackgroundImage() {
         UIGraphicsBeginImageContext(self.view.frame.size)
-        UIImage(named: "cast")?.draw(in: self.view.bounds)
         
-        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        
-        UIGraphicsEndImageContext()
-        
-        view.backgroundColor = UIColor(patternImage: image)
+//        UIImage(named: "cast")?.draw(in: self.view.bounds)
+//
+//        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+//
+//        UIGraphicsEndImageContext()
+//        UIColor(patternImage: image)
+        view.backgroundColor = UIColor(red: 0.13, green: 0.122, blue: 0.15, alpha: 1)
     }
 }

@@ -17,8 +17,18 @@ struct MovieViewModel {
     var overview: String
     var releaseDate: String
     var runTime: Int
+    var vote: Int
     
-    init(id: Int, title: String, genres: [Genres], imageUrl: String, rate: Double, overview: String, releaseDate: String, runTime: Int) {
+    init(id: Int,
+         title: String,
+         genres: [Genres],
+         imageUrl: String,
+         rate: Double,
+         overview: String,
+         releaseDate: String,
+         runTime: Int,
+         vote: Int)
+    {
         self.id = id
         self.title = title
         self.imageUrl = imageUrl
@@ -27,6 +37,7 @@ struct MovieViewModel {
         self.overview = overview
         self.releaseDate = releaseDate
         self.runTime = runTime
+        self.vote = vote
     }
     
     init(with model: MovieDetails) {
@@ -38,7 +49,8 @@ struct MovieViewModel {
             rate: model.voteAverage ?? 0.0,
             overview: model.overview ?? "",
             releaseDate: model.releaseDate ?? "",
-            runTime: model.runtime ?? 0
+            runTime: model.runtime ?? 0,
+            vote: model.voteCount ?? 0
         )
     }
     init() {
@@ -50,7 +62,8 @@ struct MovieViewModel {
             rate: 0.0,
             overview: "",
             releaseDate: "",
-            runTime: 0
+            runTime: 0,
+            vote: 0
         )
     }
 }

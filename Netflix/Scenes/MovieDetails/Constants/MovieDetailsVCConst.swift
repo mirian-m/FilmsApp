@@ -11,6 +11,6 @@ import UIKit
 enum MovieDetailsVCConst {
     static let cornerRadius: CGFloat = 10
     static let numberOfRows: Int = 5
-    static let detailCellHeight: CGFloat = 50
-    static let overViewCellHeight: CGFloat = 100
+    static let detailCellHeight: CGFloat = 100
+    static let overViewCellHeight: CGFloat = 200
 }

@@ -7,7 +7,7 @@ import UIKit
 class RegistrationView: UIView {
     
     lazy var logo: UIImageView = {
-       let logo = UIImageView()
+        let logo = UIImageView()
         logo.translatesAutoresizingMaskIntoConstraints = false
         logo.image = UIImage(named: "NetflixLogo")
         logo.contentMode = .scaleAspectFill
@@ -24,7 +24,7 @@ class RegistrationView: UIView {
         return segment
     }()
     
-    lazy var viewConteiner: UIView = {
+    lazy var conteinerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .none
@@ -33,12 +33,12 @@ class RegistrationView: UIView {
     }()
     
     lazy var regitrationStackView: UIStackView = {
-       let stack = UIStackView()
+        let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.distribution = .fillEqually
         stack.spacing = 15
-        viewConteiner.addSubview(stack)
+        conteinerView.addSubview(stack)
         return stack
     }()
     
@@ -48,7 +48,7 @@ class RegistrationView: UIView {
         textField.placeholder = "First Name"
         textField.backgroundColor = .systemGray6
         textField.font = UIFont(name: "Helvetica Neue", size: 15)
-        textField.textColor = UIColor(named: "CustomColor")
+        textField.textColor = UIColor.customColor
         textField.layer.cornerRadius = 5
         textField.setLeftPaddingPoints(10)
         return textField
@@ -60,12 +60,11 @@ class RegistrationView: UIView {
         textField.placeholder = "Last name"
         textField.backgroundColor = .systemGray6
         textField.font = UIFont(name: "Helvetica Neue", size: 15)
-        textField.textColor = UIColor(named: "CustomColor")
+        textField.textColor = UIColor.customColor
         textField.layer.cornerRadius = 5
         textField.setLeftPaddingPoints(10)
         return textField
     }()
-
     
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
@@ -73,12 +72,12 @@ class RegistrationView: UIView {
         textField.placeholder = "Email"
         textField.backgroundColor = .systemGray6
         textField.font = UIFont(name: "Helvetica Neue", size: 15)
-        textField.textColor = UIColor(named: "CustomColor")
+        textField.textColor = UIColor.customColor
         textField.layer.cornerRadius = 5
         textField.setLeftPaddingPoints(10)
         return textField
     }()
-
+    
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -86,12 +85,12 @@ class RegistrationView: UIView {
         textField.backgroundColor = .white
         textField.font = UIFont(name: "Helvetica Neue", size: 15)
         textField.backgroundColor = .systemGray6
-        textField.textColor = UIColor(named: "CustomColor")
+        textField.textColor = UIColor.customColor
         textField.layer.cornerRadius = 5
         textField.setLeftPaddingPoints(10)
         return textField
     }()
-
+    
     lazy var confirmPasswordTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +98,7 @@ class RegistrationView: UIView {
         textField.backgroundColor = .white
         textField.font = UIFont(name: "Helvetica Neue", size: 15)
         textField.backgroundColor = .systemGray6
-        textField.textColor = UIColor(named: "CustomColor")
+        textField.textColor = UIColor.customColor
         textField.layer.cornerRadius = 5
         textField.setLeftPaddingPoints(10)
         return textField
@@ -115,7 +114,7 @@ class RegistrationView: UIView {
         return button
     }()
     
-    lazy var activiteIndicator: UIActivityIndicatorView = {
+    lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.hidesWhenStopped = true
@@ -123,7 +122,7 @@ class RegistrationView: UIView {
         button.addSubview(indicator)
         return indicator
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.frame = frame
@@ -139,8 +138,10 @@ class RegistrationView: UIView {
         embedItemsInStackView()
         adjustConstraints()
     }
-    
-    func embedItemsInStackView() {
+}
+
+extension RegistrationView {
+    private func embedItemsInStackView() {
         regitrationStackView.addArrangedSubview(firstNameTextField)
         regitrationStackView.addArrangedSubview(lastNameTextField)
         regitrationStackView.addArrangedSubview(emailTextField)
@@ -148,7 +149,7 @@ class RegistrationView: UIView {
         regitrationStackView.addArrangedSubview(confirmPasswordTextField)
     }
     
-    func adjustConstraints() {
+    private func adjustConstraints() {
         let logoConstraints = [
             logo.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             logo.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 50),
@@ -162,34 +163,34 @@ class RegistrationView: UIView {
             segmentControl.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 40),
             segmentControl.heightAnchor.constraint(equalToConstant: 35)
         ]
-
+        
         let viewConteinerConstraints = [
-            viewConteiner.topAnchor.constraint(equalTo: segmentControl.bottomAnchor),
-            viewConteiner.bottomAnchor.constraint(equalTo: button.topAnchor),
-            viewConteiner.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            viewConteiner.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16)
+            conteinerView.topAnchor.constraint(equalTo: segmentControl.bottomAnchor),
+            conteinerView.bottomAnchor.constraint(equalTo: button.topAnchor),
+            conteinerView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            conteinerView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16)
         ]
         
         let stackViewConstraints = [
-            regitrationStackView.leadingAnchor.constraint(equalTo: viewConteiner.leadingAnchor),
-            regitrationStackView.centerXAnchor.constraint(equalTo: viewConteiner.centerXAnchor),
-            regitrationStackView.centerYAnchor.constraint(equalTo: viewConteiner.centerYAnchor)
+            regitrationStackView.leadingAnchor.constraint(equalTo: conteinerView.leadingAnchor),
+            regitrationStackView.centerXAnchor.constraint(equalTo: conteinerView.centerXAnchor),
+            regitrationStackView.centerYAnchor.constraint(equalTo: conteinerView.centerYAnchor)
         ]
         
         let passwordTextFieldConstraints = [
             passwordTextField.heightAnchor.constraint(equalToConstant: 48)
         ]
-
+        
         let buttonConstraints = [
             button.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             button.leadingAnchor.constraint(equalTo: regitrationStackView.leadingAnchor),
             button.topAnchor.constraint(equalTo: regitrationStackView.bottomAnchor, constant: 48),
             button.heightAnchor.constraint(equalToConstant: 48)
         ]
-
+        
         let activiteIndicatorConstraints = [
-            activiteIndicator.centerXAnchor.constraint(equalTo: self.button.centerXAnchor),
-            activiteIndicator.centerYAnchor.constraint(equalTo: self.button.centerYAnchor)
+            activityIndicator.centerXAnchor.constraint(equalTo: self.button.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: self.button.centerYAnchor)
         ]
         NSLayoutConstraint.activate(logoConstraints)
         NSLayoutConstraint.activate(viewConteinerConstraints)

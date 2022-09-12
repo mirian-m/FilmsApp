@@ -14,17 +14,25 @@ import UIKit
 
 enum Details {
     
-  // MARK: Use cases
-  
-  enum GetMovie {
+    // MARK: Use cases
     
-    struct Request { }
-    struct Response {
-        var error: APICollerError?
-        var movie: MovieDetails?
+    enum GetMovie {
+        
+        struct Request { }
+        struct Response {
+            var error: APICollerError?
+            var movie: MovieDetails?
+        }
+        struct ViewModel {
+            var movieViewModel: MovieViewModel
+        }
     }
-    struct ViewModel {
-        var movieViewModel: MovieViewModel
+    enum UpdateUserData {
+        struct Request {
+            var movieId: Int
+        }
+        struct Response {}
+        struct ViewModel {}
+        
     }
-  }
 }

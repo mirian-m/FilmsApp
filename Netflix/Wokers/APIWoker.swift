@@ -9,36 +9,14 @@ import Foundation
 import UIKit
 
 class APIWoker {
-    static var shared = APIWoker()
     
     func fetchMoviesDetails<T: Decodable>(url: String, completion: @escaping (Result<T, APICollerError>) -> Void) {
         guard let url = URL(string: url) else { return }
-        URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
-            guard let data = data, error == nil else {return}
-            do {
-                let movie = try JSONDecoder().decode(T.self, from: data)
-                completion(.success(movie))
-            } catch {
-                completion(.failure(.faldeToGetData))
-            }
-        }.resume()
+        
+        NetworkService.shared.getData(url: url) { (result: Result<T, APICollerError>) in
+            completion(result)
+        }
     }
-    //
-    //    func urlSession(url: String) {
-    //        URLSession.shared.dataTask(with: url) { (data, _, error) in
-    //
-    //            guard let data = data, error == nil else { return }
-    //
-    //            do {
-    //                let movie = try JSONDecoder().decode(T.self, from: data)
-    //                completion(.success(movie))
-    //            } catch {
-    //                completion(.failure(.faldeToGetData))
-    //            }
-    //
-    //        }.resume()
-    //
-    //    }
     func searchMoviees<T: Decodable>(with query: String, completion: @escaping (Result<T, APICollerError>) -> Void) {
         
         // Make String Encoding to use Creation Of search Url
@@ -49,21 +27,12 @@ class APIWoker {
         
         guard let url = URL(string: urlString) else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, _, error) in
-            
-            guard let data = data, error == nil else { return }
-            
-            do {
-                let movie = try JSONDecoder().decode(T.self, from: data)
-                completion(.success(movie))
-            } catch {
-                completion(.failure(.faldeToGetData))
-            }
-            
-        }.resume()
+        NetworkService.shared.getData(url: url) { (result: Result<T, APICollerError>) in
+            completion(result)
+        }
     }
     
-    func getMovie(with query: String, completion: @escaping (Result<YoutubeSearchResponse, APICollerError>) -> Void) {
+    func getMovie<T: Decodable>(with query: String, completion: @escaping (Result<T, APICollerError>) -> Void) {
         
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
         
@@ -71,17 +40,10 @@ class APIWoker {
         
         guard let url = URL(string: urlString) else { return }
         
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data, error == nil else { return }
-            
-            do {
-                let yotubeVideo = try JSONDecoder().decode(YoutubeSearchResponse.self, from: data)
-                completion (.success(yotubeVideo))
-            } catch {
-                completion (.failure(APICollerError.faldeToGetData))
-            }
-            
-        }.resume()
+        NetworkService.shared.getData(url: url) { (result: Result<T, APICollerError>) in
+            completion(result)
+        }
+        
     }
     
     func fetchImageFromWeb(by url: String,  callback: @escaping ((UIImage?, String)) -> Void) {

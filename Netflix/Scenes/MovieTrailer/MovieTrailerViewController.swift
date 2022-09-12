@@ -66,12 +66,10 @@ final class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLog
     }()
     
     //  MARK:- Clean Components
-    
     var interactor: MovieTrailerBusinessLogic?
     var router: (NSObjectProtocol & MovieTrailerRoutingLogic & MovieTrailerDataPassing)?
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()

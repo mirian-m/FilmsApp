@@ -29,6 +29,8 @@ final class SearchMovieViewController: BackgroundImageViewControlller {
         var controller = UISearchController(searchResultsController: SearchResultViewController())
         controller.searchBar.placeholder = "Search Movie or TV Show "
         controller.searchBar.searchBarStyle = .minimal
+        controller.searchBar.backgroundColor = UIColor(red: 0.13, green: 0.122, blue: 0.13, alpha: 1)
+//        controller.
         return controller
     }()
     

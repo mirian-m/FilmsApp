@@ -22,6 +22,7 @@ protocol DetailsDataPassing {
 
 final  class DetailsRouter: NSObject, DetailsDataPassing {
     
+    //  MARK:- Clean Components
     weak var viewController: DetailsViewController?
     var dataStore: DetailsDataStore?
 }

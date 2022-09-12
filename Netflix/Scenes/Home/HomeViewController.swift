@@ -30,8 +30,9 @@ final class HomeViewController: BackgroundImageViewControlller {
         }
     }
     @IBOutlet weak var filmTableView: UITableView!
-    var offsets = [IndexPath: CGFloat]()
     
+    //  MARK:- Fields
+    private var offsets = [IndexPath: CGFloat]()
     private let headerForSection = ["Trending movies", "Trending tv", "Popular", "Upcoming movies", "Top"]
     private var headerView: Poster?
     private var posterIsSeted = false
@@ -42,20 +43,19 @@ final class HomeViewController: BackgroundImageViewControlller {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        self.navigationController?.hidesBarsOnSwipe = true
         controllerSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //        navigationController?.setNavigationBarHidden(false, animated: false)
-        isNavigate = false
+//        navigationController?.setNavigationBarHidden(false, animated: false)
+//        isNavigate = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         //        if !isNavigate {
-        //            navigationController?.setNavigationBarHidden(true, animated: false)
+//        navigationController?.setNavigationBarHidden(true, animated: false)
         //        }
     }
     
@@ -84,7 +84,9 @@ final class HomeViewController: BackgroundImageViewControlller {
     }
     
     private func controllerSetup() {
-        tabBarController?.navigationController?.navigationBar.isHidden = true
+        NotificationCenter.default.addObserver(self, selector: #selector(playTrailer), name: .playButtonDidTapped, object: nil)
+        tabBarController?.navigationItem.hidesBackButton = true
+        tabBarController?.navigationController?.navigationBar.isHidden = false
         tabBarItem.badgeColor = .label
         tabBarItem.image = UIImage(systemName: "house.fill")
         tabBarItem.title = "Home"
@@ -93,11 +95,17 @@ final class HomeViewController: BackgroundImageViewControlller {
                                           y: 0,
                                           width: view.bounds.width,
                                           height: UIScreen.main.bounds.height * (2/3)))
+        
+        headerView?.postNotification()
         filmTableView.tableHeaderView = headerView
         setNavBarItem()
     }
     
-    //  MARK:- Navigation Item Set Func
+    @objc func playTrailer() {
+        
+    }
+    
+    //  MARK:- Set Navigation Items
     private func setNavBarItem() {
         title = "Home"
         var image = UIImage(named: "Netflix-new")
@@ -106,7 +114,7 @@ final class HomeViewController: BackgroundImageViewControlller {
         tabBarController?.navigationItem.leftBarButtonItem  = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
         tabBarController?.navigationItem.rightBarButtonItems = [
             UIBarButtonItem(image: UIImage(systemName: "person")?
-                                .withTintColor(UIColor(named: "CustomColor")!,
+                                .withTintColor(UIColor.white,
                                                renderingMode: .alwaysOriginal),
                             style: .done, target: self, action: #selector(presentProfile)),
             
@@ -131,6 +139,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.setScrollPosition(x: offsets[indexPath] ?? 0)
         
+        //  FIXME: - This code must be in interactor
         let title = headerForSection[indexPath.section]
         let url = API.dictionariOfAPI[title]!
         let request = Home.MovieInfo.Request(url: url)
@@ -157,7 +166,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         guard let header = view as? UITableViewHeaderFooterView else { return }
         header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         header.textLabel?.frame = CGRect(x: header.bounds.origin.x, y: header.bounds.origin.y, width: 100, height: 50)
-        header.textLabel?.textColor = .white
+        header.textLabel?.textColor = UIColor(named: "ColorForText")
         header.textLabel?.text = header.textLabel?.text?.upperCasedFirstLetter()
     }
     
@@ -175,13 +184,13 @@ extension HomeViewController: HomeDisplayLogic {
         
         if !self.posterIsSeted {
             guard let randomPosterUrl = viewModel.moviesViewModel.randomElement()?.imageUrl else { return }
-            self.headerView?.configure(with: randomPosterUrl)
+            self.headerView?.configure(with: randomPosterUrl, backButtonIsHidden: true)
             self.posterIsSeted = true
         }
     }
     
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel) {
-        self.isNavigate = true
+//        self.isNavigate = true
         router?.routToDetailsVc(segue: nil)
     }
 }

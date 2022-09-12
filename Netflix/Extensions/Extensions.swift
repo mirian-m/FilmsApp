@@ -55,3 +55,14 @@ extension Double {
         self = (self * m).rounded() / m
     }
 }
+
+
+extension Notification.Name {
+    
+    //  MARK:- Create Notification Custom Name
+    static let playButtonDidTapped = Notification.Name("Play Button Tapped")
+}
+
+extension UIColor {
+    static let customColor = UIColor(named: "TintColor")
+}

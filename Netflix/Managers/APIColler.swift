@@ -2,8 +2,7 @@ import Foundation
 import UIKit
 
 public struct API {
-    
-//    static let top = "\(APIConstants.baseURL)/3/movie/top_rated?api_key=\(APIConstants.API_Key)\(APIConstants.endUrl)"
+
     static var dictionariOfAPI =
         [
             "Top": "\(APIConstants.baseURL)/3/movie/top_rated?api_key=\(APIConstants.API_Key)\(APIConstants.endUrl)",
@@ -12,14 +11,6 @@ public struct API {
             "Trending tv": "\(APIConstants.baseURL)/3/movie/top_rated?api_key=\(APIConstants.API_Key)\(APIConstants.endUrl)",
             "Trending movies": "\(APIConstants.baseURL)/3/trending/movie/day?api_key=\(APIConstants.API_Key)"
         ]
-    //    static var dictionariOfAPI = [
-    //        "Top": "https://imdb-api.com/en/API/Top250Movies/k_58z4goj1",
-    //        "Upcoming movies": "https://imdb-api.com/en/API/Top250Movies/k_58z4goj1",
-    //        "Popular": "https://imdb-api.com/en/API/MostPopularTVs/k_58z4goj1",
-    //        "Trending tv": "https://imdb-api.com/en/API/Top250TVs/k_58z4goj1",
-    //        "Trending movies": "https://imdb-api.com/en/API/MostPopularMovies/k_58z4goj1"
-    //    ]
-    
 }
 
 public enum APICollerError: Error {

@@ -75,6 +75,9 @@ final class WatchedListViewController: BackgroundImageViewControlller {
         super.viewDidLoad()
         title = "Watched List"
         activateIndicator.startAnimating()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         getWatchedMovies()
     }
     

@@ -25,7 +25,7 @@ class WatchedFilmTableViewCell: UITableViewCell {
     private lazy var customView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 20
-        view.backgroundColor = .black
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -159,7 +159,7 @@ class WatchedFilmTableViewCell: UITableViewCell {
     }
     
     func configure(with model: MovieViewModel) {
-        self.filmGenre = model.genres
+//        self.filmGenre = model.genres
         self.filmId = model.id
         let url = APIConstants.posterBaseURL + model.imageUrl
         posterImage.getImageFromWeb(by: url)
@@ -169,7 +169,7 @@ class WatchedFilmTableViewCell: UITableViewCell {
             set(title: model.genres, for: button)
         }
     }
-
+    
     //  MARK:- Constraints
     func applyConstraints() {
         
@@ -248,7 +248,6 @@ extension WatchedFilmTableViewCell {
             return
         }
         button.setTitle(titleForButton, for: .normal)
-        
     }
     
     private func getGenre(by index: Int, from genre: [Genres]) -> String? {
@@ -264,5 +263,4 @@ extension WatchedFilmTableViewCell {
     @objc func removeMovieFromList() {
         delegate?.removeMovieFromList(by: filmId)
     }
-    
 }

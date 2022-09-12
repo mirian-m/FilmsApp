@@ -11,9 +11,11 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 protocol DetailsBusinessLogic {
     func getMoveDetails(request: Details.GetMovie.Request)
+    func updateUserWatchedList(request: Details.UpdateUserData.Request)
 }
 
 protocol DetailsDataStore {
@@ -31,6 +33,11 @@ class DetailsInteractor: DetailsDataStore {
 }
 
 extension DetailsInteractor: DetailsBusinessLogic {
+    func updateUserWatchedList(request: Details.UpdateUserData.Request) {
+        guard let user = Auth.auth().currentUser else { return }
+        UserManger.shared.updateUserData(userId: user.uid, data: [RegistrationField.watchedMovies: [request.movieId]])
+    }
+    
     func getMoveDetails(request: Details.GetMovie.Request) {
         worker = APIWoker()
         var response = Details.GetMovie.Response()

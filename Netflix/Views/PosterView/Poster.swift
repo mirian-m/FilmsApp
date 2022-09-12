@@ -2,23 +2,33 @@ import UIKit
 
 class Poster: UIView {
     var posterUrl: String?
-    
+
+    private var backBtn: UIButton = {
+        var button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let buttonImage = UIImage(systemName: "chevron.backward")?.withTintColor(UIColor.white, renderingMode: .alwaysOriginal)
+        button.layer.cornerRadius = 25
+        button.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.2)
+        button.setImage(buttonImage, for: .normal)
+//        button.addTarget(self, action: #selector(postNotification), for: .touchUpInside)
+        return button
+    }()
+
     private var playButton: UIButton = {
         var button = UIButton()
-        let buttonim = UIImage(named: "Play")
-        button.setImage(buttonim, for: .normal)
+        let buttonImage = UIImage(named: "PlayIcon")
+        button.setImage(buttonImage, for: .normal)
+        button.contentMode = .scaleAspectFill
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(playTrailer), for: .touchUpInside)
+        button.addTarget(self, action: #selector(postNotification), for: .touchUpInside)
         return button
     }()
     
     private lazy var posterView: UIImageView = {
         var imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 10
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .red
+        imageView.image = UIImage(named: "defaultImage")
         return imageView
     }()
     
@@ -26,6 +36,8 @@ class Poster: UIView {
         super.init(frame: frame)
         addSubview(posterView)
         addSubview(playButton)
+        addSubview(backBtn)
+        addGratient()
         addButtonConstraints()
     }
     
@@ -38,36 +50,56 @@ class Poster: UIView {
         fatalError()
     }
     
-    func configure(with posterUrl: String){
+    func configure(with posterUrl: String, backButtonIsHidden: Bool) {
         let url =  APIConstants.posterBaseURL + posterUrl
+        backBtn.isHidden = backButtonIsHidden
         posterView.getImageFromWeb(by: url)
     }
     
-    @objc func playTrailer() {
-        print("1")
+    @objc func postNotification() {
+        NotificationCenter.default.post(name: .playButtonDidTapped, object: nil)
     }
 }
 
 extension Poster {
     
+    private func addGratient() {
+        let layer = CAGradientLayer()
+        layer.colors = [
+            UIColor.clear.cgColor,
+            UIColor.systemBackground.cgColor
+        ]
+        layer.frame = bounds
+        self.layer.addSublayer(layer)
+        
+    }
     //  MARK:- Constraints
     private func addButtonConstraints(){
         
         let playButtonConstraints = [
             playButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             playButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            playButton.widthAnchor.constraint(equalToConstant: 80),
+            playButton.widthAnchor.constraint(equalToConstant: 64),
             playButton.heightAnchor.constraint(equalTo: playButton.widthAnchor, multiplier: 1)
         ]
         
-        let posterViewConstraint = [
-//            posterView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
-//            posterView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
-            posterView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            posterView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        let backBtnConstraints = [
+            backBtn.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            backBtn.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            backBtn.widthAnchor.constraint(equalToConstant: 50),
+            backBtn.heightAnchor.constraint(equalTo: backBtn.widthAnchor, multiplier: 1)
         ]
+
+        
+//        let posterViewConstraint = [
+////            posterView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
+////            posterView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
+//            posterView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+//            posterView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+//        ]
         
         NSLayoutConstraint.activate(playButtonConstraints)
-        NSLayoutConstraint.activate(posterViewConstraint)
+//        NSLayoutConstraint.activate(posterViewConstraint)
+        NSLayoutConstraint.activate(backBtnConstraints)
     }
 }
