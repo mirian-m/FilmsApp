@@ -2,7 +2,11 @@ import UIKit
 
 class MovieCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var posterImageView: UIImageView!
+    @IBOutlet weak var posterImageView: UIImageView! {
+        didSet {
+            posterImageView.layer.cornerRadius = Constants.Content.Category.CornerRadius.min
+        }
+    }
     @IBOutlet weak var viewCell: UIView!
     
     private var imageUrl: String?

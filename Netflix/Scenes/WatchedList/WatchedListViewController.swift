@@ -76,6 +76,7 @@ final class WatchedListViewController: BackgroundImageViewControlller {
         title = "Watched List"
         activateIndicator.startAnimating()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         getWatchedMovies()
@@ -114,7 +115,7 @@ extension WatchedListViewController: UITableViewDataSource, UITableViewDelegate 
         interactor?.didTapMovie(requset: WatchedList.GetSelectedMovie.Request(selectedMovieId: watchedListViewModel[indexPath.row].id))
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { Constans.heightForRow }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { Constants.Content.Category.Height.middle }
 }
 
 extension WatchedListViewController:  WatchedListDisplayLogic {

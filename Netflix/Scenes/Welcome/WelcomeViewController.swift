@@ -31,14 +31,14 @@ class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogi
         didSet {
             getStaredBtn.layer.backgroundColor = UIColor(red: 0.824, green: 0.184, blue: 0.149, alpha: 1).cgColor
             getStaredBtn.layer.cornerRadius = 2
-            getStaredBtn.tintColor = .white
+            getStaredBtn.tintColor = Constants.Design.Color.Primary.White
             getStaredBtn.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 18)
         }
     }
     
     @IBOutlet weak var lb: UILabel! {
         didSet {
-            lb.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+            lb.textColor = Constants.Design.Color.Primary.White
             lb.font = UIFont(name: "Helvetica Neue", size: 32)
             lb.textAlignment = .center
         }
@@ -46,7 +46,7 @@ class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogi
     
     @IBOutlet weak var lb2: UILabel! {
         didSet {
-            lb2.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+            lb2.textColor = Constants.Design.Color.Primary.White
             lb2.font = UIFont(name: "Helvetica Neue", size: 18)
             lb2.textAlignment = .center
         }

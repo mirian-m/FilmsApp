@@ -25,10 +25,8 @@ class MovieTrailerInteractor: MovieTrailerBusinessLogic, MovieTrailerDataStore {
     var worker: APIWoker?
     var movieDetails: MovieDetails = MovieDetails()
     
-    // MARK: Do something
-    
+    //  MARK: Get Trailer
     func getTrailer(request: MovieTrailer.GetTrailer.Request) {
-        
         worker = APIWoker()
         let overView = movieDetails.overview ?? ""
         let title = movieDetails.title ?? movieDetails.originalTitle ?? ""

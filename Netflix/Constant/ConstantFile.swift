@@ -16,11 +16,6 @@ enum APIConstants {
     static let firebaseDataBaseReferencUrl = "https://netflixclone-343110-default-rtdb.firebaseio.com/"
 }
 
-struct Constans {
-    static let heightForRow: CGFloat = 150
-    static let fontSize: CGFloat = 12
-}
-
 enum UrlConstant {
     static let top = "\(APIConstants.baseURL)/3/movie/top_rated?api_key=\(APIConstants.API_Key)\(APIConstants.endUrl)"
     static let upcomingMovies = "\(APIConstants.baseURL)/3/movie/upcoming?api_key=\(APIConstants.API_Key)\(APIConstants.endUrl)"

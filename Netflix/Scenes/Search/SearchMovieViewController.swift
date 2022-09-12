@@ -20,7 +20,7 @@ protocol SearchMovieDisplayLogic: AnyObject {
 
 final class SearchMovieViewController: BackgroundImageViewControlller {
     
-    //    MARK:-
+    //  MARK:- Clean Components
     var interactor: SearchMovieBusinessLogic?
     var router: (NSObjectProtocol & SearchMovieRoutingLogic & SearchMovieDataPassing)?
     
@@ -29,8 +29,7 @@ final class SearchMovieViewController: BackgroundImageViewControlller {
         var controller = UISearchController(searchResultsController: SearchResultViewController())
         controller.searchBar.placeholder = "Search Movie or TV Show "
         controller.searchBar.searchBarStyle = .minimal
-        controller.searchBar.backgroundColor = UIColor(red: 0.13, green: 0.122, blue: 0.13, alpha: 1)
-//        controller.
+        controller.searchBar.backgroundColor = Constants.Design.Color.Background.Light
         return controller
     }()
     
@@ -46,7 +45,6 @@ final class SearchMovieViewController: BackgroundImageViewControlller {
     private var moviesViewModel = [MovieViewModel]()
     
     //  MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -58,7 +56,6 @@ final class SearchMovieViewController: BackgroundImageViewControlller {
     }
     
     //  MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         controllerSetup()
@@ -71,7 +68,6 @@ final class SearchMovieViewController: BackgroundImageViewControlller {
     }
     
     //  MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = SearchMovieInteractor()
@@ -85,12 +81,13 @@ final class SearchMovieViewController: BackgroundImageViewControlller {
         router.dataStore = interactor
     }
     
+    //  MARK:- Controller Setup
     func controllerSetup() {
         title = "Search"
         navigationController?.navigationBar.prefersLargeTitles = true
-        discoveredTable.backgroundColor = .none
+        discoveredTable.backgroundColor = Constants.Design.Color.Background.None
         navigationItem.searchController = searchController
-        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.tintColor = Constants.Design.Color.Primary.White
         view.addSubview(discoveredTable)
         searchController.searchResultsUpdater = self
     }
@@ -104,8 +101,7 @@ final class SearchMovieViewController: BackgroundImageViewControlller {
 
 extension SearchMovieViewController: UITableViewDataSource, UITableViewDelegate {
     
-    //  MARK: - TableView DataSource & Delegat Function
-    
+    //  MARK: - DataSource & Delegat Function
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { moviesViewModel.count }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -113,21 +109,22 @@ extension SearchMovieViewController: UITableViewDataSource, UITableViewDelegate 
         let movieModel = moviesViewModel[indexPath.row]
         cell.configure(with: movieModel)
         return cell
-        
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { Constans.heightForRow }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         interactor?.didTapMovie(requset: SearchMovie.GetSelectedMovie.Request(selectedMovieId: moviesViewModel[indexPath.row].id))
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { Constants.Content.Category.Height.middle }
 }
+
 extension SearchMovieViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         
+        // FIXME: Get this logic in Interactor
         guard let query = searchBar.text,
               !query.trimmingCharacters(in: .whitespaces).isEmpty,
               query.trimmingCharacters(in: .whitespaces).count >= 3
@@ -140,7 +137,6 @@ extension SearchMovieViewController: UISearchResultsUpdating {
 extension SearchMovieViewController: SearchMovieDisplayLogic {
     
     //  MARK: DisplayLogic Protocol Functions
-    
     func displayMovies(viewModel: SearchMovie.GetMovies.ViewModel) {
         moviesViewModel = viewModel.movie.shuffled()
         self.discoveredTable.reloadData()
@@ -153,5 +149,5 @@ extension SearchMovieViewController: SearchMovieDisplayLogic {
     func displaySearchedMovies(viewModel: SearchMovie.GetSearchedMovies.ViewModel) {
         self.router?.routeToSearcheResulte(segue: nil)
     }
-
+    
 }

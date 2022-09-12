@@ -18,8 +18,8 @@ class DetailsOverviewCell: UITableViewCell {
     private lazy var synopsisLb: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        lb.font = UIFont(name: "Lato-Medium", size: 16)
-        lb.textColor = .white
+        lb.font = Constants.Design.Font.HeadingThree
+        lb.textColor = Constants.Design.Color.Primary.White
         lb.text = "Synopsis"
         return lb
     }()
@@ -27,10 +27,13 @@ class DetailsOverviewCell: UITableViewCell {
     private lazy var overview: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.backgroundColor = UIColor(white: 1, alpha: 0)
-        textView.font = UIFont(name: "Lato-Regular", size: 12)
+        textView.backgroundColor = Constants.Design.Color.Background.None
+        textView.font = Constants.Design.Font.Sub
+        textView.textColor = Constants.Design.Color.Primary.White
         textView.isScrollEnabled = false
-        textView.text = "Rey (Daisy Ridley) finally manages to find the legendary Jedi knight, Luke Skywalker (Mark Hamill) on an island with a magical aura. The heroes of The Force Awakens including Leia, Finn Read moreRey (Daisy Ridley) finally manages to find the legendary Jedi knight, Luke Skywalkerinn Read moreRey (Daisy Ridley) finally manages to find the legendary Jedi knight, Luk inn Read moreRey (Daisy Ridley) finally manages to find the legendary Jedi knight, Luk"
+        textView.textContainerInset = UIEdgeInsets.zero
+        textView.textContainer.lineFragmentPadding = .zero
+        textView.text = "Rey (Daisy Ridley) finally manages to find the legendary Jedi knight, Luke Skywalker (Mark Hamill) on an island with a magical aura."
         return textView
     }()
     
@@ -38,7 +41,7 @@ class DetailsOverviewCell: UITableViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Show More...", for: .normal)
-        button.tintColor = .white
+        button.tintColor = Constants.Design.Color.Primary.White
         button.titleLabel?.font = UIFont(descriptor: UIFontDescriptor(), size: 10)
         button.tag = 0
         button.addTarget(self, action: #selector(show), for: .touchUpInside)
@@ -52,8 +55,6 @@ class DetailsOverviewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -91,14 +92,14 @@ extension DetailsOverviewCell {
         ]
         
         let overviewConstraints = [
-            overview.leadingAnchor.constraint(equalTo: synopsisLb.leadingAnchor, constant: -5),
+            overview.leadingAnchor.constraint(equalTo: synopsisLb.leadingAnchor),
             overview.centerXAnchor.constraint(equalTo: centerXAnchor),
             overview.topAnchor.constraint(equalTo: synopsisLb.bottomAnchor, constant: 5),
         ]
         
         let buttonForMoreContextConstraints = [
             buttonForMoreContext.centerXAnchor.constraint(equalTo: centerXAnchor),
-            buttonForMoreContext.topAnchor.constraint(equalTo: overview.bottomAnchor, constant: -5)
+            buttonForMoreContext.topAnchor.constraint(equalTo: overview.bottomAnchor, constant: -15)
         ]
         
         NSLayoutConstraint.activate(synopsisLbConstraints)
@@ -127,11 +128,9 @@ extension DetailsOverviewCell {
 extension UITextView {
     
     //  MARK:- Get TextView height size according to his content
-    func getTextViewHeightAccordingToHisContent() -> CGFloat {
-        let textView : UITextView = UITextView(
-            frame: CGRect(x: self.frame.origin.x,
-                          y: 0, width: self.frame.size.width,
-                          height: 0))
+    fileprivate func getTextViewHeightAccordingToHisContent() -> CGFloat {
+        let textView : UITextView = UITextView(frame: CGRect(x: self.frame.origin.x, y: 0, width: self.frame.size.width, height: 0))
+        
         textView.text = self.text
         textView.sizeToFit()
         
@@ -145,6 +144,4 @@ extension UITextView {
         
         return size.height > 150 ? 150 : size.height
     }
-    
-    
 }

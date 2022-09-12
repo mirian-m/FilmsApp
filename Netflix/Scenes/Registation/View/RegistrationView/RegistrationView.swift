@@ -27,7 +27,7 @@ class RegistrationView: UIView {
     lazy var conteinerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .none
+        view.backgroundColor = Constants.Design.Color.Background.None
         addSubview(view)
         return view
     }()
@@ -44,63 +44,36 @@ class RegistrationView: UIView {
     
     lazy var firstNameTextField: UITextField = {
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.setDesign()
         textField.placeholder = "First Name"
-        textField.backgroundColor = .systemGray6
-        textField.font = UIFont(name: "Helvetica Neue", size: 15)
-        textField.textColor = UIColor.customColor
-        textField.layer.cornerRadius = 5
-        textField.setLeftPaddingPoints(10)
         return textField
     }()
     
     lazy var lastNameTextField: UITextField = {
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.setDesign()
         textField.placeholder = "Last name"
-        textField.backgroundColor = .systemGray6
-        textField.font = UIFont(name: "Helvetica Neue", size: 15)
-        textField.textColor = UIColor.customColor
-        textField.layer.cornerRadius = 5
-        textField.setLeftPaddingPoints(10)
         return textField
     }()
     
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.setDesign()
         textField.placeholder = "Email"
-        textField.backgroundColor = .systemGray6
-        textField.font = UIFont(name: "Helvetica Neue", size: 15)
-        textField.textColor = UIColor.customColor
-        textField.layer.cornerRadius = 5
-        textField.setLeftPaddingPoints(10)
         return textField
     }()
     
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.setDesign()
         textField.placeholder = "Password"
-        textField.backgroundColor = .white
-        textField.font = UIFont(name: "Helvetica Neue", size: 15)
-        textField.backgroundColor = .systemGray6
-        textField.textColor = UIColor.customColor
-        textField.layer.cornerRadius = 5
-        textField.setLeftPaddingPoints(10)
         return textField
     }()
     
     lazy var confirmPasswordTextField: UITextField = {
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.setDesign()
         textField.placeholder = "Confirm Password"
-        textField.backgroundColor = .white
-        textField.font = UIFont(name: "Helvetica Neue", size: 15)
-        textField.backgroundColor = .systemGray6
-        textField.textColor = UIColor.customColor
-        textField.layer.cornerRadius = 5
-        textField.setLeftPaddingPoints(10)
         return textField
     }()
     
@@ -108,7 +81,7 @@ class RegistrationView: UIView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.backgroundColor = UIColor(red: 0.824, green: 0.184, blue: 0.149, alpha: 1).cgColor
-        button.tintColor = .white
+        button.tintColor = Constants.Design.Color.Primary.White
         button.layer.cornerRadius = 5
         addSubview(button)
         return button
@@ -126,7 +99,7 @@ class RegistrationView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.frame = frame
-        self.backgroundColor = UIColor(white: 1, alpha: 0)
+        self.backgroundColor = Constants.Design.Color.Background.None
     }
     
     required init?(coder: NSCoder) {
@@ -200,5 +173,17 @@ extension RegistrationView {
         NSLayoutConstraint.activate(buttonConstraints)
         NSLayoutConstraint.activate(activiteIndicatorConstraints)
     }
-    
+}
+
+extension UITextField {
+    fileprivate func setDesign(){
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.attributedPlaceholder = NSAttributedString(string: "Place Holder",
+                                                        attributes: [NSAttributedString.Key.foregroundColor: Constants.Design.Color.Primary.White])
+        self.backgroundColor = UIColor(white: 1, alpha: 0)
+        self.font = Constants.Design.Font.Body
+        self.textColor = Constants.Design.Color.Primary.White
+        self.layer.cornerRadius = 5
+        self.setLeftPaddingPoints(10)
+    }
 }

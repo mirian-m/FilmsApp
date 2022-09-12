@@ -13,17 +13,16 @@
 import UIKit
 
 protocol MovieTrailerPresentationLogic {
-  func presentMovieTrailer(response: MovieTrailer.GetTrailer.Response)
+    func presentMovieTrailer(response: MovieTrailer.GetTrailer.Response)
 }
 
 class MovieTrailerPresenter: MovieTrailerPresentationLogic {
-  weak var viewController: MovieTrailerDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentMovieTrailer(response: MovieTrailer.GetTrailer.Response) {
-    let trailerViewModel = TrailerViewModel(movieTitle: response.title, overview: response.overView, youtubeId: response.youtubeId)
-    let viewModel = MovieTrailer.GetTrailer.ViewModel(trailer: trailerViewModel)
-    viewController?.displayMovieTrailer(viewModel: viewModel)
-  }
+    weak var viewController: MovieTrailerDisplayLogic?
+    
+    //  MARK: Present Movie Trailer
+    func presentMovieTrailer(response: MovieTrailer.GetTrailer.Response) {
+        let trailerViewModel = TrailerViewModel(movieTitle: response.title, overview: response.overView, youtubeId: response.youtubeId)
+        let viewModel = MovieTrailer.GetTrailer.ViewModel(trailer: trailerViewModel)
+        viewController?.displayMovieTrailer(viewModel: viewModel)
+    }
 }

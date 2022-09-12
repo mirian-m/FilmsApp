@@ -20,6 +20,6 @@ class BackgroundImageViewControlller: UIViewController {
 //
 //        UIGraphicsEndImageContext()
 //        UIColor(patternImage: image)
-        view.backgroundColor = UIColor(red: 0.13, green: 0.122, blue: 0.15, alpha: 1)
+        view.backgroundColor = Constants.Design.Color.Background.Light
     }
 }

@@ -2,7 +2,7 @@ import UIKit
 
 class Poster: UIView {
     var posterUrl: String?
-
+    
     private var backBtn: UIButton = {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -10,10 +10,10 @@ class Poster: UIView {
         button.layer.cornerRadius = 25
         button.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.2)
         button.setImage(buttonImage, for: .normal)
-//        button.addTarget(self, action: #selector(postNotification), for: .touchUpInside)
+        //        button.addTarget(self, action: #selector(postNotification), for: .touchUpInside)
         return button
     }()
-
+    
     private var playButton: UIButton = {
         var button = UIButton()
         let buttonImage = UIImage(named: "PlayIcon")
@@ -89,17 +89,8 @@ extension Poster {
             backBtn.widthAnchor.constraint(equalToConstant: 50),
             backBtn.heightAnchor.constraint(equalTo: backBtn.widthAnchor, multiplier: 1)
         ]
-
-        
-//        let posterViewConstraint = [
-////            posterView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
-////            posterView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
-//            posterView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-//            posterView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-//        ]
         
         NSLayoutConstraint.activate(playButtonConstraints)
-//        NSLayoutConstraint.activate(posterViewConstraint)
         NSLayoutConstraint.activate(backBtnConstraints)
     }
 }

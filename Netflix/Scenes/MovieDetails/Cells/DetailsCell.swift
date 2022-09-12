@@ -13,8 +13,10 @@ class DetailsCell: UITableViewCell {
     private lazy var movieTitleLb: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        lb.font = UIFont(name: "Lato-Medium", size: 24)
-        lb.textColor = .white
+        lb.font = Constants.Design.Font.HeadingOne
+        lb.textColor = Constants.Design.Color.Primary.White
+        lb.adjustsFontSizeToFitWidth = true
+        lb.minimumScaleFactor = 0.5
         lb.textAlignment = .left
         lb.numberOfLines = 0
         lb.text = "Star Wars: The Last Jedi"
@@ -24,10 +26,10 @@ class DetailsCell: UITableViewCell {
     private lazy var voteLb: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        lb.font = UIFont(name: "Lato-Regular", size: 12)
-        lb.textColor = .white
+        lb.font = Constants.Design.Font.Sub
+        lb.textColor = Constants.Design.Color.Primary.White
         lb.textAlignment = .center
-        lb.layer.cornerRadius = 5
+        lb.layer.cornerRadius = Constants.Content.Category.CornerRadius.min
         lb.layer.borderWidth = 1
         lb.layer.borderColor = UIColor(white: 1, alpha: 0.25).cgColor
         lb.text = "4K"
@@ -38,15 +40,15 @@ class DetailsCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(systemName: "clock")?.withTintColor(UIColor.white, renderingMode: .alwaysOriginal)
+        imageView.image = Constants.Design.Image.IconClock?.withTintColor(.white, renderingMode: .alwaysOriginal)
         return imageView
     }()
     
     private lazy var durationTime: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        lb.font = UIFont(name: "Lato-Regular", size: 12)
-        lb.textColor = UIColor(red: 0.74, green: 0.74, blue: 0.74, alpha: 1)
+        lb.font = Constants.Design.Font.Sub
+        lb.textColor = Constants.Design.Color.Primary.WhiteDisable
         lb.textAlignment = .left
         lb.text = "152 minutes"
         return lb
@@ -56,20 +58,19 @@ class DetailsCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(systemName: "star.fill")?.withTintColor(UIColor.white, renderingMode: .alwaysOriginal)
+        imageView.image = Constants.Design.Image.IconStar?.withTintColor(.white, renderingMode: .alwaysOriginal)
         return imageView
     }()
     
     private lazy var ratingLb: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        lb.font = UIFont(name: "Lato-Regular", size: 12)
-        lb.textColor = UIColor(red: 0.74, green: 0.74, blue: 0.74, alpha: 1)
+        lb.font = Constants.Design.Font.Sub
+        lb.textColor = Constants.Design.Color.Primary.WhiteDisable
         lb.textAlignment = .left
         lb.text = "7.0 (IMDb)"
         return lb
     }()
-
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -123,15 +124,15 @@ extension DetailsCell {
             voteLb.leadingAnchor.constraint(equalTo: movieTitleLb.trailingAnchor, constant: 15),
             voteLb.centerYAnchor.constraint(equalTo: movieTitleLb.centerYAnchor),
             voteLb.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-//            voteLb.heightAnchor.constraint(equalToConstant: 22),
+            voteLb.heightAnchor.constraint(equalToConstant: 23),
             voteLb.widthAnchor.constraint(equalToConstant: 39)
         ]
         
-        let logoImageViewConstraints = [
+        let timeImageViewConstraints = [
             timeImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 31),
             timeImageView.topAnchor.constraint(equalTo: movieTitleLb.bottomAnchor, constant: 14),
-            timeImageView.heightAnchor.constraint(equalToConstant: 12),
-            timeImageView.widthAnchor.constraint(equalTo: timeImageView.heightAnchor, multiplier: 1)
+            timeImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            timeImageView.widthAnchor.constraint(equalToConstant: 12)
         ]
         
         let durationTimeConstraints = [
@@ -153,7 +154,7 @@ extension DetailsCell {
         
         NSLayoutConstraint.activate(movieTitleLbContraints)
         NSLayoutConstraint.activate(voteLbConstraints)
-        NSLayoutConstraint.activate(logoImageViewConstraints)
+        NSLayoutConstraint.activate(timeImageViewConstraints)
         NSLayoutConstraint.activate(durationTimeConstraints)
         NSLayoutConstraint.activate(starImageViewConstraints)
         NSLayoutConstraint.activate(ratingLbConstraints)

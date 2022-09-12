@@ -1,7 +1,7 @@
 import UIKit
 
 class SearchCollectionViewcell: UICollectionViewCell {
-    static var identifier = "SearchCollectionViewcell"
+    static var identifier: String { .init(describing: self) }
     
     var posterImage: UIImageView = {
         var image = UIImageView()

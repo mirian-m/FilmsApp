@@ -17,7 +17,7 @@ protocol ComingSoonDisplayLogic: AnyObject {
     func displaySelectedMovie(viewModel: ComingSoon.GetSelectedMovie.ViewModel)
 }
 
-final class ComingSoonViewController: BackgroundImageViewControlller, ComingSoonDisplayLogic {
+final class ComingSoonViewController: BackgroundImageViewControlller {
     
     
     private var moviesViewModel = [MovieViewModel]()
@@ -33,8 +33,7 @@ final class ComingSoonViewController: BackgroundImageViewControlller, ComingSoon
     var interactor: ComingSoonBusinessLogic?
     var router: (NSObjectProtocol & ComingSoonRoutingLogic & ComingSoonDataPassing)?
     
-    // MARK: Object lifecycle
-    
+    //  MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -45,7 +44,7 @@ final class ComingSoonViewController: BackgroundImageViewControlller, ComingSoon
         setup()
     }
     
-    // MARK: View lifecycle
+    //  MARK: View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,8 +57,7 @@ final class ComingSoonViewController: BackgroundImageViewControlller, ComingSoon
         upcomingMoviesTableView.frame = view.bounds
     }
     
-    // MARK: Setup
-    
+    //  MARK: Setup
     private func setup() {
         let viewController = self
         let interactor = ComingSoonInteractor()
@@ -79,17 +77,19 @@ final class ComingSoonViewController: BackgroundImageViewControlller, ComingSoon
         view.addSubview(upcomingMoviesTableView)
         upcomingMoviesTableView.dataSource = self
         upcomingMoviesTableView.delegate = self
-        upcomingMoviesTableView.backgroundColor = .none
+        upcomingMoviesTableView.backgroundColor = Constants.Design.Color.Background.None
     }
     
-    // MARK: Do something
-    
+    //  MARK: Fetch Movies
     func fetchUpcomingMovies() {
         let request = ComingSoon.GetUpcomingMovies.Request()
         interactor?.getUpcomingMovies(request: request)
     }
+}
+
+extension ComingSoonViewController: ComingSoonDisplayLogic {
     
-    //    MARK:- Display Functions
+    //  MARK:- Display Functions
     func displayUpcomingMovies(viewModel: ComingSoon.GetUpcomingMovies.ViewModel) {
         self.moviesViewModel = viewModel.movie.shuffled()
         self.upcomingMoviesTableView.reloadData()
@@ -101,6 +101,8 @@ final class ComingSoonViewController: BackgroundImageViewControlller, ComingSoon
 }
 
 extension ComingSoonViewController: UITableViewDataSource, UITableViewDelegate  {
+    
+    //  MARK:- DataSource & Delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         moviesViewModel.count
     }
@@ -118,5 +120,5 @@ extension ComingSoonViewController: UITableViewDataSource, UITableViewDelegate  
         interactor?.didTapMovie(requset: ComingSoon.GetSelectedMovie.Request(selectedMovieId: moviesViewModel[indexPath.row].id))
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { Constans.heightForRow }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { Constants.Content.Category.Height.middle }
 }

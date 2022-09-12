@@ -16,8 +16,8 @@ class MoreDetailsTableViewCell: UITableViewCell {
     private lazy var releaseDateTitleLb: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        lb.font = UIFont(name: "Lato-Medium", size: 16)
-        lb.textColor = .white
+        lb.font = Constants.Design.Font.HeadingThree
+        lb.textColor = Constants.Design.Color.Primary.White
         lb.textAlignment = .left
         lb.text = "Release date"
         return lb
@@ -26,8 +26,8 @@ class MoreDetailsTableViewCell: UITableViewCell {
     private lazy var genreLb: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        lb.font = UIFont(name: "Lato-Medium", size: 16)
-        lb.textColor = .white
+        lb.font = Constants.Design.Font.HeadingThree
+        lb.textColor = Constants.Design.Color.Primary.White
         lb.textAlignment = .left
         lb.text = "Genre"
         return lb
@@ -36,8 +36,8 @@ class MoreDetailsTableViewCell: UITableViewCell {
     private lazy var dateLb: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        lb.font = UIFont(name: "Lato-Regular", size: 12)
-        lb.textColor = UIColor(red: 0.74, green: 0.74, blue: 0.74, alpha: 1)
+        lb.font = Constants.Design.Font.Sub
+        lb.textColor = Constants.Design.Color.Primary.WhiteDisable
         lb.textAlignment = .left
         lb.text = "December 9, 2017"
         return lb
@@ -48,7 +48,7 @@ class MoreDetailsTableViewCell: UITableViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
         stack.distribution = .fillEqually
-        stack.spacing = 10
+        stack.spacing = 5
         stack.addArrangedSubview(firstGenre)
         stack.addArrangedSubview(secondGenre)
         stack.addArrangedSubview(thirdGenre)
@@ -85,26 +85,18 @@ class MoreDetailsTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-        backgroundColor = UIColor(white: 1, alpha: 0)
+        backgroundColor = Constants.Design.Color.Background.None
         addItemToSubView()
         adjustConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func addItemToSubView() {
-        contentView.addSubview(releaseDateTitleLb)
-        contentView.addSubview(stackViewForButtons)
-        contentView.addSubview(genreLb)
-        contentView.addSubview(dateLb)
     }
     
     func configure(with model: MovieViewModel) {
@@ -133,6 +125,13 @@ extension MoreDetailsTableViewCell {
         return (index < genre.count) ? genre[index].name == "Science Fiction" ? "Sci-Fi" : genre[index].name : nil
     }
     
+    private func addItemToSubView() {
+        contentView.addSubview(releaseDateTitleLb)
+        contentView.addSubview(stackViewForButtons)
+        contentView.addSubview(genreLb)
+        contentView.addSubview(dateLb)
+    }
+    
     //  MARK:- Adjust Constraints
     private func adjustConstraints() {
         
@@ -145,9 +144,11 @@ extension MoreDetailsTableViewCell {
             genreLb.centerYAnchor.constraint(equalTo: releaseDateTitleLb.centerYAnchor),
             genreLb.leadingAnchor.constraint(equalTo: releaseDateTitleLb.trailingAnchor, constant: 56)
         ]
+        
         let stackViewForButtonsConstraints = [
             stackViewForButtons.centerYAnchor.constraint(equalTo: dateLb.centerYAnchor),
-            stackViewForButtons.leadingAnchor.constraint(equalTo: genreLb.leadingAnchor)
+            stackViewForButtons.leadingAnchor.constraint(equalTo: genreLb.leadingAnchor),
+            stackViewForButtons.trailingAnchor.constraint(equalTo: trailingAnchor)
         ]
         
         let dateLbConstraints = [
@@ -156,7 +157,6 @@ extension MoreDetailsTableViewCell {
         ]
         
         let firstGenreConstraints = [
-            firstGenre.widthAnchor.constraint(equalToConstant: 55),
             firstGenre.heightAnchor.constraint(equalToConstant: 17)
         ]
         
@@ -171,10 +171,10 @@ extension MoreDetailsTableViewCell {
 extension UIButton {
     
     //  MARK:- Set design for button
-    func setDesign() {
+    fileprivate func setDesign() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.tintColor = UIColor.white
-        self.titleLabel?.font = UIFont(descriptor: UIFontDescriptor(), size: 12)
+        self.tintColor = Constants.Design.Color.Primary.WhiteDisable
+        self.titleLabel?.font = Constants.Design.Font.Sub
         self.setTitle("Action", for: .normal)
     }
 }

@@ -21,7 +21,7 @@ final class SearchResultViewController: BackgroundImageViewControlller {
     
     private var searchResultCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3 - 10, height: Constans.heightForRow)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3 - 10, height: Constants.Content.Category.Height.middle)
         layout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(SearchCollectionViewcell.self, forCellWithReuseIdentifier: SearchCollectionViewcell.identifier)

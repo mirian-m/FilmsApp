@@ -88,7 +88,7 @@ final class HomeViewController: BackgroundImageViewControlller {
         tabBarController?.navigationItem.hidesBackButton = true
         tabBarController?.navigationController?.navigationBar.isHidden = false
         tabBarItem.badgeColor = .label
-        tabBarItem.image = UIImage(systemName: "house.fill")
+        tabBarItem.image = Constants.Design.Image.IconHome?.withRenderingMode(.automatic)
         tabBarItem.title = "Home"
         
         headerView = Poster(frame: CGRect(x: 0,
@@ -107,22 +107,19 @@ final class HomeViewController: BackgroundImageViewControlller {
     
     //  MARK:- Set Navigation Items
     private func setNavBarItem() {
-        title = "Home"
+        navigationController?.title = "Home"
         var image = UIImage(named: "Netflix-new")
         image = image?.withRenderingMode(.alwaysOriginal)
         
         tabBarController?.navigationItem.leftBarButtonItem  = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
-        tabBarController?.navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(image: UIImage(systemName: "person")?
-                                .withTintColor(UIColor.white,
-                                               renderingMode: .alwaysOriginal),
-                            style: .done, target: self, action: #selector(presentProfile)),
-            
-            //            UIBarButtonItem(image: UIImage(systemName: "play.rectangle")?
-            //                                .withTintColor(UIColor(named: "CustomColor")!,
-            //                                               renderingMode: .alwaysOriginal), style: .done, target: self, action: nil)
-        ]
-        tabBarController?.navigationController?.navigationBar.tintColor = .white
+        tabBarController?.navigationItem.rightBarButtonItem =
+            UIBarButtonItem(
+                image: Constants.Design.Image.IconPerson?.withTintColor(.white, renderingMode: .alwaysOriginal),
+                style: .done,
+                target: self, action: #selector(presentProfile)
+            )
+        
+        tabBarController?.navigationController?.navigationBar.tintColor = Constants.Design.Color.Primary.White
     }
     
     // MARK: Routing
@@ -139,14 +136,12 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.setScrollPosition(x: offsets[indexPath] ?? 0)
         
-        //  FIXME: - This code must be in interactor
         let title = headerForSection[indexPath.section]
-        let url = API.dictionariOfAPI[title]!
-        let request = Home.MovieInfo.Request(url: url)
+        let request = Home.MovieInfo.Request(sectionTitle: title)
         
         interactor?.fetchMovies(request: request, complition: { [weak self] done in
             if done {
-                cell.updateViewFromModel(movies: self!.fetchedMoviesDetails)
+                cell.updateViewFromModel(movies: self?.fetchedMoviesDetails ?? [])
             }
         })
         cell.delegate = self
@@ -157,16 +152,16 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         1
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        Constans.heightForRow
+        Constants.Content.Category.Height.middle
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         headerForSection.count
     }
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
-        header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+        header.textLabel?.font = Constants.Design.Font.HeadingTwo
         header.textLabel?.frame = CGRect(x: header.bounds.origin.x, y: header.bounds.origin.y, width: 100, height: 50)
-        header.textLabel?.textColor = UIColor(named: "ColorForText")
+        header.textLabel?.textColor = Constants.Design.Color.Primary.White
         header.textLabel?.text = header.textLabel?.text?.upperCasedFirstLetter()
     }
     

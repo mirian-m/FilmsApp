@@ -30,8 +30,9 @@ final class HomeInteractor: HomeBusinessLogic, HomeDataStore {
     // MARK: Do something
     func fetchMovies(request: Home.MovieInfo.Request, complition: @escaping (Bool) -> Void) {
         worker = APIWoker()
+        guard let url = API.dictionariOfAPI[request.sectionTitle] else { return }
         var response = Home.MovieInfo.Response()
-        worker?.fetchMoviesDetails(url: request.url, completion: { [weak self] (result: Result<Movies, APICollerError>) in
+        worker?.fetchMoviesDetails(url: url, completion: { [weak self] (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let movies):

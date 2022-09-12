@@ -30,7 +30,7 @@ final class DetailsViewController: BackgroundImageViewControlller {
         tableView.register(MoreDetailsTableViewCell.self, forCellReuseIdentifier: MoreDetailsTableViewCell.identifier)
         tableView.register(DetailsOverviewCell.self, forCellReuseIdentifier: DetailsOverviewCell.identifier)
         tableView.frame = self.view.bounds
-        tableView.backgroundColor = .none
+        tableView.backgroundColor = Constants.Design.Color.Background.None
         view.addSubview(tableView)
         return tableView
     }()
@@ -130,6 +130,6 @@ extension DetailsViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        indexPath.row > 1 ? MovieDetailsVCConst.overViewCellHeight : MovieDetailsVCConst.detailCellHeight
+        indexPath.row > 1 ? Constants.Content.Category.Height.max : Constants.Content.Category.Height.min
     }
 }

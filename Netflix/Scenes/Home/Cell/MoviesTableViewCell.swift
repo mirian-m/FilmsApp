@@ -19,7 +19,7 @@ class MoviesTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        moviesCollectionView.backgroundColor = .none
+        moviesCollectionView.backgroundColor = Constants.Design.Color.Background.None
     }
     
     func updateViewFromModel(movies: [MovieViewModel]) {
@@ -58,7 +58,7 @@ extension MoviesTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
-        CGSize(width: 120, height: Constans.heightForRow)
+        CGSize(width: 120, height: Constants.Content.Category.Height.middle)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
