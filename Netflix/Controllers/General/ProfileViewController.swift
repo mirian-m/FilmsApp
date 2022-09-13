@@ -116,10 +116,10 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewControllerLayout()
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        UserManger.shared.getUserData(by: userId) { userData in
-            self.nameLb.text = "\(userData.firstName) \(userData.lastName)"
-        }
+//        guard let userId = Auth.auth().currentUser?.uid else { return }
+//        UserManger.shared.getUserData(by: userId) { userData in
+//            self.nameLb.text = "\(userData.firstName) \(userData.lastName)"
+//        }
     }
     
     override func viewDidLayoutSubviews() {

@@ -32,6 +32,7 @@ enum Details {
             var movieId: Int
         }
         struct Response {}
+        
         struct ViewModel {}
         
     }

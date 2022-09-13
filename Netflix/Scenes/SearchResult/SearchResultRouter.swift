@@ -29,13 +29,14 @@ final class SearchResultRouter: NSObject, SearchResultRoutingLogic, SearchResult
     //  MARK: Routing
     func routeToDetailsVc(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
+        destinationVC.modalPresentationStyle = .fullScreen
         var destinationDS = destinationVC.router!.dataStore!
         passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
-        navigateToDetailsVc(source: viewController!, destination: destinationVC)
+        presentDetailsVc(source: viewController!, destination: destinationVC)
     }
     
     //  MARK: Navigation
-    func navigateToDetailsVc(source: SearchResultViewController, destination: UIViewController) {
+    func presentDetailsVc(source: SearchResultViewController, destination: UIViewController) {
         source.present(destination, animated: true, completion: nil)
     }
     

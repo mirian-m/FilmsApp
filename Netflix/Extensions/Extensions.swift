@@ -60,9 +60,7 @@ extension Double {
 extension Notification.Name {
     
     //  MARK:- Create Notification Custom Name
-    static let playButtonDidTapped = Notification.Name("Play Button Tapped")
+    static let playButtonTap = Notification.Name("Play Button Tapped")
+    static let navButtonTap = Notification.Name("Back button Tapped")
 }
 
-extension UIColor {
-    static let customColor = UIColor(named: "TintColor")
-}

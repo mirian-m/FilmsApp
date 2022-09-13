@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VkQ-9E-IBg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pt5-sb-ud0">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -284,7 +284,7 @@
         <!--Coming Soon-->
         <scene sceneID="3dr-ij-sEz">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ub2-ef-4RE" sceneMemberID="viewController">
+                <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="flipHorizontal" modalPresentationStyle="fullScreen" id="ub2-ef-4RE" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Coming Soon" image="play.rectangle" catalog="system" selectedImage="play.rectangle" id="7us-ga-Ul0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6DY-OD-QZE">
@@ -377,7 +377,7 @@
         <!--Navigation Controller-->
         <scene sceneID="pSs-2O-3E5">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VkQ-9E-IBg" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="flipHorizontal" modalPresentationStyle="fullScreen" id="VkQ-9E-IBg" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="D4w-Rq-icw">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

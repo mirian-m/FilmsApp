@@ -13,9 +13,9 @@ struct UserData {
     var seenMoviesList: [Int]
     
     init(with dictionary: Dictionary<String, Any>) {
-        self.firstName = dictionary[RegistrationField.firstName] as? String ?? ""
-        self.lastName = dictionary[RegistrationField.lastName] as? String ?? ""
-        self.email = dictionary[RegistrationField.email] as? String ?? ""
-        self.seenMoviesList = dictionary[RegistrationField.watchedMovies] as? [Int] ?? []
+        self.firstName = dictionary[Constants.API.FireBase.Key.FirstName] as? String ?? ""
+        self.lastName = dictionary[Constants.API.FireBase.Key.LastName] as? String ?? ""
+        self.email = dictionary[Constants.API.FireBase.Key.Email] as? String ?? ""
+        self.seenMoviesList = dictionary[Constants.API.FireBase.Key.WatchedMovies] as? [Int] ?? []
     }
 }

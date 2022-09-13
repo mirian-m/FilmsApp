@@ -73,10 +73,10 @@ final class DetailsViewController: BackgroundImageViewControlller {
     private func controllerSetup() {
         
         // Add Observer To playButtonDidTapped Notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(playTrailer), name: .playButtonDidTapped, object: nil)
-        
-        navigationController?.navigationBar.barStyle = .black
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(playTrailer), name: .playButtonTap, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(moveBack), name: .navButtonTap, object: nil)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+
         headerView = Poster(frame: CGRect(
                                 x: 0,
                                 y: 0,
@@ -90,6 +90,10 @@ final class DetailsViewController: BackgroundImageViewControlller {
         interactor?.updateUserWatchedList(request: Details.UpdateUserData.Request(movieId: movieViewModel.id))
         router?.routeToTraileVc(segue: nil)
     }
+    
+    @objc func moveBack() {
+        router?.routeToBack(segue: nil)
+    }
     func getMovieDetails() {
         let request = Details.GetMovie.Request()
         interactor?.getMoveDetails(request: request)
@@ -98,7 +102,7 @@ final class DetailsViewController: BackgroundImageViewControlller {
 
 extension DetailsViewController: DetailsDisplayLogic {
     func displayMovieDetails(viewModel: Details.GetMovie.ViewModel) {
-        headerView?.configure(with: viewModel.movieViewModel.imageUrl, backButtonIsHidden: false)
+        headerView?.configure(with: viewModel.movieViewModel.imageUrl, buttonsIsHidden: false)
         self.movieViewModel = viewModel.movieViewModel
         detailsTableView.reloadData()
     }

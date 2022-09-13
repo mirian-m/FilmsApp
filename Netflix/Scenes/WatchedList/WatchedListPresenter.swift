@@ -21,9 +21,8 @@ class WatchedListPresenter {
     weak var viewController: WatchedListDisplayLogic?
     
     // MARK: Do something
-    
-    
-   private func convert(model: [MovieDetails]) -> [MovieViewModel] {
+
+    private func convert(model: [MovieDetails]) -> [MovieViewModel] {
         var viewModel = [MovieViewModel]()
         model.forEach { movieDetail in
             let model = MovieViewModel(with: movieDetail)

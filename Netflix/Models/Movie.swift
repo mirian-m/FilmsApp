@@ -33,7 +33,7 @@ struct MovieDetails: Decodable {
     var voteCount: Int?
 }
 
-struct Genres: Decodable, Equatable {
+struct Genres: Decodable, Equatable, Hashable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id
     }

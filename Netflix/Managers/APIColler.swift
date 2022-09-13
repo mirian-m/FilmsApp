@@ -13,8 +13,8 @@ public struct API {
         ]
 }
 
-public enum APICollerError: Error {
-    case faldeToGetData
+public enum APICollerError: String, Error {
+    case faldeToGetData = "Falde To get data"
 }
 
 

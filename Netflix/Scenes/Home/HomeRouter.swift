@@ -12,10 +12,11 @@
 
 import UIKit
 
-@objc protocol HomeRoutingLogic {
+protocol HomeRoutingLogic {
     func routeToProfile(segue: UIStoryboardSegue?)
     func routeToWelcomePage(segue: UIStoryboardSegue?)
     func routToDetailsVc(segue: UIStoryboardSegue?)
+//    func routToTrailerVc(segue: UIStoryboardSegue?)
 }
 
 protocol HomeDataPassing {
@@ -38,21 +39,17 @@ final class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
     func routeToWelcomePage(segue: UIStoryboardSegue?) {
         popToWelcomePage(source: viewController!, destination: nil)
     }
-
+    
     func routToDetailsVc(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
+//        destinationVC.modalTransitionStyle = .coverVertical
+        destinationVC.modalPresentationStyle = .fullScreen
         var destinationDS = destinationVC.router!.dataStore!
         passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
         present(source: viewController!, destination: destinationVC)
     }
-
-    func routToTrailerVc(segue: UIStoryboardSegue?) {
-        let destinationVC = MovieTrailerViewController()
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToTrailerVc(source: dataStore!, destination: &destinationDS)
-        navigate(source: viewController!, destination: destinationVC)
-    }
-
+    
+    
     //  MARK: Navigation
     func popToWelcomePage(source: HomeViewController, destination: UIViewController?) {
         source.navigationController?.popToRootViewController(animated: true)
@@ -67,8 +64,5 @@ final class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
     // MARK: Passing data
     func passDataToDetailsVc(source: HomeDataStore, destination: inout DetailsDataStore) {
         destination.movieId = source.selectedMovieId
-    }
-    func passDataToTrailerVc(source: HomeDataStore, destination: inout MovieTrailerDataStore) {
-//        destination.movieDetails = source.selectedMovieId
     }
 }

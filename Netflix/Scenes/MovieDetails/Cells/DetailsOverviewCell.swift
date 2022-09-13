@@ -99,7 +99,7 @@ extension DetailsOverviewCell {
         
         let buttonForMoreContextConstraints = [
             buttonForMoreContext.centerXAnchor.constraint(equalTo: centerXAnchor),
-            buttonForMoreContext.topAnchor.constraint(equalTo: overview.bottomAnchor, constant: -15)
+            buttonForMoreContext.topAnchor.constraint(equalTo: overview.bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(synopsisLbConstraints)

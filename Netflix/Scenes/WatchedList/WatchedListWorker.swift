@@ -14,11 +14,11 @@ import UIKit
 import FirebaseAuth
 
 class WatchedListWorke {
-    //    private var moviesList = [MovieDetails]()
-    func getSigInUserData(compilition: @escaping (UserData) -> Void) {
-        guard let currentUser = Auth.auth().currentUser else { return }
-        UserManger.shared.getUserData(by: currentUser.uid) {  userData in
-            compilition(userData)
-        }
-    }
+    
+//    func getSigInUserData(compilition: @escaping (UserData) -> Void) {
+//        guard let currentUser = Auth.auth().currentUser else { return }
+//        UserManger.shared.getUserData(by: currentUser.uid) {  userData in
+//            compilition(userData)
+//        }
+//    }
 }

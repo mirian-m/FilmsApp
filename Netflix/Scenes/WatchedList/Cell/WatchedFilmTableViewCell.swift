@@ -136,6 +136,7 @@ class WatchedFilmTableViewCell: UITableViewCell {
     
     func configure(with model: MovieViewModel) {
         let url = APIConstants.posterBaseURL + model.imageUrl
+        self.filmId = model.id
         posterImage.getImageFromWeb(by: url)
         titleLabel.text = model.title
         voteLb.text = "\(round(number: model.rate))/10"

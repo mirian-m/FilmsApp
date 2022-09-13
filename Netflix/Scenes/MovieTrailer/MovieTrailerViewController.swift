@@ -61,6 +61,7 @@ final class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLog
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(false, animated: true)
         setupController()
         doSomething()
     }

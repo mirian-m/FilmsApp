@@ -31,14 +31,15 @@ extension WatchedListRouter: WatchedListRoutingLogic, WatchedListDataPassing {
 
     func routeToTrailerVC(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
+        destinationVC.modalPresentationStyle = .fullScreen
         var destinationDS = destinationVC.router!.dataStore!
         passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
-        navigateToDetailsVc(source: viewController!, destination: destinationVC)
+        presentDetailsVc(source: viewController!, destination: destinationVC)
     }
 
     // MARK: Navigation
     
-    func navigateToDetailsVc(source: WatchedListViewController, destination: UIViewController) {
+    func presentDetailsVc(source: WatchedListViewController, destination: UIViewController) {
         source.present(destination, animated: true, completion: nil)
     }
     

@@ -26,18 +26,17 @@ protocol WatchedListDataStore {
 class WatchedListInteractor: WatchedListDataStore {
     var selectedMovieId: Int = 0
     var presenter: WatchedListPresentationLogic?
-    var worker: WatchedListWorke?
+    var worker: APIWoker?
     private var moviesList = [MovieDetails]()
-
-    
 }
 
 extension WatchedListInteractor: WatchedListBusinessLogic {
     func removeMovieFromWatchedList(request: WatchedList.RemoveSelectedMovie.Request) {
         moviesList.removeAll { $0.id ==  request.selectedMovieId }
         guard let urser = Auth.auth().currentUser else { return }
+        
         let movieId = moviesList.map { $0.id }
-        UserManger.shared.updateUserData(userId: urser.uid, data: [RegistrationField.watchedMovies: movieId])
+        UserManger.shared.updateUserData(userId: urser.uid, data: [Constants.API.FireBase.Key.WatchedMovies: movieId])
         presenter?.presentWatchedMovies(response: WatchedList.GetWatchedMovies.Response(movies: moviesList))
     }
     
@@ -48,13 +47,12 @@ extension WatchedListInteractor: WatchedListBusinessLogic {
     
     func getWatchedMovies(request: WatchedList.GetWatchedMovies.Request) {
         var counter = 0
-        worker = WatchedListWorke()
-        let apiWorker = APIWoker()
+        worker = APIWoker()
         
-        worker?.getSigInUserData(compilition: { data in
+        UserManger.shared.getSigInUserData { data in
             data.seenMoviesList.forEach { movieId in
                 let url = "https://api.themoviedb.org/3/movie/\(movieId)?api_key=793b50b3b4c6ef37ce18bda27b1cbf67&language=en-US"
-                apiWorker.fetchMoviesDetails(url: url) { [weak self] (result: Result<MovieDetails, APICollerError>) in
+                self.worker?.fetchMoviesDetails(url: url) { [weak self] (result: Result<MovieDetails, APICollerError>) in
                     counter += 1
                     switch result {
                     case .success(let details):
@@ -71,6 +69,6 @@ extension WatchedListInteractor: WatchedListBusinessLogic {
                     }
                 }
             }
-        })
+        }
     }
 }

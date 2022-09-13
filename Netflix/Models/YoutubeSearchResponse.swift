@@ -1,11 +1,11 @@
 
 import Foundation
 
-struct YoutubeSearchResponse: Codable {
-    struct VideoElements: Codable {
+struct YoutubeSearchResponse: Decodable {
+    struct VideoElements: Decodable {
         let id : VideoId
     }
-    struct VideoId: Codable {
+    struct VideoId: Decodable {
         let kind: String
         let videoId: String
     }

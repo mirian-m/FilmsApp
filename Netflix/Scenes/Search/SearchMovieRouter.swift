@@ -13,7 +13,7 @@
 import UIKit
 
 protocol SearchMovieRoutingLogic {
-    func routeToTrailerVC(segue: UIStoryboardSegue?)
+    func routeToDetailsrVC(segue: UIStoryboardSegue?)
     func routeToSearcheResulte(segue: UIStoryboardSegue?)
 }
 
@@ -59,11 +59,12 @@ final class SearchMovieRouter: NSObject, SearchMovieDataPassing {
 extension SearchMovieRouter:  SearchMovieRoutingLogic {
     
     // MARK: Routing
-    func routeToTrailerVC(segue: UIStoryboardSegue?) {
+    func routeToDetailsrVC(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
+        destinationVC.modalPresentationStyle = .fullScreen
         var destinationDS = destinationVC.router!.dataStore!
         passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
-        navigateToDetailsVc(source: viewController!, destination: destinationVC)
+        presentDetailsVc(source: viewController!, destination: destinationVC)
     }
     
     
@@ -84,7 +85,7 @@ extension SearchMovieRouter:  SearchMovieRoutingLogic {
     }
     
     // MARK: Navigation
-    func navigateToDetailsVc(source: SearchMovieViewController, destination: UIViewController) {
+    func presentDetailsVc(source: SearchMovieViewController, destination: UIViewController) {
         source.present(destination, animated: true, completion: nil)
     }
 }

@@ -13,25 +13,6 @@
 import UIKit
 
 enum Home {
-//    struct Movies: Codable {
-//        enum CodingKeys: String, CodingKey {
-//            case details = "results"
-//        }
-//        var details: [Details]
-//
-//        struct Details: Codable {
-//            var id: Int
-//            var original_language: String?
-//            var original_title: String?
-//            var overview: String?
-//            var popularity: Double?
-//            var poster_path: String?
-//            var release_date: String?
-//            var title: String?
-//            var vote_average: Double?
-//            var vote_count: Int?
-//        }
-//    }
     // MARK: Use cases
     
     enum MovieInfo {
@@ -57,6 +38,5 @@ enum Home {
         
         struct ViewModel {}
     }
-
 }
 

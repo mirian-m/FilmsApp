@@ -126,7 +126,6 @@ final class RegistrationViewController: BackgroundImageViewControlller {
     }
     
     // MARK: Do something
-    
     func doSomething() {
         let tagId = contentView.segmentControl.isSelected ? contentView.segmentControl.selectedSegmentIndex : nil
         let request = Registation.ViewItemVisibility.Request(tagId: tagId)
@@ -184,6 +183,6 @@ extension RegistrationViewController: RegistationDisplayLogic {
             router?.routeToHomeVC(segue: nil)
         }
     }
-
+    
     
 }

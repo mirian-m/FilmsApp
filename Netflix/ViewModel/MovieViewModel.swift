@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct MovieViewModel {
+struct MovieViewModel: Hashable {
     var id: Int
     var title: String
     var genres: [Genres]
@@ -53,6 +53,7 @@ struct MovieViewModel {
             vote: model.voteCount ?? 0
         )
     }
+    
     init() {
         self.init(
             id: 0,

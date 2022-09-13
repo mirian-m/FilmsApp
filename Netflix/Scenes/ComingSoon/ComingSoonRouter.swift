@@ -28,6 +28,8 @@ final class ComingSoonRouter: NSObject, ComingSoonRoutingLogic, ComingSoonDataPa
     
     func routeToDetailsVc(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
+        destinationVC.modalPresentationStyle = .fullScreen
+//        destinationVC.modalTransitionStyle = .flipHorizontal
         var destinationDS = destinationVC.router!.dataStore!
         passDataToSomewhere(source: dataStore!, destination: &destinationDS)
         navigateToTrailerVC(source: viewController!, destination: destinationVC)
@@ -36,12 +38,10 @@ final class ComingSoonRouter: NSObject, ComingSoonRoutingLogic, ComingSoonDataPa
     // MARK: Navigation
     
     func navigateToTrailerVC(source: ComingSoonViewController, destination: UIViewController) {
-//        source.show(destination, sender: nil)
         source.present(destination, animated: true, completion: nil)
     }
     
     // MARK: Passing data
-    
     func passDataToSomewhere(source: ComingSoonDataStore, destination: inout DetailsDataStore) {
         destination.movieId = source.selectedMovieId
     }

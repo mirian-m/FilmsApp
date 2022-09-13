@@ -24,12 +24,17 @@ final class HomePresenter: HomePresentationLogic {
     // MARK: Do something
     
     func presentMovies(response: Home.MovieInfo.Response) {
-        let viewModel = Home.MovieInfo.ViewModel(error: nil, moviesViewModel: (response.movies?.details.convert() ?? []))
+        
+        let viewModel = Home.MovieInfo.ViewModel(error: response.error?.rawValue, moviesViewModel: (response.movies?.details.convert() ?? []))
+        guard response.error == nil else {
+            viewController?.displayAlert(viewModel: viewModel)
+            return
+        }
         viewController?.displayMovies(viewModel: viewModel)
     }
     
     func presentSelectedMovie(response: Home.GetSelectedMovie.Response) {
         viewController?.displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel())
     }
-
+    
 }

@@ -14,6 +14,7 @@ import UIKit
 
 protocol HomeDisplayLogic: AnyObject {
     func displayMovies(viewModel: Home.MovieInfo.ViewModel)
+    func displayAlert(viewModel: Home.MovieInfo.ViewModel)
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel)
 }
 
@@ -36,6 +37,7 @@ final class HomeViewController: BackgroundImageViewControlller {
     private let headerForSection = ["Trending movies", "Trending tv", "Popular", "Upcoming movies", "Top"]
     private var headerView: Poster?
     private var posterIsSeted = false
+    private var loadIsFinished = false
     private var fetchedMoviesDetails: [MovieViewModel] = []
     private var isNavigate: Bool = false
     
@@ -48,14 +50,14 @@ final class HomeViewController: BackgroundImageViewControlller {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        navigationController?.setNavigationBarHidden(false, animated: false)
-//        isNavigate = false
+        //        navigationController?.setNavigationBarHidden(false, animated: false)
+        //        isNavigate = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         //        if !isNavigate {
-//        navigationController?.setNavigationBarHidden(true, animated: false)
+        //        navigationController?.setNavigationBarHidden(true, animated: false)
         //        }
     }
     
@@ -84,7 +86,6 @@ final class HomeViewController: BackgroundImageViewControlller {
     }
     
     private func controllerSetup() {
-        NotificationCenter.default.addObserver(self, selector: #selector(playTrailer), name: .playButtonDidTapped, object: nil)
         tabBarController?.navigationItem.hidesBackButton = true
         tabBarController?.navigationController?.navigationBar.isHidden = false
         tabBarItem.badgeColor = .label
@@ -95,14 +96,9 @@ final class HomeViewController: BackgroundImageViewControlller {
                                           y: 0,
                                           width: view.bounds.width,
                                           height: UIScreen.main.bounds.height * (2/3)))
-        
         headerView?.postNotification()
         filmTableView.tableHeaderView = headerView
         setNavBarItem()
-    }
-    
-    @objc func playTrailer() {
-        
     }
     
     //  MARK:- Set Navigation Items
@@ -118,7 +114,6 @@ final class HomeViewController: BackgroundImageViewControlller {
                 style: .done,
                 target: self, action: #selector(presentProfile)
             )
-        
         tabBarController?.navigationController?.navigationBar.tintColor = Constants.Design.Color.Primary.White
     }
     
@@ -168,24 +163,31 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         headerForSection[section]
     }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        offsets[indexPath] = (cell as? MoviesTableViewCell)?.getScrollPosition()
+    }
+    
 }
 
 extension HomeViewController: HomeDisplayLogic {
     
     //  MARK:- DisplayLogic Functions
     func displayMovies(viewModel: Home.MovieInfo.ViewModel) {
-        let movies = viewModel.moviesViewModel.shuffled()
-        self.fetchedMoviesDetails = movies
-        
+        self.fetchedMoviesDetails = viewModel.moviesViewModel
         if !self.posterIsSeted {
-            guard let randomPosterUrl = viewModel.moviesViewModel.randomElement()?.imageUrl else { return }
-            self.headerView?.configure(with: randomPosterUrl, backButtonIsHidden: true)
+            guard let randomMovie = viewModel.moviesViewModel.randomElement() else { return }
+            self.headerView?.configure(with: randomMovie.imageUrl, buttonsIsHidden: true)
             self.posterIsSeted = true
         }
     }
     
+    func displayAlert(viewModel: Home.MovieInfo.ViewModel) {
+        showAlertWith(title: AlerTitle.Error.error, text: viewModel.error ?? "")
+    }
+    
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel) {
-//        self.isNavigate = true
+        //        self.isNavigate = true
         router?.routToDetailsVc(segue: nil)
     }
 }
@@ -200,5 +202,15 @@ extension HomeViewController: CollectionViewTableViewCelldelegate, ProfileViewCo
     func backToRootViewController() {
         router?.routeToWelcomePage(segue: nil)
     }
-    
+}
+
+//  MARK:- Aler Func
+extension HomeViewController  {
+    private func showAlertWith(title: String, text: String) {
+        let alert = UIAlertController(title: title, message: "\n\(text)", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alert.addAction(action)
+        alert.view.tintColor = .red
+        present(alert, animated: true, completion: nil)
+    }
 }

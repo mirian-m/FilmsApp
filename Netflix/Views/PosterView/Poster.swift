@@ -10,7 +10,7 @@ class Poster: UIView {
         button.layer.cornerRadius = 25
         button.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.2)
         button.setImage(buttonImage, for: .normal)
-        //        button.addTarget(self, action: #selector(postNotification), for: .touchUpInside)
+        button.addTarget(self, action: #selector(navigateBack), for: .touchUpInside)
         return button
     }()
     
@@ -50,14 +50,19 @@ class Poster: UIView {
         fatalError()
     }
     
-    func configure(with posterUrl: String, backButtonIsHidden: Bool) {
+    func configure(with posterUrl: String, buttonsIsHidden: Bool) {
         let url =  APIConstants.posterBaseURL + posterUrl
-        backBtn.isHidden = backButtonIsHidden
+        backBtn.isHidden = buttonsIsHidden
+        playButton.isHidden = buttonsIsHidden
         posterView.getImageFromWeb(by: url)
     }
     
     @objc func postNotification() {
-        NotificationCenter.default.post(name: .playButtonDidTapped, object: nil)
+        NotificationCenter.default.post(name: .playButtonTap, object: self)
+    }
+    
+    @objc func navigateBack() {
+        NotificationCenter.default.post(name: .navButtonTap, object: self)
     }
 }
 

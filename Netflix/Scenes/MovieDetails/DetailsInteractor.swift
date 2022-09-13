@@ -34,8 +34,14 @@ class DetailsInteractor: DetailsDataStore {
 
 extension DetailsInteractor: DetailsBusinessLogic {
     func updateUserWatchedList(request: Details.UpdateUserData.Request) {
-        guard let user = Auth.auth().currentUser else { return }
-        UserManger.shared.updateUserData(userId: user.uid, data: [RegistrationField.watchedMovies: [request.movieId]])
+        //  FIXME: - Fix logic
+        UserManger.shared.getSigInUserData { data in
+            var listOfMovies = data.seenMoviesList
+            listOfMovies.append(request.movieId)
+            listOfMovies = Array(Set(listOfMovies))
+            guard let user = Auth.auth().currentUser else { return }
+            UserManger.shared.updateUserData(userId: user.uid, data: [Constants.API.FireBase.Key.WatchedMovies: listOfMovies])
+        }
     }
     
     func getMoveDetails(request: Details.GetMovie.Request) {

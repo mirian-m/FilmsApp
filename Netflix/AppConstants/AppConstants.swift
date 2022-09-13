@@ -62,10 +62,22 @@ enum Constants {
         }
     }
     
-    enum API{
+    enum API {
         
-        
+        enum FireBase {
+            
+            enum Main {
+                static let DataBaseUrl = "https://netflixclone-343110-default-rtdb.firebaseio.com/"
+                static var Name = "Users"
+            }
+            
+            enum Key {
+                static var FirstName = "firstName"
+                static var LastName = "lastName"
+                static var Email = "email"
+                static var WatchedMovies = "watchedMovies"
+            }
+        }
     }
-    
 }
 

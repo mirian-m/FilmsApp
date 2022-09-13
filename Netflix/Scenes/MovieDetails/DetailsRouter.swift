@@ -14,6 +14,7 @@ import UIKit
 
 protocol DetailsRoutingLogic {
     func routeToTraileVc(segue: UIStoryboardSegue?)
+    func routeToBack(segue: UIStoryboardSegue?)
 }
 
 protocol DetailsDataPassing {
@@ -28,6 +29,10 @@ final  class DetailsRouter: NSObject, DetailsDataPassing {
 }
 
 extension DetailsRouter:  DetailsRoutingLogic {
+    func routeToBack(segue: UIStoryboardSegue?) {
+        popVc(source: viewController!)
+    }
+    
     
     // MARK: Routing
     func routeToTraileVc(segue: UIStoryboardSegue?) {
@@ -45,5 +50,9 @@ extension DetailsRouter:  DetailsRoutingLogic {
     // MARK: Passing data
     func passDataToTrailerVc(source: DetailsDataStore, destination: inout MovieTrailerDataStore) {
         destination.movieDetails = source.movieDetails
+    }
+    
+    func popVc(source: UIViewController) {
+        source.dismiss(animated: true, completion: nil)
     }
 }

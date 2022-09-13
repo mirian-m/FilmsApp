@@ -13,7 +13,6 @@ enum APIConstants {
     static let posterBaseURL = "https://image.tmdb.org/t/p/w500/"
     static let youtubeAPI_KEY = "AIzaSyCFAeVXHQbpbirLUloOmQwuUJBkavE-2rQ"
     static let youtubeBaseUrl = "https://youtube.googleapis.com/youtube/v3/search?"
-    static let firebaseDataBaseReferencUrl = "https://netflixclone-343110-default-rtdb.firebaseio.com/"
 }
 
 enum UrlConstant {

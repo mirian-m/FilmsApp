@@ -52,6 +52,11 @@ final class ComingSoonViewController: BackgroundImageViewControlller {
         fetchUpcomingMovies()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         upcomingMoviesTableView.frame = view.bounds

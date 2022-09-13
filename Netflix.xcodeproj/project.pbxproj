@@ -17,7 +17,6 @@
 		8424EF4428ABD91800F30E6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8424EF4328ABD91800F30E6C /* GoogleService-Info.plist */; };
 		8424EF5D28ABDF0B00F30E6C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8424EF5C28ABDF0B00F30E6C /* FirebaseAuth */; };
 		8424EF5F28ABDF0B00F30E6C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8424EF5E28ABDF0B00F30E6C /* FirebaseDatabase */; };
-		8424EF6728ACCD7300F30E6C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8424EF6628ACCD7300F30E6C /* FirebaseFirestore */; };
 		8424EF6B28AD16C900F30E6C /* ConstantFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424EF6A28AD16C900F30E6C /* ConstantFile.swift */; };
 		842FA08C27D0EAD900B206F6 /* SearchCollectionViewcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FA08B27D0EAD900B206F6 /* SearchCollectionViewcell.swift */; };
 		842FA09027D2275600B206F6 /* YoutubeSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FA08F27D2275600B206F6 /* YoutubeSearchResponse.swift */; };
@@ -50,8 +49,8 @@
 		844E847F28C6118500C7864B /* SearchResultModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E847928C6118500C7864B /* SearchResultModels.swift */; };
 		844E848028C6118500C7864B /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E847A28C6118500C7864B /* SearchResultViewController.swift */; };
 		844E848128C6118500C7864B /* SearchResultInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E847B28C6118500C7864B /* SearchResultInteractor.swift */; };
-		84634F5928A175900050DB63 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84634F5828A175900050DB63 /* UserManager.swift */; };
 		84634F8228A3B88F0050DB63 /* ConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84634F8128A3B88F0050DB63 /* ConfirmedViewController.swift */; };
+		8463553F28CFE6790021492D /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463553E28CFE6790021492D /* UserManager.swift */; };
 		8465008B28CA066700D61E4A /* AlerTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465008A28CA066700D61E4A /* AlerTitle.swift */; };
 		8465009428CA0CE300D61E4A /* DetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465008E28CA0CE300D61E4A /* DetailsPresenter.swift */; };
 		8465009528CA0CE300D61E4A /* DetailsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465008F28CA0CE300D61E4A /* DetailsWorker.swift */; };
@@ -93,7 +92,6 @@
 		84CF7EDD28AF9A8D00297004 /* RegistationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED728AF9A8D00297004 /* RegistationInteractor.swift */; };
 		84DB254427D36A8A0063685F /* TrailerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB254327D36A8A0063685F /* TrailerViewModel.swift */; };
 		84E6EFE928C8814400172590 /* WatchedFilmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E6EFE728C8814400172590 /* WatchedFilmTableViewCell.swift */; };
-		84E6EFEE28C88F1E00172590 /* RegistrationField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E6EFED28C88F1E00172590 /* RegistrationField.swift */; };
 		84E6EFF328C8B3D200172590 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E6EFF228C8B3D200172590 /* MovieViewModel.swift */; };
 		84F2B9C528CDDC1E006CECD7 /* MoreDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F2B9C428CDDC1E006CECD7 /* MoreDetailsTableViewCell.swift */; };
 		84F2B9CA28CF4D1D006CECD7 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F2B9C928CF4D1D006CECD7 /* AppConstants.swift */; };
@@ -142,8 +140,8 @@
 		844E847928C6118500C7864B /* SearchResultModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultModels.swift; sourceTree = "<group>"; };
 		844E847A28C6118500C7864B /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		844E847B28C6118500C7864B /* SearchResultInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultInteractor.swift; sourceTree = "<group>"; };
-		84634F5828A175900050DB63 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		84634F8128A3B88F0050DB63 /* ConfirmedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmedViewController.swift; sourceTree = "<group>"; };
+		8463553E28CFE6790021492D /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		8465008A28CA066700D61E4A /* AlerTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlerTitle.swift; sourceTree = "<group>"; };
 		8465008E28CA0CE300D61E4A /* DetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPresenter.swift; sourceTree = "<group>"; };
 		8465008F28CA0CE300D61E4A /* DetailsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsWorker.swift; sourceTree = "<group>"; };
@@ -185,7 +183,6 @@
 		84CF7ED728AF9A8D00297004 /* RegistationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationInteractor.swift; sourceTree = "<group>"; };
 		84DB254327D36A8A0063685F /* TrailerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerViewModel.swift; sourceTree = "<group>"; };
 		84E6EFE728C8814400172590 /* WatchedFilmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchedFilmTableViewCell.swift; sourceTree = "<group>"; };
-		84E6EFED28C88F1E00172590 /* RegistrationField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationField.swift; sourceTree = "<group>"; };
 		84E6EFF228C8B3D200172590 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
 		84F2B9C428CDDC1E006CECD7 /* MoreDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		84F2B9C928CF4D1D006CECD7 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
@@ -198,7 +195,6 @@
 			files = (
 				8424EF5F28ABDF0B00F30E6C /* FirebaseDatabase in Frameworks */,
 				8424EF5D28ABDF0B00F30E6C /* FirebaseAuth in Frameworks */,
-				8424EF6728ACCD7300F30E6C /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +264,6 @@
 		8424EF6928AD16B700F30E6C /* Constant */ = {
 			isa = PBXGroup;
 			children = (
-				84E6EFED28C88F1E00172590 /* RegistrationField.swift */,
 				8424EF6A28AD16C900F30E6C /* ConstantFile.swift */,
 				8465008A28CA066700D61E4A /* AlerTitle.swift */,
 			);
@@ -322,7 +317,6 @@
 				8434F9F527CB8CE200377DE2 /* Movie.swift */,
 				842FA08F27D2275600B206F6 /* YoutubeSearchResponse.swift */,
 				848FCFB128952A680056582C /* User.swift */,
-				84634F5828A175900050DB63 /* UserManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -424,6 +418,7 @@
 			isa = PBXGroup;
 			children = (
 				846500B728CC63B100D61E4A /* NetworkService.swift */,
+				8463553E28CFE6790021492D /* UserManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -576,7 +571,6 @@
 			packageProductDependencies = (
 				8424EF5C28ABDF0B00F30E6C /* FirebaseAuth */,
 				8424EF5E28ABDF0B00F30E6C /* FirebaseDatabase */,
-				8424EF6628ACCD7300F30E6C /* FirebaseFirestore */,
 			);
 			productName = Netflix;
 			productReference = 84209C7227C775AB003CE71D /* Netflix.app */;
@@ -642,7 +636,6 @@
 				84CF7EDA28AF9A8D00297004 /* RegistationRouter.swift in Sources */,
 				8472262828C86E6A00F46462 /* WatchedListModels.swift in Sources */,
 				8434F9F227CA4ADA00377DE2 /* APIColler.swift in Sources */,
-				84634F5928A175900050DB63 /* UserManager.swift in Sources */,
 				844E842F28C1E7F400C7864B /* ComingSoonRouter.swift in Sources */,
 				84634F8228A3B88F0050DB63 /* ConfirmedViewController.swift in Sources */,
 				844E848028C6118500C7864B /* SearchResultViewController.swift in Sources */,
@@ -704,8 +697,8 @@
 				84CF7EDB28AF9A8D00297004 /* RegistationModels.swift in Sources */,
 				844E845328C5C90200C7864B /* SearchMovieRouter.swift in Sources */,
 				844E844528C5BCAF00C7864B /* MovieTrailerRouter.swift in Sources */,
+				8463553F28CFE6790021492D /* UserManager.swift in Sources */,
 				846500B828CC63B200D61E4A /* NetworkService.swift in Sources */,
-				84E6EFEE28C88F1E00172590 /* RegistrationField.swift in Sources */,
 				84B3909A28900FF100B8CC2F /* ProfileViewController.swift in Sources */,
 				849C563428B35DAA006DC93D /* HomeInteractor.swift in Sources */,
 				844E842D28C1E7F400C7864B /* ComingSoonPresenter.swift in Sources */,
@@ -940,11 +933,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8424EF5B28ABDF0B00F30E6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabase;
-		};
-		8424EF6628ACCD7300F30E6C /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8424EF5B28ABDF0B00F30E6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

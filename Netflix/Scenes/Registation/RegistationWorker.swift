@@ -46,13 +46,13 @@ final class RegistationWorker {
     func createUserDataOnFireBase(_ userData: Registation.UserInfo, complition: @escaping (String?) -> Void) {
         Auth.auth().createUser(withEmail: userData.email, password: userData.password) { dataResult, error in
             if  error == nil  {
-                let ref = Database.database().reference(fromURL: APIConstants.firebaseDataBaseReferencUrl)
-                ref.child(RegistrationField.users).child(dataResult!.user.uid).setValue(
+                let ref = Database.database().reference(fromURL: Constants.API.FireBase.Main.DataBaseUrl)
+                ref.child(Constants.API.FireBase.Main.Name).child(dataResult!.user.uid).setValue(
                     [
-                        RegistrationField.firstName: userData.firstName,
-                        RegistrationField.lastName: userData.lastName,
-                        RegistrationField.email: userData.email,
-                        RegistrationField.watchedMovies: userData.seenMoviesId
+                        Constants.API.FireBase.Key.FirstName: userData.firstName,
+                        Constants.API.FireBase.Key.LastName: userData.lastName,
+                        Constants.API.FireBase.Key.Email: userData.email,
+                        Constants.API.FireBase.Key.WatchedMovies: userData.seenMoviesId
                     ])
             }
             complition(error?.localizedDescription)

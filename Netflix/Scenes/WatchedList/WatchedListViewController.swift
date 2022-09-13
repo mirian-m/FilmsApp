@@ -73,6 +73,7 @@ final class WatchedListViewController: BackgroundImageViewControlller {
     //  MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+//        NotificationCenter.default.addObserver(self, selector: #selector(updateUserList), name: .buttonTap, object: nil)
         title = "Watched List"
         activateIndicator.startAnimating()
     }
@@ -82,11 +83,15 @@ final class WatchedListViewController: BackgroundImageViewControlller {
         getWatchedMovies()
     }
     
+    
     override func viewDidLayoutSubviews() {
         super .viewDidLayoutSubviews()
         watchedFilmTableView.frame = view.bounds
         activateIndicator.center = view.center
     }
+//    @objc func updateUserList(_ notification: Notification) {
+//        print(notification.userInfo?.values)
+//    }
     
     //  MARK: Get Movies
     func getWatchedMovies() {
@@ -128,6 +133,7 @@ extension WatchedListViewController:  WatchedListDisplayLogic {
     func displayWatchedMovies(viewModel: WatchedList.GetWatchedMovies.ViewModel) {
         activateIndicator.stopAnimating()
         self.watchedListViewModel = viewModel.watchedMoviesModel
+        self.watchedListViewModel = Array(Set(self.watchedListViewModel)).sorted(by: { $0.title < $1.title })
         self.watchedFilmTableView.reloadData()
     }
 }
@@ -137,12 +143,5 @@ extension WatchedListViewController: WatchedFilmTableViewCellDelegate {
     //  MARK:- Remove Movie From Watched List
     func removeMovieFromList(by movieId: Int) {
         interactor?.removeMovieFromWatchedList(request: WatchedList.RemoveSelectedMovie.Request(selectedMovieId: movieId))
-    }
-    
-    // FIXME: ----
-    func genreInCellDidTapped(genre: Genres) {
-        _ = watchedListViewModel.filter { movie in
-            movie.genres.contains { $0 == genre }
-        }
     }
 }
