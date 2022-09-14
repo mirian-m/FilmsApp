@@ -135,7 +135,7 @@ class WatchedFilmTableViewCell: UITableViewCell {
     }
     
     func configure(with model: MovieViewModel) {
-        let url = APIConstants.posterBaseURL + model.imageUrl
+        let url = Constants.API.Movies.Helper.PosterBaseURL + model.imageUrl
         self.filmId = model.id
         posterImage.getImageFromWeb(by: url)
         titleLabel.text = model.title
@@ -159,12 +159,7 @@ class WatchedFilmTableViewCell: UITableViewCell {
             genresStackView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             genresStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
             genresStackView.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: -5),
-//            genresStackView.centerYAnchor.const
         ]
-        
-//        let firstGenreConstraints = [
-//            firstGenre.widthAnchor.constraint(equalToConstant: 35)
-//        ]
         
         let removeBtnConstraints = [
             removeBtn.topAnchor.constraint(equalTo: customView.topAnchor, constant: -5),
@@ -201,7 +196,6 @@ class WatchedFilmTableViewCell: UITableViewCell {
         //  MARK:- Activate Constraints
         NSLayoutConstraint.activate(customViewConstraints)
         NSLayoutConstraint.activate(genresStackViewConstaints)
-//        NSLayoutConstraint.activate(firstGenreConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(starImageConstraints)
         NSLayoutConstraint.activate(removeBtnConstraints)
@@ -243,6 +237,7 @@ extension UIButton {
     //  MARK:- Set design for Genre button
     fileprivate func setDesign() {
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.contentHorizontalAlignment = .leading
         self.tintColor = Constants.Design.Color.Primary.White
         self.titleLabel?.font = Constants.Design.Font.Sub
         self.setTitle("Action", for: .normal)

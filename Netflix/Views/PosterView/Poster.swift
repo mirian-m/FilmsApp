@@ -51,7 +51,7 @@ class Poster: UIView {
     }
     
     func configure(with posterUrl: String, buttonsIsHidden: Bool) {
-        let url =  APIConstants.posterBaseURL + posterUrl
+        let url =  Constants.API.Movies.Helper.PosterBaseURL + posterUrl
         backBtn.isHidden = buttonsIsHidden
         playButton.isHidden = buttonsIsHidden
         posterView.getImageFromWeb(by: url)

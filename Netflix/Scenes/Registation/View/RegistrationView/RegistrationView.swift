@@ -67,6 +67,8 @@ class RegistrationView: UIView {
         let textField = UITextField()
         textField.setDesign()
         textField.placeholder = "Password"
+        textField.isSecureTextEntry = true
+        textField.enablePasswordToggle()
         return textField
     }()
     
@@ -74,6 +76,8 @@ class RegistrationView: UIView {
         let textField = UITextField()
         textField.setDesign()
         textField.placeholder = "Confirm Password"
+        textField.isSecureTextEntry = true
+        textField.enablePasswordToggle()
         return textField
     }()
     
@@ -114,6 +118,7 @@ class RegistrationView: UIView {
 }
 
 extension RegistrationView {
+    
     private func embedItemsInStackView() {
         regitrationStackView.addArrangedSubview(firstNameTextField)
         regitrationStackView.addArrangedSubview(lastNameTextField)
@@ -123,6 +128,7 @@ extension RegistrationView {
     }
     
     private func adjustConstraints() {
+        
         let logoConstraints = [
             logo.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             logo.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 50),
@@ -165,6 +171,7 @@ extension RegistrationView {
             activityIndicator.centerXAnchor.constraint(equalTo: self.button.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: self.button.centerYAnchor)
         ]
+        
         NSLayoutConstraint.activate(logoConstraints)
         NSLayoutConstraint.activate(viewConteinerConstraints)
         NSLayoutConstraint.activate(stackViewConstraints)
@@ -185,5 +192,28 @@ extension UITextField {
         self.textColor = Constants.Design.Color.Primary.White
         self.layer.cornerRadius = 5
         self.setLeftPaddingPoints(10)
+    }
+}
+extension UITextField {
+    
+    fileprivate func setPasswordToggleImage(_ button: UIButton) {
+        if isSecureTextEntry {
+            button.setImage(Constants.Design.Image.IconEyeSlash?.withTintColor(Constants.Design.Color.Primary.WhiteDisable, renderingMode: .alwaysOriginal), for: .normal)
+        } else {
+            button.setImage(Constants.Design.Image.IconEye?.withTintColor(Constants.Design.Color.Primary.WhiteDisable, renderingMode: .alwaysOriginal), for: .normal)
+        }
+    }
+    
+    fileprivate func enablePasswordToggle(){
+        let button = UIButton(type: .custom)
+        setPasswordToggleImage(button)
+        button.addTarget(self, action: #selector(self.togglePasswordView), for: .touchUpInside)
+        self.rightView = button
+        self.rightViewMode = .always
+    }
+    
+    @objc fileprivate func togglePasswordView(_ sender: UIButton) {
+        self.isSecureTextEntry.toggle()
+        setPasswordToggleImage(sender)
     }
 }

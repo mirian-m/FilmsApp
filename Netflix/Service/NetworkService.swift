@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+
 
 class NetworkService {
     static let shared = NetworkService()
@@ -18,7 +20,7 @@ class NetworkService {
         self.session = urlSession
     }
     
-    func getData<T: Decodable>(url: URL, comletion: @escaping (Result <T, APICollerError>) -> Void) {
+    func getData<T: Decodable>(url: URL, completion: @escaping (Result <T, APICollerError>) -> Void) {
         session.dataTask(with: URLRequest(url: url)) { data, response, error in
             
             guard let response = response as? HTTPURLResponse,
@@ -26,15 +28,32 @@ class NetworkService {
                   error == nil,
                   (200...299).contains(response.statusCode)
             else {
-                comletion(.failure(.faldeToGetData))
+                completion(.failure(.faldeToGetData))
                 return
             }
             do {
                 let object = try JSONDecoder().decode(T.self, from: data)
-                comletion(.success(object))
+                completion(.success(object))
             } catch {
-                comletion(.failure(.faldeToGetData))
+                completion(.failure(.faldeToGetData))
             }
         }.resume()
     }
+    
+    //  MARK:- Fetch Image From url By compl
+    func getImageFromWeb(by url: String,  completion: @escaping ((UIImage?, String)) -> Void) {
+        
+        guard let ApiUrl = URL(string: url) else { return }
+        
+        session.dataTask(with: ApiUrl) { (data, _, error) in
+            guard let data = data, error == nil else { return }
+            
+            DispatchQueue.main.async {
+                let image = UIImage(data: data)
+                completion((image, url))
+            }
+            
+        }.resume()
+    }
+    
 }

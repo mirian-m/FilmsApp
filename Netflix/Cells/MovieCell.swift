@@ -13,12 +13,13 @@ class MovieCell: UITableViewCell {
     }()
     
     private let posterImage: UIImageView = {
-        let image = UIImageView()
-        image.contentMode = .scaleAspectFill
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.clipsToBounds = true
-        image.layer.cornerRadius = 5
-        return image
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 5
+        imageView.image = UIImage(named: "defaultImage")
+        return imageView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -58,7 +59,7 @@ class MovieCell: UITableViewCell {
     }
     
     func configure(with model: MovieViewModel) {
-        let url = APIConstants.posterBaseURL + model.imageUrl
+        let url = Constants.API.Movies.Helper.PosterBaseURL + model.imageUrl
         posterImage.getImageFromWeb(by: url)
         titleLabel.text = model.title
     }

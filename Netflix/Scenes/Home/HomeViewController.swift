@@ -34,12 +34,10 @@ final class HomeViewController: BackgroundImageViewControlller {
     
     //  MARK:- Fields
     private var offsets = [IndexPath: CGFloat]()
-    private let headerForSection = ["Trending movies", "Trending tv", "Popular", "Upcoming movies", "Top"]
+    private let headerForSection = ["Trending movies", "Now playing", "Popular", "Upcoming movies", "Top"]
     private var headerView: Poster?
     private var posterIsSeted = false
-    private var loadIsFinished = false
     private var fetchedMoviesDetails: [MovieViewModel] = []
-    private var isNavigate: Bool = false
     
     
     // MARK: View lifecycle
@@ -50,15 +48,10 @@ final class HomeViewController: BackgroundImageViewControlller {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //        navigationController?.setNavigationBarHidden(false, animated: false)
-        //        isNavigate = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        //        if !isNavigate {
-        //        navigationController?.setNavigationBarHidden(true, animated: false)
-        //        }
     }
     
     // MARK: Object lifecycle
@@ -131,8 +124,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.setScrollPosition(x: offsets[indexPath] ?? 0)
         
-        let title = headerForSection[indexPath.section]
-        let request = Home.MovieInfo.Request(sectionTitle: title)
+        let request = Home.MovieInfo.Request(section: indexPath.section)
         
         interactor?.fetchMovies(request: request, complition: { [weak self] done in
             if done {
@@ -187,7 +179,6 @@ extension HomeViewController: HomeDisplayLogic {
     }
     
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel) {
-        //        self.isNavigate = true
         router?.routToDetailsVc(segue: nil)
     }
 }

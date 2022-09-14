@@ -40,15 +40,16 @@ extension DetailsInteractor: DetailsBusinessLogic {
             listOfMovies.append(request.movieId)
             listOfMovies = Array(Set(listOfMovies))
             guard let user = Auth.auth().currentUser else { return }
-            UserManger.shared.updateUserData(userId: user.uid, data: [Constants.API.FireBase.Key.WatchedMovies: listOfMovies])
-        }
+            UserManger.shared.updateUserData(userId:  user.uid, data: [Constants.API.FireBase.Key.WatchedMovies: listOfMovies]) { (error) in
+                    
+            }
     }
-    
+    }
     func getMoveDetails(request: Details.GetMovie.Request) {
         worker = APIWoker()
         var response = Details.GetMovie.Response()
-        let url = "https://api.themoviedb.org/3/movie/\(movieId)?api_key=793b50b3b4c6ef37ce18bda27b1cbf67&language=en-US"
-        worker?.fetchMoviesDetails(url: url, completion: { (result: Result<MovieDetails, APICollerError>) in
+        
+        worker?.getMovie(by: movieId, complition: { (result: Result<MovieDetails, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let movieDetails):

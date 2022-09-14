@@ -25,7 +25,6 @@ class MoviesTableViewCell: UITableViewCell {
     func updateViewFromModel(movies: [MovieViewModel]) {
         DispatchQueue.main.async { [weak self] in
             self?.movies = movies
-            self?.movies.shuffle()
             self?.moviesCollectionView.reloadData()
         }
     }
@@ -51,7 +50,7 @@ extension MoviesTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
                 for: indexPath) as? MovieCollectionViewCell else { return UICollectionViewCell() }
         
         let imageUrl = movies[indexPath.row].imageUrl
-        let url = APIConstants.posterBaseURL + imageUrl
+        let url = Constants.API.Movies.Helper.PosterBaseURL + imageUrl
         
         collectionView.loadImage(by: url)
         return collectionView

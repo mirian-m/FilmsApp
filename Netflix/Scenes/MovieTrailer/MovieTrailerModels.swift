@@ -16,7 +16,7 @@ enum MovieTrailer {
   // MARK: Use cases
   
   enum GetTrailer {
-    struct Request { }
+    struct Request {}
     
     struct Response {
         var youtubeId: String

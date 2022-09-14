@@ -14,7 +14,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     func loadImage(by imageUrl: String) {
         self.posterImageView.image = UIImage(named: "defaultImage")
         self.imageUrl = imageUrl
-        APIColler.shared.getImageFromWeb(by: imageUrl) { [weak self] (image, url) in
+        NetworkService.shared.getImageFromWeb(by: imageUrl) { [weak self] (image, url) in
             if (url == self?.imageUrl) {
                 self?.posterImageView.image = image
             }

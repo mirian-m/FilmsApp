@@ -36,7 +36,9 @@ extension WatchedListInteractor: WatchedListBusinessLogic {
         guard let urser = Auth.auth().currentUser else { return }
         
         let movieId = moviesList.map { $0.id }
-        UserManger.shared.updateUserData(userId: urser.uid, data: [Constants.API.FireBase.Key.WatchedMovies: movieId])
+        UserManger.shared.updateUserData(userId:  urser.uid, data: [Constants.API.FireBase.Key.WatchedMovies: movieId]) { (error) in
+//            TODO: Error Handling
+        }
         presenter?.presentWatchedMovies(response: WatchedList.GetWatchedMovies.Response(movies: moviesList))
     }
     
@@ -51,8 +53,7 @@ extension WatchedListInteractor: WatchedListBusinessLogic {
         
         UserManger.shared.getSigInUserData { data in
             data.seenMoviesList.forEach { movieId in
-                let url = "https://api.themoviedb.org/3/movie/\(movieId)?api_key=793b50b3b4c6ef37ce18bda27b1cbf67&language=en-US"
-                self.worker?.fetchMoviesDetails(url: url) { [weak self] (result: Result<MovieDetails, APICollerError>) in
+                self.worker?.getMovie(by: movieId, complition: { [weak self] (result: Result<MovieDetails, APICollerError>) in
                     counter += 1
                     switch result {
                     case .success(let details):
@@ -67,7 +68,7 @@ extension WatchedListInteractor: WatchedListBusinessLogic {
                             self?.presenter?.presentWatchedMovies(response: response)
                         }
                     }
-                }
+                })
             }
         }
     }

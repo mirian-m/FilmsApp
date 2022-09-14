@@ -10,54 +10,38 @@ import UIKit
 
 class APIWoker {
     
-    func fetchMoviesDetails<T: Decodable>(url: String, completion: @escaping (Result<T, APICollerError>) -> Void) {
-        guard let url = URL(string: url) else { return }
-        
+    func fetchMovieData<T: Decodable>(by url: String?, or query: String?, completion: @escaping (Result<T, APICollerError>) -> Void) {
+        var urlString = ""
+        if let query = query {
+            urlString = "\(Constants.API.Movies.Main.BaseURL)/3/search/movie?api_key=\(Constants.API.Movies.Main.API_Key)&query=\(query)"
+        } else {
+            guard let url = url else { return }
+            urlString = url
+        }
+        guard let url = URL(string: urlString) else { return }
         NetworkService.shared.getData(url: url) { (result: Result<T, APICollerError>) in
             completion(result)
         }
     }
-    func searchMoviees<T: Decodable>(with query: String, completion: @escaping (Result<T, APICollerError>) -> Void) {
+    
+    func getMovie<T: Decodable>(by id: Int, complition: @escaping (Result<T, APICollerError>) -> Void) {
+        let url = "https://api.themoviedb.org/3/movie/\(id)?api_key=\(Constants.API.Movies.Main.API_Key)"
+        fetchMovieData(by: url, or: nil) { (result) in
+            complition(result)
+        }
+    }
+    
+    func getTrailer<T: Decodable>(with query: String, completion: @escaping (Result<T, APICollerError>) -> Void) {
         
-        // Make String Encoding to use Creation Of search Url
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
         
-        // Create Url with given query
-        let urlString = "\(APIConstants.baseURL)/3/search/movie?api_key=\(APIConstants.API_Key)&query=\(query)"
+        let urlString = "\(Constants.API.Movies.Helper.YoutubeBaseUrl)q=\(query)&key=\(Constants.API.Movies.Helper.YoutubeAPI_KEY)"
         
         guard let url = URL(string: urlString) else { return }
         
         NetworkService.shared.getData(url: url) { (result: Result<T, APICollerError>) in
             completion(result)
         }
-    }
-    
-    func getMovie<T: Decodable>(with query: String, completion: @escaping (Result<T, APICollerError>) -> Void) {
         
-        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
-        
-        let urlString = "\(APIConstants.youtubeBaseUrl)q=\(query)&key=\(APIConstants.youtubeAPI_KEY)"
-        
-        guard let url = URL(string: urlString) else { return }
-        
-        NetworkService.shared.getData(url: url) { (result: Result<T, APICollerError>) in
-            completion(result)
-        }
-        
-    }
-    
-    func fetchImageFromWeb(by url: String,  callback: @escaping ((UIImage?, String)) -> Void) {
-        
-        guard let ApiUrl = URL(string: url) else { return }
-        
-        URLSession.shared.dataTask(with: ApiUrl) { (data, _, error) in
-            guard let data = data, error == nil else { return }
-            
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                callback((image, url))
-            }
-            
-        }.resume()
     }
 }

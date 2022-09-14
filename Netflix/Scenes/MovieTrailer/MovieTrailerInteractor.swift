@@ -33,11 +33,11 @@ class MovieTrailerInteractor: MovieTrailerBusinessLogic, MovieTrailerDataStore {
         var youtubeId: String = ""
         let query = title + " trailer"
         
-        worker?.getMovie(with: query, completion: { [weak self] (result: Result<YoutubeSearchResponse, APICollerError>) in
+        worker?.getTrailer(with: query, completion: { [weak self] (result: Result<YoutubeSearchResponse, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let youtubeResult):
-                    youtubeId = youtubeResult.items.first?.id.videoId ?? ""
+                    youtubeId = youtubeResult.items.first?.id?.videoId ?? ""
                 case .failure(let error):
                     
                     //  TODO:- Error Hendling

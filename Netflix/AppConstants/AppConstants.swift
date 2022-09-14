@@ -32,6 +32,8 @@ enum Constants {
             static let IconPerson = UIImage(systemName: "person.fill")
             static let IconStar = UIImage(systemName: "star.fill")
             static let IconClock = UIImage(systemName: "clock")
+            static let IconEye = UIImage(systemName: "eye")
+            static let IconEyeSlash = UIImage(systemName: "eye.slash")
         }
         
         enum Font {
@@ -68,7 +70,7 @@ enum Constants {
             
             enum Main {
                 static let DataBaseUrl = "https://netflixclone-343110-default-rtdb.firebaseio.com/"
-                static var Name = "Users"
+                static var BaseName = "Users"
             }
             
             enum Key {
@@ -78,6 +80,21 @@ enum Constants {
                 static var WatchedMovies = "watchedMovies"
             }
         }
+        
+        enum Movies {
+            
+            enum Main {
+                static let BaseURL = "https://api.themoviedb.org"
+                static let API_Key = "793b50b3b4c6ef37ce18bda27b1cbf67"
+                static let EndUrl = "&language=en-US"
+            }
+            enum Helper {
+                static let PosterBaseURL = "https://image.tmdb.org/t/p/w500/"
+                static let YoutubeAPI_KEY = "AIzaSyCFAeVXHQbpbirLUloOmQwuUJBkavE-2rQ"
+                static let YoutubeBaseUrl = "https://youtube.googleapis.com/youtube/v3/search?"
+            }
+        }
     }
 }
+
 

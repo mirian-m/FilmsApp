@@ -7,6 +7,11 @@ extension String {
     func upperCasedFirstLetter() -> String{
         return self.prefix(1).uppercased() + self.dropFirst()
     }
+    
+    func createUrl() -> URL? {
+        let urlStr = "\(Constants.API.Movies.Main.BaseURL)\(self)\(Constants.API.Movies.Main.API_Key)"
+        return URL(string: urlStr)
+    }
 }
 
 extension UIImageView {
@@ -62,5 +67,6 @@ extension Notification.Name {
     //  MARK:- Create Notification Custom Name
     static let playButtonTap = Notification.Name("Play Button Tapped")
     static let navButtonTap = Notification.Name("Back button Tapped")
+    static let textfieldContenVisibilityDidChanged = Notification.Name("textfieldContenVisibilityDidChanged")
 }
 

@@ -14,29 +14,26 @@ class UserManger {
     
     private init() {}
     
-    private func getUserData(by userId: String, complition: @escaping (UserData) -> Void) {
+    private func getUserData(by userId: String, completion: @escaping (UserData) -> Void) {
         let ref = Database.database().reference(fromURL: Constants.API.FireBase.Main.DataBaseUrl)
-        ref.child(Constants.API.FireBase.Main.Name).child(userId).observeSingleEvent(of: .value, with: { data in
+        ref.child(Constants.API.FireBase.Main.BaseName).child(userId).observeSingleEvent(of: .value, with: { data in
             guard let value = data.value as? Dictionary<String, Any> else { return }
             let user = UserData(with: value)
-            complition(user)
+            completion(user)
         })
     }
     
-    func updateUserData(userId: String, data: Dictionary<String, Any>) {
+    func updateUserData(userId: String, data: Dictionary<String, Any>, completion: @escaping (Error?) -> Void) {
         let ref = Database.database().reference(fromURL: Constants.API.FireBase.Main.DataBaseUrl)
-        ref.child(Constants.API.FireBase.Main.Name).child(userId).updateChildValues(data) { (error, DatabaseReference) in
-            if error != nil {
-                print(error!.localizedDescription )
-            }
+        ref.child(Constants.API.FireBase.Main.BaseName).child(userId).updateChildValues(data) { (error, DatabaseReference) in
+            completion(error)
         }
     }
     
-    func getSigInUserData(compilition: @escaping (UserData) -> Void) {
+    func getSigInUserData(completion: @escaping (UserData) -> Void) {
         guard let currentUser = Auth.auth().currentUser else { return }
         UserManger.shared.getUserData(by: currentUser.uid) {  userData in
-            compilition(userData)
+            completion(userData)
         }
     }
-
 }

@@ -17,7 +17,7 @@ enum Home {
     
     enum MovieInfo {
         struct Request {
-            var sectionTitle: String
+            var section: Int
         }
         struct Response {
             var error: APICollerError?

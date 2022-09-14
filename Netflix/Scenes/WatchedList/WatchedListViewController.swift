@@ -73,7 +73,6 @@ final class WatchedListViewController: BackgroundImageViewControlller {
     //  MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-//        NotificationCenter.default.addObserver(self, selector: #selector(updateUserList), name: .buttonTap, object: nil)
         title = "Watched List"
         activateIndicator.startAnimating()
     }
@@ -89,9 +88,6 @@ final class WatchedListViewController: BackgroundImageViewControlller {
         watchedFilmTableView.frame = view.bounds
         activateIndicator.center = view.center
     }
-//    @objc func updateUserList(_ notification: Notification) {
-//        print(notification.userInfo?.values)
-//    }
     
     //  MARK: Get Movies
     func getWatchedMovies() {

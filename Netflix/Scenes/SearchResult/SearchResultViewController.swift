@@ -96,7 +96,7 @@ extension SearchResultViewController: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewcell.identifier, for: indexPath) as? SearchCollectionViewcell else { return UICollectionViewCell() }
-        let posterURL = APIConstants.posterBaseURL + (moviesViewModel[indexPath.row].imageUrl)
+        let posterURL = Constants.API.Movies.Helper.PosterBaseURL + (moviesViewModel[indexPath.row].imageUrl)
         cell.posterImage.getImageFromWeb(by: posterURL)
         return cell
     }

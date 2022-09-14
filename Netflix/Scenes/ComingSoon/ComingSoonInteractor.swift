@@ -31,8 +31,9 @@ final class ComingSoonInteractor: ComingSoonBusinessLogic, ComingSoonDataStore {
     
     func getUpcomingMovies(request: ComingSoon.GetUpcomingMovies.Request) {
         worker = APIWoker()
-        let url = API.dictionariOfAPI["Upcoming movies"]!
-        worker?.fetchMoviesDetails(url: url, completion: { (result: Result<Movies, APICollerError>) in
+        let url = "\(Constants.API.Movies.Main.BaseURL)/3/movie/upcoming?api_key=\(Constants.API.Movies.Main.API_Key)&page=\(Int.random(in: 1...10))"
+        
+        worker?.fetchMovieData(by: url, or: nil, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 var response = ComingSoon.GetUpcomingMovies.Response()
                 switch result {
@@ -44,6 +45,8 @@ final class ComingSoonInteractor: ComingSoonBusinessLogic, ComingSoonDataStore {
                 }
                 self?.presenter?.presentUpcomingMovies(response: response)
             }
+
+            
         })
     }
     

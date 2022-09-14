@@ -47,7 +47,7 @@ final class RegistationWorker {
         Auth.auth().createUser(withEmail: userData.email, password: userData.password) { dataResult, error in
             if  error == nil  {
                 let ref = Database.database().reference(fromURL: Constants.API.FireBase.Main.DataBaseUrl)
-                ref.child(Constants.API.FireBase.Main.Name).child(dataResult!.user.uid).setValue(
+                ref.child(Constants.API.FireBase.Main.BaseName).child(dataResult!.user.uid).setValue(
                     [
                         Constants.API.FireBase.Key.FirstName: userData.firstName,
                         Constants.API.FireBase.Key.LastName: userData.lastName,

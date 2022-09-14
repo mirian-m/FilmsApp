@@ -43,8 +43,8 @@ class DetailsOverviewCell: UITableViewCell {
         button.setTitle("Show More...", for: .normal)
         button.tintColor = Constants.Design.Color.Primary.White
         button.titleLabel?.font = UIFont(descriptor: UIFontDescriptor(), size: 10)
-        button.tag = 0
-        button.addTarget(self, action: #selector(show), for: .touchUpInside)
+        //        button.tag = 0
+        button.addTarget(self, action: #selector(showMoreContext), for: .touchUpInside)
         return button
     }()
     
@@ -108,20 +108,21 @@ extension DetailsOverviewCell {
     }
     
     //  MARK:- Button Action, Shows Or hide content of textView
-    @objc func show() {
-        switch buttonForMoreContext.tag {
-        case 0:
-            heightConstraint.constant = overview.getTextViewHeightAccordingToHisContent()
-            heightConstraint.isActive = true
-            buttonForMoreContext.tag = 1
-        case 1:
-            buttonForMoreContext.tag = 0
-            heightConstraint.constant = startingHeight
-            heightConstraint.isActive = true
-        default:
-            break
-        }
-        buttonForMoreContext.setTitle(buttonTitles[buttonForMoreContext.tag], for: .normal)
+    @objc func showMoreContext(_ sender: UIButton) {
+        //        switch buttonForMoreContext.tag {
+        //        case 0:
+        heightConstraint.constant = overview.getTextViewHeightAccordingToHisContent()
+        heightConstraint.isActive = true
+        sender.isHidden = true
+        //            buttonForMoreContext.tag = 1
+        //        case 1:
+        //            buttonForMoreContext.tag = 0
+        //            heightConstraint.constant = startingHeight
+        //            heightConstraint.isActive = true
+        //        default:
+        //            break
+        //        }
+        //        buttonForMoreContext.setTitle(buttonTitles[buttonForMoreContext.tag], for: .normal)
     }
 }
 

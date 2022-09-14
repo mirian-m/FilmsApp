@@ -44,10 +44,11 @@ class MoreDetailsTableViewCell: UITableViewCell {
     }()
     
     private lazy var stackViewForButtons: UIStackView = {
-        let stack = UIStackView()
+        let stack = UIStackView(frame: .zero)
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
         stack.distribution = .fillEqually
+        stack.alignment = .leading
         stack.spacing = 5
         stack.addArrangedSubview(firstGenre)
         stack.addArrangedSubview(secondGenre)
@@ -156,15 +157,10 @@ extension MoreDetailsTableViewCell {
             dateLb.topAnchor.constraint(equalTo: releaseDateTitleLb.bottomAnchor, constant: 12)
         ]
         
-        let firstGenreConstraints = [
-            firstGenre.heightAnchor.constraint(equalToConstant: 17)
-        ]
-        
         NSLayoutConstraint.activate(releaseDataLbContraints)
         NSLayoutConstraint.activate(genreLbConstraints)
         NSLayoutConstraint.activate(stackViewForButtonsConstraints)
         NSLayoutConstraint.activate(dateLbConstraints)
-        NSLayoutConstraint.activate(firstGenreConstraints)
     }
 }
 
@@ -173,6 +169,7 @@ extension UIButton {
     //  MARK:- Set design for button
     fileprivate func setDesign() {
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.contentHorizontalAlignment = .leading
         self.tintColor = Constants.Design.Color.Primary.WhiteDisable
         self.titleLabel?.font = Constants.Design.Font.Sub
         self.setTitle("Action", for: .normal)
