@@ -14,6 +14,16 @@ import UIKit
 
 enum SearchMovie {
     // MARK: Use cases
+    enum Error {
+        struct Request{}
+        
+        struct Response {}
+        
+        struct ViewModel {
+            var errorModel: ErrorViewModel?
+            var errorMessage: String
+        }
+    }
     
     enum GetMovies {
         struct Request{}
@@ -24,7 +34,7 @@ enum SearchMovie {
         }
         
         struct ViewModel {
-            var movie: [MovieViewModel]
+            var movie: [MovieViewModel]?
         }
     }
     
@@ -49,7 +59,8 @@ enum SearchMovie {
         }
         
         struct ViewModel {
-            var movieViewModel: [MovieViewModel]
+            var error: String?
+            var movieViewModel: [MovieViewModel]?
         }
     }
 }

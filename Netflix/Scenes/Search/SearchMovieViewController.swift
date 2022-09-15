@@ -16,6 +16,7 @@ protocol SearchMovieDisplayLogic: AnyObject {
     func displayMovies(viewModel: SearchMovie.GetMovies.ViewModel)
     func displaySelectedMovie(vieModel: SearchMovie.GetSelectedMovie.ViewModel)
     func displaySearchedMovies(viewModel: SearchMovie.GetSearchedMovies.ViewModel)
+    func displayAlert(viewModel: SearchMovie.Error.ViewModel)
 }
 
 final class SearchMovieViewController: BackgroundImageViewControlller {
@@ -136,9 +137,10 @@ extension SearchMovieViewController: UISearchResultsUpdating {
 
 extension SearchMovieViewController: SearchMovieDisplayLogic {
     
+    
     //  MARK: DisplayLogic Protocol Functions
     func displayMovies(viewModel: SearchMovie.GetMovies.ViewModel) {
-        moviesViewModel = viewModel.movie.shuffled()
+        moviesViewModel = viewModel.movie?.shuffled() ?? []
         self.discoveredTable.reloadData()
     }
     
@@ -149,5 +151,7 @@ extension SearchMovieViewController: SearchMovieDisplayLogic {
     func displaySearchedMovies(viewModel: SearchMovie.GetSearchedMovies.ViewModel) {
         self.router?.routeToSearcheResulte(segue: nil)
     }
-    
+    func displayAlert(viewModel: SearchMovie.Error.ViewModel) {
+        self.showAlertWith(title: AlerTitle.Error.error, text: viewModel.errorMessage)
+    }
 }

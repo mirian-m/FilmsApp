@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class NetworkService {
+final class NetworkService {
     static let shared = NetworkService()
     
     var session: URLSession

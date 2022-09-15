@@ -15,13 +15,26 @@ import UIKit
 enum MovieTrailer {
   // MARK: Use cases
   
+    enum Error {
+        struct Request{}
+        
+        struct Response {}
+        
+        struct ViewModel {
+            var errorModel: ErrorViewModel?
+            var title: String
+            var errorMessage: String
+        }
+    }
+
   enum GetTrailer {
     struct Request {}
     
     struct Response {
-        var youtubeId: String
-        var overView: String
-        var title: String
+        var error: APICollerError?
+        var youtubeId: String?
+        var overView: String?
+        var title: String?
     }
     
     struct ViewModel {

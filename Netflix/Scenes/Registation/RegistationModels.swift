@@ -13,26 +13,11 @@
 import UIKit
 // FIXME: - Do beter logic
 
-enum Registation {
+enum Registration {
     
-    struct UserInfo {
-        var firstName: String
-        var lastName: String
-        var email: String
-        var password: String
-        var seenMoviesId: [Int] = []
-    }
     struct SignInDetail {
         var email: String
         var password: String
-    }
-    
-    struct RegistratioFormField {
-        var name: String
-        var lastName: String
-        var email: String
-        var password: String
-        var confirmedPassword: String
     }
     
     enum ErrorMessage: String {
@@ -43,16 +28,25 @@ enum Registation {
     }
     
     // MARK: Use cases
-    enum UserData {
+    
+    enum GetError {
+        struct Request{}
+        
+        struct Response {}
+        
+        struct ViewModel {
+            var errorModel: ErrorViewModel
+        }
+    }
+    
+    enum RegistraitUser {
         struct Request {
-            var userInfo: UserInfo
+            var userInfo: UserData
         }
         struct Response {
             var errorMessage: String?
         }
-        struct ViewModel {
-            var errorMessage: String?
-        }
+        struct ViewModel {}
     }
     
     enum SigInUser {
@@ -60,23 +54,9 @@ enum Registation {
             var detail: SignInDetail
         }
         struct Response {
-            var errorMessage: String?
+            var errorMessage: Error?
         }
-        struct ViewModel {
-            var errorMessage: String?
-        }
-    }
-    
-    enum CheckData {
-        struct Request {
-            var registrationFormField: RegistratioFormField
-        }
-        struct Response {
-            var message: ErrorMessage?
-        }
-        struct ViewModel {
-            var errorMessage: String?
-        }
+        struct ViewModel {}
     }
     
     enum ViewItemVisibility {
@@ -88,8 +68,7 @@ enum Registation {
             var id: Int
         }
         struct ViewModel {
-            var textFieldVisibility: Bool
-            var selectedSegmentId: Int
+            var viewModel: RegistrationViewModel
         }
     }
 }

@@ -14,7 +14,7 @@ import UIKit
 
 protocol HomeDisplayLogic: AnyObject {
     func displayMovies(viewModel: Home.MovieInfo.ViewModel)
-    func displayAlert(viewModel: Home.MovieInfo.ViewModel)
+    func displayAlert(viewModel: Home.Error.ViewModel)
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel)
 }
 
@@ -25,11 +25,6 @@ final class HomeViewController: BackgroundImageViewControlller {
     var router: (NSObjectProtocol & HomeRoutingLogic & HomeDataPassing)?
     
     //  MARK: @IBOutlet
-    @IBOutlet weak var personBtn: UIBarButtonItem! {
-        didSet {
-            personBtn.image = UIImage(systemName: "person")?.withRenderingMode(.alwaysOriginal).withTintColor(.white)
-        }
-    }
     @IBOutlet weak var filmTableView: UITableView!
     
     //  MARK:- Fields
@@ -96,22 +91,19 @@ final class HomeViewController: BackgroundImageViewControlller {
     
     //  MARK:- Set Navigation Items
     private func setNavBarItem() {
-        navigationController?.title = "Home"
-        var image = UIImage(named: "Netflix-new")
-        image = image?.withRenderingMode(.alwaysOriginal)
-        
+        let image = UIImage(named: "Netflix-new")?.withRenderingMode(.alwaysOriginal)
         tabBarController?.navigationItem.leftBarButtonItem  = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
         tabBarController?.navigationItem.rightBarButtonItem =
             UIBarButtonItem(
                 image: Constants.Design.Image.IconPerson?.withTintColor(.white, renderingMode: .alwaysOriginal),
                 style: .done,
-                target: self, action: #selector(presentProfile)
+                target: self, action: #selector(goToProfile)
             )
         tabBarController?.navigationController?.navigationBar.tintColor = Constants.Design.Color.Primary.White
     }
     
     // MARK: Routing
-    @objc private func presentProfile() {
+    @objc private func goToProfile() {
         router?.routeToProfile(segue: nil)
     }
 }
@@ -124,9 +116,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.setScrollPosition(x: offsets[indexPath] ?? 0)
         
-        let request = Home.MovieInfo.Request(section: indexPath.section)
+        let request = Home.MovieInfo.Request(section: headerForSection[indexPath.section])
         
-        interactor?.fetchMovies(request: request, complition: { [weak self] done in
+        interactor?.fetchMovies(request: request, completion: { [weak self] done in
             if done {
                 cell.updateViewFromModel(movies: self?.fetchedMoviesDetails ?? [])
             }
@@ -138,12 +130,15 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         Constants.Content.Category.Height.middle
     }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         headerForSection.count
     }
+    
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
         header.textLabel?.font = Constants.Design.Font.HeadingTwo
@@ -159,23 +154,22 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         offsets[indexPath] = (cell as? MoviesTableViewCell)?.getScrollPosition()
     }
-    
 }
 
 extension HomeViewController: HomeDisplayLogic {
     
     //  MARK:- DisplayLogic Functions
     func displayMovies(viewModel: Home.MovieInfo.ViewModel) {
-        self.fetchedMoviesDetails = viewModel.moviesViewModel
+        self.fetchedMoviesDetails = viewModel.moviesViewModel ?? []
         if !self.posterIsSeted {
-            guard let randomMovie = viewModel.moviesViewModel.randomElement() else { return }
+            guard let randomMovie = viewModel.moviesViewModel?.randomElement() else { return }
             self.headerView?.configure(with: randomMovie.imageUrl, buttonsIsHidden: true)
             self.posterIsSeted = true
         }
     }
     
-    func displayAlert(viewModel: Home.MovieInfo.ViewModel) {
-        showAlertWith(title: AlerTitle.Error.error, text: viewModel.error ?? "")
+    func displayAlert(viewModel: Home.Error.ViewModel) {
+        self.showAlertWith(title: AlerTitle.Error.error, text: viewModel.errorMessage)
     }
     
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel) {
@@ -192,16 +186,5 @@ extension HomeViewController: CollectionViewTableViewCelldelegate, ProfileViewCo
     
     func backToRootViewController() {
         router?.routeToWelcomePage(segue: nil)
-    }
-}
-
-//  MARK:- Aler Func
-extension HomeViewController  {
-    private func showAlertWith(title: String, text: String) {
-        let alert = UIAlertController(title: title, message: "\n\(text)", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        alert.addAction(action)
-        alert.view.tintColor = .red
-        present(alert, animated: true, completion: nil)
     }
 }

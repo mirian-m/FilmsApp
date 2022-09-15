@@ -37,10 +37,10 @@ final class SearchMovieInteractor: SearchMovieBusinessLogic, SearchMovieDataStor
     //  MARK: SearchMovieBusinessLogic Protocol Functions
     
     func getMovies(request: SearchMovie.GetMovies.Request) {
-        let url =  "\(Constants.API.Movies.Main.BaseURL)/3/discover/movie?api_key=\(Constants.API.Movies.Main.API_Key)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
+        let url = ApiHelper.shared.getMovieUrl(by: "Search")
         
-        worker?.fetchMovieData(by: url, or: nil, completion: { [weak self] (result: Result<Movies, APICollerError>) in
-            DispatchQueue.main.async {
+        worker?.fetchMovieData(by: url, or: nil, completion: { (result: Result<Movies, APICollerError>) in
+            DispatchQueue.main.async { [weak self] in
                 var response = SearchMovie.GetMovies.Response()
                 switch result {
                 case .success(let movies):
@@ -61,8 +61,8 @@ final class SearchMovieInteractor: SearchMovieBusinessLogic, SearchMovieDataStor
     
     func updateSearchResult(requset: SearchMovie.GetSearchedMovies.Request) {
         var response = SearchMovie.GetSearchedMovies.Response()
-        worker?.fetchMovieData(by: nil, or: requset.query, completion: { [weak self] (result: Result<Movies, APICollerError>) in
-            DispatchQueue.main.async {
+        worker?.fetchMovieData(by: nil, or: requset.query, completion: { (result: Result<Movies, APICollerError>) in
+            DispatchQueue.main.async { [weak self]  in
                 switch result {
                 case .success(let searchedMovies):
                     self?.searchedMovies = searchedMovies

@@ -15,7 +15,7 @@ import UIKit
 protocol SearchResultBusinessLogic {
     func getSearchResult(request: SearchResult.GetSearchResult.Request)
     func didTapMovie(requset: SearchResult.GetSelectedMovie.Request)
-
+    
 }
 
 protocol SearchResultDataStore {
@@ -23,14 +23,17 @@ protocol SearchResultDataStore {
     var searchedMovies: Movies { get set }
 }
 
-final class SearchResultInteractor: SearchResultBusinessLogic, SearchResultDataStore {
+final class SearchResultInteractor: SearchResultDataStore {
     var searchedMovies = Movies(details: [])
     var selectedMovieId: Int = 0
     var presenter: SearchResultPresentationLogic?
     var worker: SearchResultWorker?
     
-    // MARK: Do something
+}
+
+extension SearchResultInteractor: SearchResultBusinessLogic {
     
+    //  MARK: SearchResultBusinessLogic Methods
     func getSearchResult(request: SearchResult.GetSearchResult.Request) {
         let response = SearchResult.GetSearchResult.Response(searchedMovies: searchedMovies)
         presenter?.presentSearchResult(response: response)
@@ -39,6 +42,7 @@ final class SearchResultInteractor: SearchResultBusinessLogic, SearchResultDataS
     func didTapMovie(requset: SearchResult.GetSelectedMovie.Request) {
         selectedMovieId = requset.selectedMovieId
         presenter?.presentSelectedMovie(response: SearchResult.GetSelectedMovie.Response())
-
+        
     }
+    
 }

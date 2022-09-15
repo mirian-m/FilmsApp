@@ -12,46 +12,14 @@
 
 import UIKit
 
-@objc protocol MovieTrailerRoutingLogic {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-}
+protocol MovieTrailerRoutingLogic {}
 
 protocol MovieTrailerDataPassing {
   var dataStore: MovieTrailerDataStore? { get }
 }
 
-class MovieTrailerRouter: NSObject, MovieTrailerRoutingLogic, MovieTrailerDataPassing {
+final class MovieTrailerRouter: NSObject, MovieTrailerRoutingLogic, MovieTrailerDataPassing {
   weak var viewController: MovieTrailerViewController?
   var dataStore: MovieTrailerDataStore?
   
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: MovieTrailerViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: MovieTrailerDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
 }

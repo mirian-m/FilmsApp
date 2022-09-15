@@ -14,7 +14,7 @@ import UIKit
 
 protocol WelcomeDisplayLogic: AnyObject {}
 
-class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogic {
+final class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogic {
     
     //  MARK:- Clean Components
     var interactor: WelcomeBusinessLogic?
@@ -23,19 +23,17 @@ class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogi
     //  MARK: @IBOutlet
     @IBOutlet weak var sigInBtn: UIButton! {
         didSet {
-            sigInBtn.tintColor = .white
+            sigInBtn.tintColor = Constants.Design.Color.Primary.White
         }
     }
-    
     @IBOutlet weak var getStaredBtn: UIButton! {
         didSet {
             getStaredBtn.layer.backgroundColor = UIColor(red: 0.824, green: 0.184, blue: 0.149, alpha: 1).cgColor
             getStaredBtn.layer.cornerRadius = 2
             getStaredBtn.tintColor = Constants.Design.Color.Primary.White
-            getStaredBtn.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 18)
+            getStaredBtn.titleLabel?.font = Constants.Design.Font.HeadingTwo
         }
     }
-    
     @IBOutlet weak var lb: UILabel! {
         didSet {
             lb.textColor = Constants.Design.Color.Primary.White
@@ -52,12 +50,6 @@ class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogi
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        navigationController?.navigationBar.isHidden = true
-    }
-    
-    
     //  MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -72,6 +64,7 @@ class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogi
     //  MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = true
     }
     
     //  MARK: Setup
@@ -91,9 +84,8 @@ class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogi
     //  MARK:- Button Action
     @IBAction func moveToRegitrationPage(_ sender: Any) {
         guard let tag = (sender as? UIButton)?.tag else { return }
-        interactor?.getSelectedButtonTag(tag)
+        interactor?.getTappeddButtonTag(requset: Welcome.Save.Request(buttonTag: tag))
         router?.routeToRegistration(segue: nil)
     }
-    
 }
 

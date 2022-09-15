@@ -12,7 +12,7 @@
 
 import UIKit
 
-@objc protocol ComingSoonRoutingLogic {
+protocol ComingSoonRoutingLogic {
     func routeToDetailsVc(segue: UIStoryboardSegue?)
 }
 
@@ -20,28 +20,29 @@ protocol ComingSoonDataPassing {
     var dataStore: ComingSoonDataStore? { get }
 }
 
-final class ComingSoonRouter: NSObject, ComingSoonRoutingLogic, ComingSoonDataPassing {
+final class ComingSoonRouter: NSObject, ComingSoonDataPassing {
     weak var viewController: ComingSoonViewController?
     var dataStore: ComingSoonDataStore?
     
-    // MARK: Routing
+}
+extension ComingSoonRouter: ComingSoonRoutingLogic {
     
+    //  MARK: Routing
     func routeToDetailsVc(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
         destinationVC.modalPresentationStyle = .fullScreen
-//        destinationVC.modalTransitionStyle = .flipHorizontal
+        destinationVC.modalTransitionStyle = .flipHorizontal
         var destinationDS = destinationVC.router!.dataStore!
         passDataToSomewhere(source: dataStore!, destination: &destinationDS)
         navigateToTrailerVC(source: viewController!, destination: destinationVC)
     }
     
-    // MARK: Navigation
-    
+    //  MARK: Navigation
     func navigateToTrailerVC(source: ComingSoonViewController, destination: UIViewController) {
         source.present(destination, animated: true, completion: nil)
     }
     
-    // MARK: Passing data
+    //  MARK: Passing data
     func passDataToSomewhere(source: ComingSoonDataStore, destination: inout DetailsDataStore) {
         destination.movieId = source.selectedMovieId
     }

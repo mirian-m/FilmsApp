@@ -15,6 +15,18 @@ import UIKit
 enum SearchResult {
     // MARK: Use cases
     
+    enum Error {
+        struct Request{}
+        
+        struct Response {}
+        
+        struct ViewModel {
+            var errorModel: ErrorViewModel?
+            var title: AlerTitle
+            var errorMessage: String
+        }
+    }
+
     enum GetSearchResult {
         struct Request { }
         

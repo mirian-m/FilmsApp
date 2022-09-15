@@ -88,6 +88,7 @@ enum Constants {
                 static let API_Key = "793b50b3b4c6ef37ce18bda27b1cbf67"
                 static let EndUrl = "&language=en-US"
             }
+            
             enum Helper {
                 static let PosterBaseURL = "https://image.tmdb.org/t/p/w500/"
                 static let YoutubeAPI_KEY = "AIzaSyCFAeVXHQbpbirLUloOmQwuUJBkavE-2rQ"
@@ -95,6 +96,15 @@ enum Constants {
             }
         }
     }
+    
+//    enum AlerTitle {
+//        enum Error {
+//            static var error = "Error"
+//            static var registration = "Registration Error"
+//            static var createUser = "Create User Error"
+//            static var sigIn = "Sig In Error"
+//        }
+//    }
 }
 
 

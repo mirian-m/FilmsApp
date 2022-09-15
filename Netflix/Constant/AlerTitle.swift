@@ -13,8 +13,6 @@ enum AlerTitle {
         static var error = "Error"
         static var registration = "Registration Error"
         static var createUser = "Create User Error"
-        static var sigIn = "SigIn Error"
+        static var sigIn = "Sig In Error"
     }
-    static var success = "Success"
-    
 }

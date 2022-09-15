@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Firebase
 
-class UserManger {
+final class UserManger {
     static let shared = UserManger()
     
     private init() {}

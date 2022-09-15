@@ -14,6 +14,7 @@ import UIKit
 
 protocol DetailsDisplayLogic: AnyObject {
     func displayMovieDetails(viewModel: Details.GetMovie.ViewModel)
+    func displayAlert(viewModel:Details.Error.ViewModel)
 }
 
 final class DetailsViewController: BackgroundImageViewControlller {
@@ -74,7 +75,7 @@ final class DetailsViewController: BackgroundImageViewControlller {
         
         // Add Observer To playButtonDidTapped Notifications
         NotificationCenter.default.addObserver(self, selector: #selector(playTrailer), name: .playButtonTap, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(moveBack), name: .navButtonTap, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(moveBack), name: .moveBackButtonTapped, object: nil)
         navigationController?.setNavigationBarHidden(true, animated: false)
 
         headerView = Poster(frame: CGRect(
@@ -85,12 +86,11 @@ final class DetailsViewController: BackgroundImageViewControlller {
         )
         detailsTableView.tableHeaderView = headerView
     }
-    
+    //  MARK:- Buttons Action
     @objc func playTrailer() {
         interactor?.updateUserWatchedList(request: Details.UpdateUserData.Request(movieId: movieViewModel.id))
         router?.routeToTraileVc(segue: nil)
     }
-    
     @objc func moveBack() {
         router?.routeToBack(segue: nil)
     }
@@ -101,6 +101,10 @@ final class DetailsViewController: BackgroundImageViewControlller {
 }
 
 extension DetailsViewController: DetailsDisplayLogic {
+    func displayAlert(viewModel: Details.Error.ViewModel) {
+        self.showAlertWith(title: viewModel.title, text: viewModel.errorMessage)
+    }
+    
     func displayMovieDetails(viewModel: Details.GetMovie.ViewModel) {
         headerView?.configure(with: viewModel.movieViewModel.imageUrl, buttonsIsHidden: false)
         self.movieViewModel = viewModel.movieViewModel
@@ -109,9 +113,7 @@ extension DetailsViewController: DetailsDisplayLogic {
 }
 
 extension DetailsViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
-    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 3 }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {

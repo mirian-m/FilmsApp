@@ -17,19 +17,22 @@ protocol ComingSoonPresentationLogic {
     func presentSelectedMovie(response: ComingSoon.GetSelectedMovie.Response)
 }
 
-final class ComingSoonPresenter: ComingSoonPresentationLogic {
-    
+final class ComingSoonPresenter {
     weak var viewController: ComingSoonDisplayLogic?
-    
-    // MARK: Do something
-    
-    func presentUpcomingMovies(response: ComingSoon.GetUpcomingMovies.Response) {
-        let viewModel = ComingSoon.GetUpcomingMovies.ViewModel(movie: (response.movies?.details.convert()) ?? [])
-        viewController?.displayUpcomingMovies(viewModel: viewModel)
-    }
+}
 
+extension ComingSoonPresenter: ComingSoonPresentationLogic {
+    
+    //  MARK:- ComingSoonPresentationLogic Methods
+    func presentUpcomingMovies(response: ComingSoon.GetUpcomingMovies.Response) {
+        guard response.error == nil else {
+            viewController?.displayAlert(viewModel: ComingSoon.Error.ViewModel(errorMessage: response.error!.rawValue))
+            return
+        }
+        viewController?.displayUpcomingMovies(viewModel: ComingSoon.GetUpcomingMovies.ViewModel(movie: response.movies?.details.convert()))
+    }
+    
     func presentSelectedMovie(response: ComingSoon.GetSelectedMovie.Response) {
         viewController?.displaySelectedMovie(viewModel: ComingSoon.GetSelectedMovie.ViewModel())
     }
-
 }

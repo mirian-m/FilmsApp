@@ -20,10 +20,14 @@ protocol MovieTrailerDataStore {
     var movieDetails: MovieDetails { get set }
 }
 
-class MovieTrailerInteractor: MovieTrailerBusinessLogic, MovieTrailerDataStore {
+final class MovieTrailerInteractor: MovieTrailerDataStore {
     var presenter: MovieTrailerPresentationLogic?
     var worker: APIWoker?
     var movieDetails: MovieDetails = MovieDetails()
+    
+}
+//  MARK:- Extension MovieTrailerBusinessLogic Methods
+extension MovieTrailerInteractor:  MovieTrailerBusinessLogic {
     
     //  MARK: Get Trailer
     func getTrailer(request: MovieTrailer.GetTrailer.Request) {
@@ -31,21 +35,21 @@ class MovieTrailerInteractor: MovieTrailerBusinessLogic, MovieTrailerDataStore {
         let overView = movieDetails.overview ?? ""
         let title = movieDetails.title ?? movieDetails.originalTitle ?? ""
         var youtubeId: String = ""
+        var errorMessage: APICollerError?
         let query = title + " trailer"
         
-        worker?.getTrailer(with: query, completion: { [weak self] (result: Result<YoutubeSearchResponse, APICollerError>) in
+        worker?.getTrailer(with: query, completion: { (result: Result<YoutubeSearchResponse, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let youtubeResult):
                     youtubeId = youtubeResult.items.first?.id?.videoId ?? ""
                 case .failure(let error):
-                    
-                    //  TODO:- Error Hendling
-                    print(error.localizedDescription)
+                    errorMessage = error
                 }
-                let response = MovieTrailer.GetTrailer.Response(youtubeId: youtubeId, overView: overView, title: title)
+                let response = MovieTrailer.GetTrailer.Response(error: errorMessage, youtubeId: youtubeId, overView: overView, title: title)
                 self?.presenter?.presentMovieTrailer(response: response)
             }
         })
     }
+    
 }

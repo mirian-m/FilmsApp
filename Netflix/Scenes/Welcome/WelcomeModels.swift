@@ -15,8 +15,11 @@ import UIKit
 enum Welcome {
     
   // MARK: Use cases
-  enum Something {
-    struct Request {}
+  enum Save {
+    
+    struct Request {
+        var buttonTag: Int
+    }
     
     struct Response {}
     

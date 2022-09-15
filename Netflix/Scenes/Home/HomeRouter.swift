@@ -16,39 +16,36 @@ protocol HomeRoutingLogic {
     func routeToProfile(segue: UIStoryboardSegue?)
     func routeToWelcomePage(segue: UIStoryboardSegue?)
     func routToDetailsVc(segue: UIStoryboardSegue?)
-//    func routToTrailerVc(segue: UIStoryboardSegue?)
 }
 
 protocol HomeDataPassing {
     var dataStore: HomeDataStore? { get }
 }
 
-final class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
-    
+final class HomeRouter: NSObject, HomeDataPassing {
     weak var viewController: HomeViewController?
     var dataStore: HomeDataStore?
+}
+
+extension HomeRouter: HomeRoutingLogic {
     
     //  MARK: Routing
-    
     func routeToProfile(segue: UIStoryboardSegue?) {
         let destinationVC = ProfileViewController()
         destinationVC.delegate = self.viewController
         present(source: viewController!, destination: destinationVC)
     }
-    
     func routeToWelcomePage(segue: UIStoryboardSegue?) {
         popToWelcomePage(source: viewController!, destination: nil)
     }
-    
     func routToDetailsVc(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
-//        destinationVC.modalTransitionStyle = .coverVertical
+        destinationVC.modalTransitionStyle = .coverVertical
         destinationVC.modalPresentationStyle = .fullScreen
         var destinationDS = destinationVC.router!.dataStore!
         passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
         present(source: viewController!, destination: destinationVC)
     }
-    
     
     //  MARK: Navigation
     func popToWelcomePage(source: HomeViewController, destination: UIViewController?) {
@@ -61,8 +58,9 @@ final class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing {
         source.present(destination, animated: true, completion: nil)
     }
     
-    // MARK: Passing data
+    //  MARK: Passing data
     func passDataToDetailsVc(source: HomeDataStore, destination: inout DetailsDataStore) {
         destination.movieId = source.selectedMovieId
     }
+    
 }

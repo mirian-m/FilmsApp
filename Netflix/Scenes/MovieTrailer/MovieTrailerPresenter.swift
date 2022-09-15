@@ -16,11 +16,15 @@ protocol MovieTrailerPresentationLogic {
     func presentMovieTrailer(response: MovieTrailer.GetTrailer.Response)
 }
 
-class MovieTrailerPresenter: MovieTrailerPresentationLogic {
+final class MovieTrailerPresenter: MovieTrailerPresentationLogic {
     weak var viewController: MovieTrailerDisplayLogic?
     
     //  MARK: Present Movie Trailer
     func presentMovieTrailer(response: MovieTrailer.GetTrailer.Response) {
+        guard response.error == nil else {
+            viewController?.displayAlert(viewModel: MovieTrailer.Error.ViewModel(title: AlerTitle.Error.error, errorMessage: response.error!.rawValue))
+            return
+        }
         let trailerViewModel = TrailerViewModel(movieTitle: response.title, overview: response.overView, youtubeId: response.youtubeId)
         let viewModel = MovieTrailer.GetTrailer.ViewModel(trailer: trailerViewModel)
         viewController?.displayMovieTrailer(viewModel: viewModel)

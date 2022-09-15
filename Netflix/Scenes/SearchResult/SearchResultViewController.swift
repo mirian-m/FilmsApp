@@ -19,6 +19,11 @@ protocol SearchResultDisplayLogic: AnyObject {
 
 final class SearchResultViewController: BackgroundImageViewControlller {
     
+    //   MARK:- Clean Components
+    var interactor: SearchResultBusinessLogic?
+    var router: (NSObjectProtocol & SearchResultRoutingLogic & SearchResultDataPassing)?
+    
+    
     private var searchResultCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3 - 10, height: Constants.Content.Category.Height.middle)
@@ -29,8 +34,6 @@ final class SearchResultViewController: BackgroundImageViewControlller {
     }()
     
     private var moviesViewModel: [MovieViewModel] = []
-    var interactor: SearchResultBusinessLogic?
-    var router: (NSObjectProtocol & SearchResultRoutingLogic & SearchResultDataPassing)?
     
     var searchResultIsUpdated: Bool = false {
         didSet {
@@ -40,7 +43,6 @@ final class SearchResultViewController: BackgroundImageViewControlller {
     }
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -52,7 +54,6 @@ final class SearchResultViewController: BackgroundImageViewControlller {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = SearchResultInteractor()
@@ -67,7 +68,6 @@ final class SearchResultViewController: BackgroundImageViewControlller {
     }
     
     //  MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchResultCollectionView.dataSource = self
@@ -80,9 +80,8 @@ final class SearchResultViewController: BackgroundImageViewControlller {
         searchResultCollectionView.frame = view.bounds
     }
     
-    //  MARK: Do something
-    
-    func getSearchResult() {
+    //  MARK: Get Search Result
+    private func getSearchResult() {
         let request = SearchResult.GetSearchResult.Request()
         interactor?.getSearchResult(request: request)
     }
@@ -91,7 +90,6 @@ final class SearchResultViewController: BackgroundImageViewControlller {
 extension SearchResultViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     //  MARK:- CollectionView DataSource & Delegate Functions
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { moviesViewModel.count }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -106,8 +104,8 @@ extension SearchResultViewController: UICollectionViewDataSource, UICollectionVi
         interactor?.didTapMovie(requset: SearchResult.GetSelectedMovie.Request(selectedMovieId: moviesViewModel[indexPath.row].id))
     }
 }
-//  MARK:- Display logic Protocol Functions
 
+//  MARK:- Display logic Protocol Functions
 extension SearchResultViewController: SearchResultDisplayLogic  {
     func displaySearchResult(viewModel: SearchResult.GetSearchResult.ViewModel) {
         self.moviesViewModel = viewModel.movieViewModel

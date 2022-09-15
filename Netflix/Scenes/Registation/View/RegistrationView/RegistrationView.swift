@@ -4,9 +4,9 @@
 
 import UIKit
 
-class RegistrationView: UIView {
+final class RegistrationView: UIView {
     
-    lazy var logo: UIImageView = {
+   private lazy var logo: UIImageView = {
         let logo = UIImageView()
         logo.translatesAutoresizingMaskIntoConstraints = false
         logo.image = UIImage(named: "NetflixLogo")
@@ -196,6 +196,7 @@ extension UITextField {
 }
 extension UITextField {
     
+    //  MARK:- Textfield Show and hide content logic, while presed button
     fileprivate func setPasswordToggleImage(_ button: UIButton) {
         if isSecureTextEntry {
             button.setImage(Constants.Design.Image.IconEyeSlash?.withTintColor(Constants.Design.Color.Primary.WhiteDisable, renderingMode: .alwaysOriginal), for: .normal)

@@ -15,7 +15,18 @@ import UIKit
 enum Details {
     
     // MARK: Use cases
-    
+    enum Error {
+        struct Request{}
+        
+        struct Response {}
+        
+        struct ViewModel {
+            var errorModel: ErrorViewModel?
+            var title: String
+            var errorMessage: String
+        }
+    }
+
     enum GetMovie {
         
         struct Request { }
@@ -27,6 +38,7 @@ enum Details {
             var movieViewModel: MovieViewModel
         }
     }
+    
     enum UpdateUserData {
         struct Request {
             var movieId: Int

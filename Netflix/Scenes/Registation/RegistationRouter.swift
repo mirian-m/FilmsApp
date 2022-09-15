@@ -16,18 +16,20 @@ import UIKit
     func routeToHomeVC(segue: UIStoryboardSegue?)
 }
 
-protocol RegistationDataPassing {
+protocol RegistrationDataPassing {
     var dataStore: RegistationDataStore? { get }
 }
 
-final class RegistationRouter: NSObject, RegistationRoutingLogic, RegistationDataPassing {
+final class RegistationRouter: NSObject, RegistationRoutingLogic, RegistrationDataPassing {
     weak var viewController: RegistrationViewController?
     var dataStore: RegistationDataStore?
     
     // MARK: Routing
     
     func routeToHomeVC(segue: UIStoryboardSegue?) {
-        guard let destinationVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else { return }
+        guard let destinationVC = UIStoryboard(name: "Main", bundle: nil)
+                .instantiateViewController(withIdentifier: "TabBarController")
+                as? UITabBarController else { return }
         navigateToHomeVC(source: viewController!, destination: destinationVC)
     }
     

@@ -10,7 +10,7 @@ import UIKit
 class DetailsOverviewCell: UITableViewCell {
     static var identifier: String { .init(describing: self) }
     
-    private let startingHeight: CGFloat = 50
+    private let startingHeight: CGFloat = 30
     
     private let buttonTitles = ["Show More", "Show Less"]
     lazy var heightConstraint = overview.heightAnchor.constraint(equalToConstant: startingHeight)
@@ -43,7 +43,6 @@ class DetailsOverviewCell: UITableViewCell {
         button.setTitle("Show More...", for: .normal)
         button.tintColor = Constants.Design.Color.Primary.White
         button.titleLabel?.font = UIFont(descriptor: UIFontDescriptor(), size: 10)
-        //        button.tag = 0
         button.addTarget(self, action: #selector(showMoreContext), for: .touchUpInside)
         return button
     }()
@@ -60,7 +59,7 @@ class DetailsOverviewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-        backgroundColor = UIColor(white: 1, alpha: 0)
+        backgroundColor = Constants.Design.Color.Background.None
         heightConstraint.isActive = true
         addItemToSubView()
         adjustConstraints()
@@ -109,20 +108,9 @@ extension DetailsOverviewCell {
     
     //  MARK:- Button Action, Shows Or hide content of textView
     @objc func showMoreContext(_ sender: UIButton) {
-        //        switch buttonForMoreContext.tag {
-        //        case 0:
         heightConstraint.constant = overview.getTextViewHeightAccordingToHisContent()
         heightConstraint.isActive = true
         sender.isHidden = true
-        //            buttonForMoreContext.tag = 1
-        //        case 1:
-        //            buttonForMoreContext.tag = 0
-        //            heightConstraint.constant = startingHeight
-        //            heightConstraint.isActive = true
-        //        default:
-        //            break
-        //        }
-        //        buttonForMoreContext.setTitle(buttonTitles[buttonForMoreContext.tag], for: .normal)
     }
 }
 

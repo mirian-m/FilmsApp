@@ -13,11 +13,9 @@
 import UIKit
 
 protocol WelcomePresentationLogic {
-    func presentSomething(response: Welcome.Something.Response)
+//    func presentRegistration()
 }
 
-class WelcomePresenter: WelcomePresentationLogic {
+final class WelcomePresenter: WelcomePresentationLogic {
     weak var viewController: WelcomeDisplayLogic?
-
-    func presentSomething(response: Welcome.Something.Response) { }
 }

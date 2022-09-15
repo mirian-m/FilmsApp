@@ -62,7 +62,7 @@ class Poster: UIView {
     }
     
     @objc func navigateBack() {
-        NotificationCenter.default.post(name: .navButtonTap, object: self)
+        NotificationCenter.default.post(name: .moveBackButtonTapped, object: self)
     }
 }
 

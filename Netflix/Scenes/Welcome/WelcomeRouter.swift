@@ -12,7 +12,7 @@
 
 import UIKit
 
-@objc protocol WelcomeRoutingLogic {
+protocol WelcomeRoutingLogic {
     func routeToRegistration(segue: UIStoryboardSegue?)
 }
 
@@ -20,7 +20,7 @@ protocol WelcomeDataPassing {
     var dataStore: WelcomeDataStore? { get }
 }
 
-class WelcomeRouter: NSObject, WelcomeDataPassing {
+final class WelcomeRouter: NSObject, WelcomeDataPassing {
     
     //  MARK:- Clean Components
     weak var viewController: WelcomeViewController?
@@ -31,9 +31,9 @@ extension WelcomeRouter: WelcomeRoutingLogic {
     
     //  MARK: Routing
     func routeToRegistration(segue: UIStoryboardSegue?) {
-        guard let destinationVC = UIStoryboard.init(
-                name: "Main", bundle: nil).instantiateViewController(
-                    withIdentifier: "RegistationViewController") as? RegistrationViewController else { return }
+        guard let destinationVC = UIStoryboard.init(name: "Main", bundle: nil)
+                .instantiateViewController(withIdentifier: RegistrationViewController.identifier)
+                as? RegistrationViewController else { return }
         
         var destinationDS = destinationVC.router!.dataStore!
         passDataToSomewhere(source: dataStore!, destination: &destinationDS)
@@ -47,7 +47,6 @@ extension WelcomeRouter: WelcomeRoutingLogic {
     
     //  MARK: Passing data
     func passDataToSomewhere(source: WelcomeDataStore, destination: inout RegistationDataStore) {
-        destination.tag = source.tag
+        destination.tag = source.identifier
     }
-    
 }

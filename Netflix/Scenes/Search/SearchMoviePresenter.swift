@@ -23,8 +23,10 @@ final class SearchMoviePresenter: SearchMoviePresentationLogic {
     
     // MARK: Do something
     func presenMovies(response: SearchMovie.GetMovies.Response) {
-        
-        //    TODO: - Do error hendiling
+        guard response.error == nil else {
+            viewController?.displayAlert(viewModel: SearchMovie.Error.ViewModel(errorMessage: response.error!.rawValue))
+            return
+        }
         let viewModel = SearchMovie.GetMovies.ViewModel(movie: response.movies?.details.convert() ?? [])
         viewController?.displayMovies(viewModel: viewModel)
     }
@@ -34,7 +36,10 @@ final class SearchMoviePresenter: SearchMoviePresentationLogic {
     }
     
     func presentSearchedMovies(response: SearchMovie.GetSearchedMovies.Response) {
-        //    TODO: - Do error hendiling
+        guard response.error == nil else {
+            viewController?.displayAlert(viewModel: SearchMovie.Error.ViewModel(errorMessage: response.error!.rawValue))
+            return
+        }
         let viewModel = SearchMovie.GetSearchedMovies.ViewModel(movieViewModel: (response.searchedMovies?.details.convert()) ?? [])
         viewController?.displaySearchedMovies(viewModel: viewModel)
     }

@@ -17,7 +17,6 @@
 		8424EF4428ABD91800F30E6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8424EF4328ABD91800F30E6C /* GoogleService-Info.plist */; };
 		8424EF5D28ABDF0B00F30E6C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8424EF5C28ABDF0B00F30E6C /* FirebaseAuth */; };
 		8424EF5F28ABDF0B00F30E6C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8424EF5E28ABDF0B00F30E6C /* FirebaseDatabase */; };
-		8424EF6B28AD16C900F30E6C /* ConstantFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424EF6A28AD16C900F30E6C /* ConstantFile.swift */; };
 		842FA08C27D0EAD900B206F6 /* SearchCollectionViewcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FA08B27D0EAD900B206F6 /* SearchCollectionViewcell.swift */; };
 		842FA09027D2275600B206F6 /* YoutubeSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FA08F27D2275600B206F6 /* YoutubeSearchResponse.swift */; };
 		8434F9EE27C8F58200377DE2 /* Poster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434F9ED27C8F58200377DE2 /* Poster.swift */; };
@@ -52,6 +51,8 @@
 		84634F8228A3B88F0050DB63 /* ConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84634F8128A3B88F0050DB63 /* ConfirmedViewController.swift */; };
 		8463553F28CFE6790021492D /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463553E28CFE6790021492D /* UserManager.swift */; };
 		8463554428D209DD0021492D /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463554328D209DD0021492D /* ApiHelper.swift */; };
+		8463554C28D37BAB0021492D /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463554B28D37BAB0021492D /* RegistrationViewModel.swift */; };
+		8463554F28D383110021492D /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463554E28D383110021492D /* ErrorViewModel.swift */; };
 		8465008B28CA066700D61E4A /* AlerTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465008A28CA066700D61E4A /* AlerTitle.swift */; };
 		8465009428CA0CE300D61E4A /* DetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465008E28CA0CE300D61E4A /* DetailsPresenter.swift */; };
 		8465009528CA0CE300D61E4A /* DetailsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465008F28CA0CE300D61E4A /* DetailsWorker.swift */; };
@@ -85,12 +86,12 @@
 		84CF7ECB28AF944A00297004 /* WelcomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7EC528AF944A00297004 /* WelcomeModels.swift */; };
 		84CF7ECC28AF944A00297004 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7EC628AF944A00297004 /* WelcomeViewController.swift */; };
 		84CF7ECD28AF944A00297004 /* WelcomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7EC728AF944A00297004 /* WelcomeInteractor.swift */; };
-		84CF7ED828AF9A8D00297004 /* RegistationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED228AF9A8D00297004 /* RegistationPresenter.swift */; };
-		84CF7ED928AF9A8D00297004 /* RegistationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED328AF9A8D00297004 /* RegistationWorker.swift */; };
+		84CF7ED828AF9A8D00297004 /* RegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED228AF9A8D00297004 /* RegistrationPresenter.swift */; };
+		84CF7ED928AF9A8D00297004 /* RegistrationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED328AF9A8D00297004 /* RegistrationWorker.swift */; };
 		84CF7EDA28AF9A8D00297004 /* RegistationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED428AF9A8D00297004 /* RegistationRouter.swift */; };
 		84CF7EDB28AF9A8D00297004 /* RegistationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED528AF9A8D00297004 /* RegistationModels.swift */; };
 		84CF7EDC28AF9A8D00297004 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED628AF9A8D00297004 /* RegistrationViewController.swift */; };
-		84CF7EDD28AF9A8D00297004 /* RegistationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED728AF9A8D00297004 /* RegistationInteractor.swift */; };
+		84CF7EDD28AF9A8D00297004 /* RegistrationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7ED728AF9A8D00297004 /* RegistrationInteractor.swift */; };
 		84DB254427D36A8A0063685F /* TrailerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB254327D36A8A0063685F /* TrailerViewModel.swift */; };
 		84E6EFE928C8814400172590 /* WatchedFilmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E6EFE728C8814400172590 /* WatchedFilmTableViewCell.swift */; };
 		84E6EFF328C8B3D200172590 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E6EFF228C8B3D200172590 /* MovieViewModel.swift */; };
@@ -109,7 +110,6 @@
 		84209C8A27C776C1003CE71D /* MoviesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTableViewCell.swift; sourceTree = "<group>"; };
 		84209C8D27C77A7F003CE71D /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		8424EF4328ABD91800F30E6C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		8424EF6A28AD16C900F30E6C /* ConstantFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantFile.swift; sourceTree = "<group>"; };
 		842FA08B27D0EAD900B206F6 /* SearchCollectionViewcell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewcell.swift; sourceTree = "<group>"; };
 		842FA08F27D2275600B206F6 /* YoutubeSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeSearchResponse.swift; sourceTree = "<group>"; };
 		8434F9ED27C8F58200377DE2 /* Poster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poster.swift; sourceTree = "<group>"; };
@@ -144,6 +144,8 @@
 		84634F8128A3B88F0050DB63 /* ConfirmedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmedViewController.swift; sourceTree = "<group>"; };
 		8463553E28CFE6790021492D /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		8463554328D209DD0021492D /* ApiHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHelper.swift; sourceTree = "<group>"; };
+		8463554B28D37BAB0021492D /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		8463554E28D383110021492D /* ErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
 		8465008A28CA066700D61E4A /* AlerTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlerTitle.swift; sourceTree = "<group>"; };
 		8465008E28CA0CE300D61E4A /* DetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPresenter.swift; sourceTree = "<group>"; };
 		8465008F28CA0CE300D61E4A /* DetailsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsWorker.swift; sourceTree = "<group>"; };
@@ -177,12 +179,12 @@
 		84CF7EC528AF944A00297004 /* WelcomeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeModels.swift; sourceTree = "<group>"; };
 		84CF7EC628AF944A00297004 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		84CF7EC728AF944A00297004 /* WelcomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeInteractor.swift; sourceTree = "<group>"; };
-		84CF7ED228AF9A8D00297004 /* RegistationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationPresenter.swift; sourceTree = "<group>"; };
-		84CF7ED328AF9A8D00297004 /* RegistationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationWorker.swift; sourceTree = "<group>"; };
+		84CF7ED228AF9A8D00297004 /* RegistrationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPresenter.swift; sourceTree = "<group>"; };
+		84CF7ED328AF9A8D00297004 /* RegistrationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationWorker.swift; sourceTree = "<group>"; };
 		84CF7ED428AF9A8D00297004 /* RegistationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationRouter.swift; sourceTree = "<group>"; };
 		84CF7ED528AF9A8D00297004 /* RegistationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationModels.swift; sourceTree = "<group>"; };
 		84CF7ED628AF9A8D00297004 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
-		84CF7ED728AF9A8D00297004 /* RegistationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationInteractor.swift; sourceTree = "<group>"; };
+		84CF7ED728AF9A8D00297004 /* RegistrationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationInteractor.swift; sourceTree = "<group>"; };
 		84DB254327D36A8A0063685F /* TrailerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerViewModel.swift; sourceTree = "<group>"; };
 		84E6EFE728C8814400172590 /* WatchedFilmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchedFilmTableViewCell.swift; sourceTree = "<group>"; };
 		84E6EFF228C8B3D200172590 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
@@ -266,7 +268,6 @@
 		8424EF6928AD16B700F30E6C /* Constant */ = {
 			isa = PBXGroup;
 			children = (
-				8424EF6A28AD16C900F30E6C /* ConstantFile.swift */,
 				8465008A28CA066700D61E4A /* AlerTitle.swift */,
 			);
 			path = Constant;
@@ -392,6 +393,14 @@
 			path = SearchResult;
 			sourceTree = "<group>";
 		};
+		8463554A28D37B8C0021492D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8463554B28D37BAB0021492D /* RegistrationViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		8465008D28CA0C6600D61E4A /* MovieDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -513,9 +522,9 @@
 			children = (
 				84F2B9CF28CFA128006CECD7 /* View */,
 				84CF7ED628AF9A8D00297004 /* RegistrationViewController.swift */,
-				84CF7ED728AF9A8D00297004 /* RegistationInteractor.swift */,
-				84CF7ED228AF9A8D00297004 /* RegistationPresenter.swift */,
-				84CF7ED328AF9A8D00297004 /* RegistationWorker.swift */,
+				84CF7ED728AF9A8D00297004 /* RegistrationInteractor.swift */,
+				84CF7ED228AF9A8D00297004 /* RegistrationPresenter.swift */,
+				84CF7ED328AF9A8D00297004 /* RegistrationWorker.swift */,
 				84CF7ED428AF9A8D00297004 /* RegistationRouter.swift */,
 				84CF7ED528AF9A8D00297004 /* RegistationModels.swift */,
 			);
@@ -535,6 +544,7 @@
 			children = (
 				84DB254327D36A8A0063685F /* TrailerViewModel.swift */,
 				84E6EFF228C8B3D200172590 /* MovieViewModel.swift */,
+				8463554E28D383110021492D /* ErrorViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -550,6 +560,7 @@
 		84F2B9CF28CFA128006CECD7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8463554A28D37B8C0021492D /* ViewModel */,
 				848FCFBE28954D9F0056582C /* RegistrationView */,
 			);
 			path = View;
@@ -642,6 +653,7 @@
 				844E842F28C1E7F400C7864B /* ComingSoonRouter.swift in Sources */,
 				84634F8228A3B88F0050DB63 /* ConfirmedViewController.swift in Sources */,
 				844E848028C6118500C7864B /* SearchResultViewController.swift in Sources */,
+				8463554F28D383110021492D /* ErrorViewModel.swift in Sources */,
 				844E843128C1E7F400C7864B /* ComingSoonViewController.swift in Sources */,
 				8463554428D209DD0021492D /* ApiHelper.swift in Sources */,
 				844E847E28C6118500C7864B /* SearchResultRouter.swift in Sources */,
@@ -655,13 +667,13 @@
 				84CF7EC828AF944A00297004 /* WelcomePresenter.swift in Sources */,
 				8465009828CA0CE300D61E4A /* DetailsViewController.swift in Sources */,
 				84209C8E27C77A7F003CE71D /* MovieCollectionViewCell.swift in Sources */,
-				84CF7ED928AF9A8D00297004 /* RegistationWorker.swift in Sources */,
+				84CF7ED928AF9A8D00297004 /* RegistrationWorker.swift in Sources */,
 				844E847C28C6118500C7864B /* SearchResultPresenter.swift in Sources */,
 				8465009728CA0CE300D61E4A /* DetailsModels.swift in Sources */,
 				8472262528C86E6A00F46462 /* WatchedListPresenter.swift in Sources */,
-				84CF7ED828AF9A8D00297004 /* RegistationPresenter.swift in Sources */,
+				84CF7ED828AF9A8D00297004 /* RegistrationPresenter.swift in Sources */,
 				844E844428C5BCAF00C7864B /* MovieTrailerWorker.swift in Sources */,
-				84CF7EDD28AF9A8D00297004 /* RegistationInteractor.swift in Sources */,
+				84CF7EDD28AF9A8D00297004 /* RegistrationInteractor.swift in Sources */,
 				848FCFAB2893CC4D0056582C /* BackgroundImage.swift in Sources */,
 				842FA08C27D0EAD900B206F6 /* SearchCollectionViewcell.swift in Sources */,
 				84E6EFF328C8B3D200172590 /* MovieViewModel.swift in Sources */,
@@ -678,7 +690,6 @@
 				849C563028B35DAA006DC93D /* HomeWorker.swift in Sources */,
 				844E845528C5C90200C7864B /* SearchMovieViewController.swift in Sources */,
 				84CF7ECA28AF944A00297004 /* WelcomeRouter.swift in Sources */,
-				8424EF6B28AD16C900F30E6C /* ConstantFile.swift in Sources */,
 				8434F9FA27CB8D3500377DE2 /* Extensions.swift in Sources */,
 				849C563328B35DAA006DC93D /* HomeViewController.swift in Sources */,
 				8472262728C86E6A00F46462 /* WatchedListRouter.swift in Sources */,
@@ -712,6 +723,7 @@
 				844E845128C5C90200C7864B /* SearchMoviePresenter.swift in Sources */,
 				8465008B28CA066700D61E4A /* AlerTitle.swift in Sources */,
 				8434FA0427CF86BE00377DE2 /* MovieCell.swift in Sources */,
+				8463554C28D37BAB0021492D /* RegistrationViewModel.swift in Sources */,
 				84CF7ECD28AF944A00297004 /* WelcomeInteractor.swift in Sources */,
 				84209C7827C775AC003CE71D /* SceneDelegate.swift in Sources */,
 				844E845228C5C90200C7864B /* SearchMovieWorker.swift in Sources */,

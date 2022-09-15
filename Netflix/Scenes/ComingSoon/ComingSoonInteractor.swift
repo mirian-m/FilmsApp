@@ -21,17 +21,19 @@ protocol ComingSoonDataStore {
     var selectedMovieId: Int { get set }
 }
 
-final class ComingSoonInteractor: ComingSoonBusinessLogic, ComingSoonDataStore {
+final class ComingSoonInteractor: ComingSoonDataStore {
     var presenter: ComingSoonPresentationLogic?
     var worker: APIWoker?
     private var fetchedMovies = Movies(details: [])
     var selectedMovieId = 0
+}
+
+extension ComingSoonInteractor:  ComingSoonBusinessLogic {
     
-    // MARK: Do something
-    
+    //  MARK:- ComingSoonBusinessLogic Methods
     func getUpcomingMovies(request: ComingSoon.GetUpcomingMovies.Request) {
         worker = APIWoker()
-        let url = "\(Constants.API.Movies.Main.BaseURL)/3/movie/upcoming?api_key=\(Constants.API.Movies.Main.API_Key)&page=\(Int.random(in: 1...10))"
+        let url = ApiHelper.shared.getMovieUrl(by: "Upcoming movies")
         
         worker?.fetchMovieData(by: url, or: nil, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
@@ -45,11 +47,8 @@ final class ComingSoonInteractor: ComingSoonBusinessLogic, ComingSoonDataStore {
                 }
                 self?.presenter?.presentUpcomingMovies(response: response)
             }
-
-            
         })
     }
-    
     func didTapMovie(requset: ComingSoon.GetSelectedMovie.Request) {
         selectedMovieId = requset.selectedMovieId
         presenter?.presentSelectedMovie(response: ComingSoon.GetSelectedMovie.Response())

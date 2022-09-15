@@ -66,7 +66,16 @@ extension Notification.Name {
     
     //  MARK:- Create Notification Custom Name
     static let playButtonTap = Notification.Name("Play Button Tapped")
-    static let navButtonTap = Notification.Name("Back button Tapped")
+    static let moveBackButtonTapped = Notification.Name("Back button Tapped")
     static let textfieldContenVisibilityDidChanged = Notification.Name("textfieldContenVisibilityDidChanged")
 }
 
+extension UIViewController {
+    func showAlertWith(title: String, text: String) {
+        let alert = UIAlertController(title: title, message: "\n\(text)", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alert.addAction(action)
+        alert.view.tintColor = .red
+        present(alert, animated: true, completion: nil)
+    }
+}

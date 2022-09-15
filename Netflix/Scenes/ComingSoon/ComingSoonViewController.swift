@@ -15,6 +15,7 @@ import UIKit
 protocol ComingSoonDisplayLogic: AnyObject {
     func displayUpcomingMovies(viewModel: ComingSoon.GetUpcomingMovies.ViewModel)
     func displaySelectedMovie(viewModel: ComingSoon.GetSelectedMovie.ViewModel)
+    func displayAlert(viewModel: ComingSoon.Error.ViewModel)
 }
 
 final class ComingSoonViewController: BackgroundImageViewControlller {
@@ -76,7 +77,7 @@ final class ComingSoonViewController: BackgroundImageViewControlller {
         router.dataStore = interactor
     }
     
-    func controllerSetup() {
+   private func controllerSetup() {
         title = "Upcoming"
         navigationController?.navigationBar.prefersLargeTitles = true
         view.addSubview(upcomingMoviesTableView)
@@ -86,7 +87,7 @@ final class ComingSoonViewController: BackgroundImageViewControlller {
     }
     
     //  MARK: Fetch Movies
-    func fetchUpcomingMovies() {
+   private func fetchUpcomingMovies() {
         let request = ComingSoon.GetUpcomingMovies.Request()
         interactor?.getUpcomingMovies(request: request)
     }
@@ -96,12 +97,16 @@ extension ComingSoonViewController: ComingSoonDisplayLogic {
     
     //  MARK:- Display Functions
     func displayUpcomingMovies(viewModel: ComingSoon.GetUpcomingMovies.ViewModel) {
-        self.moviesViewModel = viewModel.movie.shuffled()
+        self.moviesViewModel = viewModel.movie?.shuffled() ?? []
         self.upcomingMoviesTableView.reloadData()
     }
     
     func displaySelectedMovie(viewModel: ComingSoon.GetSelectedMovie.ViewModel) {
         router?.routeToDetailsVc(segue: nil)
+    }
+    
+    func displayAlert(viewModel: ComingSoon.Error.ViewModel) {
+        self.showAlertWith(title: AlerTitle.Error.error, text: viewModel.errorMessage)
     }
 }
 

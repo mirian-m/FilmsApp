@@ -13,7 +13,7 @@
 import UIKit
 
 protocol HomeBusinessLogic {
-    func fetchMovies(request: Home.MovieInfo.Request, complition: @escaping (Bool) -> Void)
+    func fetchMovies(request: Home.MovieInfo.Request, completion: @escaping (Bool) -> Void)
     func didTapMovie(requset: Home.GetSelectedMovie.Request)
 }
 
@@ -21,20 +21,24 @@ protocol HomeDataStore {
     var selectedMovieId: Int { get set }
 }
 
-final class HomeInteractor: HomeBusinessLogic, HomeDataStore {
+final class HomeInteractor: HomeDataStore {
     var selectedMovieId: Int = 0
     var presenter: HomePresentationLogic?
     var worker: APIWoker?
     private var fetchedMovies: Movies = Movies(details: [])
     
-    // MARK: Do something
-    func fetchMovies(request: Home.MovieInfo.Request, complition: @escaping (Bool) -> Void) {
+}
+
+extension HomeInteractor: HomeBusinessLogic {
+    
+    // MARK: HomeBusinessLogic Metods
+    func fetchMovies(request: Home.MovieInfo.Request, completion: @escaping (Bool) -> Void) {
         worker = APIWoker()
         
-        let url = "\(Constants.API.Movies.Main.BaseURL)/3/trending/movie/day?api_key=\(Constants.API.Movies.Main.API_Key)&page=\(request.section + 1)"
+        let url = ApiHelper.shared.getMovieUrl(by: request.section)
         var response = Home.MovieInfo.Response()
         
-        worker?.fetchMovieData(by: url, or: nil, completion: { [weak self] (result: Result<Movies, APICollerError>) in
+        worker?.fetchMovieData(by: url, or: nil, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let movies):
@@ -44,14 +48,13 @@ final class HomeInteractor: HomeBusinessLogic, HomeDataStore {
                     response.error = error
                 }
                 self?.presenter?.presentMovies(response: response)
-                complition(true)
+                completion(true)
             }
-            
         })
     }
-    
     func didTapMovie(requset: Home.GetSelectedMovie.Request) {
         selectedMovieId = requset.selectedMovieId
         presenter?.presentSelectedMovie(response: Home.GetSelectedMovie.Response())
     }
+    
 }

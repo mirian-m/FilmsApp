@@ -13,8 +13,19 @@
 import UIKit
 
 enum ComingSoon {
-    // MARK: Use cases
     
+    // MARK: Use cases
+    enum Error {
+        struct Request{}
+        
+        struct Response {}
+        
+        struct ViewModel {
+            var errorModel: ErrorViewModel?
+            var errorMessage: String
+        }
+    }
+
     enum GetUpcomingMovies {
         
         struct Request{}
@@ -25,7 +36,7 @@ enum ComingSoon {
         }
         
         struct ViewModel {
-            var movie: [MovieViewModel]
+            var movie: [MovieViewModel]?
         }
     }
     

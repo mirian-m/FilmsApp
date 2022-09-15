@@ -12,24 +12,22 @@
 
 import UIKit
 
-protocol RegistationDisplayLogic: AnyObject {
-    func displayViewWithConfig(viewModel: Registation.ViewItemVisibility.ViewModel)
-    func displayUserRegistratonAlert(viewModel: Registation.CheckData.ViewModel)
-    func displayUserCreationAlert(viewModel: Registation.UserData.ViewModel)
-    func displaySigInAlert(viewModel: Registation.SigInUser.ViewModel)
+protocol RegistrationDisplayLogic: AnyObject {
+    func displayView(viewModel: Registration.ViewItemVisibility.ViewModel)
+    func displayAlert(viewModel: Registration.GetError.ViewModel)
+    func displayHome(viewModel: Registration.SigInUser.ViewModel)
 }
 
 final class RegistrationViewController: BackgroundImageViewControlller {
     
     //  MARK:- Clean Components
     var interactor: RegistationBusinessLogic?
-    var router: (NSObjectProtocol & RegistationRoutingLogic & RegistationDataPassing)?
+    var router: (NSObjectProtocol & RegistationRoutingLogic & RegistrationDataPassing)?
     
     //  MARK:- Fields
-    static let identifier = "RegistrationViewController"
+    static var identifier: String { .init(describing: self) }
+    
     lazy var contentView = RegistrationView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-    private var isDoingSigIn: Bool!
-    private var registrationIsSuccessful = false
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -47,14 +45,14 @@ final class RegistrationViewController: BackgroundImageViewControlller {
         super.viewDidLoad()
         view.addSubview(contentView)
         addTargetsFunc()
-        doSomething()
+        getView()
     }
     
     //  MARK: Setup
     private func setup() {
         let viewController = self
-        let interactor = RegistationInteractor()
-        let presenter = RegistationPresenter()
+        let interactor = RegistrationInteractor()
+        let presenter = RegistrationPresenter()
         let router = RegistationRouter()
         viewController.interactor = interactor
         viewController.router = router
@@ -64,51 +62,75 @@ final class RegistrationViewController: BackgroundImageViewControlller {
         router.dataStore = interactor
     }
     
-    func addTargetsFunc() {
+    private func addTargetsFunc() {
         contentView.segmentControl.addTarget(self, action: #selector(setup(_ :)), for: .valueChanged)
-        contentView.button.addTarget(self, action: #selector(registrait), for: .touchUpInside)
+        contentView.button.addTarget(self, action: #selector(goToMainPageOfUser), for: .touchUpInside)
     }
     
     @objc func setup(_ sender: UISegmentedControl) {
         contentView.segmentControl.isSelected = true
-        doSomething()
+        getView()
     }
     
-    @objc func registrait(_ sender: UIButton) {
+    @objc func goToMainPageOfUser(_ sender: UIButton) {
         contentView.button.isEnabled = false
         contentView.button.alpha = 0.5
         contentView.activityIndicator.startAnimating()
-        if isDoingSigIn {
-            interactor?.sigInUser(request: Registation.SigInUser.Request(
-                                    detail: Registation.SignInDetail(
-                                        email: contentView.emailTextField.text ?? "",
-                                        password: contentView.passwordTextField.text ?? ""))
-            )
-        } else {
-            let registrationFormField = Registation.RegistratioFormField(
-                name: contentView.firstNameTextField.text ?? "",
+        switch sender.tag {
+        case 0:
+            interactor?.sigInUser(
+                request: Registration.SigInUser.Request(
+                    detail: Registration.SignInDetail(
+                        email: contentView.emailTextField.text ?? "",
+                        password: contentView.passwordTextField.text ?? "")))
+        case 1:
+            let userData = UserData(
+                firstName: contentView.firstNameTextField.text ?? "",
                 lastName: contentView.lastNameTextField.text ?? "",
                 email: contentView.emailTextField.text ?? "",
                 password: contentView.passwordTextField.text ?? "",
-                confirmedPassword: contentView.confirmPasswordTextField.text ?? ""
+                confirmedPassword: contentView.confirmPasswordTextField.text ?? "",
+                seenMoviesList: []
             )
-            
-            let request = Registation.CheckData.Request(registrationFormField: registrationFormField)
-            interactor?.checkUserFields(request: request)
-            
-            if registrationIsSuccessful {
-                let userData = Registation.UserData.Request(userInfo: Registation.UserInfo(
-                                                                firstName: registrationFormField.name,
-                                                                lastName: registrationFormField.lastName,
-                                                                email: registrationFormField.email,
-                                                                password: registrationFormField.password)
-                )
-                interactor?.createUser(request: userData)
-            }
+            interactor?.registraitUser(request: Registration.RegistraitUser.Request(userInfo: userData))
+        default:
+            break
         }
     }
+}
+
+extension RegistrationViewController: RegistrationDisplayLogic {
     
-    func addSubviewWithAnimation() {
+    //  MARK: DisplayLogic Methods
+    func displayView(viewModel: Registration.ViewItemVisibility.ViewModel) {
+        configureView(with: viewModel.viewModel)
+        displaViewWithAnimation()
+    }
+    
+    func displayAlert(viewModel: Registration.GetError.ViewModel) {
+        contentView.button.isEnabled = true
+        contentView.button.alpha = 1
+        contentView.activityIndicator.stopAnimating()
+        showAlertWith(title: viewModel.errorModel.title, text: viewModel.errorModel.message)
+    }
+    
+    func displayHome(viewModel: Registration.SigInUser.ViewModel) {
+        router?.routeToHomeVC(segue: nil)
+    }
+}
+
+//  MARK:- Private functions of RegistrationViewController
+extension RegistrationViewController {
+    
+    //  MARK: Do something
+    private func getView() {
+        let tagId = contentView.segmentControl.isSelected ? contentView.segmentControl.selectedSegmentIndex : nil
+        let request = Registration.ViewItemVisibility.Request(tagId: tagId)
+        interactor?.doSomthing(request: request)
+    }
+    
+    //  MARK:- Display RegistrationViewController's View with animation
+    private func displaViewWithAnimation() {
         clearTextFields()
         UIView.animate(withDuration: 1.5) { [weak self] in
             self?.contentView.regitrationStackView.center.x = -self!.view.frame.width
@@ -118,71 +140,24 @@ final class RegistrationViewController: BackgroundImageViewControlller {
         }
     }
     
-    func clearTextFields() {
+    //  MARK:- Clear all textfields content
+    private func clearTextFields() {
         contentView.firstNameTextField.text = ""
         contentView.emailTextField.text = ""
         contentView.passwordTextField.text = ""
         contentView.confirmPasswordTextField.text = ""
     }
     
-    // MARK: Do something
-    func doSomething() {
-        let tagId = contentView.segmentControl.isSelected ? contentView.segmentControl.selectedSegmentIndex : nil
-        let request = Registation.ViewItemVisibility.Request(tagId: tagId)
-        interactor?.doSomthing(request: request)
-    }
     
-    func showAlertWith(title: String, text: String) {
-        contentView.button.isEnabled = true
-        contentView.button.alpha = 1
-        contentView.activityIndicator.stopAnimating()
-        let alert = UIAlertController(title: title, message: "\n\(text)", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        alert.addAction(action)
-        alert.view.tintColor = .red
-        present(alert, animated: true, completion: nil)
-    }
-}
-
-extension RegistrationViewController: RegistationDisplayLogic {
-    
-    //  MARK: DisplayLogic Methods
-    func displayViewWithConfig(viewModel: Registation.ViewItemVisibility.ViewModel) {
+    //  MARK:- Configuretion of ViewController's View dependent on viewModel
+    private func configureView(with viewModel: RegistrationViewModel) {
         contentView.lastNameTextField.isHidden = viewModel.textFieldVisibility
         contentView.firstNameTextField.isHidden = viewModel.textFieldVisibility
         contentView.confirmPasswordTextField.isHidden = viewModel.textFieldVisibility
-        isDoingSigIn = viewModel.textFieldVisibility
+        contentView.button.tag = viewModel.selectedSegmentId
         contentView.segmentControl.selectedSegmentIndex = viewModel.selectedSegmentId
         let title = contentView.segmentControl.titleForSegment(at: contentView.segmentControl.selectedSegmentIndex)
         contentView.button.setTitle(title, for: .normal)
-        isDoingSigIn = viewModel.textFieldVisibility
-        addSubviewWithAnimation()
     }
-    
-    func displayUserRegistratonAlert(viewModel: Registation.CheckData.ViewModel) {
-        guard let errorMessage = viewModel.errorMessage else {
-            registrationIsSuccessful = true
-            return
-        }
-        registrationIsSuccessful = false
-        showAlertWith(title: AlerTitle.Error.registration, text: errorMessage)
-    }
-    
-    func displayUserCreationAlert(viewModel: Registation.UserData.ViewModel) {
-        if viewModel.errorMessage != nil {
-            showAlertWith(title: AlerTitle.Error.createUser, text: viewModel.errorMessage!)
-        } else {
-            router?.routeToHomeVC(segue: nil)
-        }
-    }
-    
-    func displaySigInAlert(viewModel: Registation.SigInUser.ViewModel) {
-        if viewModel.errorMessage != nil {
-            showAlertWith(title: AlerTitle.Error.sigIn, text: viewModel.errorMessage!)
-        } else {
-            router?.routeToHomeVC(segue: nil)
-        }
-    }
-    
     
 }

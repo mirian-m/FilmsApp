@@ -13,20 +13,22 @@
 import UIKit
 
 protocol WelcomeBusinessLogic {
-    func getSelectedButtonTag(_ tag: Int)
+    func getTappeddButtonTag(requset: Welcome.Save.Request)
 }
 
 protocol WelcomeDataStore {
-    var tag: Int { get set }
+    var identifier: Int { get set }
 }
 
-class WelcomeInteractor: WelcomeBusinessLogic, WelcomeDataStore {
+final class WelcomeInteractor: WelcomeBusinessLogic, WelcomeDataStore {
+    
     var presenter: WelcomePresentationLogic?
     var worker: WelcomeWorker?
-    var tag: Int = 0
+    var identifier: Int = 0
     
     // MARK: Do something
-    func getSelectedButtonTag(_ tag: Int) {
-        self.tag = tag
+    
+    func getTappeddButtonTag(requset: Welcome.Save.Request) {
+        self.identifier = requset.buttonTag
     }
 }

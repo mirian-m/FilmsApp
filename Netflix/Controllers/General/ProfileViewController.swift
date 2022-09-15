@@ -14,15 +14,15 @@ protocol ProfileViewControllerDelegate: AnyObject {
 
 
 class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewControllerDelegate {
+    static var identifier: String { .init(describing: self) }
+
     func signOutFromProfile() {
         dismiss(animated: true) { [weak self] in
             self?.delegate?.backToRootViewController()
         }
     }
     
-    static let identifier = "ProfileViewController"
     
-    //    var isAuthorized: Bool? = true
     weak var delegate: ProfileViewControllerDelegate?
     
     //    private lazy var profileBackground: UIImageView = {
@@ -76,7 +76,6 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
         stack.axis = .vertical
         stack.distribution = .fillEqually
         stack.addArrangedSubview(profileBtn)
-//        stack.addArrangedSubview(favouriteFilmsBtn)
         stack.addArrangedSubview(settingBtn)
         stack.addArrangedSubview(signOut)
         stack.spacing = 0
@@ -91,13 +90,6 @@ class ProfileViewController: BackgroundImageViewControlller, ConfirmedViewContro
         btn.setTitle("Profile", for: .normal)
         return btn
     }()
-    
-//    private lazy var favouriteFilmsBtn: UIButton = {
-//        let btn = UIButton()
-//        btn.setTitle("Favourite Films List", for: .normal)
-//        btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-//        return btn
-//    }()
     
     private lazy var settingBtn: UIButton = {
         let btn = UIButton()

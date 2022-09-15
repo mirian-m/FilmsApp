@@ -15,9 +15,10 @@ import WebKit
 
 protocol MovieTrailerDisplayLogic: class {
     func displayMovieTrailer(viewModel: MovieTrailer.GetTrailer.ViewModel)
+    func displayAlert(viewModel: MovieTrailer.Error.ViewModel)
 }
 
-final class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLogic {
+final class MovieTrailerViewController: UIViewController {
     
     //  MARK:- Clean Components
     var interactor: MovieTrailerBusinessLogic?
@@ -63,7 +64,7 @@ final class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLog
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: true)
         setupController()
-        doSomething()
+        getTrailer()
     }
     
     // MARK: Setup
@@ -89,17 +90,11 @@ final class MovieTrailerViewController: UIViewController, MovieTrailerDisplayLog
         setConstraints()
     }
     
-    func doSomething() {
+    private func getTrailer() {
         let request = MovieTrailer.GetTrailer.Request()
         interactor?.getTrailer(request: request)
     }
     
-    func displayMovieTrailer(viewModel: MovieTrailer.GetTrailer.ViewModel) {
-        self.titleLb.text = viewModel.trailer.movieTitle
-        self.overviewLb.text = viewModel.trailer.overview
-        guard let url = URL(string: "https://www.youtube.com/watch?v=\(viewModel.trailer.youtubeId ?? "")") else { return }
-        self.webView.load(URLRequest(url: url))
-    }
 }
 
 extension MovieTrailerViewController {
@@ -128,5 +123,19 @@ extension MovieTrailerViewController {
         NSLayoutConstraint.activate(webViewConstraint)
         NSLayoutConstraint.activate(titleLbConstraint)
         NSLayoutConstraint.activate(overviewLbconstraint)
+    }
+}
+
+extension MovieTrailerViewController: MovieTrailerDisplayLogic {
+    
+    //  MARK:- MovieTrailerDisplayLogic Methods
+    func displayAlert(viewModel: MovieTrailer.Error.ViewModel) {
+        self.showAlertWith(title: viewModel.title, text: viewModel.errorMessage)
+    }
+    func displayMovieTrailer(viewModel: MovieTrailer.GetTrailer.ViewModel) {
+        self.titleLb.text = viewModel.trailer.movieTitle
+        self.overviewLb.text = viewModel.trailer.overview
+        guard let url = URL(string: "https://www.youtube.com/watch?v=\(viewModel.trailer.youtubeId ?? "")") else { return }
+        self.webView.load(URLRequest(url: url))
     }
 }

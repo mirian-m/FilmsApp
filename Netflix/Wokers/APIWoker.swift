@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class APIWoker {
+final class APIWoker {
     
     func fetchMovieData<T: Decodable>(by url: String?, or query: String?, completion: @escaping (Result<T, APICollerError>) -> Void) {
         var urlString = ""

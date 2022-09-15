@@ -13,19 +13,29 @@
 import UIKit
 
 enum Home {
-    // MARK: Use cases
     
+    // MARK: Use cases
+    enum Error {
+        struct Request{}
+        
+        struct Response {}
+        
+        struct ViewModel {
+            var errorModel: ErrorViewModel?
+            var errorMessage: String
+        }
+    }
+
     enum MovieInfo {
         struct Request {
-            var section: Int
+            var section: String
         }
         struct Response {
             var error: APICollerError?
             var movies: Movies?
         }
         struct ViewModel {
-            var error: String?
-            var moviesViewModel: [MovieViewModel]
+            var moviesViewModel: [MovieViewModel]?
         }
     }
     

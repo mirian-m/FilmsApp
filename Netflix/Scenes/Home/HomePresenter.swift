@@ -17,20 +17,21 @@ protocol HomePresentationLogic {
     func presentSelectedMovie(response: Home.GetSelectedMovie.Response)
 }
 
-final class HomePresenter: HomePresentationLogic {
+final class HomePresenter {
     
     weak var viewController: HomeDisplayLogic?
+}
+
+extension HomePresenter: HomePresentationLogic {
     
-    // MARK: Do something
-    
+    //  MARK:- HomePresentationLogic Methods
     func presentMovies(response: Home.MovieInfo.Response) {
         
-        let viewModel = Home.MovieInfo.ViewModel(error: response.error?.rawValue, moviesViewModel: (response.movies?.details.convert() ?? []))
         guard response.error == nil else {
-            viewController?.displayAlert(viewModel: viewModel)
+            viewController?.displayAlert(viewModel: Home.Error.ViewModel(errorMessage: response.error!.rawValue))
             return
         }
-        viewController?.displayMovies(viewModel: viewModel)
+        viewController?.displayMovies(viewModel: Home.MovieInfo.ViewModel(moviesViewModel: response.movies?.details.convert()))
     }
     
     func presentSelectedMovie(response: Home.GetSelectedMovie.Response) {
