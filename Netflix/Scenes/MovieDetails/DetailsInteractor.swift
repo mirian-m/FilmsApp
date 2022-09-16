@@ -41,9 +41,9 @@ extension DetailsInteractor: DetailsBusinessLogic {
             listOfMovies = Array(Set(listOfMovies))
             guard let user = Auth.auth().currentUser else { return }
             UserManger.shared.updateUserData(userId:  user.uid, data: [Constants.API.FireBase.Key.WatchedMovies: listOfMovies]) { (error) in
-                    
+                //  TODO:- ERRor
             }
-    }
+        }
     }
     func getMoveDetails(request: Details.GetMovie.Request) {
         worker = APIWoker()

@@ -20,7 +20,10 @@ protocol ComingSoonDisplayLogic: AnyObject {
 
 final class ComingSoonViewController: BackgroundImageViewControlller {
     
-    
+    //  MARK:- Clean Components
+    var interactor: ComingSoonBusinessLogic?
+    var router: (NSObjectProtocol & ComingSoonRoutingLogic & ComingSoonDataPassing)?
+
     private var moviesViewModel = [MovieViewModel]()
     
     private lazy var upcomingMoviesTableView : UITableView = {
@@ -31,8 +34,6 @@ final class ComingSoonViewController: BackgroundImageViewControlller {
         return tableView
     }()
     
-    var interactor: ComingSoonBusinessLogic?
-    var router: (NSObjectProtocol & ComingSoonRoutingLogic & ComingSoonDataPassing)?
     
     //  MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

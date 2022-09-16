@@ -6,7 +6,9 @@ protocol CollectionViewTableViewCelldelegate: AnyObject {
 }
 
 class MoviesTableViewCell: UITableViewCell {
-    
+    static var identifier: String { .init(describing: self) }
+
+        
     @IBOutlet weak var moviesCollectionView: UICollectionView! {
         didSet {
             moviesCollectionView.dataSource = self

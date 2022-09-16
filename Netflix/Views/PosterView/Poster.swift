@@ -11,7 +11,7 @@ class Poster: UIView {
         button.layer.cornerRadius = 25
         button.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.2)
         button.setImage(buttonImage, for: .normal)
-        button.addTarget(self, action: #selector(navigateBack), for: .touchUpInside)
+        button.addTarget(self, action: #selector(navigateBack), for: .allEvents)
         return button
     }()
     
@@ -21,7 +21,7 @@ class Poster: UIView {
         button.setImage(buttonImage, for: .normal)
         button.contentMode = .scaleAspectFill
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(postNotification), for: .touchUpInside)
+        button.addTarget(self, action: #selector(postNotification), for: .allEvents)
         return button
     }()
     
@@ -35,6 +35,7 @@ class Poster: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.frame = frame
         addSubview(posterView)
         addSubview(playButton)
         addSubview(backBtn)
@@ -90,8 +91,8 @@ extension Poster {
         ]
         
         let backBtnConstraints = [
-            backBtn.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            backBtn.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            backBtn.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            backBtn.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
             backBtn.widthAnchor.constraint(equalToConstant: 50),
             backBtn.heightAnchor.constraint(equalTo: backBtn.widthAnchor, multiplier: 1)
         ]

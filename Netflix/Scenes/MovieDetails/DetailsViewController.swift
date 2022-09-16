@@ -30,21 +30,23 @@ final class DetailsViewController: BackgroundImageViewControlller {
         tableView.register(DetailsCell.self, forCellReuseIdentifier: DetailsCell.identifier)
         tableView.register(MoreDetailsTableViewCell.self, forCellReuseIdentifier: MoreDetailsTableViewCell.identifier)
         tableView.register(DetailsOverviewCell.self, forCellReuseIdentifier: DetailsOverviewCell.identifier)
+        tableView.register(MoviesTableViewCell.self, forCellReuseIdentifier: MoviesTableViewCell.identifier)
+        tableView.contentInsetAdjustmentBehavior = .never
         tableView.frame = self.view.bounds
         tableView.backgroundColor = Constants.Design.Color.Background.None
         view.addSubview(tableView)
         return tableView
     }()
     
-    private var headerView: Poster?
+    private lazy var headerView = Poster(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height * 0.5))
     private var movieViewModel = MovieViewModel()
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
+        
     }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
@@ -77,15 +79,9 @@ final class DetailsViewController: BackgroundImageViewControlller {
         NotificationCenter.default.addObserver(self, selector: #selector(playTrailer), name: .playButtonTap, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(moveBack), name: .moveBackButtonTapped, object: nil)
         navigationController?.setNavigationBarHidden(true, animated: false)
-
-        headerView = Poster(frame: CGRect(
-                                x: 0,
-                                y: 0,
-                                width: view.bounds.width,
-                                height: UIScreen.main.bounds.height * 0.45)
-        )
         detailsTableView.tableHeaderView = headerView
     }
+    
     //  MARK:- Buttons Action
     @objc func playTrailer() {
         interactor?.updateUserWatchedList(request: Details.UpdateUserData.Request(movieId: movieViewModel.id))
@@ -106,7 +102,7 @@ extension DetailsViewController: DetailsDisplayLogic {
     }
     
     func displayMovieDetails(viewModel: Details.GetMovie.ViewModel) {
-        headerView?.configure(with: viewModel.movieViewModel.imageUrl, buttonsIsHidden: false)
+        headerView.configure(with: viewModel.movieViewModel.imageUrl, buttonsIsHidden: false)
         self.movieViewModel = viewModel.movieViewModel
         detailsTableView.reloadData()
     }
@@ -129,12 +125,16 @@ extension DetailsViewController: UITableViewDataSource, UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailsOverviewCell.identifier, for: indexPath) as? DetailsOverviewCell else { return UITableViewCell() }
             cell.configur(with: movieViewModel)
             return cell
+        //        case 3:
+        //            guard let cell = tableView.dequeueReusableCell(withIdentifier: MoviesTableViewCell.identifier, for: indexPath) as? MoviesTableViewCell else { return UITableViewCell() }
+        //            cell.configur(with: movieViewModel)
+        //            return cell
         default:
             break
         }
         return UITableViewCell()
-        
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         indexPath.row > 1 ? Constants.Content.Category.Height.max : Constants.Content.Category.Height.min
     }
