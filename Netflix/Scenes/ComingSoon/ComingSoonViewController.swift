@@ -106,7 +106,7 @@ extension ComingSoonViewController: ComingSoonDisplayLogic {
     }
     
     func displayAlert(viewModel: ComingSoon.Error.ViewModel) {
-        self.showAlertWith(title: AlerTitle.Error.error, text: viewModel.errorMessage)
+        self.showAlertWith(title: viewModel.errorModel.title, text: viewModel.errorModel.message)
     }
 }
 

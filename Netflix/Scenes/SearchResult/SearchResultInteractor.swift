@@ -42,7 +42,5 @@ extension SearchResultInteractor: SearchResultBusinessLogic {
     func didTapMovie(requset: SearchResult.GetSelectedMovie.Request) {
         selectedMovieId = requset.selectedMovieId
         presenter?.presentSelectedMovie(response: SearchResult.GetSelectedMovie.Response())
-        
     }
-    
 }

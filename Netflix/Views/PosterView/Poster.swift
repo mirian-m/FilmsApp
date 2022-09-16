@@ -3,6 +3,7 @@ import UIKit
 class Poster: UIView {
     var posterUrl: String?
     
+    //  MARK: @IBOutlet programmatically
     private var backBtn: UIButton = {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -57,11 +58,11 @@ class Poster: UIView {
         posterView.getImageFromWeb(by: url)
     }
     
-    @objc func postNotification() {
+    @objc private func postNotification() {
         NotificationCenter.default.post(name: .playButtonTap, object: self)
     }
     
-    @objc func navigateBack() {
+    @objc private func navigateBack() {
         NotificationCenter.default.post(name: .moveBackButtonTapped, object: self)
     }
 }

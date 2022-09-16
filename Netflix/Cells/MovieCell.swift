@@ -17,7 +17,7 @@ class MovieCell: UITableViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 5
+        imageView.layer.cornerRadius = Constants.Content.Category.CornerRadius.min
         imageView.image = UIImage(named: "defaultImage")
         return imageView
     }()
@@ -28,7 +28,7 @@ class MovieCell: UITableViewCell {
         self.accessoryType = .detailDisclosureButton
         self.tintColor = Constants.Design.Color.Primary.White
         addItemsToView()
-        applyConstreints()
+        adjustConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -40,7 +40,7 @@ class MovieCell: UITableViewCell {
         contentView.addSubview(titleLabel)
     }
     
-    func applyConstreints() {
+    func adjustConstraints() {
         let posterImageConstraints = [
             posterImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             posterImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),

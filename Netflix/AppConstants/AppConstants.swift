@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-//  Using case-less enum
+//  MARK:- Case-less enum for Constants
 enum Constants {
     
     enum Design {
@@ -34,6 +34,7 @@ enum Constants {
             static let IconClock = UIImage(systemName: "clock")
             static let IconEye = UIImage(systemName: "eye")
             static let IconEyeSlash = UIImage(systemName: "eye.slash")
+            static let IconSigOut = UIImage(systemName: "arrowshape.turn.up.right")
         }
         
         enum Font {
@@ -97,14 +98,17 @@ enum Constants {
         }
     }
     
-//    enum AlerTitle {
-//        enum Error {
-//            static var error = "Error"
-//            static var registration = "Registration Error"
-//            static var createUser = "Create User Error"
-//            static var sigIn = "Sig In Error"
-//        }
-//    }
+    //    enum AlerTitle {
+    //        enum Error {
+    //            static var error = "Error"
+    //            static var registration = "Registration Error"
+    //            static var createUser = "Create User Error"
+    //            static var sigIn = "Sig In Error"
+    //        }
+    //    }
+}
+public enum APICollerError: String, Error {
+    case faldeToGetData = "Falde To get data"
 }
 
 

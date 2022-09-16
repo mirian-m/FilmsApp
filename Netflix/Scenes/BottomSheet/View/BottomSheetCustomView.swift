@@ -1,19 +1,20 @@
+//  BottomSheetCustomView.swift
+//  Netflix
+//  Created by Admin on 9/16/22.
+
 import UIKit
 
-protocol ConfirmedViewControllerDelegate: AnyObject {
-    func signOutFromProfile()
-}
-
-class ConfirmedViewController: UIViewController {
-    lazy var bottomView: UIView = {
+final class BottomSheetCustomView: UIView {
+    
+    private lazy var bottomView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 10
-        self.view.addSubview(view)
+        addSubview(view)
         return view
     }()
     
-    lazy var questionLb: UILabel = {
+    private lazy var questionLb: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
         lb.text = "Are you sure you want to quit?"
@@ -22,7 +23,7 @@ class ConfirmedViewController: UIViewController {
         return lb
     }()
     
-    lazy var yesBtn: UIButton = {
+    private lazy var yesBtn: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("Yes", for: .normal)
@@ -34,7 +35,7 @@ class ConfirmedViewController: UIViewController {
        return btn
     }()
     
-    lazy var noBtn: UIButton = {
+    private lazy var noBtn: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("No", for: .normal)
@@ -46,30 +47,32 @@ class ConfirmedViewController: UIViewController {
        return btn
     }()
     
-    weak var delegate: ConfirmedViewControllerDelegate?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .none
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .none
         bottomView.backgroundColor = .black
         adjustContraints()
     }
-    
-    @objc func sigOutFromProfile() {
-        dismiss(animated: true) {
-            self.delegate?.signOutFromProfile()
-        }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func dismissController() {
-        dismiss(animated: true, completion: nil)
+    //  MARK:- Button actions
+    @objc private func sigOutFromProfile() {
+        NotificationCenter.default.post(name: .yesButtonWasClickedOnTheBottomSheet, object: nil)
     }
-    func adjustContraints() {
+
+    @objc private func dismissController() {
+        NotificationCenter.default.post(name: Notification.Name("Dismiss"), object: nil)
+    }
+    
+    //  MARK:- Adjust contraints Method
+    private func adjustContraints() {
         let bottomViewConstreints = [
-            bottomView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            bottomView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
-            bottomView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            bottomView.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: 30)
+            bottomView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            bottomView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5),
+            bottomView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+            bottomView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: 30)
         ]
         
         let yesBtnConstreints = [
@@ -82,7 +85,6 @@ class ConfirmedViewController: UIViewController {
             noBtn.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor, constant: 100),
             noBtn.topAnchor.constraint(equalTo: yesBtn.topAnchor),
             noBtn.widthAnchor.constraint(equalTo: yesBtn.widthAnchor)
-            
         ]
         
         let questionLbConstraints = [

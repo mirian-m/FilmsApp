@@ -34,19 +34,18 @@ final class WelcomeViewController: BackgroundImageViewControlller , WelcomeDispl
             getStaredBtn.titleLabel?.font = Constants.Design.Font.HeadingTwo
         }
     }
-    @IBOutlet weak var lb: UILabel! {
+    @IBOutlet weak var titleLb: UILabel! {
         didSet {
-            lb.textColor = Constants.Design.Color.Primary.White
-            lb.font = UIFont(name: "Helvetica Neue", size: 32)
-            lb.textAlignment = .center
+            titleLb.textColor = Constants.Design.Color.Primary.White
+            titleLb.font = UIFont(name: "Helvetica Neue", size: 32)
+            titleLb.textAlignment = .center
         }
     }
-    
-    @IBOutlet weak var lb2: UILabel! {
+    @IBOutlet weak var sublineLb: UILabel! {
         didSet {
-            lb2.textColor = Constants.Design.Color.Primary.White
-            lb2.font = UIFont(name: "Helvetica Neue", size: 18)
-            lb2.textAlignment = .center
+            sublineLb.textColor = Constants.Design.Color.Primary.White
+            sublineLb.font = UIFont(name: "Helvetica Neue", size: 18)
+            sublineLb.textAlignment = .center
         }
     }
     

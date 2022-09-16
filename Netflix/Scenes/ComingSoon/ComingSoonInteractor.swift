@@ -35,7 +35,7 @@ extension ComingSoonInteractor:  ComingSoonBusinessLogic {
         worker = APIWoker()
         let url = ApiHelper.shared.getMovieUrl(by: "Upcoming movies")
         
-        worker?.fetchMovieData(by: url, or: nil, completion: { (result: Result<Movies, APICollerError>) in
+        worker?.fetchMovieData(by: url, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 var response = ComingSoon.GetUpcomingMovies.Response()
                 switch result {

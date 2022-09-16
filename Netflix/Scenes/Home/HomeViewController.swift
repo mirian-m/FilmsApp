@@ -34,7 +34,6 @@ final class HomeViewController: BackgroundImageViewControlller {
     private var posterIsSeted = false
     private var fetchedMoviesDetails: [MovieViewModel] = []
     
-    
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +73,7 @@ final class HomeViewController: BackgroundImageViewControlller {
     }
     
     private func controllerSetup() {
+        NotificationCenter.default.addObserver(self, selector: #selector(signOutFromProfile), name: .yesButtonWasClickedOnTheBottomSheet, object: nil)
         tabBarController?.navigationItem.hidesBackButton = true
         tabBarController?.navigationController?.navigationBar.isHidden = false
         tabBarItem.badgeColor = .label
@@ -84,7 +84,6 @@ final class HomeViewController: BackgroundImageViewControlller {
                                           y: 0,
                                           width: view.bounds.width,
                                           height: UIScreen.main.bounds.height * (2/3)))
-        headerView?.postNotification()
         filmTableView.tableHeaderView = headerView
         setNavBarItem()
     }
@@ -106,6 +105,11 @@ final class HomeViewController: BackgroundImageViewControlller {
     @objc private func goToProfile() {
         router?.routeToProfile(segue: nil)
     }
+    
+    @objc func signOutFromProfile() {
+        router?.routeToWelcomePage(segue: nil)
+    }
+
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -169,7 +173,7 @@ extension HomeViewController: HomeDisplayLogic {
     }
     
     func displayAlert(viewModel: Home.Error.ViewModel) {
-        self.showAlertWith(title: AlerTitle.Error.error, text: viewModel.errorMessage)
+        self.showAlertWith(title: viewModel.errorModel.title, text: viewModel.errorModel.message)
     }
     
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel) {
@@ -177,7 +181,7 @@ extension HomeViewController: HomeDisplayLogic {
     }
 }
 
-extension HomeViewController: CollectionViewTableViewCelldelegate, ProfileViewControllerDelegate {
+extension HomeViewController: CollectionViewTableViewCelldelegate {
     
     //  MARK: Delegate Protocol FUNCtions
     func collectionViewTableViewCellDidTap(movieId: Int) {

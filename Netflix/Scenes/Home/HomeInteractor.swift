@@ -38,7 +38,7 @@ extension HomeInteractor: HomeBusinessLogic {
         let url = ApiHelper.shared.getMovieUrl(by: request.section)
         var response = Home.MovieInfo.Response()
         
-        worker?.fetchMovieData(by: url, or: nil, completion: { (result: Result<Movies, APICollerError>) in
+        worker?.fetchMovieData(by: url, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let movies):

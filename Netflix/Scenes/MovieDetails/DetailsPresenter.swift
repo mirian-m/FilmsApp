@@ -23,7 +23,8 @@ class DetailsPresenter: DetailsPresentationLogic {
   
   func presentMovieDetails(response: Details.GetMovie.Response) {
     guard let movie = response.movie, response.error == nil else {
-        viewController?.displayAlert(viewModel: Details.Error.ViewModel(title: AlerTitle.Error.error, errorMessage: response.error!.rawValue))
+        viewController?.displayAlert(viewModel: Details.Error.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.rawValue)))
+//        viewController?.displayAlert(viewModel: Details.Error.ViewModel(title: AlerTitle.Error.error, errorMessage: response.error!.rawValue))
         return
     }
     let viewModel = Details.GetMovie.ViewModel(movieViewModel: MovieViewModel(with: movie))

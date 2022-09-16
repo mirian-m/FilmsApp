@@ -51,5 +51,4 @@ final class ApiHelper {
         }
         return baseUrl + urlStr + apiKey + "&page=" + page
     }
-    
 }

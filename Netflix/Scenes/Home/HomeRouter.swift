@@ -32,12 +32,13 @@ extension HomeRouter: HomeRoutingLogic {
     //  MARK: Routing
     func routeToProfile(segue: UIStoryboardSegue?) {
         let destinationVC = ProfileViewController()
-        destinationVC.delegate = self.viewController
         present(source: viewController!, destination: destinationVC)
     }
+    
     func routeToWelcomePage(segue: UIStoryboardSegue?) {
         popToWelcomePage(source: viewController!, destination: nil)
     }
+    
     func routToDetailsVc(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
         destinationVC.modalTransitionStyle = .coverVertical

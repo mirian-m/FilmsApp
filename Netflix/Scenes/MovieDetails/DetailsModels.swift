@@ -21,9 +21,7 @@ enum Details {
         struct Response {}
         
         struct ViewModel {
-            var errorModel: ErrorViewModel?
-            var title: String
-            var errorMessage: String
+            var errorModel: ErrorViewModel
         }
     }
 

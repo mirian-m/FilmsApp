@@ -39,7 +39,7 @@ final class SearchMovieInteractor: SearchMovieBusinessLogic, SearchMovieDataStor
     func getMovies(request: SearchMovie.GetMovies.Request) {
         let url = ApiHelper.shared.getMovieUrl(by: "Search")
         
-        worker?.fetchMovieData(by: url, or: nil, completion: { (result: Result<Movies, APICollerError>) in
+        worker?.fetchMovieData(by: url, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 var response = SearchMovie.GetMovies.Response()
                 switch result {
@@ -61,7 +61,7 @@ final class SearchMovieInteractor: SearchMovieBusinessLogic, SearchMovieDataStor
     
     func updateSearchResult(requset: SearchMovie.GetSearchedMovies.Request) {
         var response = SearchMovie.GetSearchedMovies.Response()
-        worker?.fetchMovieData(by: nil, or: requset.query, completion: { (result: Result<Movies, APICollerError>) in
+        worker?.fetchMovieData(by: requset.query, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self]  in
                 switch result {
                 case .success(let searchedMovies):

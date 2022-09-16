@@ -130,8 +130,9 @@ extension MovieTrailerViewController: MovieTrailerDisplayLogic {
     
     //  MARK:- MovieTrailerDisplayLogic Methods
     func displayAlert(viewModel: MovieTrailer.Error.ViewModel) {
-        self.showAlertWith(title: viewModel.title, text: viewModel.errorMessage)
+        self.showAlertWith(title: viewModel.errorModel.title, text: viewModel.errorModel.message)
     }
+    
     func displayMovieTrailer(viewModel: MovieTrailer.GetTrailer.ViewModel) {
         self.titleLb.text = viewModel.trailer.movieTitle
         self.overviewLb.text = viewModel.trailer.overview

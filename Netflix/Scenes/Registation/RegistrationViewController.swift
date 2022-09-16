@@ -43,6 +43,7 @@ final class RegistrationViewController: BackgroundImageViewControlller {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = true
         view.addSubview(contentView)
         addTargetsFunc()
         getView()
@@ -159,5 +160,4 @@ extension RegistrationViewController {
         let title = contentView.segmentControl.titleForSegment(at: contentView.segmentControl.selectedSegmentIndex)
         contentView.button.setTitle(title, for: .normal)
     }
-    
 }

@@ -24,7 +24,7 @@ final class SearchMoviePresenter: SearchMoviePresentationLogic {
     // MARK: Do something
     func presenMovies(response: SearchMovie.GetMovies.Response) {
         guard response.error == nil else {
-            viewController?.displayAlert(viewModel: SearchMovie.Error.ViewModel(errorMessage: response.error!.rawValue))
+            viewController?.displayAlert(viewModel: SearchMovie.Error.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.rawValue)))
             return
         }
         let viewModel = SearchMovie.GetMovies.ViewModel(movie: response.movies?.details.convert() ?? [])
@@ -37,7 +37,7 @@ final class SearchMoviePresenter: SearchMoviePresentationLogic {
     
     func presentSearchedMovies(response: SearchMovie.GetSearchedMovies.Response) {
         guard response.error == nil else {
-            viewController?.displayAlert(viewModel: SearchMovie.Error.ViewModel(errorMessage: response.error!.rawValue))
+            viewController?.displayAlert(viewModel: SearchMovie.Error.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.rawValue)))
             return
         }
         let viewModel = SearchMovie.GetSearchedMovies.ViewModel(movieViewModel: (response.searchedMovies?.details.convert()) ?? [])

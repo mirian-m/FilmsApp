@@ -21,25 +21,22 @@ class WatchedListPresenter {
     weak var viewController: WatchedListDisplayLogic?
     
     // MARK: Do something
-
-    private func convert(model: [MovieDetails]) -> [MovieViewModel] {
-        var viewModel = [MovieViewModel]()
-        model.forEach { movieDetail in
-            let model = MovieViewModel(with: movieDetail)
-            viewModel.append(model)
-        }
-        return viewModel
-    }
+//    private func convert(model: [MovieDetails]) -> [MovieViewModel] {
+//        var viewModel = [MovieViewModel]()
+//        model.forEach { movieDetail in
+//            let model = MovieViewModel(with: movieDetail)
+//            viewModel.append(model)
+//        }
+//        return viewModel
+//    }
 }
 
 extension WatchedListPresenter: WatchedListPresentationLogic {
     func presentSelectedMovie(response: WatchedList.GetSelectedMovie.Response) {
         viewController?.displaySelectedMovie(viewModel: WatchedList.GetSelectedMovie.ViewModel())
     }
-    
-    
     func presentWatchedMovies(response: WatchedList.GetWatchedMovies.Response) {
-        let viewModel = WatchedList.GetWatchedMovies.ViewModel(watchedMoviesModel: convert(model: response.movies ?? []))
+        let viewModel = WatchedList.GetWatchedMovies.ViewModel(watchedMoviesModel: response.movies?.convert() ?? [])
         viewController?.displayWatchedMovies(viewModel: viewModel)
     }
 

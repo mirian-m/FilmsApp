@@ -6,7 +6,8 @@ import UIKit
 
 final class RegistrationView: UIView {
     
-   private lazy var logo: UIImageView = {
+    //  MARK: @IBOutlet programmatically
+    private lazy var logo: UIImageView = {
         let logo = UIImageView()
         logo.translatesAutoresizingMaskIntoConstraints = false
         logo.image = UIImage(named: "NetflixLogo")
@@ -100,16 +101,17 @@ final class RegistrationView: UIView {
         return indicator
     }()
     
+    //  MARK-: Object lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.frame = frame
         self.backgroundColor = Constants.Design.Color.Background.None
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //  MARK: View lifecycle
     override func layoutSubviews() {
         super .layoutSubviews()
         embedItemsInStackView()
@@ -119,6 +121,7 @@ final class RegistrationView: UIView {
 
 extension RegistrationView {
     
+    //  MARK:- Private Metods
     private func embedItemsInStackView() {
         regitrationStackView.addArrangedSubview(firstNameTextField)
         regitrationStackView.addArrangedSubview(lastNameTextField)

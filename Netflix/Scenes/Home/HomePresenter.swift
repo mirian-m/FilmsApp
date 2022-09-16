@@ -28,7 +28,8 @@ extension HomePresenter: HomePresentationLogic {
     func presentMovies(response: Home.MovieInfo.Response) {
         
         guard response.error == nil else {
-            viewController?.displayAlert(viewModel: Home.Error.ViewModel(errorMessage: response.error!.rawValue))
+            viewController?.displayAlert(viewModel: Home.Error.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.rawValue)))
+//            viewController?.displayAlert(viewModel: Home.Error.ViewModel(errorMessage: response.error!.rawValue))
             return
         }
         viewController?.displayMovies(viewModel: Home.MovieInfo.ViewModel(moviesViewModel: response.movies?.details.convert()))

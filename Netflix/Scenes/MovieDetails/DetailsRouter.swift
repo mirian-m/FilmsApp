@@ -32,8 +32,6 @@ extension DetailsRouter:  DetailsRoutingLogic {
     func routeToBack(segue: UIStoryboardSegue?) {
         popVc(source: viewController!)
     }
-    
-    
     // MARK: Routing
     func routeToTraileVc(segue: UIStoryboardSegue?) {
         let destinationVC = MovieTrailerViewController()

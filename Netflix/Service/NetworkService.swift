@@ -1,13 +1,9 @@
-//
 //  NetworkService.swift
 //  Netflix
-//
 //  Created by Admin on 9/10/22.
-//
 
 import Foundation
 import UIKit
-
 
 final class NetworkService {
     static let shared = NetworkService()
@@ -40,7 +36,7 @@ final class NetworkService {
         }.resume()
     }
     
-    //  MARK:- Fetch Image From url By compl
+    //  MARK:- Fetch Image From url using completion hendler
     func getImageFromWeb(by url: String,  completion: @escaping ((UIImage?, String)) -> Void) {
         
         guard let ApiUrl = URL(string: url) else { return }
@@ -52,8 +48,6 @@ final class NetworkService {
                 let image = UIImage(data: data)
                 completion((image, url))
             }
-            
         }.resume()
     }
-    
 }

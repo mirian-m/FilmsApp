@@ -21,8 +21,8 @@ enum ComingSoon {
         struct Response {}
         
         struct ViewModel {
-            var errorModel: ErrorViewModel?
-            var errorMessage: String
+            var errorModel: ErrorViewModel
+            
         }
     }
 

@@ -12,4 +12,4 @@
 
 import UIKit
 
-class WelcomeWorker {}
+final class WelcomeWorker {}

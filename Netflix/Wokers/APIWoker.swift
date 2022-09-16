@@ -10,7 +10,7 @@ import UIKit
 
 final class APIWoker {
     
-    func fetchMovieData<T: Decodable>(by url: String?, or query: String?, completion: @escaping (Result<T, APICollerError>) -> Void) {
+    func fetchMovieData<T: Decodable>(by url: String? = nil, by query: String? = nil, completion: @escaping (Result<T, APICollerError>) -> Void) {
         var urlString = ""
         if let query = query {
             urlString = "\(Constants.API.Movies.Main.BaseURL)/3/search/movie?api_key=\(Constants.API.Movies.Main.API_Key)&query=\(query)"
@@ -26,7 +26,7 @@ final class APIWoker {
     
     func getMovie<T: Decodable>(by id: Int, complition: @escaping (Result<T, APICollerError>) -> Void) {
         let url = "https://api.themoviedb.org/3/movie/\(id)?api_key=\(Constants.API.Movies.Main.API_Key)"
-        fetchMovieData(by: url, or: nil) { (result) in
+        fetchMovieData(by: url) { (result) in
             complition(result)
         }
     }

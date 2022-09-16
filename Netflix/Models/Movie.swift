@@ -41,7 +41,6 @@ struct Genres: Decodable, Equatable, Hashable {
     var name: String?
 }
 
-
 extension MovieDetails: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id

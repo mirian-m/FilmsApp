@@ -12,9 +12,7 @@
 
 import UIKit
 
-protocol WelcomePresentationLogic {
-//    func presentRegistration()
-}
+protocol WelcomePresentationLogic {}
 
 final class WelcomePresenter: WelcomePresentationLogic {
     weak var viewController: WelcomeDisplayLogic?

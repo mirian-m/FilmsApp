@@ -26,8 +26,6 @@ final class WelcomeInteractor: WelcomeBusinessLogic, WelcomeDataStore {
     var worker: WelcomeWorker?
     var identifier: Int = 0
     
-    // MARK: Do something
-    
     func getTappeddButtonTag(requset: Welcome.Save.Request) {
         self.identifier = requset.buttonTag
     }

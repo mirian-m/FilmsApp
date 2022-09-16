@@ -8,7 +8,6 @@
 import Foundation
 
 enum AlerTitle {
-    
     enum Error {
         static var error = "Error"
         static var registration = "Registration Error"

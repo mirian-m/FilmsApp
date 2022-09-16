@@ -102,7 +102,7 @@ final class DetailsViewController: BackgroundImageViewControlller {
 
 extension DetailsViewController: DetailsDisplayLogic {
     func displayAlert(viewModel: Details.Error.ViewModel) {
-        self.showAlertWith(title: viewModel.title, text: viewModel.errorMessage)
+        self.showAlertWith(title: viewModel.errorModel.title, text: viewModel.errorModel.message)
     }
     
     func displayMovieDetails(viewModel: Details.GetMovie.ViewModel) {
