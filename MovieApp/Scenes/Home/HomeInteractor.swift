@@ -28,10 +28,9 @@ final class HomeInteractor: HomeDataStore {
     private var fetchedMovies: Movies = Movies(details: [])
     
 }
-
+// MARK: HomeBusinessLogic Metods
 extension HomeInteractor: HomeBusinessLogic {
-    
-    // MARK: HomeBusinessLogic Metods
+    //  MARK:- Get movies
     func fetchMovies(request: Home.MovieInfo.Request, completion: @escaping (Bool) -> Void) {
         worker = APIWoker()
         
@@ -52,6 +51,7 @@ extension HomeInteractor: HomeBusinessLogic {
             }
         })
     }
+    //  MARK:- Get selected movies
     func didTapMovie(requset: Home.GetSelectedMovie.Request) {
         selectedMovieId = requset.selectedMovieId
         presenter?.presentSelectedMovie(response: Home.GetSelectedMovie.Response())

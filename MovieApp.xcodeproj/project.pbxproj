@@ -112,7 +112,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		84209C7227C775AB003CE71D /* Netflix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Netflix.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		84209C7227C775AB003CE71D /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84209C7527C775AB003CE71D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84209C7727C775AC003CE71D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		84209C7C27C775AC003CE71D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -240,7 +240,7 @@
 		84209C6927C775AB003CE71D = {
 			isa = PBXGroup;
 			children = (
-				84209C7427C775AB003CE71D /* Netflix */,
+				84209C7427C775AB003CE71D /* MovieApp */,
 				84209C7327C775AB003CE71D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -249,12 +249,12 @@
 		84209C7327C775AB003CE71D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				84209C7227C775AB003CE71D /* Netflix.app */,
+				84209C7227C775AB003CE71D /* MovieApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		84209C7427C775AB003CE71D /* Netflix */ = {
+		84209C7427C775AB003CE71D /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
 				84F2B9C828CF4D03006CECD7 /* AppConstants */,
@@ -276,7 +276,7 @@
 				84209C8327C775B8003CE71D /* Info.plist */,
 				8424EF4328ABD91800F30E6C /* GoogleService-Info.plist */,
 			);
-			path = Netflix;
+			path = MovieApp;
 			sourceTree = "<group>";
 		};
 		84209C9027C7B43F003CE71D /* Controllers */ = {
@@ -580,6 +580,7 @@
 		84CF7ED128AF9A6E00297004 /* Registation */ = {
 			isa = PBXGroup;
 			children = (
+				8463554A28D37B8C0021492D /* ViewModel */,
 				84F2B9CF28CFA128006CECD7 /* View */,
 				84CF7ED628AF9A8D00297004 /* RegistrationViewController.swift */,
 				84CF7ED728AF9A8D00297004 /* RegistrationInteractor.swift */,
@@ -620,7 +621,6 @@
 		84F2B9CF28CFA128006CECD7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8463554A28D37B8C0021492D /* ViewModel */,
 				848FCFBE28954D9F0056582C /* RegistrationView */,
 			);
 			path = View;
@@ -629,9 +629,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		84209C7127C775AB003CE71D /* Netflix */ = {
+		84209C7127C775AB003CE71D /* MovieApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 84209C8627C775B8003CE71D /* Build configuration list for PBXNativeTarget "Netflix" */;
+			buildConfigurationList = 84209C8627C775B8003CE71D /* Build configuration list for PBXNativeTarget "MovieApp" */;
 			buildPhases = (
 				84209C6E27C775AB003CE71D /* Sources */,
 				84209C6F27C775AB003CE71D /* Frameworks */,
@@ -641,13 +641,13 @@
 			);
 			dependencies = (
 			);
-			name = Netflix;
+			name = MovieApp;
 			packageProductDependencies = (
 				8424EF5C28ABDF0B00F30E6C /* FirebaseAuth */,
 				8424EF5E28ABDF0B00F30E6C /* FirebaseDatabase */,
 			);
 			productName = Netflix;
-			productReference = 84209C7227C775AB003CE71D /* Netflix.app */;
+			productReference = 84209C7227C775AB003CE71D /* MovieApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -664,7 +664,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 84209C6D27C775AB003CE71D /* Build configuration list for PBXProject "Netflix" */;
+			buildConfigurationList = 84209C6D27C775AB003CE71D /* Build configuration list for PBXProject "MovieApp" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -680,7 +680,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				84209C7127C775AB003CE71D /* Netflix */,
+				84209C7127C775AB003CE71D /* MovieApp */,
 			);
 		};
 /* End PBXProject section */
@@ -947,15 +947,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = Netflix/Info.plist;
+				INFOPLIST_FILE = MovieApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Mirian-maglakelidze.Netflix";
+				PRODUCT_BUNDLE_IDENTIFIER = "Mirian-maglakelidze.MovieApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -965,22 +965,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = Netflix/Info.plist;
+				INFOPLIST_FILE = MovieApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Mirian-maglakelidze.Netflix";
+				PRODUCT_BUNDLE_IDENTIFIER = "Mirian-maglakelidze.MovieApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		84209C6D27C775AB003CE71D /* Build configuration list for PBXProject "Netflix" */ = {
+		84209C6D27C775AB003CE71D /* Build configuration list for PBXProject "MovieApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				84209C8427C775B8003CE71D /* Debug */,
@@ -989,7 +989,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		84209C8627C775B8003CE71D /* Build configuration list for PBXNativeTarget "Netflix" */ = {
+		84209C8627C775B8003CE71D /* Build configuration list for PBXNativeTarget "MovieApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				84209C8727C775B8003CE71D /* Debug */,

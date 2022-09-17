@@ -38,7 +38,7 @@ final class DetailsViewController: BackgroundImageViewControlller {
         return tableView
     }()
     
-    private lazy var headerView = Poster(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height * 0.5))
+    private lazy var headerView = Poster(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height * 0.55))
     private var movieViewModel = MovieViewModel()
     
     // MARK: Object lifecycle

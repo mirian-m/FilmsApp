@@ -79,8 +79,8 @@ final class ProfileView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = Constants.Design.Color.Background.Light
-        self.frame = frame
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         adjustConstraints()
@@ -117,10 +117,10 @@ final class ProfileView: UIView {
         ]
         
         let profileImgConstraints = [
-            profileImg.heightAnchor.constraint(equalToConstant: 130),
-            profileImg.widthAnchor.constraint(equalTo: profileImg.heightAnchor, multiplier: 1),
+            profileImg.heightAnchor.constraint(equalToConstant: 100),
+            profileImg.widthAnchor.constraint(equalTo: profileImg.heightAnchor),
             profileImg.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            profileImg.topAnchor.constraint(equalTo: self.topAnchor, constant: 60)
+            profileImg.topAnchor.constraint(equalTo: self.topAnchor, constant: 30)
         ]
         
         let stackViewConstraints = [
