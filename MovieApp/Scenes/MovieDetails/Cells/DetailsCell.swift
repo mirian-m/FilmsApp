@@ -40,7 +40,7 @@ class DetailsCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.image = Constants.Design.Image.IconClock?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        imageView.image = Constants.Design.Image.Icon.IconClock?.withTintColor(.white, renderingMode: .alwaysOriginal)
         return imageView
     }()
     
@@ -58,7 +58,7 @@ class DetailsCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.image = Constants.Design.Image.IconStar?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        imageView.image = Constants.Design.Image.Icon.IconStar?.withTintColor(.white, renderingMode: .alwaysOriginal)
         return imageView
     }()
     

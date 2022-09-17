@@ -69,7 +69,7 @@ final class HomeViewController: BackgroundImageViewControlller {
         tabBarController?.navigationItem.hidesBackButton = true
         tabBarController?.navigationController?.navigationBar.isHidden = false
         tabBarItem.badgeColor = .label
-        tabBarItem.image = Constants.Design.Image.IconHome?.withRenderingMode(.automatic)
+        tabBarItem.image = Constants.Design.Image.Icon.IconHome?.withRenderingMode(.automatic)
         tabBarItem.title = "Home"
         
         headerView = Poster(frame: CGRect(x: 0,
@@ -82,11 +82,11 @@ final class HomeViewController: BackgroundImageViewControlller {
     
     //  MARK:- Set Navigation Items
     private func setNavBarItem() {
-        let image = UIImage(named: "Netflix-new")?.withRenderingMode(.alwaysOriginal)
+        let image = Constants.Design.Image.Logo.LogoImageOne?.withRenderingMode(.alwaysOriginal)
         tabBarController?.navigationItem.leftBarButtonItem  = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
         tabBarController?.navigationItem.rightBarButtonItem =
             UIBarButtonItem(
-                image: Constants.Design.Image.IconPerson?.withTintColor(.white, renderingMode: .alwaysOriginal),
+                image: Constants.Design.Image.Icon.IconPerson?.withTintColor(.white, renderingMode: .alwaysOriginal),
                 style: .done,
                 target: self, action: #selector(goToProfile)
             )

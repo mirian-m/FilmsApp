@@ -28,13 +28,23 @@ enum Constants {
         }
         
         enum Image {
-            static let IconHome = UIImage(systemName: "house.fill")
-            static let IconPerson = UIImage(systemName: "person.fill")
-            static let IconStar = UIImage(systemName: "star.fill")
-            static let IconClock = UIImage(systemName: "clock")
-            static let IconEye = UIImage(systemName: "eye")
-            static let IconEyeSlash = UIImage(systemName: "eye.slash")
-            static let IconSigOut = UIImage(systemName: "arrowshape.turn.up.right")
+            static let DefaultImage = UIImage(named: "defaultImage")
+            enum Logo {
+                static let LogoImageOne = UIImage(named: "Netflix-new")
+                static let LogoImageTwo = UIImage(named: "NetflixLogo")
+            }
+            enum Icon {
+                static let IconBack = UIImage(systemName: "chevron.backward")
+                static let IconPaly = UIImage(named: "PlayIcon")
+                static let IconHome = UIImage(systemName: "house.fill")
+                static let IconPerson = UIImage(systemName: "person.fill")
+                static let IconStar = UIImage(systemName: "star.fill")
+                static let IconClock = UIImage(systemName: "clock")
+                static let IconEye = UIImage(systemName: "eye")
+                static let IconEyeSlash = UIImage(systemName: "eye.slash")
+                static let IconSigOut = UIImage(systemName: "arrowshape.turn.up.right")
+
+            }
         }
         
         enum Font {

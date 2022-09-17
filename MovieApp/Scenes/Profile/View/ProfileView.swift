@@ -107,7 +107,7 @@ final class ProfileView: UIView {
     
     //  MARK:- Private Methods
     private func setButtonsIcon() {
-        signOut.setButton(image: (Constants.Design.Image.IconSigOut?.withTintColor(.white, renderingMode: .alwaysOriginal))!, horizontalAligment: .center)
+        signOut.setButton(image: (Constants.Design.Image.Icon.IconSigOut?.withTintColor(.white, renderingMode: .alwaysOriginal))!, horizontalAligment: .center)
     }
     
     private func adjustConstraints() {

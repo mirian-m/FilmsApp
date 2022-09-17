@@ -18,7 +18,7 @@ class MovieCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = Constants.Content.Category.CornerRadius.min
-        imageView.image = UIImage(named: "defaultImage")
+        imageView.image = Constants.Design.Image.DefaultImage
         return imageView
     }()
     

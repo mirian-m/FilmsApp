@@ -12,7 +12,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     private var imageUrl: String?
     
     func loadImage(by imageUrl: String) {
-        self.posterImageView.image = UIImage(named: "defaultImage")
+        self.posterImageView.image = Constants.Design.Image.DefaultImage
         self.imageUrl = imageUrl
         NetworkService.shared.getImageFromWeb(by: imageUrl) { [weak self] (image, url) in
             if (url == self?.imageUrl) {
