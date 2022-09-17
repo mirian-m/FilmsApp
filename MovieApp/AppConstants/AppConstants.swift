@@ -43,7 +43,6 @@ enum Constants {
             static let HeadingThree = UIFont.systemFont(ofSize: 16, weight: .medium)
             static let Body = UIFont.systemFont(ofSize: 15, weight: .regular)
             static let Sub = UIFont.systemFont(ofSize: 13, weight: .regular)
-            
         }
     }
     

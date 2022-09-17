@@ -3,13 +3,13 @@ import UIKit
 class Poster: UIView {
     var posterUrl: String?
     
-    //  MARK: @IBOutlet programmatically
+    //  MARK: IBOutlet programmatically
     private var backBtn: UIButton = {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        let buttonImage = UIImage(systemName: "chevron.backward")?.withTintColor(UIColor.white, renderingMode: .alwaysOriginal)
+        let buttonImage = UIImage(systemName: "chevron.backward")?.withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
         button.layer.cornerRadius = 25
-        button.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.2)
+        button.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.4)
         button.setImage(buttonImage, for: .normal)
         button.addTarget(self, action: #selector(navigateBack), for: .allEvents)
         return button
@@ -39,7 +39,7 @@ class Poster: UIView {
         addSubview(posterView)
         addSubview(playButton)
         addSubview(backBtn)
-        addGratient()
+        addGradient()
         addButtonConstraints()
     }
     
@@ -59,6 +59,7 @@ class Poster: UIView {
         posterView.getImageFromWeb(by: url)
     }
     
+    //  MARK:- Button Metods
     @objc private func postNotification() {
         NotificationCenter.default.post(name: .playButtonTap, object: self)
     }
@@ -70,16 +71,18 @@ class Poster: UIView {
 
 extension Poster {
     
-    private func addGratient() {
+    //  MARK:- Add gradient to the poster image
+    private func addGradient() {
         let layer = CAGradientLayer()
         layer.colors = [
             UIColor.clear.cgColor,
-            UIColor.systemBackground.cgColor
+            Constants.Design.Color.Background.Light.cgColor
         ]
         layer.frame = bounds
         self.layer.addSublayer(layer)
         
     }
+    
     //  MARK:- Constraints
     private func addButtonConstraints(){
         
@@ -92,7 +95,7 @@ extension Poster {
         
         let backBtnConstraints = [
             backBtn.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            backBtn.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            backBtn.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
             backBtn.widthAnchor.constraint(equalToConstant: 50),
             backBtn.heightAnchor.constraint(equalTo: backBtn.widthAnchor, multiplier: 1)
         ]

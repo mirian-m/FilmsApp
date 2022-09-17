@@ -6,6 +6,7 @@ import Foundation
 import UIKit
 
 class BackgroundImageViewControlller: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addBackgroundImage()
@@ -14,12 +15,12 @@ class BackgroundImageViewControlller: UIViewController {
     func addBackgroundImage() {
         UIGraphicsBeginImageContext(self.view.frame.size)
         
-//        UIImage(named: "cast")?.draw(in: self.view.bounds)
-//
-//        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-//
-//        UIGraphicsEndImageContext()
-//        UIColor(patternImage: image)
+        //        UIImage(named: "cast")?.draw(in: self.view.bounds)
+        //
+        //        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        //
+        //        UIGraphicsEndImageContext()
+        //        UIColor(patternImage: image)
         view.backgroundColor = Constants.Design.Color.Background.Light
     }
 }

@@ -32,15 +32,6 @@ extension UIButton {
     }
 }
 
-extension UITextField {
-    //  MARK:- Set to UITextField Left Padding at given points
-    func setLeftPaddingPoints(_ amount: CGFloat) {
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: 0))
-        self.leftView = paddingView
-        self.leftViewMode = .always
-    }
-}
-
 extension Double {
     //  MARK:- Rounds a number to the given precision
     mutating func roundingNumber(at decimal: Int) {

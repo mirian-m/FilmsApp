@@ -6,7 +6,7 @@ import UIKit
 
 final class RegistrationView: UIView {
     
-    //  MARK: @IBOutlet programmatically
+    //  MARK: IBOutlet programmatically
     private lazy var logo: UIImageView = {
         let logo = UIImageView()
         logo.translatesAutoresizingMaskIntoConstraints = false
@@ -196,8 +196,13 @@ extension UITextField {
         self.layer.cornerRadius = 5
         self.setLeftPaddingPoints(10)
     }
-}
-extension UITextField {
+    
+    //   MARK:- Add left padding to the text field
+    fileprivate func setLeftPaddingPoints(_ amount: CGFloat) {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: 0))
+        self.leftView = paddingView
+        self.leftViewMode = .always
+    }
     
     //  MARK:- Textfield Show and hide content logic, while presed button
     fileprivate func setPasswordToggleImage(_ button: UIButton) {
@@ -216,7 +221,7 @@ extension UITextField {
         self.rightViewMode = .always
     }
     
-    @objc fileprivate func togglePasswordView(_ sender: UIButton) {
+    @objc private func togglePasswordView(_ sender: UIButton) {
         self.isSecureTextEntry.toggle()
         setPasswordToggleImage(sender)
     }
