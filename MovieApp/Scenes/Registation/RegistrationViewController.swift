@@ -24,9 +24,9 @@ final class RegistrationViewController: BackgroundImageViewControlller {
     var interactor: RegistationBusinessLogic?
     var router: (NSObjectProtocol & RegistationRoutingLogic & RegistrationDataPassing)?
     
-    //  MARK:- Fields
     static var identifier: String { .init(describing: self) }
     
+    //  MARK:- Fields
     lazy var contentView = RegistrationView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
     
     // MARK: Object lifecycle
@@ -91,6 +91,7 @@ final class RegistrationViewController: BackgroundImageViewControlller {
                 email: contentView.emailTextField.text ?? "",
                 password: contentView.passwordTextField.text ?? "",
                 confirmedPassword: contentView.confirmPasswordTextField.text ?? "",
+                profileImageUrl: "",
                 seenMoviesList: []
             )
             interactor?.registraitUser(request: Registration.RegistraitUser.Request(userInfo: userData))

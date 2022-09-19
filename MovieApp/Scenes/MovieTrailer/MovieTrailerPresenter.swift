@@ -22,7 +22,7 @@ final class MovieTrailerPresenter: MovieTrailerPresentationLogic {
     //  MARK: Present Movie Trailer
     func presentMovieTrailer(response: MovieTrailer.GetTrailer.Response) {
         guard response.error == nil else {
-            viewController?.displayAlert(viewModel: MovieTrailer.Error.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.rawValue)))
+            viewController?.displayAlert(viewModel: MovieTrailer.GetError.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.rawValue)))
             return
         }
         let trailerViewModel = TrailerViewModel(movieTitle: response.title, overview: response.overView, youtubeId: response.youtubeId)

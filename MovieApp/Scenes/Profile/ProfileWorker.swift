@@ -11,5 +11,27 @@
 //
 
 import UIKit
+import FirebaseStorage
+import FirebaseAuth
 
-final class ProfileWorker {}
+final class ProfileWorker {
+    private let storage = Storage.storage()
+    func saveImageToFireBaseStorage(image: UIImage, completion: @escaping (Error?) -> Void) {
+        guard let imageData = image.pngData() else { return }
+        storage.reference().child(Constants.API.FireBase.Main.StorageFileName + "/\(Auth.auth().currentUser!.uid).png").putData(imageData, metadata: nil) { _, error in
+            guard error == nil else {
+                completion(error)
+                return
+            }
+            self.storage.reference().child(Constants.API.FireBase.Main.StorageFileName + "/\(Auth.auth().currentUser!.uid).png").downloadURL { (url, error) in
+                guard let url = url?.absoluteString, error == nil else {
+                    completion(error)
+                    return
+                }
+                UserManger.shared.updateUserData(userId: Auth.auth().currentUser!.uid, data: [Constants.API.FireBase.Key.ProfileImageUrl: url]) { error in
+                    completion(error)
+                }
+            }
+        }
+    }
+}

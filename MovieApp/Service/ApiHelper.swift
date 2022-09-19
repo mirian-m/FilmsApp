@@ -16,20 +16,26 @@ final class ApiHelper {
         static let upcomingMovies = (type: "Upcoming movies", url: "/3/movie/upcoming?api_key=")
         static let popular = (type: "Popular", url: "/3/movie/popular?api_key=")
         static let nowPlaying = (type: "Now playing", url: "/3/movie/now_playing?api_key=")
-        static let search = (type: "Search", url: "/3/discover/movie?api_key=")
+        static let discover = "/3/discover/movie?api_key="
+        static let search = "/3/search/movie?api_key="
     }
-    
     static let shared = ApiHelper()
     
-    private let baseUrl: String
-    private let apiKey: String
-    private let page: String
-    
-    private init() {
-        self.baseUrl = Constants.API.Movies.Main.BaseURL
-        self.apiKey = Constants.API.Movies.Main.API_Key
-        self.page = "\(Int.random(in: 1...10))"
+    private let baseUrl: String = Constants.API.Movies.Main.BaseURL
+    private let apiKey: String = Constants.API.Movies.Main.API_Key
+    private let page: String = "&page=\(Int.random(in: 2...8))"
+
+    var upcomingMoviesUrlStr: String {
+        return baseUrl + MovieType.upcomingMovies.url + apiKey + page
     }
+    var discoverMoviesUrlStr: String {
+        return baseUrl + MovieType.discover + apiKey + page
+    }
+    var searchMoviesUrlStr: String {
+        return baseUrl + MovieType.search + apiKey
+    }
+    
+    private init() {}
     
     func getMovieUrl(by movieType: String) -> String {
         var urlStr = ""
@@ -44,11 +50,9 @@ final class ApiHelper {
             urlStr = MovieType.popular.url
         case MovieType.nowPlaying.type:
             urlStr = MovieType.nowPlaying.url
-        case MovieType.search.type:
-            urlStr = MovieType.search.url
         default:
             break
         }
-        return baseUrl + urlStr + apiKey + "&page=" + page
+        return baseUrl + urlStr + apiKey + page
     }
 }

@@ -11,6 +11,7 @@ import UIKit
 //  MARK:- Case-less enum for Constants
 enum Constants {
     
+    //  MARK:- Design
     enum Design {
         
         enum Color {
@@ -28,22 +29,23 @@ enum Constants {
         }
         
         enum Image {
-            static let DefaultImage = UIImage(named: "defaultImage")
+            static let DefaultMovieImage = UIImage(named: "defaultImage")
+            static let DefaultProfileImage = UIImage(systemName: "person.fill")
             enum Logo {
                 static let LogoImageOne = UIImage(named: "Netflix-new")
                 static let LogoImageTwo = UIImage(named: "NetflixLogo")
             }
             enum Icon {
-                static let IconBack = UIImage(systemName: "chevron.backward")
-                static let IconPaly = UIImage(named: "PlayIcon")
-                static let IconHome = UIImage(systemName: "house.fill")
-                static let IconPerson = UIImage(systemName: "person.fill")
-                static let IconStar = UIImage(systemName: "star.fill")
-                static let IconClock = UIImage(systemName: "clock")
-                static let IconEye = UIImage(systemName: "eye")
-                static let IconEyeSlash = UIImage(systemName: "eye.slash")
-                static let IconSigOut = UIImage(systemName: "arrowshape.turn.up.right")
-
+                static let Back = UIImage(systemName: "chevron.backward")
+                static let Play = UIImage(named: "PlayIcon")
+                static let Home = UIImage(systemName: "house.fill")
+                static let Person = UIImage(systemName: "person.fill")
+                static let Star = UIImage(systemName: "star.fill")
+                static let Clock = UIImage(systemName: "clock")
+                static let Eye = UIImage(systemName: "eye")
+                static let EyeSlash = UIImage(systemName: "eye.slash")
+                static let SigOut = UIImage(systemName: "arrowshape.turn.up.right")
+                
             }
         }
         
@@ -56,6 +58,7 @@ enum Constants {
         }
     }
     
+    //  MARK:- Content Constants
     enum Content {
         
         enum Category {
@@ -74,19 +77,22 @@ enum Constants {
         }
     }
     
+    //  MARK:- API
     enum API {
         
         enum FireBase {
             
             enum Main {
                 static let DataBaseUrl = "https://netflixclone-343110-default-rtdb.firebaseio.com/"
-                static var BaseName = "Users"
+                static let BaseName = "Users"
+                static let StorageFileName = "profileImages"
             }
             
             enum Key {
                 static var FirstName = "firstName"
                 static var LastName = "lastName"
                 static var Email = "email"
+                static var ProfileImageUrl = "profileImageUrl"
                 static var WatchedMovies = "watchedMovies"
             }
         }
@@ -106,18 +112,20 @@ enum Constants {
             }
         }
     }
-    
-    //    enum AlerTitle {
-    //        enum Error {
-    //            static var error = "Error"
-    //            static var registration = "Registration Error"
-    //            static var createUser = "Create User Error"
-    //            static var sigIn = "Sig In Error"
-    //        }
-    //    }
 }
+
 public enum APICollerError: String, Error {
     case faldeToGetData = "Falde To get data"
 }
+
+enum AlerTitle {
+    enum Error {
+        static var error = "Error"
+        static var registration = "Registration Error"
+        static var createUser = "Create User Error"
+        static var sigIn = "Sig In Error"
+    }
+}
+
 
 

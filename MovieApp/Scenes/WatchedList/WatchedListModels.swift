@@ -14,15 +14,13 @@ import UIKit
 
 enum WatchedList {
     // MARK: Use cases
-    enum Error {
+    enum GetError {
         struct Request{}
         
         struct Response {}
         
         struct ViewModel {
-            var errorModel: ErrorViewModel?
-            var title: String
-            var errorMessage: String
+            var errorModel: ErrorViewModel
         }
     }
 
@@ -31,7 +29,7 @@ enum WatchedList {
         struct Request {}
         
         struct Response {
-            var error: APICollerError?
+            var error: Error?
             var movies: [MovieDetails]?
         }
         

@@ -37,7 +37,7 @@ final class SearchMovieInteractor: SearchMovieBusinessLogic, SearchMovieDataStor
     //  MARK: SearchMovieBusinessLogic Protocol Functions
     
     func getMovies(request: SearchMovie.GetMovies.Request) {
-        let url = ApiHelper.shared.getMovieUrl(by: "Search")
+        let url = ApiHelper.shared.discoverMoviesUrlStr
         
         worker?.fetchMovieData(by: url, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
@@ -59,9 +59,14 @@ final class SearchMovieInteractor: SearchMovieBusinessLogic, SearchMovieDataStor
         presenter?.presentSelectedMovie(response: SearchMovie.GetSelectedMovie.Response())
     }
     
+    //  MARK:- Get Searched movies
     func updateSearchResult(requset: SearchMovie.GetSearchedMovies.Request) {
+        guard let query = requset.query,
+              !query.trimmingCharacters(in: .whitespaces).isEmpty,
+              query.trimmingCharacters(in: .whitespaces).count >= 3
+        else { return }
         var response = SearchMovie.GetSearchedMovies.Response()
-        worker?.fetchMovieData(by: requset.query, completion: { (result: Result<Movies, APICollerError>) in
+        worker?.fetchMovieData(by: nil, by: query, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self]  in
                 switch result {
                 case .success(let searchedMovies):

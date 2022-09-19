@@ -16,7 +16,7 @@ protocol SearchMovieDisplayLogic: AnyObject {
     func displayMovies(viewModel: SearchMovie.GetMovies.ViewModel)
     func displaySelectedMovie(vieModel: SearchMovie.GetSelectedMovie.ViewModel)
     func displaySearchedMovies(viewModel: SearchMovie.GetSearchedMovies.ViewModel)
-    func displayAlert(viewModel: SearchMovie.Error.ViewModel)
+    func displayAlert(viewModel: SearchMovie.GetError.ViewModel)
 }
 
 final class SearchMovieViewController: BackgroundImageViewControlller {
@@ -37,8 +37,10 @@ final class SearchMovieViewController: BackgroundImageViewControlller {
     private lazy var discoveredTable: UITableView = {
         var table = UITableView()
         table.register(MovieCell.self, forCellReuseIdentifier: MovieCell.identifier)
+        table.backgroundColor = Constants.Design.Color.Background.None
         table.dataSource = self
         table.delegate = self
+//        view.addSubview(discoveredTable)
         view.addSubview(table)
         return table
     }()
@@ -86,10 +88,8 @@ final class SearchMovieViewController: BackgroundImageViewControlller {
     func controllerSetup() {
         title = "Search"
         navigationController?.navigationBar.prefersLargeTitles = true
-        discoveredTable.backgroundColor = Constants.Design.Color.Background.None
         navigationItem.searchController = searchController
         navigationController?.navigationBar.tintColor = Constants.Design.Color.Primary.White
-        view.addSubview(discoveredTable)
         searchController.searchResultsUpdater = self
     }
     
@@ -126,12 +126,12 @@ extension SearchMovieViewController: UISearchResultsUpdating {
         let searchBar = searchController.searchBar
         
         // FIXME: Get this logic in Interactor
-        guard let query = searchBar.text,
-              !query.trimmingCharacters(in: .whitespaces).isEmpty,
-              query.trimmingCharacters(in: .whitespaces).count >= 3
-        else { return }
-        
-        interactor?.updateSearchResult(requset: SearchMovie.GetSearchedMovies.Request(query: query))
+//        guard let query = searchBar.text,
+//              !query.trimmingCharacters(in: .whitespaces).isEmpty,
+//              query.trimmingCharacters(in: .whitespaces).count >= 3
+//        else { return }
+//
+        interactor?.updateSearchResult(requset: SearchMovie.GetSearchedMovies.Request(query: searchBar.text))
     }
 }
 
@@ -151,7 +151,7 @@ extension SearchMovieViewController: SearchMovieDisplayLogic {
     func displaySearchedMovies(viewModel: SearchMovie.GetSearchedMovies.ViewModel) {
         self.router?.routeToSearcheResulte(segue: nil)
     }
-    func displayAlert(viewModel: SearchMovie.Error.ViewModel) {
+    func displayAlert(viewModel: SearchMovie.GetError.ViewModel) {
         self.showAlertWith(title: viewModel.errorModel.title, text: viewModel.errorModel.message)
     }
 }

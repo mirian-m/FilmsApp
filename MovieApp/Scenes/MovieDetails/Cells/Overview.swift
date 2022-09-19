@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailsOverviewCell: UITableViewCell {
+class Overview: UITableViewCell {
     static var identifier: String { .init(describing: self) }
     
     private let startingHeight: CGFloat = 30
@@ -74,7 +74,7 @@ class DetailsOverviewCell: UITableViewCell {
     }
 }
 
-extension DetailsOverviewCell {
+extension Overview {
     
     private func addItemToSubView() {
         contentView.addSubview(synopsisLb)

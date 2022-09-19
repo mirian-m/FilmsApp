@@ -7,7 +7,7 @@ class Poster: UIView {
     private var backBtn: UIButton = {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        let buttonImage = Constants.Design.Image.Icon.IconBack?.withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
+        let buttonImage = Constants.Design.Image.Icon.Back?.withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
         button.layer.cornerRadius = 25
         button.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.4)
         button.setImage(buttonImage, for: .normal)
@@ -17,7 +17,7 @@ class Poster: UIView {
     
     private var playButton: UIButton = {
         var button = UIButton()
-        let buttonImage = Constants.Design.Image.Icon.IconPaly
+        let buttonImage = Constants.Design.Image.Icon.Play
         button.setImage(buttonImage, for: .normal)
         button.contentMode = .scaleAspectFill
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +29,7 @@ class Poster: UIView {
         var imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.image = Constants.Design.Image.DefaultImage
+        imageView.image = Constants.Design.Image.DefaultMovieImage
         return imageView
     }()
     

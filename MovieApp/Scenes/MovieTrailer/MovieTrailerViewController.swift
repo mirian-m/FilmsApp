@@ -13,9 +13,9 @@
 import UIKit
 import WebKit
 
-protocol MovieTrailerDisplayLogic: class {
+protocol MovieTrailerDisplayLogic: AnyObject {
     func displayMovieTrailer(viewModel: MovieTrailer.GetTrailer.ViewModel)
-    func displayAlert(viewModel: MovieTrailer.Error.ViewModel)
+    func displayAlert(viewModel: MovieTrailer.GetError.ViewModel)
 }
 
 final class MovieTrailerViewController: UIViewController {
@@ -28,6 +28,7 @@ final class MovieTrailerViewController: UIViewController {
     private lazy var webView: WKWebView = {
         let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(webView)
         return webView
     }()
     
@@ -36,6 +37,8 @@ final class MovieTrailerViewController: UIViewController {
         lb.translatesAutoresizingMaskIntoConstraints = false
         lb.numberOfLines = 0
         lb.font = Constants.Design.Font.HeadingOne
+        lb.textColor = Constants.Design.Color.Primary.White
+        view.addSubview(lb)
         return lb
     }()
     
@@ -44,7 +47,9 @@ final class MovieTrailerViewController: UIViewController {
         lb.translatesAutoresizingMaskIntoConstraints = false
         lb.minimumScaleFactor = 10
         lb.font = Constants.Design.Font.Sub
+        lb.textColor = Constants.Design.Color.Primary.White
         lb.numberOfLines = 0
+        view.addSubview(lb)
         return lb
     }()
     
@@ -82,11 +87,7 @@ final class MovieTrailerViewController: UIViewController {
     }
     
     private func setupController() {
-        navigationController?.navigationBar.tintColor = .white
-        view.backgroundColor = .systemBackground
-        view.addSubview(webView)
-        view.addSubview(titleLb)
-        view.addSubview(overviewLb)
+        view.backgroundColor = Constants.Design.Color.Background.Light
         setConstraints()
     }
     
@@ -102,10 +103,10 @@ extension MovieTrailerViewController {
     //  MARK: - ADD Constraints
     private func setConstraints(){
         let webViewConstraint = [
-            webView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: -40),
+            webView.topAnchor.constraint(equalTo: view.topAnchor, constant: -40),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.heightAnchor.constraint(equalToConstant: 500)
+            webView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5)
         ]
         
         let titleLbConstraint = [
@@ -129,7 +130,7 @@ extension MovieTrailerViewController {
 extension MovieTrailerViewController: MovieTrailerDisplayLogic {
     
     //  MARK:- MovieTrailerDisplayLogic Methods
-    func displayAlert(viewModel: MovieTrailer.Error.ViewModel) {
+    func displayAlert(viewModel: MovieTrailer.GetError.ViewModel) {
         self.showAlertWith(title: viewModel.errorModel.title, text: viewModel.errorModel.message)
     }
     
@@ -140,3 +141,5 @@ extension MovieTrailerViewController: MovieTrailerDisplayLogic {
         self.webView.load(URLRequest(url: url))
     }
 }
+
+

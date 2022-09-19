@@ -14,7 +14,7 @@ import UIKit
 
 protocol DetailsDisplayLogic: AnyObject {
     func displayMovieDetails(viewModel: Details.GetMovie.ViewModel)
-    func displayAlert(viewModel:Details.Error.ViewModel)
+    func displayAlert(viewModel:Details.GetError.ViewModel)
 }
 
 final class DetailsViewController: BackgroundImageViewControlller {
@@ -23,13 +23,14 @@ final class DetailsViewController: BackgroundImageViewControlller {
     var interactor: DetailsBusinessLogic?
     var router: (NSObjectProtocol & DetailsRoutingLogic & DetailsDataPassing)?
     
+    //  MARK:- object
     private lazy var detailsTableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(DetailsCell.self, forCellReuseIdentifier: DetailsCell.identifier)
         tableView.register(MoreDetailsTableViewCell.self, forCellReuseIdentifier: MoreDetailsTableViewCell.identifier)
-        tableView.register(DetailsOverviewCell.self, forCellReuseIdentifier: DetailsOverviewCell.identifier)
+        tableView.register(Overview.self, forCellReuseIdentifier: Overview.identifier)
         tableView.register(MoviesTableViewCell.self, forCellReuseIdentifier: MoviesTableViewCell.identifier)
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.frame = self.view.bounds
@@ -75,7 +76,7 @@ final class DetailsViewController: BackgroundImageViewControlller {
     
     private func controllerSetup() {
         
-        // Add Observer To playButtonDidTapped Notifications
+        //  MARK:- Add NotificationCenter Observer
         NotificationCenter.default.addObserver(self, selector: #selector(playTrailer), name: .playButtonTap, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(moveBack), name: .moveBackButtonTapped, object: nil)
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -97,7 +98,7 @@ final class DetailsViewController: BackgroundImageViewControlller {
 }
 
 extension DetailsViewController: DetailsDisplayLogic {
-    func displayAlert(viewModel: Details.Error.ViewModel) {
+    func displayAlert(viewModel: Details.GetError.ViewModel) {
         self.showAlertWith(title: viewModel.errorModel.title, text: viewModel.errorModel.message)
     }
     
@@ -122,13 +123,9 @@ extension DetailsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.configure(with: movieViewModel)
             return cell
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailsOverviewCell.identifier, for: indexPath) as? DetailsOverviewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: Overview.identifier, for: indexPath) as? Overview else { return UITableViewCell() }
             cell.configur(with: movieViewModel)
             return cell
-        //        case 3:
-        //            guard let cell = tableView.dequeueReusableCell(withIdentifier: MoviesTableViewCell.identifier, for: indexPath) as? MoviesTableViewCell else { return UITableViewCell() }
-        //            cell.configur(with: movieViewModel)
-        //            return cell
         default:
             break
         }

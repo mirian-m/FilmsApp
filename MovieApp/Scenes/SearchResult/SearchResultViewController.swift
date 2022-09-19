@@ -24,12 +24,16 @@ final class SearchResultViewController: BackgroundImageViewControlller {
     var router: (NSObjectProtocol & SearchResultRoutingLogic & SearchResultDataPassing)?
     
     
-    private var searchResultCollectionView: UICollectionView = {
+    private lazy var searchResultCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3 - 10, height: Constants.Content.Category.Height.middle)
         layout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(SearchCollectionViewcell.self, forCellWithReuseIdentifier: SearchCollectionViewcell.identifier)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.frame = view.bounds
+        view.addSubview(collectionView)
         return collectionView
     }()
     
@@ -70,14 +74,6 @@ final class SearchResultViewController: BackgroundImageViewControlller {
     //  MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchResultCollectionView.dataSource = self
-        searchResultCollectionView.delegate = self
-        view.addSubview(searchResultCollectionView)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        searchResultCollectionView.frame = view.bounds
     }
     
     //  MARK: Get Search Result

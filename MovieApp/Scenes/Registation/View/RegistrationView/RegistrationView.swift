@@ -6,7 +6,7 @@ import UIKit
 
 final class RegistrationView: UIView {
     
-    //  MARK: IBOutlet programmatically
+    //  MARK: Objects
     private lazy var logo: UIImageView = {
         let logo = UIImageView()
         logo.translatesAutoresizingMaskIntoConstraints = false
@@ -130,6 +130,7 @@ extension RegistrationView {
         regitrationStackView.addArrangedSubview(confirmPasswordTextField)
     }
     
+    //  MARK:- Constraints
     private func adjustConstraints() {
         
         let logoConstraints = [
@@ -207,12 +208,17 @@ extension UITextField {
     //  MARK:- Textfield Show and hide content logic, while presed button
     fileprivate func setPasswordToggleImage(_ button: UIButton) {
         if isSecureTextEntry {
-            button.setImage(Constants.Design.Image.Icon.IconEyeSlash?.withTintColor(Constants.Design.Color.Primary.WhiteDisable, renderingMode: .alwaysOriginal), for: .normal)
+            button.setImage(Constants.Design.Image.Icon.EyeSlash?
+                                .withTintColor(Constants.Design.Color.Primary.WhiteDisable,
+                                               renderingMode: .alwaysOriginal), for: .normal)
         } else {
-            button.setImage(Constants.Design.Image.Icon.IconEye?.withTintColor(Constants.Design.Color.Primary.WhiteDisable, renderingMode: .alwaysOriginal), for: .normal)
+            button.setImage(Constants.Design.Image.Icon.Eye?
+                                .withTintColor(Constants.Design.Color.Primary.WhiteDisable,
+                                               renderingMode: .alwaysOriginal), for: .normal)
         }
     }
     
+    //  MARK:- Show and Hide Password
     fileprivate func enablePasswordToggle(){
         let button = UIButton(type: .custom)
         setPasswordToggleImage(button)

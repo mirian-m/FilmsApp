@@ -44,6 +44,7 @@ final class RegistrationWorker {
                         Constants.API.FireBase.Key.FirstName: userData.firstName,
                         Constants.API.FireBase.Key.LastName: userData.lastName,
                         Constants.API.FireBase.Key.Email: userData.email,
+                        Constants.API.FireBase.Key.ProfileImageUrl: userData.profileImageUrl,
                         Constants.API.FireBase.Key.WatchedMovies: userData.seenMoviesList
                     ])
             }

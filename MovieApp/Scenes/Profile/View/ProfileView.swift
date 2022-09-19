@@ -9,6 +9,8 @@ import UIKit
 
 final class ProfileView: UIView {
     
+    //    imageView.addGestureRecognizer(tap)
+    //    imageView.isUserInteractionEnabled = true
     private lazy var cancelBtn: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -25,10 +27,22 @@ final class ProfileView: UIView {
     private lazy var profileImg: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .red
+        imageView.isUserInteractionEnabled = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = Constants.Design.Image.DefaultProfileImage
         addSubview(imageView)
         return imageView
     }()
+    
+    //    private lazy var profileImg: UIButton = {
+    //        let button = UIButton()
+    //        button.translatesAutoresizingMaskIntoConstraints = false
+    //        button.setImage(UIImage(systemName: "plus.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal), for: .normal)
+    //        button.contentMode = .scaleAspectFill
+    //        addSubview(button)
+    //        return button
+    //    }()
     
     private lazy var stackView: UIStackView = {
         let stack = UIStackView()
@@ -76,8 +90,20 @@ final class ProfileView: UIView {
         return btn
     }()
     
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.hidesWhenStopped = true
+        indicator.color = .blue
+        indicator.hidesWhenStopped = true
+        signOut.addSubview(indicator)
+        return indicator
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageDidTapped))
+        profileImg.addGestureRecognizer(tapGesture)
         self.backgroundColor = Constants.Design.Color.Background.Light
     }
     
@@ -95,8 +121,13 @@ final class ProfileView: UIView {
         self.firstNameLb.text = "Name: " + model.name
         self.lastNameLb.text = "Surname: " + model.surName
         self.emailLb.text = "Email: " + model.email
+        self.profileImg.getImageFromWeb(by: model.profileImageUrl)
+//        if profileImg.image
     }
-    
+    func changeProfileImage(image: UIImage) {
+        self.profileImg.image = image
+        
+    }
     //  MARK:- Button Action
     @objc private func signOutBtnTapped() {
         NotificationCenter.default.post(name: .signOutButtonDidTapped, object: nil)
@@ -105,9 +136,13 @@ final class ProfileView: UIView {
         NotificationCenter.default.post(name: .cancelButtonDidTapped, object: nil)
     }
     
+    @objc func imageDidTapped() {
+        NotificationCenter.default.post(name: .imageDidTapped, object: nil)
+        
+    }
     //  MARK:- Private Methods
     private func setButtonsIcon() {
-        signOut.setButton(image: (Constants.Design.Image.Icon.IconSigOut?.withTintColor(.white, renderingMode: .alwaysOriginal))!, horizontalAligment: .center)
+        signOut.setButton(image: (Constants.Design.Image.Icon.SigOut?.withTintColor(.white, renderingMode: .alwaysOriginal))!, horizontalAligment: .center)
     }
     
     private func adjustConstraints() {
@@ -136,12 +171,17 @@ final class ProfileView: UIView {
             signOut.bottomAnchor.constraint(equalTo: self.centerYAnchor, constant: 20),
             signOut.heightAnchor.constraint(equalToConstant: 50)
         ]
+        let activityIndicatorConstraints = [
+            activityIndicator.centerXAnchor.constraint(equalTo: signOut.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: signOut.centerYAnchor)
+        ]
         
         //  MARK:- Activate contraints
         NSLayoutConstraint.activate(cancelBtnConstraints)
         NSLayoutConstraint.activate(profileImgConstraints)
         NSLayoutConstraint.activate(stackViewConstraints)
         NSLayoutConstraint.activate(signOutConstraints)
+        NSLayoutConstraint.activate(activityIndicatorConstraints)
     }
 }
 

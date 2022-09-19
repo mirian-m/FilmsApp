@@ -26,7 +26,7 @@ extension ComingSoonPresenter: ComingSoonPresentationLogic {
     //  MARK:- ComingSoonPresentationLogic Methods
     func presentUpcomingMovies(response: ComingSoon.GetUpcomingMovies.Response) {
         guard response.error == nil else {
-            viewController?.displayAlert(viewModel: ComingSoon.Error.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.rawValue)))
+            viewController?.displayAlert(viewModel: ComingSoon.GetError.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.rawValue)))
             return
         }
         viewController?.displayUpcomingMovies(viewModel: ComingSoon.GetUpcomingMovies.ViewModel(movie: response.movies?.details.convert()))

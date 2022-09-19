@@ -24,10 +24,21 @@ enum Home {
             var errorModel: ErrorViewModel
         }
     }
+    
+    enum GetCurrentUserAccaunt {
+        struct Request {}
+        struct Response {
+            let profileImage: UIImage
+        }
+        struct ViewModel {
+            var image: UIImage
+        }
+
+    }
 
     enum MovieInfo {
         struct Request {
-            var section: String
+            var sectionTitle: String
         }
         struct Response {
             var error: APICollerError?

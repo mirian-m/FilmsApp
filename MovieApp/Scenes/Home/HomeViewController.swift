@@ -7,11 +7,13 @@
 //  see http://clean-swift.com
 
 import UIKit
+import FirebaseStorage
 
 protocol HomeDisplayLogic: AnyObject {
     func displayMovies(viewModel: Home.MovieInfo.ViewModel)
     func displayAlert(viewModel: Home.Error.ViewModel)
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel)
+    func displayUserProfileImage(viewModel: Home.GetCurrentUserAccaunt.ViewModel)
 }
 
 final class HomeViewController: BackgroundImageViewControlller {
@@ -29,7 +31,7 @@ final class HomeViewController: BackgroundImageViewControlller {
     
     //  MARK:- Fields
     private var offsets = [IndexPath: CGFloat]()
-    private let headerForSection = ["Trending movies", "Now playing", "Popular", "Upcoming movies", "Top"]
+    private let headerForSection = ["Now playing", "Top", "Popular", "Trending movies", "Upcoming movies"]
     private var headerView: Poster?
     private var posterIsSeted = false
     private var fetchedMoviesDetails: [MovieViewModel] = []
@@ -37,6 +39,7 @@ final class HomeViewController: BackgroundImageViewControlller {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        getUserProfileImage()
         controllerSetup()
     }
     
@@ -69,7 +72,7 @@ final class HomeViewController: BackgroundImageViewControlller {
         tabBarController?.navigationItem.hidesBackButton = true
         tabBarController?.navigationController?.navigationBar.isHidden = false
         tabBarItem.badgeColor = .label
-        tabBarItem.image = Constants.Design.Image.Icon.IconHome?.withRenderingMode(.automatic)
+        tabBarItem.image = Constants.Design.Image.Icon.Home?.withRenderingMode(.automatic)
         tabBarItem.title = "Home"
         
         headerView = Poster(frame: CGRect(x: 0,
@@ -86,11 +89,14 @@ final class HomeViewController: BackgroundImageViewControlller {
         tabBarController?.navigationItem.leftBarButtonItem  = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
         tabBarController?.navigationItem.rightBarButtonItem =
             UIBarButtonItem(
-                image: Constants.Design.Image.Icon.IconPerson?.withTintColor(.white, renderingMode: .alwaysOriginal),
+                image: Constants.Design.Image.Icon.Person?.withTintColor(.white, renderingMode: .alwaysOriginal),
                 style: .done,
                 target: self, action: #selector(goToProfile)
             )
         tabBarController?.navigationController?.navigationBar.tintColor = Constants.Design.Color.Primary.White
+    }
+    private func getUserProfileImage() {
+        interactor?.getUserAccaunt(requset: Home.GetCurrentUserAccaunt.Request())
     }
     
     // MARK: Routing
@@ -112,7 +118,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.setScrollPosition(x: offsets[indexPath] ?? 0)
         
-        let request = Home.MovieInfo.Request(section: headerForSection[indexPath.section])
+        let request = Home.MovieInfo.Request(sectionTitle: headerForSection[indexPath.section])
         
         interactor?.fetchMovies(request: request, completion: { [weak self] done in
             if done {
@@ -171,13 +177,18 @@ extension HomeViewController: HomeDisplayLogic {
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel) {
         router?.routToDetailsVc(segue: nil)
     }
+    
+    func displayUserProfileImage(viewModel: Home.GetCurrentUserAccaunt.ViewModel) {
+//        tabBarController?.navigationItem.rightBarButtonItem?.setBackgroundImage(viewModel.image, for: .normal, style: .done, barMetrics: UIBarMetrics(rawValue: 0)!)
+    }
+
 }
 
 extension HomeViewController: CollectionViewTableViewCelldelegate {
     
     //  MARK: Delegate Protocol FUNCtions
     func collectionViewTableViewCellDidTap(movieId: Int) {
-        interactor?.didTapMovie(requset: Home.GetSelectedMovie.Request(selectedMovieId: movieId))
+        interactor?.getSelectedMovieDetails(requset: Home.GetSelectedMovie.Request(selectedMovieId: movieId))
     }
     
     func backToRootViewController() {

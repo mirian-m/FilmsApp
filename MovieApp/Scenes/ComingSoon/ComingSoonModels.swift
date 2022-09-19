@@ -15,7 +15,7 @@ import UIKit
 enum ComingSoon {
     
     // MARK: Use cases
-    enum Error {
+    enum GetError {
         struct Request{}
         
         struct Response {}

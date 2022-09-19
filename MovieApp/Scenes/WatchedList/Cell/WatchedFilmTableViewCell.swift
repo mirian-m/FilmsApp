@@ -86,7 +86,7 @@ class WatchedFilmTableViewCell: UITableViewCell {
     
     private let starLogoBtn: UIButton = {
         let button = UIButton()
-        button.setImage(Constants.Design.Image.Icon.IconStar?.withTintColor(.white, renderingMode: .alwaysOriginal), for: .normal)
+        button.setImage(Constants.Design.Image.Icon.Star?.withTintColor(.white, renderingMode: .alwaysOriginal), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

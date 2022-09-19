@@ -12,6 +12,7 @@
 
 import UIKit
 
+
 protocol WelcomeDisplayLogic: AnyObject {}
 
 final class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogic {
@@ -61,8 +62,8 @@ final class WelcomeViewController: BackgroundImageViewControlller , WelcomeDispl
     }
     
     //  MARK: View lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super .viewWillAppear(true)
         navigationController?.navigationBar.isHidden = true
     }
     

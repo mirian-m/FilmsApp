@@ -15,6 +15,17 @@ import UIKit
 enum Profile {
     
     // MARK: Use cases
+    
+    enum GetError {
+        struct Request{}
+        
+        struct Response {}
+        
+        struct ViewModel {
+            var errorModel: ErrorViewModel
+        }
+    }
+
     enum GetUserData {
         struct Request{}
         struct Response {
@@ -24,4 +35,31 @@ enum Profile {
             var profileModel: ProfileViewModel
         }
     }
+    
+    enum UpdateProfileImage {
+        struct Request{
+            var info: [UIImagePickerController.InfoKey : Any]
+        }
+        struct Response {
+            var image: UIImage
+        }
+        struct ViewModel {
+            var profileImage: UIImage
+        }
+
+    }
+    
+    enum SaveProfileImage {
+        struct Request{
+            var image: UIImage
+        }
+        struct Response {
+            var error: Error?
+        }
+        struct ViewModel {
+            var profileImage: UIImage
+        }
+
+    }
+
 }

@@ -26,7 +26,7 @@ protocol WatchedListDataStore {
 class WatchedListInteractor: WatchedListDataStore {
     var selectedMovieId: Int = 0
     var presenter: WatchedListPresentationLogic?
-    var worker: APIWoker?
+    var worker = APIWoker()
     private var moviesList = [MovieDetails]()
 }
 
@@ -35,11 +35,11 @@ extension WatchedListInteractor: WatchedListBusinessLogic {
         moviesList.removeAll { $0.id ==  request.selectedMovieId }
         guard let urser = Auth.auth().currentUser else { return }
         
-        let movieId = moviesList.map { $0.id }
-        UserManger.shared.updateUserData(userId:  urser.uid, data: [Constants.API.FireBase.Key.WatchedMovies: movieId]) { (error) in
-            //            TODO: Error Handling
+        let arrayOfMoviesId = moviesList.map { $0.id }
+        UserManger.shared.updateUserData(userId: urser.uid, data: [Constants.API.FireBase.Key.WatchedMovies: arrayOfMoviesId]) { [weak self] (error) in
+            self?.presenter?.presentWatchedMovies(response: WatchedList.GetWatchedMovies.Response(error: error, movies: self?.moviesList))
+
         }
-        presenter?.presentWatchedMovies(response: WatchedList.GetWatchedMovies.Response(movies: moviesList))
     }
     
     func didTapMovie(requset: WatchedList.GetSelectedMovie.Request) {
@@ -49,12 +49,12 @@ extension WatchedListInteractor: WatchedListBusinessLogic {
     
     func getWatchedMovies(request: WatchedList.GetWatchedMovies.Request) {
         var counter = 0
-        worker = APIWoker()
+       
         
         UserManger.shared.getSigInUserData { data in
             if !data.seenMoviesList.isEmpty {
                 data.seenMoviesList.forEach { movieId in
-                    self.worker?.getMovie(by: movieId, complition: { [weak self] (result: Result<MovieDetails, APICollerError>) in
+                    self.worker.getMovie(by: movieId, complition: { [weak self] (result: Result<MovieDetails, APICollerError>) in
                         counter += 1
                         switch result {
                         case .success(let details):

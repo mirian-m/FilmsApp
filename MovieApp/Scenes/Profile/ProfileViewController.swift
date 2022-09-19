@@ -11,9 +11,13 @@
 //
 
 import UIKit
+import FirebaseStorage
+import FirebaseAuth
 
 protocol ProfileDisplayLogic: AnyObject {
     func displayUserDetails(viewModel: Profile.GetUserData.ViewModel)
+    func dispalUpdatedProfileImage(viewModel: Profile.UpdateProfileImage.ViewModel)
+    func dispalyAler(viewModel: Profile.GetError.ViewModel)
 }
 
 final class ProfileViewController: UIViewController {
@@ -21,6 +25,8 @@ final class ProfileViewController: UIViewController {
     //  MARK:- Clean components
     var interactor: ProfileBusinessLogic?
     var router: (NSObjectProtocol & ProfileRoutingLogic & ProfileDataPassing)?
+    
+    let storage = Storage.storage()
     
     private lazy var profileView = ProfileView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
     
@@ -32,6 +38,13 @@ final class ProfileViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
+    }
+    
+    //  MARK: View lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpViewController()
+        getUserInfo()
     }
     
     // MARK: Setup
@@ -48,16 +61,15 @@ final class ProfileViewController: UIViewController {
         router.dataStore = interactor
     }
     
-    //  MARK: View lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private func setUpViewController() {
         self.view.addSubview(profileView)
+//        self.activityIndicator.startAnimating()
         NotificationCenter.default.addObserver(self, selector: #selector(signOutFromProfile), name: .signOutButtonDidTapped, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(dissmisProfile), name: .cancelButtonDidTapped, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(dissmisProfile), name: .yesButtonWasClickedOnTheBottomSheet, object: nil)
-        getUserInfo()
+        NotificationCenter.default.addObserver(self, selector: #selector(chooseImage), name: .imageDidTapped, object: nil)
+        
     }
-    
     //  MARK:- Cancel Button Action
     @objc private func dissmisProfile() {
         router?.routeBack(segue: nil)
@@ -66,6 +78,25 @@ final class ProfileViewController: UIViewController {
         router?.routeToBottomSheet(segue: nil)
     }
     
+    @objc func chooseImage() {
+        showImagePickerControllerActionSheet()
+    }
+    
+    private func showImagePickerControllerActionSheet() {
+        let actionSheet = UIAlertController(title: "Choose your Image", message: "", preferredStyle: .actionSheet)
+        let photoLibreryAction = UIAlertAction(title: "Choose from librery", style: .default) { _ in
+            self.showImagePickerController(sourceType: .photoLibrary)
+        }
+        let cameraAction = UIAlertAction(title: "Choose from camera", style: .default) { _ in
+            self.showImagePickerController(sourceType: .savedPhotosAlbum)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        actionSheet.addAction(photoLibreryAction)
+        actionSheet.addAction(cameraAction)
+        actionSheet.addAction(cancel)
+        present(actionSheet, animated: true, completion: nil)
+    }
     //  MARK:- Get user Details from dataBase
     func getUserInfo() {
         let request = Profile.GetUserData.Request()
@@ -74,7 +105,34 @@ final class ProfileViewController: UIViewController {
 }
 
 extension ProfileViewController: ProfileDisplayLogic {
+    func dispalyAler(viewModel: Profile.GetError.ViewModel) {
+        showAlertWith(title: viewModel.errorModel.title, text: viewModel.errorModel.title)
+    }
+    
+    func dispalUpdatedProfileImage(viewModel: Profile.UpdateProfileImage.ViewModel) {
+        profileView.changeProfileImage(image: viewModel.profileImage)
+        interactor?.saveProfileImage(request: Profile.SaveProfileImage.Request(image: viewModel.profileImage))
+    }
+    
     func displayUserDetails(viewModel: Profile.GetUserData.ViewModel) {
         profileView.configure(with: viewModel.profileModel)
+//        activityIndicator.stopAnimating()
     }
 }
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
+    
+    fileprivate func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        imagePickerController.sourceType = sourceType
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        interactor?.updateProfileImage(request: Profile.UpdateProfileImage.Request(info: info))
+        dismiss(animated: true, completion: nil)
+    }
+}
+

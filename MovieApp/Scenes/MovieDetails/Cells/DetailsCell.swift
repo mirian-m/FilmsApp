@@ -10,6 +10,7 @@ import UIKit
 class DetailsCell: UITableViewCell {
     static var identifier: String { .init(describing: self) }
     
+    //  MARK:- Outlets
     private lazy var movieTitleLb: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +41,7 @@ class DetailsCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.image = Constants.Design.Image.Icon.IconClock?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        imageView.image = Constants.Design.Image.Icon.Clock?.withTintColor(.white, renderingMode: .alwaysOriginal)
         return imageView
     }()
     
@@ -58,7 +59,7 @@ class DetailsCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.image = Constants.Design.Image.Icon.IconStar?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        imageView.image = Constants.Design.Image.Icon.Star?.withTintColor(.white, renderingMode: .alwaysOriginal)
         return imageView
     }()
     
@@ -72,13 +73,13 @@ class DetailsCell: UITableViewCell {
         return lb
     }()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//    }
+//    
+//    override func setSelected(_ selected: Bool, animated: Bool) {
+//        super.setSelected(selected, animated: animated)
+//    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)

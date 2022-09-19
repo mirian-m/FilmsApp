@@ -39,7 +39,6 @@ extension RegistrationPresenter: RegistrationPresentationLogic {
                                             errorModel: ErrorViewModel(
                                                 title: AlerTitle.Error.sigIn,
                                                 message: response.errorMessage!.localizedDescription)))
-//            viewController?.displayAlert(viewModel: Registration.GetError.ViewModel(title: AlerTitle.Error.sigIn, errorMessage: response.errorMessage!.localizedDescription))
             return
         }
         viewController?.displayHome(viewModel: Registration.SigInUser.ViewModel())

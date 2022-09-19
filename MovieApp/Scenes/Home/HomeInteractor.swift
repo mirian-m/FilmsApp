@@ -14,7 +14,8 @@ import UIKit
 
 protocol HomeBusinessLogic {
     func fetchMovies(request: Home.MovieInfo.Request, completion: @escaping (Bool) -> Void)
-    func didTapMovie(requset: Home.GetSelectedMovie.Request)
+    func getSelectedMovieDetails(requset: Home.GetSelectedMovie.Request)
+    func getUserAccaunt(requset: Home.GetCurrentUserAccaunt.Request)
 }
 
 protocol HomeDataStore {
@@ -24,20 +25,31 @@ protocol HomeDataStore {
 final class HomeInteractor: HomeDataStore {
     var selectedMovieId: Int = 0
     var presenter: HomePresentationLogic?
-    var worker: APIWoker?
+    var worker = APIWoker()
     private var fetchedMovies: Movies = Movies(details: [])
     
 }
 // MARK: HomeBusinessLogic Metods
 extension HomeInteractor: HomeBusinessLogic {
+    
+    //  MARK:- get User profile image
+    func getUserAccaunt(requset: Home.GetCurrentUserAccaunt.Request) {
+        UserManger.shared.getSigInUserData { (userData) in
+            NetworkService.shared.getImageFromWeb(by: userData.profileImageUrl) { (image, _) in
+                DispatchQueue.main.async { [weak self] in
+                    self?.presenter?.presentUserProfileImage(response: Home.GetCurrentUserAccaunt.Response(profileImage: (image ?? Constants.Design.Image.DefaultProfileImage) ?? UIImage()))
+                }
+            }
+        }
+    }
+    
     //  MARK:- Get movies
     func fetchMovies(request: Home.MovieInfo.Request, completion: @escaping (Bool) -> Void) {
-        worker = APIWoker()
         
-        let url = ApiHelper.shared.getMovieUrl(by: request.section)
+        //  MARK:- Create url By movies type
+        let url = ApiHelper.shared.getMovieUrl(by: request.sectionTitle)
         var response = Home.MovieInfo.Response()
-        
-        worker?.fetchMovieData(by: url, completion: { (result: Result<Movies, APICollerError>) in
+        worker.fetchMovieData(by: url, by: nil, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let movies):
@@ -51,8 +63,9 @@ extension HomeInteractor: HomeBusinessLogic {
             }
         })
     }
+    
     //  MARK:- Get selected movies
-    func didTapMovie(requset: Home.GetSelectedMovie.Request) {
+    func getSelectedMovieDetails(requset: Home.GetSelectedMovie.Request) {
         selectedMovieId = requset.selectedMovieId
         presenter?.presentSelectedMovie(response: Home.GetSelectedMovie.Response())
     }

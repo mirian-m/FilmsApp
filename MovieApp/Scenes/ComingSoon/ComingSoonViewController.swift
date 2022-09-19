@@ -15,7 +15,7 @@ import UIKit
 protocol ComingSoonDisplayLogic: AnyObject {
     func displayUpcomingMovies(viewModel: ComingSoon.GetUpcomingMovies.ViewModel)
     func displaySelectedMovie(viewModel: ComingSoon.GetSelectedMovie.ViewModel)
-    func displayAlert(viewModel: ComingSoon.Error.ViewModel)
+    func displayAlert(viewModel: ComingSoon.GetError.ViewModel)
 }
 
 final class ComingSoonViewController: BackgroundImageViewControlller {
@@ -28,9 +28,12 @@ final class ComingSoonViewController: BackgroundImageViewControlller {
     
     private lazy var upcomingMoviesTableView : UITableView = {
         var tableView = UITableView()
-        tableView.register(MovieCell.self, forCellReuseIdentifier: MovieCell.identifier)
+        tableView.backgroundColor = Constants.Design.Color.Background.None
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.frame = view.bounds
+        tableView.register(MovieCell.self, forCellReuseIdentifier: MovieCell.identifier)
+        view.addSubview(tableView)
         return tableView
     }()
     
@@ -47,7 +50,6 @@ final class ComingSoonViewController: BackgroundImageViewControlller {
     }
     
     //  MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         controllerSetup()
@@ -56,12 +58,6 @@ final class ComingSoonViewController: BackgroundImageViewControlller {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        upcomingMoviesTableView.frame = view.bounds
     }
     
     //  MARK: Setup
@@ -80,11 +76,8 @@ final class ComingSoonViewController: BackgroundImageViewControlller {
     
    private func controllerSetup() {
         title = "Upcoming"
+        navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.prefersLargeTitles = true
-        view.addSubview(upcomingMoviesTableView)
-        upcomingMoviesTableView.dataSource = self
-        upcomingMoviesTableView.delegate = self
-        upcomingMoviesTableView.backgroundColor = Constants.Design.Color.Background.None
     }
     
     //  MARK: Fetch Movies
@@ -106,7 +99,7 @@ extension ComingSoonViewController: ComingSoonDisplayLogic {
         router?.routeToDetailsVc(segue: nil)
     }
     
-    func displayAlert(viewModel: ComingSoon.Error.ViewModel) {
+    func displayAlert(viewModel: ComingSoon.GetError.ViewModel) {
         self.showAlertWith(title: viewModel.errorModel.title, text: viewModel.errorModel.message)
     }
 }

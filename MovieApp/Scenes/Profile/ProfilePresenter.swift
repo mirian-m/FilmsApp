@@ -13,16 +13,27 @@
 import UIKit
 
 protocol ProfilePresentationLogic {
-  func presentUserDetails(response: Profile.GetUserData.Response)
+    func presentUserDetails(response: Profile.GetUserData.Response)
+    func presentProfileImage(response: Profile.UpdateProfileImage.Response)
+    func presentSaveError(response: Profile.SaveProfileImage.Response)
 }
 
 final class ProfilePresenter: ProfilePresentationLogic {
-  weak var viewController: ProfileDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentUserDetails(response: Profile.GetUserData.Response) {
-    let viewModel = Profile.GetUserData.ViewModel(profileModel: ProfileViewModel(with: response.userData))
-    viewController?.displayUserDetails(viewModel: viewModel)
-  }
+    
+    func presentProfileImage(response: Profile.UpdateProfileImage.Response) {
+        viewController?.dispalUpdatedProfileImage(viewModel: Profile.UpdateProfileImage.ViewModel(profileImage: response.image))
+    }
+    
+    weak var viewController: ProfileDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentUserDetails(response: Profile.GetUserData.Response) {
+        let viewModel = Profile.GetUserData.ViewModel(profileModel: ProfileViewModel(with: response.userData))
+        viewController?.displayUserDetails(viewModel: viewModel)
+    }
+    func presentSaveError(response: Profile.SaveProfileImage.Response) {
+        guard response.error != nil else { return }
+        viewController?.dispalyAler(viewModel: Profile.GetError.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.localizedDescription)))
+    }
 }

@@ -15,6 +15,7 @@ import UIKit
 protocol WatchedListDisplayLogic: AnyObject {
     func displayWatchedMovies(viewModel: WatchedList.GetWatchedMovies.ViewModel)
     func displaySelectedMovie(viewModel: WatchedList.GetSelectedMovie.ViewModel)
+    func displayAlert(viewModel:WatchedList.GetError.ViewModel)
 }
 
 final class WatchedListViewController: BackgroundImageViewControlller {
@@ -29,7 +30,7 @@ final class WatchedListViewController: BackgroundImageViewControlller {
         table.register(WatchedFilmTableViewCell.self, forCellReuseIdentifier: WatchedFilmTableViewCell.identifier)
         table.dataSource = self
         table.delegate = self
-        table.backgroundColor = .none
+        table.backgroundColor = Constants.Design.Color.Background.None
         view.addSubview(table)
         return table
     }()
@@ -82,7 +83,6 @@ final class WatchedListViewController: BackgroundImageViewControlller {
         getWatchedMovies()
     }
     
-    
     override func viewDidLayoutSubviews() {
         super .viewDidLayoutSubviews()
         watchedFilmTableView.frame = view.bounds
@@ -120,7 +120,6 @@ extension WatchedListViewController: UITableViewDataSource, UITableViewDelegate 
 }
 
 extension WatchedListViewController:  WatchedListDisplayLogic {
-    
     //  MARK:- DisplayLogic Protocol Function
     func displaySelectedMovie(viewModel: WatchedList.GetSelectedMovie.ViewModel) {
         router?.routeToTrailerVC(segue: nil)
@@ -132,6 +131,11 @@ extension WatchedListViewController:  WatchedListDisplayLogic {
         self.watchedListViewModel = Array(Set(self.watchedListViewModel)).sorted(by: { $0.title < $1.title })
         self.watchedFilmTableView.reloadData()
     }
+    
+    func displayAlert(viewModel: WatchedList.GetError.ViewModel) {
+        showAlertWith(title: viewModel.errorModel.title, text: viewModel.errorModel.message)
+    }
+
 }
 
 extension WatchedListViewController: WatchedFilmTableViewCellDelegate {

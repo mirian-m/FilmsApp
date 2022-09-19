@@ -23,11 +23,11 @@ protocol DetailsDataStore {
     var movieDetails: MovieDetails { get set }
 }
 
-class DetailsInteractor: DetailsDataStore {
+final class DetailsInteractor: DetailsDataStore {
     var movieDetails: MovieDetails = MovieDetails()
     var movieId: Int = 0
     var presenter: DetailsPresentationLogic?
-    var worker: APIWoker?
+    var worker = APIWoker()
     
     // MARK: Do something
 }
@@ -41,15 +41,15 @@ extension DetailsInteractor: DetailsBusinessLogic {
             listOfMovies = Array(Set(listOfMovies))
             guard let user = Auth.auth().currentUser else { return }
             UserManger.shared.updateUserData(userId:  user.uid, data: [Constants.API.FireBase.Key.WatchedMovies: listOfMovies]) { (error) in
-                //  TODO:- ERRor
+                
             }
         }
     }
+    
     func getMoveDetails(request: Details.GetMovie.Request) {
-        worker = APIWoker()
         var response = Details.GetMovie.Response()
         
-        worker?.getMovie(by: movieId, complition: { (result: Result<MovieDetails, APICollerError>) in
+        worker.getMovie(by: movieId, complition: { (result: Result<MovieDetails, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let movieDetails):

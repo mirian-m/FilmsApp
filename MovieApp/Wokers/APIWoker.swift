@@ -11,12 +11,9 @@ import UIKit
 final class APIWoker {
     
     func fetchMovieData<T: Decodable>(by url: String? = nil, by query: String? = nil, completion: @escaping (Result<T, APICollerError>) -> Void) {
-        var urlString = ""
+        var urlString = url ?? ""
         if let query = query {
-            urlString = "\(Constants.API.Movies.Main.BaseURL)/3/search/movie?api_key=\(Constants.API.Movies.Main.API_Key)&query=\(query)"
-        } else {
-            guard let url = url else { return }
-            urlString = url
+            urlString  = ApiHelper.shared.searchMoviesUrlStr + "&query=\(query)"
         }
         guard let url = URL(string: urlString) else { return }
         NetworkService.shared.getData(url: url) { (result: Result<T, APICollerError>) in

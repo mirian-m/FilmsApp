@@ -23,7 +23,7 @@ protocol ComingSoonDataStore {
 
 final class ComingSoonInteractor: ComingSoonDataStore {
     var presenter: ComingSoonPresentationLogic?
-    var worker: APIWoker?
+    var worker = APIWoker()
     private var fetchedMovies = Movies(details: [])
     var selectedMovieId = 0
 }
@@ -32,10 +32,8 @@ extension ComingSoonInteractor:  ComingSoonBusinessLogic {
     
     //  MARK:- ComingSoonBusinessLogic Methods
     func getUpcomingMovies(request: ComingSoon.GetUpcomingMovies.Request) {
-        worker = APIWoker()
-        let url = ApiHelper.shared.getMovieUrl(by: "Upcoming movies")
-        
-        worker?.fetchMovieData(by: url, completion: { (result: Result<Movies, APICollerError>) in
+        let url = ApiHelper.shared.upcomingMoviesUrlStr
+        worker.fetchMovieData(by: url, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 var response = ComingSoon.GetUpcomingMovies.Response()
                 switch result {

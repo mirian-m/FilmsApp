@@ -51,6 +51,7 @@ extension Notification.Name {
     static let signOutButtonDidTapped = Notification.Name("signOutButtonDidTapped")
     static let yesButtonWasClickedOnTheBottomSheet = Notification.Name("yesButtonTapped")
     static let cancelButtonDidTapped = Notification.Name("cancelButtonDidTapped")
+    static let imageDidTapped = Notification.Name("Image view tapped")
 }
 
 extension UIViewController {

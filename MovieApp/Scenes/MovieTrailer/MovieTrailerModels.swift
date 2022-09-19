@@ -15,15 +15,13 @@ import UIKit
 enum MovieTrailer {
   // MARK: Use cases
   
-    enum Error {
+    enum GetError {
         struct Request{}
         
         struct Response {}
         
         struct ViewModel {
             var errorModel: ErrorViewModel
-            var title: String?
-            var errorMessage: String?
         }
     }
 

@@ -11,22 +11,25 @@
 //
 
 import UIKit
+import FirebaseStorage
+import FirebaseAuth
+
 
 protocol ProfileBusinessLogic {
     func getUserData(request: Profile.GetUserData.Request)
+    func updateProfileImage(request: Profile.UpdateProfileImage.Request)
+    func saveProfileImage(request:Profile.SaveProfileImage.Request)
 }
 
-protocol ProfileDataStore {
-    //var name: String { get set }
-}
+protocol ProfileDataStore {}
 
 final class ProfileInteractor: ProfileBusinessLogic, ProfileDataStore {
+    
+    
     var presenter: ProfilePresentationLogic?
-    var worker: ProfileWorker?
-    //var name: String = ""
+    var worker = ProfileWorker()
     
-    // MARK: Do something
-    
+    //  MARK: Get user data from firebase data base
     func getUserData(request: Profile.GetUserData.Request) {
         UserManger.shared.getSigInUserData { userData in
             DispatchQueue.main.async { [weak self] in
@@ -35,4 +38,22 @@ final class ProfileInteractor: ProfileBusinessLogic, ProfileDataStore {
             }
         }
     }
+    
+    func updateProfileImage(request: Profile.UpdateProfileImage.Request) {
+        guard let image = request.info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        presenter?.presentProfileImage(response: Profile.UpdateProfileImage.Response(image: image))
+    }
+    
+    func saveProfileImage(request: Profile.SaveProfileImage.Request) {
+        self.worker.saveImageToFireBaseStorage(image: request.image) { [weak self] error in
+            if error == nil {
+            } else {
+                DispatchQueue.main.async {
+                    self?.presenter?.presentSaveError(response: Profile.SaveProfileImage.Response(error: error))
+                    
+                }
+            }
+        }
+    }
 }
+

@@ -16,15 +16,14 @@ protocol DetailsPresentationLogic {
   func presentMovieDetails(response: Details.GetMovie.Response)
 }
 
-class DetailsPresenter: DetailsPresentationLogic {
+final class DetailsPresenter: DetailsPresentationLogic {
   weak var viewController: DetailsDisplayLogic?
   
   // MARK: Do something
   
   func presentMovieDetails(response: Details.GetMovie.Response) {
     guard let movie = response.movie, response.error == nil else {
-        viewController?.displayAlert(viewModel: Details.Error.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.rawValue)))
-//        viewController?.displayAlert(viewModel: Details.Error.ViewModel(title: AlerTitle.Error.error, errorMessage: response.error!.rawValue))
+        viewController?.displayAlert(viewModel: Details.GetError.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.rawValue)))
         return
     }
     let viewModel = Details.GetMovie.ViewModel(movieViewModel: MovieViewModel(with: movie))

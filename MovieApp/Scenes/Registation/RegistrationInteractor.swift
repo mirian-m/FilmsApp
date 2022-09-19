@@ -23,10 +23,11 @@ protocol RegistationBusinessLogic {
 protocol RegistationDataStore {
     var tag: Int { get set }
 }
+
 final class RegistrationInteractor: RegistationDataStore {
     
     var presenter: RegistrationPresentationLogic?
-    var worker: RegistrationWorker?
+    var worker = RegistrationWorker()
     var tag: Int = 0
 }
 
@@ -40,21 +41,19 @@ extension RegistrationInteractor: RegistationBusinessLogic {
     }
 
     func sigInUser(request: Registration.SigInUser.Request) {
-        worker = RegistrationWorker()
-        worker?.sigIn(request.detail, complition: { [weak self] error in
+        worker.sigIn(request.detail, complition: { [weak self] error in
             let respons = Registration.SigInUser.Response(errorMessage: error)
             self?.presenter?.presentSignMessage(response: respons)
         })
     }
     
     func registraitUser(request: Registration.RegistraitUser.Request) {
-        worker = RegistrationWorker()
-        let error = worker?.checkUserFields(userData: request.userInfo)
+        let error = worker.checkUserFields(userData: request.userInfo)
         guard error == nil else {
             presenter?.presentRegistrationMessage(response: Registration.RegistraitUser.Response(errorMessage: error?.rawValue))
             return
         }
-        worker?.saveUserDataInDataBase(request.userInfo, complition: { [weak self] error in
+        worker.saveUserDataInDataBase(request.userInfo, complition: { [weak self] error in
             let response = Registration.RegistraitUser.Response(errorMessage: error)
             self?.presenter?.presentRegistrationMessage(response: response)
         })

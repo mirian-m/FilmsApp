@@ -14,7 +14,7 @@ import UIKit
 
 enum SearchMovie {
     // MARK: Use cases
-    enum Error {
+    enum GetError {
         struct Request{}
         
         struct Response {}
@@ -48,8 +48,8 @@ enum SearchMovie {
     }
     
     enum GetSearchedMovies {
-        struct Request{
-            var query: String
+        struct Request {
+            var query: String?
         }
         
         struct Response {

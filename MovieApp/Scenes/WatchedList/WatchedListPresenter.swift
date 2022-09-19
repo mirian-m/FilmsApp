@@ -36,6 +36,10 @@ extension WatchedListPresenter: WatchedListPresentationLogic {
         viewController?.displaySelectedMovie(viewModel: WatchedList.GetSelectedMovie.ViewModel())
     }
     func presentWatchedMovies(response: WatchedList.GetWatchedMovies.Response) {
+        guard response.error == nil else {
+            viewController?.displayAlert(viewModel: WatchedList.GetError.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.localizedDescription)))
+            return
+        }
         let viewModel = WatchedList.GetWatchedMovies.ViewModel(watchedMoviesModel: response.movies?.convert() ?? [])
         viewController?.displayWatchedMovies(viewModel: viewModel)
     }

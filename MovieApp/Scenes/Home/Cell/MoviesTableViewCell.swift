@@ -5,7 +5,7 @@ protocol CollectionViewTableViewCelldelegate: AnyObject {
     func collectionViewTableViewCellDidTap(movieId: Int)
 }
 
-class MoviesTableViewCell: UITableViewCell {
+final class MoviesTableViewCell: UITableViewCell {
     static var identifier: String { .init(describing: self) }
 
         
