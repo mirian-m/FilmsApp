@@ -17,7 +17,7 @@ protocol SearchResultDisplayLogic: AnyObject {
     func displaySelectedMovie(viewModel: SearchResult.GetSelectedMovie.ViewModel)
 }
 
-final class SearchResultViewController: BackgroundImageViewControlller {
+final class SearchResultViewController: BackgroundViewControlller {
     
     //   MARK:- Clean Components
     var interactor: SearchResultBusinessLogic?
@@ -91,7 +91,7 @@ extension SearchResultViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewcell.identifier, for: indexPath) as? SearchCollectionViewcell else { return UICollectionViewCell() }
         let posterURL = Constants.API.Movies.Helper.PosterBaseURL + (moviesViewModel[indexPath.row].imageUrl)
-        cell.posterImage.getImageFromWeb(by: posterURL)
+        cell.configure(by: posterURL)
         return cell
     }
     

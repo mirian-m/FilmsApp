@@ -43,7 +43,6 @@ class WatchedFilmTableViewCell: UITableViewCell {
         stack.axis = .horizontal
         stack.distribution = .fillEqually
         stack.spacing = .zero
-//        stack.vie
         stack.addArrangedSubview(firstGenre)
         stack.addArrangedSubview(secondGenre)
         stack.addArrangedSubview(thirdGenre)
@@ -124,7 +123,7 @@ class WatchedFilmTableViewCell: UITableViewCell {
     }
     
     //  MARK:- Setup
-    func addItemsToView() {
+    private func addItemsToView() {
         customView.addSubview(titleLabel)
         customView.addSubview(removeBtn)
         customView.addSubview(starLogoBtn)
@@ -146,7 +145,7 @@ class WatchedFilmTableViewCell: UITableViewCell {
     }
     
     //  MARK:- Constraints
-    func applyConstraints() {
+   private func applyConstraints() {
         
         let customViewConstraints = [
             customView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
@@ -227,7 +226,7 @@ extension WatchedFilmTableViewCell {
     }
     
     //  MARK:- Button Actions
-    @objc func removeMovieFromList() {
+    @objc private func removeMovieFromList() {
         delegate?.removeMovieFromList(by: filmId)
     }
 }
@@ -243,3 +242,15 @@ extension UIButton {
         self.setTitle("Action", for: .normal)
     }
 }
+
+extension Double {
+    //  MARK:- Rounds a number to the given precision
+    fileprivate mutating func roundingNumber(at decimal: Int) {
+        var  m = 1.0
+        for _ in 1...decimal {
+            m *= 10
+        }
+        self = (self * m).rounded() / m
+    }
+}
+

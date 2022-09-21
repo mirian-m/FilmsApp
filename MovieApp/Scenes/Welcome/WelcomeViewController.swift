@@ -15,7 +15,7 @@ import UIKit
 
 protocol WelcomeDisplayLogic: AnyObject {}
 
-final class WelcomeViewController: BackgroundImageViewControlller , WelcomeDisplayLogic {
+final class WelcomeViewController: BackgroundViewControlller , WelcomeDisplayLogic {
     
     //  MARK:- Clean Components
     var interactor: WelcomeBusinessLogic?

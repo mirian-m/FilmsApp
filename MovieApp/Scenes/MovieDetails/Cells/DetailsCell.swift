@@ -7,10 +7,10 @@
 
 import UIKit
 
-class DetailsCell: UITableViewCell {
+final class DetailsCell: UITableViewCell {
     static var identifier: String { .init(describing: self) }
     
-    //  MARK:- Outlets
+    //  MARK:- objects
     private lazy var movieTitleLb: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
@@ -72,14 +72,6 @@ class DetailsCell: UITableViewCell {
         lb.text = "7.0 (IMDb)"
         return lb
     }()
-    
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//    }
-//    
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)

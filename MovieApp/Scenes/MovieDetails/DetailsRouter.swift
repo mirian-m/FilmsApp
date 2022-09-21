@@ -21,7 +21,7 @@ protocol DetailsDataPassing {
     var dataStore: DetailsDataStore? { get }
 }
 
-final  class DetailsRouter: NSObject, DetailsDataPassing {
+final class DetailsRouter: NSObject, DetailsDataPassing {
     
     //  MARK:- Clean Components
     weak var viewController: DetailsViewController?
@@ -32,7 +32,7 @@ extension DetailsRouter:  DetailsRoutingLogic {
     func routeToBack(segue: UIStoryboardSegue?) {
         popVc(source: viewController!)
     }
-    // MARK: Routing
+    //  MARK: Routing
     func routeToTraileVc(segue: UIStoryboardSegue?) {
         let destinationVC = MovieTrailerViewController()
         var destinationDS = destinationVC.router!.dataStore!
@@ -40,17 +40,17 @@ extension DetailsRouter:  DetailsRoutingLogic {
         navigateToTrailerVc(source: viewController!, destination: destinationVC)
     }
     
-    //     MARK: Navigation
-    func navigateToTrailerVc(source: DetailsViewController, destination: UIViewController) {
+    //  MARK: Navigation
+    private func navigateToTrailerVc(source: DetailsViewController, destination: UIViewController) {
         source.show(destination, sender: nil)
     }
     
-    // MARK: Passing data
-    func passDataToTrailerVc(source: DetailsDataStore, destination: inout MovieTrailerDataStore) {
-        destination.movieDetails = source.movieDetails
+    private func popVc(source: UIViewController) {
+        source.dismiss(animated: true, completion: nil)
     }
     
-    func popVc(source: UIViewController) {
-        source.dismiss(animated: true, completion: nil)
+    //  MARK: Passing data
+    private func passDataToTrailerVc(source: DetailsDataStore, destination: inout MovieTrailerDataStore) {
+        destination.movieDetails = source.movieDetails
     }
 }

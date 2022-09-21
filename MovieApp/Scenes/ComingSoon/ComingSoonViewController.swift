@@ -18,7 +18,7 @@ protocol ComingSoonDisplayLogic: AnyObject {
     func displayAlert(viewModel: ComingSoon.GetError.ViewModel)
 }
 
-final class ComingSoonViewController: BackgroundImageViewControlller {
+final class ComingSoonViewController: BackgroundViewControlller {
     
     //  MARK:- Clean Components
     var interactor: ComingSoonBusinessLogic?
@@ -36,7 +36,6 @@ final class ComingSoonViewController: BackgroundImageViewControlller {
         view.addSubview(tableView)
         return tableView
     }()
-    
     
     //  MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

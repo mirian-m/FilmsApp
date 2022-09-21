@@ -18,7 +18,7 @@ protocol RegistrationDisplayLogic: AnyObject {
     func displayHome(viewModel: Registration.SigInUser.ViewModel)
 }
 
-final class RegistrationViewController: BackgroundImageViewControlller {
+final class RegistrationViewController: BackgroundViewControlller {
     
     //  MARK:- Clean Components
     var interactor: RegistationBusinessLogic?
@@ -27,7 +27,7 @@ final class RegistrationViewController: BackgroundImageViewControlller {
     static var identifier: String { .init(describing: self) }
     
     //  MARK:- Fields
-    lazy var contentView = RegistrationView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+   private lazy var contentView = RegistrationView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -68,12 +68,12 @@ final class RegistrationViewController: BackgroundImageViewControlller {
         contentView.button.addTarget(self, action: #selector(goToMainPageOfUser), for: .touchUpInside)
     }
     
-    @objc func setup(_ sender: UISegmentedControl) {
+    @objc private func setup(_ sender: UISegmentedControl) {
         contentView.segmentControl.isSelected = true
         getView()
     }
     
-    @objc func goToMainPageOfUser(_ sender: UIButton) {
+    @objc private func goToMainPageOfUser(_ sender: UIButton) {
         contentView.button.isEnabled = false
         contentView.button.alpha = 0.5
         contentView.activityIndicator.startAnimating()
@@ -149,8 +149,7 @@ extension RegistrationViewController {
         contentView.passwordTextField.text = ""
         contentView.confirmPasswordTextField.text = ""
     }
-    
-    
+
     //  MARK:- Configuretion of ViewController's View dependent on viewModel
     private func configureView(with viewModel: RegistrationViewModel) {
         contentView.lastNameTextField.isHidden = viewModel.textFieldVisibility

@@ -21,14 +21,14 @@ protocol WatchedListDataPassing {
     var dataStore: WatchedListDataStore? { get }
 }
 
-class WatchedListRouter: NSObject {
+final class WatchedListRouter: NSObject {
     weak var viewController: WatchedListViewController?
     var dataStore: WatchedListDataStore?
 }
 
 extension WatchedListRouter: WatchedListRoutingLogic, WatchedListDataPassing {
     // MARK: Routing
-
+    
     func routeToTrailerVC(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
         destinationVC.modalPresentationStyle = .fullScreen
@@ -36,16 +36,16 @@ extension WatchedListRouter: WatchedListRoutingLogic, WatchedListDataPassing {
         passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
         presentDetailsVc(source: viewController!, destination: destinationVC)
     }
-
+    
     // MARK: Navigation
     
-    func presentDetailsVc(source: WatchedListViewController, destination: UIViewController) {
+    private func presentDetailsVc(source: WatchedListViewController, destination: UIViewController) {
         source.present(destination, animated: true, completion: nil)
     }
     
     // MARK: Passing data
     
-    func passDataToDetailsVc(source: WatchedListDataStore, destination: inout DetailsDataStore) {
+    private func passDataToDetailsVc(source: WatchedListDataStore, destination: inout DetailsDataStore) {
         destination.movieId = source.selectedMovieId
     }
     

@@ -33,7 +33,7 @@ extension ComingSoonInteractor:  ComingSoonBusinessLogic {
     //  MARK:- ComingSoonBusinessLogic Methods
     func getUpcomingMovies(request: ComingSoon.GetUpcomingMovies.Request) {
         let url = ApiHelper.shared.upcomingMoviesUrlStr
-        worker.fetchMovieData(by: url, completion: { (result: Result<Movies, APICollerError>) in
+        worker.fetchMovieDataBy(url: url, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 var response = ComingSoon.GetUpcomingMovies.Response()
                 switch result {

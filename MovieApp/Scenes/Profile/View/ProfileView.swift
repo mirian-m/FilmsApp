@@ -9,8 +9,6 @@ import UIKit
 
 final class ProfileView: UIView {
     
-    //    imageView.addGestureRecognizer(tap)
-    //    imageView.isUserInteractionEnabled = true
     private lazy var cancelBtn: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -30,19 +28,10 @@ final class ProfileView: UIView {
         imageView.isUserInteractionEnabled = true
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.image = Constants.Design.Image.DefaultProfileImage
+        imageView.image = Constants.Design.Image.DefaultProfileImage?.withTintColor(.white, renderingMode: .alwaysOriginal)
         addSubview(imageView)
         return imageView
     }()
-    
-    //    private lazy var profileImg: UIButton = {
-    //        let button = UIButton()
-    //        button.translatesAutoresizingMaskIntoConstraints = false
-    //        button.setImage(UIImage(systemName: "plus.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal), for: .normal)
-    //        button.contentMode = .scaleAspectFill
-    //        addSubview(button)
-    //        return button
-    //    }()
     
     private lazy var stackView: UIStackView = {
         let stack = UIStackView()
@@ -90,13 +79,13 @@ final class ProfileView: UIView {
         return btn
     }()
     
-    lazy var activityIndicator: UIActivityIndicatorView = {
+    private lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.hidesWhenStopped = true
         indicator.color = .blue
         indicator.hidesWhenStopped = true
-        signOut.addSubview(indicator)
+        profileImg.addSubview(indicator)
         return indicator
     }()
 
@@ -118,12 +107,16 @@ final class ProfileView: UIView {
     }
     
     func configure(with model: ProfileViewModel) {
+        activityIndicator.startAnimating()
         self.firstNameLb.text = "Name: " + model.name
         self.lastNameLb.text = "Surname: " + model.surName
         self.emailLb.text = "Email: " + model.email
-        self.profileImg.getImageFromWeb(by: model.profileImageUrl)
-//        if profileImg.image
+        NetworkService.shared.getImageFromWeb(by: model.profileImageUrl) { [weak self] (image, _) in
+            self?.profileImg.image = image
+            self?.activityIndicator.stopAnimating()
+        }
     }
+    
     func changeProfileImage(image: UIImage) {
         self.profileImg.image = image
         
@@ -136,7 +129,7 @@ final class ProfileView: UIView {
         NotificationCenter.default.post(name: .cancelButtonDidTapped, object: nil)
     }
     
-    @objc func imageDidTapped() {
+    @objc private func imageDidTapped() {
         NotificationCenter.default.post(name: .imageDidTapped, object: nil)
         
     }
@@ -172,8 +165,8 @@ final class ProfileView: UIView {
             signOut.heightAnchor.constraint(equalToConstant: 50)
         ]
         let activityIndicatorConstraints = [
-            activityIndicator.centerXAnchor.constraint(equalTo: signOut.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: signOut.centerYAnchor)
+            activityIndicator.centerXAnchor.constraint(equalTo: profileImg.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: profileImg.centerYAnchor)
         ]
         
         //  MARK:- Activate contraints
@@ -190,5 +183,17 @@ extension UILabel {
         self.font = UIFont(name: "Inter-Bold", size: 16)
         self.textColor = Constants.Design.Color.Primary.White
         self.text = "Mirian Maglakelidze"
+    }
+}
+
+extension UIButton {
+    
+    //  MARK:- Set Image To Button With distans
+   fileprivate func setButton(image: UIImage, horizontalAligment: ContentHorizontalAlignment) {
+        self.setImage(image, for: .normal)
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
+        self.contentHorizontalAlignment = horizontalAligment
+        self.imageView?.contentMode = .scaleAspectFit
     }
 }

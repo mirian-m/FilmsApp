@@ -17,7 +17,7 @@ protocol DetailsDisplayLogic: AnyObject {
     func displayAlert(viewModel:Details.GetError.ViewModel)
 }
 
-final class DetailsViewController: BackgroundImageViewControlller {
+final class DetailsViewController: BackgroundViewControlller {
     
     //  MARK:- Clean Components
     var interactor: DetailsBusinessLogic?
@@ -53,6 +53,14 @@ final class DetailsViewController: BackgroundImageViewControlller {
         setup()
     }
     
+    
+    // MARK: View lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        controllerSetup()
+        getMovieDetails()
+    }
+    
     // MARK: Setup
     private func setup() {
         let viewController = self
@@ -66,29 +74,22 @@ final class DetailsViewController: BackgroundImageViewControlller {
         router.viewController = viewController
         router.dataStore = interactor
     }
-    
-    // MARK: View lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        controllerSetup()
-        getMovieDetails()
-    }
-    
+
     private func controllerSetup() {
         
         //  MARK:- Add NotificationCenter Observer
-        NotificationCenter.default.addObserver(self, selector: #selector(playTrailer), name: .playButtonTap, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playTrailer), name: .playButtonWasClicked, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(moveBack), name: .moveBackButtonTapped, object: nil)
         navigationController?.setNavigationBarHidden(true, animated: false)
         detailsTableView.tableHeaderView = headerView
     }
     
     //  MARK:- Buttons Action
-    @objc func playTrailer() {
+    @objc private func playTrailer() {
         interactor?.updateUserWatchedList(request: Details.UpdateUserData.Request(movieId: movieViewModel.id))
         router?.routeToTraileVc(segue: nil)
     }
-    @objc func moveBack() {
+    @objc private func moveBack() {
         router?.routeToBack(segue: nil)
     }
     func getMovieDetails() {
@@ -98,6 +99,8 @@ final class DetailsViewController: BackgroundImageViewControlller {
 }
 
 extension DetailsViewController: DetailsDisplayLogic {
+    
+    //  MARK:- Display logic methods
     func displayAlert(viewModel: Details.GetError.ViewModel) {
         self.showAlertWith(title: viewModel.errorModel.title, text: viewModel.errorModel.message)
     }
@@ -110,6 +113,8 @@ extension DetailsViewController: DetailsDisplayLogic {
 }
 
 extension DetailsViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    //  MARK:- Tableview dataSource & delegat methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 3 }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

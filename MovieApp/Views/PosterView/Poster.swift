@@ -1,6 +1,6 @@
 import UIKit
 
-class Poster: UIView {
+final class Poster: UIView {
     var posterUrl: String?
     
     //  MARK: IBOutlet programmatically
@@ -61,7 +61,7 @@ class Poster: UIView {
     
     //  MARK:- Button Metods
     @objc private func postNotification() {
-        NotificationCenter.default.post(name: .playButtonTap, object: self)
+        NotificationCenter.default.post(name: .playButtonWasClicked, object: self)
     }
     
     @objc private func navigateBack() {
@@ -80,7 +80,6 @@ extension Poster {
         ]
         layer.frame = bounds
         self.layer.addSublayer(layer)
-        
     }
     
     //  MARK:- Constraints

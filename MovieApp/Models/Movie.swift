@@ -47,6 +47,7 @@ extension MovieDetails: Equatable {
     }
 }
 
+//  MARK:- convert array of type MovieDetails to array of MovieViewModel type
 extension Array where Element == MovieDetails {
     func convert() -> [MovieViewModel] {
         var movieViewModel = [MovieViewModel]()

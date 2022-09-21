@@ -11,14 +11,5 @@
 //
 
 import UIKit
-import FirebaseAuth
 
-class WatchedListWorke {
-    
-//    func getSigInUserData(compilition: @escaping (UserData) -> Void) {
-//        guard let currentUser = Auth.auth().currentUser else { return }
-//        UserManger.shared.getUserData(by: currentUser.uid) {  userData in
-//            compilition(userData)
-//        }
-//    }
-}
+final class WatchedListWorke {}

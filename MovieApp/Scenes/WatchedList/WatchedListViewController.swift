@@ -18,7 +18,7 @@ protocol WatchedListDisplayLogic: AnyObject {
     func displayAlert(viewModel:WatchedList.GetError.ViewModel)
 }
 
-final class WatchedListViewController: BackgroundImageViewControlller {
+final class WatchedListViewController: BackgroundViewControlller {
     
     //  MARK:- Clean Components
     var interactor: WatchedListBusinessLogic?
@@ -120,6 +120,7 @@ extension WatchedListViewController: UITableViewDataSource, UITableViewDelegate 
 }
 
 extension WatchedListViewController:  WatchedListDisplayLogic {
+    
     //  MARK:- DisplayLogic Protocol Function
     func displaySelectedMovie(viewModel: WatchedList.GetSelectedMovie.ViewModel) {
         router?.routeToTrailerVC(segue: nil)
@@ -135,7 +136,7 @@ extension WatchedListViewController:  WatchedListDisplayLogic {
     func displayAlert(viewModel: WatchedList.GetError.ViewModel) {
         showAlertWith(title: viewModel.errorModel.title, text: viewModel.errorModel.message)
     }
-
+    
 }
 
 extension WatchedListViewController: WatchedFilmTableViewCellDelegate {

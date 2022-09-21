@@ -27,19 +27,18 @@ extension ComingSoonRouter: ComingSoonRoutingLogic {
     func routeToDetailsVc(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
         destinationVC.modalPresentationStyle = .fullScreen
-//        destinationVC.modalTransitionStyle = .flipHorizontal
         var destinationDS = destinationVC.router!.dataStore!
         passDataToSomewhere(source: dataStore!, destination: &destinationDS)
         navigateToTrailerVC(source: viewController!, destination: destinationVC)
     }
     
     //  MARK: Navigation
-    func navigateToTrailerVC(source: ComingSoonViewController, destination: UIViewController) {
+    private func navigateToTrailerVC(source: ComingSoonViewController, destination: UIViewController) {
         source.present(destination, animated: true, completion: nil)
     }
     
     //  MARK: Passing data
-    func passDataToSomewhere(source: ComingSoonDataStore, destination: inout DetailsDataStore) {
+    private func passDataToSomewhere(source: ComingSoonDataStore, destination: inout DetailsDataStore) {
         destination.movieId = source.selectedMovieId
     }
 }

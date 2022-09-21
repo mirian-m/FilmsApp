@@ -38,13 +38,17 @@ enum Home {
 
     enum MovieInfo {
         struct Request {
+            var section: Int
             var sectionTitle: String
         }
         struct Response {
             var error: APICollerError?
+            var section: Int
+            
             var movies: Movies?
         }
         struct ViewModel {
+            var section: Int
             var moviesViewModel: [MovieViewModel]?
         }
     }

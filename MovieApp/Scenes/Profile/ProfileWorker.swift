@@ -16,6 +16,7 @@ import FirebaseAuth
 
 final class ProfileWorker {
     private let storage = Storage.storage()
+    
     func saveImageToFireBaseStorage(image: UIImage, completion: @escaping (Error?) -> Void) {
         guard let imageData = image.pngData() else { return }
         storage.reference().child(Constants.API.FireBase.Main.StorageFileName + "/\(Auth.auth().currentUser!.uid).png").putData(imageData, metadata: nil) { _, error in

@@ -36,12 +36,12 @@ final class SearchResultRouter: NSObject, SearchResultRoutingLogic, SearchResult
     }
     
     //  MARK: Navigation
-    func presentDetailsVc(source: SearchResultViewController, destination: UIViewController) {
+    private func presentDetailsVc(source: SearchResultViewController, destination: UIViewController) {
         source.present(destination, animated: true, completion: nil)
     }
     
     //  MARK: Passing data
-    func passDataToDetailsVc(source: SearchResultDataStore, destination: inout DetailsDataStore) {
+    private func passDataToDetailsVc(source: SearchResultDataStore, destination: inout DetailsDataStore) {
         destination.movieId = source.selectedMovieId
     }
 }

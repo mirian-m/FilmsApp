@@ -7,13 +7,13 @@
 
 import UIKit
 
-class Overview: UITableViewCell {
+final class Overview: UITableViewCell {
     static var identifier: String { .init(describing: self) }
     
     private let startingHeight: CGFloat = 30
     
     private let buttonTitles = ["Show More", "Show Less"]
-    lazy var heightConstraint = overview.heightAnchor.constraint(equalToConstant: startingHeight)
+    private lazy var heightConstraint = overview.heightAnchor.constraint(equalToConstant: startingHeight)
     
     private lazy var synopsisLb: UILabel = {
         let lb = UILabel()
@@ -46,15 +46,6 @@ class Overview: UITableViewCell {
         button.addTarget(self, action: #selector(showMoreContext), for: .touchUpInside)
         return button
     }()
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
@@ -107,7 +98,7 @@ extension Overview {
     }
     
     //  MARK:- Button Action, Shows Or hide content of textView
-    @objc func showMoreContext(_ sender: UIButton) {
+    @objc private func showMoreContext(_ sender: UIButton) {
         heightConstraint.constant = overview.getTextViewHeightAccordingToHisContent()
         heightConstraint.isActive = true
         sender.isHidden = true

@@ -38,10 +38,10 @@ extension ProfileRouter: ProfileRoutingLogic {
     }
     
     //  MARK:- Navigation
-    func present(source: ProfileViewController, destination: UIViewController) {
+    private func present(source: ProfileViewController, destination: UIViewController) {
         source.present(destination, animated: true, completion: nil)
     }
-    func dissmisProfile(source: ProfileViewController) {
+    private func dissmisProfile(source: ProfileViewController) {
         source.dismiss(animated: false, completion: nil)
     }
 }

@@ -18,7 +18,9 @@ enum Details {
     enum GetError {
         struct Request{}
         
-        struct Response {}
+        struct Response {
+            var error: Error
+        }
         
         struct ViewModel {
             var errorModel: ErrorViewModel

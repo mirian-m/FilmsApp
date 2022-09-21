@@ -13,7 +13,6 @@
 import UIKit
 
 enum BottomSheet {
-    
     //  MARK: Use cases
     enum Something {
         struct Request {}

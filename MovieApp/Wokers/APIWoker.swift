@@ -5,12 +5,11 @@
 //  Created by Admin on 8/22/22.
 //
 
-import Foundation
 import UIKit
 
 final class APIWoker {
     
-    func fetchMovieData<T: Decodable>(by url: String? = nil, by query: String? = nil, completion: @escaping (Result<T, APICollerError>) -> Void) {
+    func fetchMovieDataBy<T: Decodable>(url: String? = nil, query: String? = nil, completion: @escaping (Result<T, APICollerError>) -> Void) {
         var urlString = url ?? ""
         if let query = query {
             urlString  = ApiHelper.shared.searchMoviesUrlStr + "&query=\(query)"
@@ -23,7 +22,7 @@ final class APIWoker {
     
     func getMovie<T: Decodable>(by id: Int, complition: @escaping (Result<T, APICollerError>) -> Void) {
         let url = "https://api.themoviedb.org/3/movie/\(id)?api_key=\(Constants.API.Movies.Main.API_Key)"
-        fetchMovieData(by: url) { (result) in
+        fetchMovieDataBy(url: url) { (result) in
             complition(result)
         }
     }

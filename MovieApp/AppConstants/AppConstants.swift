@@ -31,10 +31,12 @@ enum Constants {
         enum Image {
             static let DefaultMovieImage = UIImage(named: "defaultImage")
             static let DefaultProfileImage = UIImage(systemName: "person.fill")
+            
             enum Logo {
                 static let LogoImageOne = UIImage(named: "Netflix-new")
                 static let LogoImageTwo = UIImage(named: "NetflixLogo")
             }
+            
             enum Icon {
                 static let Back = UIImage(systemName: "chevron.backward")
                 static let Play = UIImage(named: "PlayIcon")
@@ -45,7 +47,6 @@ enum Constants {
                 static let Eye = UIImage(systemName: "eye")
                 static let EyeSlash = UIImage(systemName: "eye.slash")
                 static let SigOut = UIImage(systemName: "arrowshape.turn.up.right")
-                
             }
         }
         

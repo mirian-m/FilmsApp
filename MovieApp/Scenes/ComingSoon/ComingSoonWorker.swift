@@ -12,6 +12,4 @@
 
 import UIKit
 
-class ComingSoonWorker {
-  func doSomeWork() {}
-}
+class ComingSoonWorker {}

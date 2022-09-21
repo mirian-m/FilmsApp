@@ -13,20 +13,27 @@
 import UIKit
 
 protocol DetailsPresentationLogic {
-  func presentMovieDetails(response: Details.GetMovie.Response)
+    func presentMovieDetails(response: Details.GetMovie.Response)
+    func presentUpdateError(response: Details.GetError.Response)
 }
 
 final class DetailsPresenter: DetailsPresentationLogic {
-  weak var viewController: DetailsDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentMovieDetails(response: Details.GetMovie.Response) {
-    guard let movie = response.movie, response.error == nil else {
-        viewController?.displayAlert(viewModel: Details.GetError.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.rawValue)))
-        return
+    
+    weak var viewController: DetailsDisplayLogic?
+    
+    //  MARK: Present Movie Details
+    
+    func presentMovieDetails(response: Details.GetMovie.Response) {
+        guard let movie = response.movie, response.error == nil else {
+            viewController?.displayAlert(viewModel: Details.GetError.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.rawValue)))
+            return
+        }
+        let viewModel = Details.GetMovie.ViewModel(movieViewModel: MovieViewModel(with: movie))
+        viewController?.displayMovieDetails(viewModel: viewModel)
     }
-    let viewModel = Details.GetMovie.ViewModel(movieViewModel: MovieViewModel(with: movie))
-    viewController?.displayMovieDetails(viewModel: viewModel)
-  }
+    
+    func presentUpdateError(response: Details.GetError.Response) {
+        viewController?.displayAlert(viewModel: Details.GetError.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: "Failed to update user data")))
+    }
+    
 }

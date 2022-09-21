@@ -17,18 +17,8 @@ protocol WatchedListPresentationLogic {
     func presentSelectedMovie(response: WatchedList.GetSelectedMovie.Response)
 }
 
-class WatchedListPresenter {
+final class WatchedListPresenter {
     weak var viewController: WatchedListDisplayLogic?
-    
-    // MARK: Do something
-//    private func convert(model: [MovieDetails]) -> [MovieViewModel] {
-//        var viewModel = [MovieViewModel]()
-//        model.forEach { movieDetail in
-//            let model = MovieViewModel(with: movieDetail)
-//            viewModel.append(model)
-//        }
-//        return viewModel
-//    }
 }
 
 extension WatchedListPresenter: WatchedListPresentationLogic {

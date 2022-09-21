@@ -16,7 +16,7 @@ final class MoviesTableViewCell: UITableViewCell {
         }
     }
     
-    public var movies: [MovieViewModel] = []
+    private var movies: [MovieViewModel] = []
     weak var delegate: CollectionViewTableViewCelldelegate?
     
     override func layoutSubviews() {

@@ -16,7 +16,6 @@ protocol SearchMovieBusinessLogic {
     func getMovies(request: SearchMovie.GetMovies.Request)
     func didTapMovie(requset: SearchMovie.GetSelectedMovie.Request)
     func updateSearchResult(requset: SearchMovie.GetSearchedMovies.Request)
-    
 }
 
 protocol SearchMovieDataStore {
@@ -39,7 +38,7 @@ final class SearchMovieInteractor: SearchMovieBusinessLogic, SearchMovieDataStor
     func getMovies(request: SearchMovie.GetMovies.Request) {
         let url = ApiHelper.shared.discoverMoviesUrlStr
         
-        worker?.fetchMovieData(by: url, completion: { (result: Result<Movies, APICollerError>) in
+        worker?.fetchMovieDataBy(url: url, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 var response = SearchMovie.GetMovies.Response()
                 switch result {
@@ -66,7 +65,7 @@ final class SearchMovieInteractor: SearchMovieBusinessLogic, SearchMovieDataStor
               query.trimmingCharacters(in: .whitespaces).count >= 3
         else { return }
         var response = SearchMovie.GetSearchedMovies.Response()
-        worker?.fetchMovieData(by: nil, by: query, completion: { (result: Result<Movies, APICollerError>) in
+        worker?.fetchMovieDataBy(query: query, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self]  in
                 switch result {
                 case .success(let searchedMovies):

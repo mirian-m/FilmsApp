@@ -19,7 +19,7 @@ protocol SearchMovieDisplayLogic: AnyObject {
     func displayAlert(viewModel: SearchMovie.GetError.ViewModel)
 }
 
-final class SearchMovieViewController: BackgroundImageViewControlller {
+final class SearchMovieViewController: BackgroundViewControlller {
     
     //  MARK:- Clean Components
     var interactor: SearchMovieBusinessLogic?
@@ -40,7 +40,6 @@ final class SearchMovieViewController: BackgroundImageViewControlller {
         table.backgroundColor = Constants.Design.Color.Background.None
         table.dataSource = self
         table.delegate = self
-//        view.addSubview(discoveredTable)
         view.addSubview(table)
         return table
     }()
@@ -85,7 +84,7 @@ final class SearchMovieViewController: BackgroundImageViewControlller {
     }
     
     //  MARK:- Controller Setup
-    func controllerSetup() {
+    private func controllerSetup() {
         title = "Search"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = searchController
@@ -94,7 +93,7 @@ final class SearchMovieViewController: BackgroundImageViewControlller {
     }
     
     //  MARK: Do something
-    func getMovies() {
+    private func getMovies() {
         let request = SearchMovie.GetMovies.Request()
         interactor?.getMovies(request: request)
     }
@@ -124,13 +123,6 @@ extension SearchMovieViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
-        
-        // FIXME: Get this logic in Interactor
-//        guard let query = searchBar.text,
-//              !query.trimmingCharacters(in: .whitespaces).isEmpty,
-//              query.trimmingCharacters(in: .whitespaces).count >= 3
-//        else { return }
-//
         interactor?.updateSearchResult(requset: SearchMovie.GetSearchedMovies.Request(query: searchBar.text))
     }
 }

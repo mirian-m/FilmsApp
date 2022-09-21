@@ -55,7 +55,7 @@ final class BottomSheetViewController: UIViewController, BottomSheetDisplayLogic
     }
     
     //  MARK:- Notification Center selector Mathod
-    @objc func dismissController() {
+    @objc private func dismissController() {
         router?.routeBack(segue: nil)
     }
 }

@@ -34,7 +34,7 @@ extension BottomSheetRouter:  BottomSheetRoutingLogic {
     }
     
     //  MARK:- Navigate
-    func dismiss(source: BottomSheetViewController) {
+    private func dismiss(source: BottomSheetViewController) {
         source.dismiss(animated: true, completion: nil)
     }
 }

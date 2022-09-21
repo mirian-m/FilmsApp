@@ -12,6 +12,4 @@
 
 import UIKit
 
-class SearchResultWorker {
-  func doSomeWork() { }
-}
+final class SearchResultWorker {}

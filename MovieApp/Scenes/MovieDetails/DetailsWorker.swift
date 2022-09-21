@@ -12,4 +12,4 @@
 
 import UIKit
 
-class DetailsWorker {}
+final class DetailsWorker {}

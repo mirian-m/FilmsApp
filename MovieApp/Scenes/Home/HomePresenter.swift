@@ -15,7 +15,6 @@ import UIKit
 protocol HomePresentationLogic {
     func presentMovies(response: Home.MovieInfo.Response)
     func presentSelectedMovie(response: Home.GetSelectedMovie.Response)
-    func presentUserProfileImage(response: Home.GetCurrentUserAccaunt.Response)
 }
 
 final class HomePresenter {
@@ -24,9 +23,6 @@ final class HomePresenter {
 }
 
 extension HomePresenter: HomePresentationLogic {
-    func presentUserProfileImage(response: Home.GetCurrentUserAccaunt.Response) {
-        viewController?.displayUserProfileImage(viewModel: Home.GetCurrentUserAccaunt.ViewModel(image: response.profileImage))
-    }
     
     
     //  MARK:- HomePresentationLogic Methods
@@ -36,7 +32,7 @@ extension HomePresenter: HomePresentationLogic {
             viewController?.displayAlert(viewModel: Home.Error.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.rawValue)))
             return
         }
-        viewController?.displayMovies(viewModel: Home.MovieInfo.ViewModel(moviesViewModel: response.movies?.details.convert()))
+        viewController?.displayMovies(viewModel: Home.MovieInfo.ViewModel(section: response.section, moviesViewModel: response.movies?.details.convert()))
     }
     
     func presentSelectedMovie(response: Home.GetSelectedMovie.Response) {

@@ -49,18 +49,18 @@ extension HomeRouter: HomeRoutingLogic {
     }
     
     //  MARK: Navigation
-    func popToWelcomePage(source: HomeViewController, destination: UIViewController?) {
+    private func popToWelcomePage(source: HomeViewController, destination: UIViewController?) {
         source.navigationController?.popToRootViewController(animated: true)
     }
-    func navigate(source: HomeViewController, destination: UIViewController) {
+    private func navigate(source: HomeViewController, destination: UIViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
     }
-    func present(source: HomeViewController, destination: UIViewController) {
+    private func present(source: HomeViewController, destination: UIViewController) {
         source.present(destination, animated: true, completion: nil)
     }
     
     //  MARK: Passing data
-    func passDataToDetailsVc(source: HomeDataStore, destination: inout DetailsDataStore) {
+    private func passDataToDetailsVc(source: HomeDataStore, destination: inout DetailsDataStore) {
         destination.movieId = source.selectedMovieId
     }
     

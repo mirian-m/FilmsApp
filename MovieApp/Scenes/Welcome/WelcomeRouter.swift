@@ -36,17 +36,17 @@ extension WelcomeRouter: WelcomeRoutingLogic {
                 as? RegistrationViewController else { return }
         
         var destinationDS = destinationVC.router!.dataStore!
-        passDataToSomewhere(source: dataStore!, destination: &destinationDS)
+        passDataToRegistration(source: dataStore!, destination: &destinationDS)
         navigateToRegistrationPage(source: viewController!, destination: destinationVC)
     }
     
     //  MARK: Navigation
-    func navigateToRegistrationPage(source: WelcomeViewController, destination: UIViewController) {
+    private func navigateToRegistrationPage(source: WelcomeViewController, destination: UIViewController) {
         source.show(destination, sender: nil)
     }
     
     //  MARK: Passing data
-    func passDataToSomewhere(source: WelcomeDataStore, destination: inout RegistationDataStore) {
+    private func passDataToRegistration(source: WelcomeDataStore, destination: inout RegistationDataStore) {
         destination.tag = source.identifier
     }
 }

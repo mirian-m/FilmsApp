@@ -92,6 +92,7 @@
 		849C563328B35DAA006DC93D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C562D28B35DAA006DC93D /* HomeViewController.swift */; };
 		849C563428B35DAA006DC93D /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C562E28B35DAA006DC93D /* HomeInteractor.swift */; };
 		849C563A28B36B68006DC93D /* APIWoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C563928B36B68006DC93D /* APIWoker.swift */; };
+		84CEBAE428D8C1DE008DB57A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CEBAE328D8C1DE008DB57A /* Constants.swift */; };
 		84CF7EC828AF944A00297004 /* WelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7EC228AF944A00297004 /* WelcomePresenter.swift */; };
 		84CF7EC928AF944A00297004 /* WelcomeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7EC328AF944A00297004 /* WelcomeWorker.swift */; };
 		84CF7ECA28AF944A00297004 /* WelcomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF7EC428AF944A00297004 /* WelcomeRouter.swift */; };
@@ -196,6 +197,7 @@
 		849C562D28B35DAA006DC93D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		849C562E28B35DAA006DC93D /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		849C563928B36B68006DC93D /* APIWoker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIWoker.swift; sourceTree = "<group>"; };
+		84CEBAE328D8C1DE008DB57A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		84CF7EC228AF944A00297004 /* WelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenter.swift; sourceTree = "<group>"; };
 		84CF7EC328AF944A00297004 /* WelcomeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeWorker.swift; sourceTree = "<group>"; };
 		84CF7EC428AF944A00297004 /* WelcomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeRouter.swift; sourceTree = "<group>"; };
@@ -271,9 +273,9 @@
 				849C563828B36B36006DC93D /* Wokers */,
 				8424EF6E28AF8D5C00F30E6C /* Scenes */,
 				848FCFBC28954D900056582C /* Views */,
-				84209C9027C7B43F003CE71D /* Controllers */,
 				84E6EFF128C8B3BB00172590 /* ViewModel */,
 				8434F9F427CB8CAE00377DE2 /* Models */,
+				84106C8D28ABA577009B38E8 /* CustomBackgroundViewController */,
 				8434F9F827CB8D1C00377DE2 /* Extensions */,
 				84209C7B27C775AC003CE71D /* Main.storyboard */,
 				84209C7527C775AB003CE71D /* AppDelegate.swift */,
@@ -284,14 +286,6 @@
 				8424EF4328ABD91800F30E6C /* GoogleService-Info.plist */,
 			);
 			path = MovieApp;
-			sourceTree = "<group>";
-		};
-		84209C9027C7B43F003CE71D /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				84106C8D28ABA577009B38E8 /* CustomBackgroundViewController */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		8424EF6E28AF8D5C00F30E6C /* Scenes */ = {
@@ -544,6 +538,7 @@
 		849C562828B35D88006DC93D /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				84CEBAE228D8C1AD008DB57A /* Constants */,
 				8472260E28C71F3A00F46462 /* Cell */,
 				849C562D28B35DAA006DC93D /* HomeViewController.swift */,
 				849C562E28B35DAA006DC93D /* HomeInteractor.swift */,
@@ -561,6 +556,14 @@
 				849C563928B36B68006DC93D /* APIWoker.swift */,
 			);
 			path = Wokers;
+			sourceTree = "<group>";
+		};
+		84CEBAE228D8C1AD008DB57A /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				84CEBAE328D8C1DE008DB57A /* Constants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		84CF7EC128AF942A00297004 /* Welcome */ = {
@@ -775,6 +778,7 @@
 				842FA09027D2275600B206F6 /* YoutubeSearchResponse.swift in Sources */,
 				8465009628CA0CE300D61E4A /* DetailsRouter.swift in Sources */,
 				8472262A28C86E6A00F46462 /* WatchedListInteractor.swift in Sources */,
+				84CEBAE428D8C1DE008DB57A /* Constants.swift in Sources */,
 				84209C8B27C776C1003CE71D /* MoviesTableViewCell.swift in Sources */,
 				844E842E28C1E7F400C7864B /* ComingSoonWorker.swift in Sources */,
 				844E844828C5BCAF00C7864B /* MovieTrailerInteractor.swift in Sources */,

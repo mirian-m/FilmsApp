@@ -11,9 +11,6 @@
 //
 
 import UIKit
-import FirebaseStorage
-import FirebaseAuth
-
 
 protocol ProfileBusinessLogic {
     func getUserData(request: Profile.GetUserData.Request)

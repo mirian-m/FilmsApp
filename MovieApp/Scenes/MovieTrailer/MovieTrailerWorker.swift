@@ -12,6 +12,4 @@
 
 import UIKit
 
-final class MovieTrailerWorker {
-  func doSomeWork() {}
-}
+final class MovieTrailerWorker {}

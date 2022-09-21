@@ -34,7 +34,7 @@ final class RegistationRouter: NSObject, RegistationRoutingLogic, RegistrationDa
     }
     
     // MARK: Navigation
-    func navigateToHomeVC(source: RegistrationViewController, destination: UIViewController) {
+    private func navigateToHomeVC(source: RegistrationViewController, destination: UIViewController) {
         source.show(destination, sender: nil)
     }
 }

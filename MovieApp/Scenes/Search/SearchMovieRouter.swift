@@ -38,7 +38,6 @@ extension SearchMovieRouter:  SearchMovieRoutingLogic {
         presentDetailsVc(source: viewController!, destination: destinationVC)
     }
     
-    // MARK: Passing data
     func routeToSearcheResulte(segue: UIStoryboardSegue?) {
         guard let destinationVC = viewController?.searchController.searchResultsController as? SearchResultViewController else { return }
         var destinationDS = destinationVC.router!.dataStore!
@@ -46,16 +45,17 @@ extension SearchMovieRouter:  SearchMovieRoutingLogic {
         destinationVC.searchResultIsUpdated = true
     }
     
-    func passSearchedData(source: SearchMovieDataStore, destination: inout SearchResultDataStore) {
+    // MARK: Passing data
+    private func passSearchedData(source: SearchMovieDataStore, destination: inout SearchResultDataStore) {
         destination.searchedMovies = source.searchedMovies
     }
-
-    func passDataToDetailsVc(source: SearchMovieDataStore, destination: inout DetailsDataStore) {
+    
+    private func passDataToDetailsVc(source: SearchMovieDataStore, destination: inout DetailsDataStore) {
         destination.movieId = source.selectedMovieId
     }
     
     // MARK: Navigation
-    func presentDetailsVc(source: SearchMovieViewController, destination: UIViewController) {
+    private func presentDetailsVc(source: SearchMovieViewController, destination: UIViewController) {
         source.present(destination, animated: true, completion: nil)
     }
 }

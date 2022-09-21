@@ -13,10 +13,9 @@ protocol HomeDisplayLogic: AnyObject {
     func displayMovies(viewModel: Home.MovieInfo.ViewModel)
     func displayAlert(viewModel: Home.Error.ViewModel)
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel)
-    func displayUserProfileImage(viewModel: Home.GetCurrentUserAccaunt.ViewModel)
 }
 
-final class HomeViewController: BackgroundImageViewControlller {
+final class HomeViewController: BackgroundViewControlller {
     
     //  MARK:- Clean Components
     var interactor: HomeBusinessLogic?
@@ -39,7 +38,7 @@ final class HomeViewController: BackgroundImageViewControlller {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        getUserProfileImage()
+        //        getUserProfileImage()
         controllerSetup()
     }
     
@@ -77,34 +76,29 @@ final class HomeViewController: BackgroundImageViewControlller {
         
         headerView = Poster(frame: CGRect(x: 0,
                                           y: 0,
-                                          width: view.bounds.width,
-                                          height: UIScreen.main.bounds.height * (2/3)))
+                                          width: HomeVcConst.posterWidth,
+                                          height: HomeVcConst.posterHeight))
         filmTableView.tableHeaderView = headerView
-        setNavBarItem()
+        setNavBarItems()
     }
     
-    //  MARK:- Set Navigation Items
-    private func setNavBarItem() {
+    //  MARK:- Set Navigation button image
+    private func setNavBarItems() {
         let image = Constants.Design.Image.Logo.LogoImageOne?.withRenderingMode(.alwaysOriginal)
         tabBarController?.navigationItem.leftBarButtonItem  = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
         tabBarController?.navigationItem.rightBarButtonItem =
             UIBarButtonItem(
-                image: Constants.Design.Image.Icon.Person?.withTintColor(.white, renderingMode: .alwaysOriginal),
-                style: .done,
-                target: self, action: #selector(goToProfile)
-            )
-        tabBarController?.navigationController?.navigationBar.tintColor = Constants.Design.Color.Primary.White
+                image: Constants.Design.Image.DefaultProfileImage?
+                    .withTintColor(.white, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(goToProfile))
     }
-    private func getUserProfileImage() {
-        interactor?.getUserAccaunt(requset: Home.GetCurrentUserAccaunt.Request())
-    }
+    
     
     // MARK: Routing
     @objc private func goToProfile() {
         router?.routeToProfile(segue: nil)
     }
     
-    @objc func signOutFromProfile() {
+    @objc private func signOutFromProfile() {
         router?.routeToWelcomePage(segue: nil)
     }
     
@@ -117,14 +111,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MoviesTableViewCell", for: indexPath) as? MoviesTableViewCell else { return UITableViewCell() }
         
         cell.setScrollPosition(x: offsets[indexPath] ?? 0)
+        let request = Home.MovieInfo.Request(section: indexPath.section, sectionTitle: headerForSection[indexPath.section])
+        interactor?.fetchMovies(request: request)
         
-        let request = Home.MovieInfo.Request(sectionTitle: headerForSection[indexPath.section])
-        
-        interactor?.fetchMovies(request: request, completion: { [weak self] done in
-            if done {
-                cell.updateViewFromModel(movies: self?.fetchedMoviesDetails ?? [])
-            }
-        })
         cell.delegate = self
         return cell
     }
@@ -163,6 +152,8 @@ extension HomeViewController: HomeDisplayLogic {
     //  MARK:- DisplayLogic Functions
     func displayMovies(viewModel: Home.MovieInfo.ViewModel) {
         self.fetchedMoviesDetails = viewModel.moviesViewModel ?? []
+        guard let cell = filmTableView.cellForRow(at: IndexPath(row: 0, section: viewModel.section)) as? MoviesTableViewCell else { return }
+        cell.updateViewFromModel(movies: self.fetchedMoviesDetails)
         if !self.posterIsSeted {
             guard let randomMovie = viewModel.moviesViewModel?.randomElement() else { return }
             self.headerView?.configure(with: randomMovie.imageUrl, buttonsIsHidden: true)
@@ -177,11 +168,6 @@ extension HomeViewController: HomeDisplayLogic {
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel) {
         router?.routToDetailsVc(segue: nil)
     }
-    
-    func displayUserProfileImage(viewModel: Home.GetCurrentUserAccaunt.ViewModel) {
-//        tabBarController?.navigationItem.rightBarButtonItem?.setBackgroundImage(viewModel.image, for: .normal, style: .done, barMetrics: UIBarMetrics(rawValue: 0)!)
-    }
-
 }
 
 extension HomeViewController: CollectionViewTableViewCelldelegate {

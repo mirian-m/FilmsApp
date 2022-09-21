@@ -199,14 +199,14 @@ extension UITextField {
     }
     
     //   MARK:- Add left padding to the text field
-    fileprivate func setLeftPaddingPoints(_ amount: CGFloat) {
+    private func setLeftPaddingPoints(_ amount: CGFloat) {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: 0))
         self.leftView = paddingView
         self.leftViewMode = .always
     }
     
     //  MARK:- Textfield Show and hide content logic, while presed button
-    fileprivate func setPasswordToggleImage(_ button: UIButton) {
+    private func setPasswordToggleImage(_ button: UIButton) {
         if isSecureTextEntry {
             button.setImage(Constants.Design.Image.Icon.EyeSlash?
                                 .withTintColor(Constants.Design.Color.Primary.WhiteDisable,

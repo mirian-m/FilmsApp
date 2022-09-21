@@ -34,14 +34,14 @@ final class DetailsInteractor: DetailsDataStore {
 
 extension DetailsInteractor: DetailsBusinessLogic {
     func updateUserWatchedList(request: Details.UpdateUserData.Request) {
-        //  FIXME: - Fix logic
         UserManger.shared.getSigInUserData { data in
             var listOfMovies = data.seenMoviesList
             listOfMovies.append(request.movieId)
             listOfMovies = Array(Set(listOfMovies))
             guard let user = Auth.auth().currentUser else { return }
-            UserManger.shared.updateUserData(userId:  user.uid, data: [Constants.API.FireBase.Key.WatchedMovies: listOfMovies]) { (error) in
-                
+            UserManger.shared.updateUserData(userId:  user.uid, data: [Constants.API.FireBase.Key.WatchedMovies: listOfMovies]) { [weak self] error in
+                guard error != nil else { return }
+                self?.presenter?.presentUpdateError(response: Details.GetError.Response(error: error!))
             }
         }
     }

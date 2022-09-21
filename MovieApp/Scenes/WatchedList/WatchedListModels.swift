@@ -13,6 +13,7 @@
 import UIKit
 
 enum WatchedList {
+    
     // MARK: Use cases
     enum GetError {
         struct Request{}
@@ -23,7 +24,6 @@ enum WatchedList {
             var errorModel: ErrorViewModel
         }
     }
-
     
     enum GetWatchedMovies {
         struct Request {}

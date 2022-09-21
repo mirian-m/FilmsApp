@@ -3,7 +3,7 @@ import UIKit
 class SearchCollectionViewcell: UICollectionViewCell {
     static var identifier: String { .init(describing: self) }
     
-    var posterImage: UIImageView = {
+   private var posterImage: UIImageView = {
         var image = UIImageView()
         image.clipsToBounds = true
         image.contentMode = .scaleAspectFill
@@ -22,5 +22,9 @@ class SearchCollectionViewcell: UICollectionViewCell {
     override func layoutSubviews() {
         super .layoutSubviews()
         posterImage.frame = bounds
+    }
+    
+    func configure(by imageUrlStr: String) {
+        posterImage.getImageFromWeb(by: imageUrlStr)
     }
 }

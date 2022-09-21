@@ -18,16 +18,13 @@ protocol ProfilePresentationLogic {
     func presentSaveError(response: Profile.SaveProfileImage.Response)
 }
 
-final class ProfilePresenter: ProfilePresentationLogic {
-    
-    func presentProfileImage(response: Profile.UpdateProfileImage.Response) {
-        viewController?.dispalUpdatedProfileImage(viewModel: Profile.UpdateProfileImage.ViewModel(profileImage: response.image))
-    }
-    
+final class ProfilePresenter {
     weak var viewController: ProfileDisplayLogic?
+}
+
+extension ProfilePresenter: ProfilePresentationLogic {
     
-    // MARK: Do something
-    
+    //  MARK: ProfilePresentationLogic metods
     func presentUserDetails(response: Profile.GetUserData.Response) {
         let viewModel = Profile.GetUserData.ViewModel(profileModel: ProfileViewModel(with: response.userData))
         viewController?.displayUserDetails(viewModel: viewModel)
@@ -36,4 +33,9 @@ final class ProfilePresenter: ProfilePresentationLogic {
         guard response.error != nil else { return }
         viewController?.dispalyAler(viewModel: Profile.GetError.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.localizedDescription)))
     }
+    
+    func presentProfileImage(response: Profile.UpdateProfileImage.Response) {
+        viewController?.dispalUpdatedProfileImage(viewModel: Profile.UpdateProfileImage.ViewModel(profileImage: response.image))
+    }
 }
+

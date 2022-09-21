@@ -23,7 +23,7 @@ protocol WatchedListDataStore {
     var selectedMovieId: Int { get set }
 }
 
-class WatchedListInteractor: WatchedListDataStore {
+final class WatchedListInteractor: WatchedListDataStore {
     var selectedMovieId: Int = 0
     var presenter: WatchedListPresentationLogic?
     var worker = APIWoker()
@@ -31,6 +31,8 @@ class WatchedListInteractor: WatchedListDataStore {
 }
 
 extension WatchedListInteractor: WatchedListBusinessLogic {
+    
+    //  MARK:- Removes movie from list by id
     func removeMovieFromWatchedList(request: WatchedList.RemoveSelectedMovie.Request) {
         moviesList.removeAll { $0.id ==  request.selectedMovieId }
         guard let urser = Auth.auth().currentUser else { return }
@@ -38,7 +40,6 @@ extension WatchedListInteractor: WatchedListBusinessLogic {
         let arrayOfMoviesId = moviesList.map { $0.id }
         UserManger.shared.updateUserData(userId: urser.uid, data: [Constants.API.FireBase.Key.WatchedMovies: arrayOfMoviesId]) { [weak self] (error) in
             self?.presenter?.presentWatchedMovies(response: WatchedList.GetWatchedMovies.Response(error: error, movies: self?.moviesList))
-
         }
     }
     
@@ -50,7 +51,6 @@ extension WatchedListInteractor: WatchedListBusinessLogic {
     func getWatchedMovies(request: WatchedList.GetWatchedMovies.Request) {
         var counter = 0
        
-        
         UserManger.shared.getSigInUserData { data in
             if !data.seenMoviesList.isEmpty {
                 data.seenMoviesList.forEach { movieId in
@@ -60,8 +60,8 @@ extension WatchedListInteractor: WatchedListBusinessLogic {
                         case .success(let details):
                             self?.moviesList.append(details)
                         case .failure(let error):
-                            print(error)
-                        //  TODO:- Error hendling
+                            self?.presenter?.presentWatchedMovies(response: WatchedList.GetWatchedMovies.Response(error: error, movies: nil))
+                            return
                         }
                         if  counter == data.seenMoviesList.count {
                             DispatchQueue.main.async { [weak self] in

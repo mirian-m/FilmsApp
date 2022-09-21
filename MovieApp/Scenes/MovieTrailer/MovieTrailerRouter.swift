@@ -15,11 +15,10 @@ import UIKit
 protocol MovieTrailerRoutingLogic {}
 
 protocol MovieTrailerDataPassing {
-  var dataStore: MovieTrailerDataStore? { get }
+    var dataStore: MovieTrailerDataStore? { get }
 }
 
 final class MovieTrailerRouter: NSObject, MovieTrailerRoutingLogic, MovieTrailerDataPassing {
-  weak var viewController: MovieTrailerViewController?
-  var dataStore: MovieTrailerDataStore?
-  
+    weak var viewController: MovieTrailerViewController?
+    var dataStore: MovieTrailerDataStore?
 }

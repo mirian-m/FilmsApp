@@ -13,9 +13,8 @@
 import UIKit
 
 protocol HomeBusinessLogic {
-    func fetchMovies(request: Home.MovieInfo.Request, completion: @escaping (Bool) -> Void)
+    func fetchMovies(request: Home.MovieInfo.Request)
     func getSelectedMovieDetails(requset: Home.GetSelectedMovie.Request)
-    func getUserAccaunt(requset: Home.GetCurrentUserAccaunt.Request)
 }
 
 protocol HomeDataStore {
@@ -32,24 +31,13 @@ final class HomeInteractor: HomeDataStore {
 // MARK: HomeBusinessLogic Metods
 extension HomeInteractor: HomeBusinessLogic {
     
-    //  MARK:- get User profile image
-    func getUserAccaunt(requset: Home.GetCurrentUserAccaunt.Request) {
-        UserManger.shared.getSigInUserData { (userData) in
-            NetworkService.shared.getImageFromWeb(by: userData.profileImageUrl) { (image, _) in
-                DispatchQueue.main.async { [weak self] in
-                    self?.presenter?.presentUserProfileImage(response: Home.GetCurrentUserAccaunt.Response(profileImage: (image ?? Constants.Design.Image.DefaultProfileImage) ?? UIImage()))
-                }
-            }
-        }
-    }
-    
     //  MARK:- Get movies
-    func fetchMovies(request: Home.MovieInfo.Request, completion: @escaping (Bool) -> Void) {
+    func fetchMovies(request: Home.MovieInfo.Request) {
         
         //  MARK:- Create url By movies type
         let url = ApiHelper.shared.getMovieUrl(by: request.sectionTitle)
-        var response = Home.MovieInfo.Response()
-        worker.fetchMovieData(by: url, by: nil, completion: { (result: Result<Movies, APICollerError>) in
+        var response = Home.MovieInfo.Response(error: nil, section: request.section, movies: nil)
+        worker.fetchMovieDataBy(url: url, completion: { (result: Result<Movies, APICollerError>) in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let movies):
@@ -59,7 +47,6 @@ extension HomeInteractor: HomeBusinessLogic {
                     response.error = error
                 }
                 self?.presenter?.presentMovies(response: response)
-                completion(true)
             }
         })
     }

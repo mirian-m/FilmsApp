@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MoreDetailsTableViewCell: UITableViewCell {
+final class MoreDetailsTableViewCell: UITableViewCell {
     static var identifier: String { .init(describing: self) }
     
     weak var delegate: WatchedFilmTableViewCellDelegate?
@@ -79,14 +79,6 @@ class MoreDetailsTableViewCell: UITableViewCell {
         self.genreButtons.append(button)
         return button
     }()
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
