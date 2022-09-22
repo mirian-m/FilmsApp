@@ -21,11 +21,10 @@ protocol WelcomeDataStore {
 }
 
 final class WelcomeInteractor: WelcomeBusinessLogic, WelcomeDataStore {
-    
     var presenter: WelcomePresentationLogic?
     var worker: WelcomeWorker?
     var identifier: Int = 0
-    
+   
     func getTappeddButtonTag(requset: Welcome.Save.Request) {
         self.identifier = requset.buttonTag
     }

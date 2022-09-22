@@ -3,7 +3,7 @@ import UIKit
 final class Poster: UIView {
     var posterUrl: String?
     
-    //  MARK: IBOutlet programmatically
+    //  MARK: objects
     private var backBtn: UIButton = {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +52,7 @@ final class Poster: UIView {
         fatalError()
     }
     
+    //  MARK:- Configuration Method
     func configure(with posterUrl: String, buttonsIsHidden: Bool) {
         let url =  Constants.API.Movies.Helper.PosterBaseURL + posterUrl
         backBtn.isHidden = buttonsIsHidden

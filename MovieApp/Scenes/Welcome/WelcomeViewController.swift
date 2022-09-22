@@ -12,7 +12,6 @@
 
 import UIKit
 
-
 protocol WelcomeDisplayLogic: AnyObject {}
 
 final class WelcomeViewController: BackgroundViewControlller , WelcomeDisplayLogic {
@@ -70,8 +69,8 @@ final class WelcomeViewController: BackgroundViewControlller , WelcomeDisplayLog
     //  MARK: Setup
     private func setup() {
         let viewController = self
-        let interactor = WelcomeInteractor()
         let presenter = WelcomePresenter()
+        let interactor = WelcomeInteractor()
         let router = WelcomeRouter()
         viewController.interactor = interactor
         viewController.router = router

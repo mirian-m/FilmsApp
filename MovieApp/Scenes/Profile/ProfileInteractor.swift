@@ -28,7 +28,7 @@ final class ProfileInteractor: ProfileBusinessLogic, ProfileDataStore {
     
     //  MARK: Get user data from firebase data base
     func getUserData(request: Profile.GetUserData.Request) {
-        UserManger.shared.getSigInUserData { userData in
+        FireBaseManager.shared.getSigInUserData { userData in
             DispatchQueue.main.async { [weak self] in
                 let response = Profile.GetUserData.Response(userData: userData)
                 self?.presenter?.presentUserDetails(response: response)

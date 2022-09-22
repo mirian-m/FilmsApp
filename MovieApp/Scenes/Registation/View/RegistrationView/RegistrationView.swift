@@ -186,6 +186,7 @@ extension RegistrationView {
     }
 }
 
+//  MARK:- Textfield extension
 extension UITextField {
     fileprivate func setDesign(){
         self.translatesAutoresizingMaskIntoConstraints = false

@@ -35,9 +35,11 @@ extension DetailsRouter:  DetailsRoutingLogic {
     //  MARK: Routing
     func routeToTraileVc(segue: UIStoryboardSegue?) {
         let destinationVC = MovieTrailerViewController()
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToTrailerVc(source: dataStore!, destination: &destinationDS)
-        navigateToTrailerVc(source: viewController!, destination: destinationVC)
+        guard var destinationDS = destinationVC.router?.dataStore else { return }
+        guard let dataStore = dataStore else { return }
+        guard let viewController = viewController else { return }
+        passDataToTrailerVc(source: dataStore, destination: &destinationDS)
+        navigateToTrailerVc(source: viewController, destination: destinationVC)
     }
     
     //  MARK: Navigation

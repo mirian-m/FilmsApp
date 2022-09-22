@@ -33,14 +33,14 @@ extension SearchMovieRouter:  SearchMovieRoutingLogic {
     func routeToDetailsrVC(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
         destinationVC.modalPresentationStyle = .fullScreen
-        var destinationDS = destinationVC.router!.dataStore!
+        guard var destinationDS = destinationVC.router?.dataStore else { return }
         passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
         presentDetailsVc(source: viewController!, destination: destinationVC)
     }
     
     func routeToSearcheResulte(segue: UIStoryboardSegue?) {
         guard let destinationVC = viewController?.searchController.searchResultsController as? SearchResultViewController else { return }
-        var destinationDS = destinationVC.router!.dataStore!
+        guard var destinationDS = destinationVC.router?.dataStore else { return }
         passSearchedData(source: dataStore!, destination: &destinationDS)
         destinationVC.searchResultIsUpdated = true
     }

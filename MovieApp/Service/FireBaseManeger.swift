@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 import Firebase
 
-final class UserManger {
-    static let shared = UserManger()
+final class FireBaseManager {
+    static let shared = FireBaseManager()
     
     private init() {}
     
@@ -32,7 +32,7 @@ final class UserManger {
     
     func getSigInUserData(completion: @escaping (UserData) -> Void) {
         guard let currentUser = Auth.auth().currentUser else { return }
-        UserManger.shared.getUserData(by: currentUser.uid) {  userData in
+        FireBaseManager.shared.getUserData(by: currentUser.uid) {  userData in
             completion(userData)
         }
     }

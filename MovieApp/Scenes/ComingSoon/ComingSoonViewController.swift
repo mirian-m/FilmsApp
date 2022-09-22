@@ -23,9 +23,9 @@ final class ComingSoonViewController: BackgroundViewControlller {
     //  MARK:- Clean Components
     var interactor: ComingSoonBusinessLogic?
     var router: (NSObjectProtocol & ComingSoonRoutingLogic & ComingSoonDataPassing)?
-
-    private var moviesViewModel = [MovieViewModel]()
     
+    //  MARK:- objects
+    private var moviesViewModel = [MovieViewModel]()
     private lazy var upcomingMoviesTableView : UITableView = {
         var tableView = UITableView()
         tableView.backgroundColor = Constants.Design.Color.Background.None

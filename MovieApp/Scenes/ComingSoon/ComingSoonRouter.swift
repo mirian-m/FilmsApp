@@ -27,7 +27,7 @@ extension ComingSoonRouter: ComingSoonRoutingLogic {
     func routeToDetailsVc(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
         destinationVC.modalPresentationStyle = .fullScreen
-        var destinationDS = destinationVC.router!.dataStore!
+        guard var destinationDS = destinationVC.router?.dataStore else { return }
         passDataToSomewhere(source: dataStore!, destination: &destinationDS)
         navigateToTrailerVC(source: viewController!, destination: destinationVC)
     }

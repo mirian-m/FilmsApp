@@ -32,20 +32,22 @@ extension HomeRouter: HomeRoutingLogic {
     //  MARK: Routing
     func routeToProfile(segue: UIStoryboardSegue?) {
         let destinationVC = ProfileViewController()
-        present(source: viewController!, destination: destinationVC)
+        present(destination: destinationVC)
     }
     
     func routeToWelcomePage(segue: UIStoryboardSegue?) {
-        popToWelcomePage(source: viewController!, destination: nil)
+        guard let viewController = self.viewController else { return }
+        popToWelcomePage(source: viewController, destination: nil)
     }
     
     func routToDetailsVc(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
         destinationVC.modalTransitionStyle = .coverVertical
         destinationVC.modalPresentationStyle = .fullScreen
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
-        present(source: viewController!, destination: destinationVC)
+        guard var destinationDS = destinationVC.router?.dataStore else { return }
+        guard let dataStore = dataStore else { return }
+        passDataToDetailsVc(source: dataStore, destination: &destinationDS)
+        present(destination: destinationVC)
     }
     
     //  MARK: Navigation
@@ -55,8 +57,8 @@ extension HomeRouter: HomeRoutingLogic {
     private func navigate(source: HomeViewController, destination: UIViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
     }
-    private func present(source: HomeViewController, destination: UIViewController) {
-        source.present(destination, animated: true, completion: nil)
+    private func present(destination: UIViewController) {
+        self.viewController?.present(destination, animated: true, completion: nil)
     }
     
     //  MARK: Passing data

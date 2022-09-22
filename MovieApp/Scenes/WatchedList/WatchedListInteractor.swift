@@ -38,7 +38,7 @@ extension WatchedListInteractor: WatchedListBusinessLogic {
         guard let urser = Auth.auth().currentUser else { return }
         
         let arrayOfMoviesId = moviesList.map { $0.id }
-        UserManger.shared.updateUserData(userId: urser.uid, data: [Constants.API.FireBase.Key.WatchedMovies: arrayOfMoviesId]) { [weak self] (error) in
+        FireBaseManager.shared.updateUserData(userId: urser.uid, data: [Constants.API.FireBase.Key.WatchedMovies: arrayOfMoviesId]) { [weak self] (error) in
             self?.presenter?.presentWatchedMovies(response: WatchedList.GetWatchedMovies.Response(error: error, movies: self?.moviesList))
         }
     }
@@ -51,7 +51,7 @@ extension WatchedListInteractor: WatchedListBusinessLogic {
     func getWatchedMovies(request: WatchedList.GetWatchedMovies.Request) {
         var counter = 0
        
-        UserManger.shared.getSigInUserData { data in
+        FireBaseManager.shared.getSigInUserData { data in
             if !data.seenMoviesList.isEmpty {
                 data.seenMoviesList.forEach { movieId in
                     self.worker.getMovie(by: movieId, complition: { [weak self] (result: Result<MovieDetails, APICollerError>) in

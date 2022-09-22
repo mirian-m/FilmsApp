@@ -29,7 +29,7 @@ final class ProfileWorker {
                     completion(error)
                     return
                 }
-                UserManger.shared.updateUserData(userId: Auth.auth().currentUser!.uid, data: [Constants.API.FireBase.Key.ProfileImageUrl: url]) { error in
+                FireBaseManager.shared.updateUserData(userId: Auth.auth().currentUser!.uid, data: [Constants.API.FireBase.Key.ProfileImageUrl: url]) { error in
                     completion(error)
                 }
             }

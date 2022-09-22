@@ -32,9 +32,11 @@ extension WatchedListRouter: WatchedListRoutingLogic, WatchedListDataPassing {
     func routeToTrailerVC(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
         destinationVC.modalPresentationStyle = .fullScreen
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
-        presentDetailsVc(source: viewController!, destination: destinationVC)
+        guard let viewController = viewController else { return }
+        guard let dataStore = dataStore else { return }
+        guard var destinationDS = destinationVC.router?.dataStore else { return }
+        passDataToDetailsVc(source: dataStore, destination: &destinationDS)
+        presentDetailsVc(source: viewController, destination: destinationVC)
     }
     
     // MARK: Navigation
