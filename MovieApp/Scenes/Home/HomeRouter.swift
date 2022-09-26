@@ -42,7 +42,6 @@ extension HomeRouter: HomeRoutingLogic {
     
     func routToDetailsVc(segue: UIStoryboardSegue?) {
         let destinationVC = DetailsViewController()
-        destinationVC.modalTransitionStyle = .coverVertical
         destinationVC.modalPresentationStyle = .fullScreen
         guard var destinationDS = destinationVC.router?.dataStore,
               let dataStore = dataStore
