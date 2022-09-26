@@ -13,7 +13,7 @@
 import UIKit
 
 protocol WatchedListRoutingLogic {
-    func routeToTrailerVC(segue: UIStoryboardSegue?)
+    func routeToTrailerVC()
     
 }
 
@@ -29,12 +29,13 @@ final class WatchedListRouter: NSObject {
 extension WatchedListRouter: WatchedListRoutingLogic, WatchedListDataPassing {
     // MARK: Routing
     
-    func routeToTrailerVC(segue: UIStoryboardSegue?) {
+    func routeToTrailerVC() {
         let destinationVC = DetailsViewController()
         destinationVC.modalPresentationStyle = .fullScreen
-        guard let viewController = viewController else { return }
-        guard let dataStore = dataStore else { return }
-        guard var destinationDS = destinationVC.router?.dataStore else { return }
+        guard let viewController = viewController,
+              let dataStore = dataStore,
+              var destinationDS = destinationVC.router?.dataStore
+        else { return }
         passDataToDetailsVc(source: dataStore, destination: &destinationDS)
         presentDetailsVc(source: viewController, destination: destinationVC)
     }

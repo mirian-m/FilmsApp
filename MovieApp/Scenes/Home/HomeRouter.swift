@@ -44,8 +44,9 @@ extension HomeRouter: HomeRoutingLogic {
         let destinationVC = DetailsViewController()
         destinationVC.modalTransitionStyle = .coverVertical
         destinationVC.modalPresentationStyle = .fullScreen
-        guard var destinationDS = destinationVC.router?.dataStore else { return }
-        guard let dataStore = dataStore else { return }
+        guard var destinationDS = destinationVC.router?.dataStore,
+              let dataStore = dataStore
+        else { return }
         passDataToDetailsVc(source: dataStore, destination: &destinationDS)
         present(destination: destinationVC)
     }

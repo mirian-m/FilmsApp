@@ -13,7 +13,7 @@
 import UIKit
 
 protocol BottomSheetRoutingLogic {
-    func routeBack(segue: UIStoryboardSegue?)
+    func routeBack()
 }
 
 protocol BottomSheetDataPassing {
@@ -29,7 +29,7 @@ final class BottomSheetRouter: NSObject, BottomSheetDataPassing {
 extension BottomSheetRouter:  BottomSheetRoutingLogic {
     
     //  MARK:- Route
-    func routeBack(segue: UIStoryboardSegue?) {
+    func routeBack() {
         dismiss(source: viewController!)
     }
     

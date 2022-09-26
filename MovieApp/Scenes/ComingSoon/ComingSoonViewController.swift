@@ -95,7 +95,7 @@ extension ComingSoonViewController: ComingSoonDisplayLogic {
     }
     
     func displaySelectedMovie(viewModel: ComingSoon.GetSelectedMovie.ViewModel) {
-        router?.routeToDetailsVc(segue: nil)
+        router?.routeToDetailsVc()
     }
     
     func displayAlert(viewModel: ComingSoon.GetError.ViewModel) {

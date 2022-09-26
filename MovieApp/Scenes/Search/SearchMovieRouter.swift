@@ -13,8 +13,8 @@
 import UIKit
 
 protocol SearchMovieRoutingLogic {
-    func routeToDetailsrVC(segue: UIStoryboardSegue?)
-    func routeToSearcheResulte(segue: UIStoryboardSegue?)
+    func routeToDetailsrVC()
+    func routeToSearcheResulte()
 }
 
 protocol SearchMovieDataPassing {
@@ -30,18 +30,22 @@ final class SearchMovieRouter: NSObject, SearchMovieDataPassing {
 extension SearchMovieRouter:  SearchMovieRoutingLogic {
     
     // MARK: Routing
-    func routeToDetailsrVC(segue: UIStoryboardSegue?) {
+    func routeToDetailsrVC() {
         let destinationVC = DetailsViewController()
         destinationVC.modalPresentationStyle = .fullScreen
         guard var destinationDS = destinationVC.router?.dataStore else { return }
-        passDataToDetailsVc(source: dataStore!, destination: &destinationDS)
-        presentDetailsVc(source: viewController!, destination: destinationVC)
+        guard let dataStore = dataStore else { return }
+        guard let viewController = viewController else { return }
+        passDataToDetailsVc(source: dataStore, destination: &destinationDS)
+        presentDetailsVc(source: viewController, destination: destinationVC)
     }
     
-    func routeToSearcheResulte(segue: UIStoryboardSegue?) {
-        guard let destinationVC = viewController?.searchController.searchResultsController as? SearchResultViewController else { return }
-        guard var destinationDS = destinationVC.router?.dataStore else { return }
-        passSearchedData(source: dataStore!, destination: &destinationDS)
+    func routeToSearcheResulte() {
+        guard let destinationVC = viewController?.searchController.searchResultsController as? SearchResultViewController,
+              var destinationDS = destinationVC.router?.dataStore,
+              let dataStore = dataStore
+        else { return }
+        passSearchedData(source: dataStore, destination: &destinationDS)
         destinationVC.searchResultIsUpdated = true
     }
     

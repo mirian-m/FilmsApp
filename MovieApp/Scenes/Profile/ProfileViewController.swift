@@ -67,10 +67,10 @@ final class ProfileViewController: UIViewController {
     }
     //  MARK:- Button Action
     @objc private func dissmisProfile() {
-        router?.routeBack(segue: nil)
+        router?.routeBack()
     }
     @objc private func signOutFromProfile() {
-        router?.routeToBottomSheet(segue: nil)
+        router?.routeToBottomSheet()
     }
     @objc private func chooseImage() {
         showImagePickerControllerActionSheet()

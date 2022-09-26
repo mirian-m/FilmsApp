@@ -35,9 +35,12 @@ extension WelcomeRouter: WelcomeRoutingLogic {
                 .instantiateViewController(withIdentifier: RegistrationViewController.identifier)
                 as? RegistrationViewController else { return }
         
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToRegistration(source: dataStore!, destination: &destinationDS)
-        navigateToRegistrationPage(source: viewController!, destination: destinationVC)
+        guard var destinationDS = destinationVC.router?.dataStore,
+              let dataStore = dataStore,
+              let viewController = viewController
+        else { return }
+        passDataToRegistration(source: dataStore, destination: &destinationDS)
+        navigateToRegistrationPage(source: viewController, destination: destinationVC)
     }
     
     //  MARK: Navigation

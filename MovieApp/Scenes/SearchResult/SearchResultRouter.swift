@@ -13,7 +13,7 @@
 import UIKit
 
 protocol SearchResultRoutingLogic {
-    func routeToDetailsVc(segue: UIStoryboardSegue?)
+    func routeToDetailsVc()
 }
 
 protocol SearchResultDataPassing {
@@ -27,12 +27,13 @@ final class SearchResultRouter: NSObject, SearchResultRoutingLogic, SearchResult
     var dataStore: SearchResultDataStore?
     
     //  MARK: Routing
-    func routeToDetailsVc(segue: UIStoryboardSegue?) {
+    func routeToDetailsVc() {
         let destinationVC = DetailsViewController()
         destinationVC.modalPresentationStyle = .fullScreen
-        guard var destinationDS = destinationVC.router?.dataStore else { return }
-        guard let dataStore = dataStore else { return }
-        guard let viewController = self.viewController else { return }
+        guard var destinationDS = destinationVC.router?.dataStore,
+              let dataStore = dataStore,
+              let viewController = self.viewController
+        else { return }
         passDataToDetailsVc(source: dataStore, destination: &destinationDS)
         presentDetailsVc(source: viewController, destination: destinationVC)
     }

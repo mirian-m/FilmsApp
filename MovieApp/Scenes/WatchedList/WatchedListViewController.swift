@@ -123,7 +123,7 @@ extension WatchedListViewController:  WatchedListDisplayLogic {
     
     //  MARK:- DisplayLogic Protocol Function
     func displaySelectedMovie(viewModel: WatchedList.GetSelectedMovie.ViewModel) {
-        router?.routeToTrailerVC(segue: nil)
+        router?.routeToTrailerVC()
     }
     
     func displayWatchedMovies(viewModel: WatchedList.GetWatchedMovies.ViewModel) {

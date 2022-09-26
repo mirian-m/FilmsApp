@@ -137,11 +137,11 @@ extension SearchMovieViewController: SearchMovieDisplayLogic {
     }
     
     func displaySelectedMovie(vieModel: SearchMovie.GetSelectedMovie.ViewModel) {
-        router?.routeToDetailsrVC(segue: nil)
+        router?.routeToDetailsrVC()
     }
     
     func displaySearchedMovies(viewModel: SearchMovie.GetSearchedMovies.ViewModel) {
-        self.router?.routeToSearcheResulte(segue: nil)
+        self.router?.routeToSearcheResulte()
     }
     func displayAlert(viewModel: SearchMovie.GetError.ViewModel) {
         self.showAlertWith(title: viewModel.errorModel.title, text: viewModel.errorModel.message)

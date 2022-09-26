@@ -87,10 +87,10 @@ final class DetailsViewController: BackgroundViewControlller {
     //  MARK:- Buttons Action
     @objc private func playTrailer() {
         interactor?.updateUserWatchedList(request: Details.UpdateUserData.Request(movieId: movieViewModel.id))
-        router?.routeToTraileVc(segue: nil)
+        router?.routeToTraileVc()
     }
     @objc private func moveBack() {
-        router?.routeToBack(segue: nil)
+        router?.routeToBack()
     }
     func getMovieDetails() {
         let request = Details.GetMovie.Request()

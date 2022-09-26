@@ -29,8 +29,10 @@ final class RegistationRouter: NSObject, RegistationRoutingLogic, RegistrationDa
     func routeToHomeVC(segue: UIStoryboardSegue?) {
         guard let destinationVC = UIStoryboard(name: "Main", bundle: nil)
                 .instantiateViewController(withIdentifier: "TabBarController")
-                as? UITabBarController else { return }
-        navigateToHomeVC(source: viewController!, destination: destinationVC)
+                as? UITabBarController,
+              let viewController = viewController
+        else { return }
+        navigateToHomeVC(source: viewController, destination: destinationVC)
     }
     
     // MARK: Navigation
