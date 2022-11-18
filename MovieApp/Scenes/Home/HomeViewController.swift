@@ -38,7 +38,6 @@ final class HomeViewController: BackgroundViewControlller {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        getUserProfileImage()
         controllerSetup()
     }
     
@@ -67,7 +66,6 @@ final class HomeViewController: BackgroundViewControlller {
     }
     
     private func controllerSetup() {
-        NotificationCenter.default.addObserver(self, selector: #selector(signOutFromProfile), name: .yesButtonWasClickedOnTheBottomSheet, object: nil)
         tabBarController?.navigationItem.hidesBackButton = true
         tabBarController?.navigationController?.navigationBar.isHidden = false
         tabBarItem.badgeColor = .label
@@ -86,22 +84,7 @@ final class HomeViewController: BackgroundViewControlller {
     private func setNavBarItems() {
         let image = Constants.Design.Image.Logo.LogoImageOne?.withRenderingMode(.alwaysOriginal)
         tabBarController?.navigationItem.leftBarButtonItem  = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
-        tabBarController?.navigationItem.rightBarButtonItem =
-            UIBarButtonItem(
-                image: Constants.Design.Image.DefaultProfileImage?
-                    .withTintColor(.white, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(goToProfile))
     }
-    
-    
-    // MARK: Routing
-    @objc private func goToProfile() {
-        router?.routeToProfile(segue: nil)
-    }
-    
-    @objc private func signOutFromProfile() {
-        router?.routeToWelcomePage(segue: nil)
-    }
-    
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -166,7 +149,7 @@ extension HomeViewController: HomeDisplayLogic {
     }
     
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel) {
-        router?.routToDetailsVc(segue: nil)
+        router?.routToDetailsVc()
     }
 }
 
@@ -175,9 +158,5 @@ extension HomeViewController: CollectionViewTableViewCelldelegate {
     //  MARK: Delegate Protocol FUNCtions
     func collectionViewTableViewCellDidTap(movieId: Int) {
         interactor?.getSelectedMovieDetails(requset: Home.GetSelectedMovie.Request(selectedMovieId: movieId))
-    }
-    
-    func backToRootViewController() {
-        router?.routeToWelcomePage(segue: nil)
     }
 }

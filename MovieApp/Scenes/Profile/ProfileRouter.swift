@@ -13,8 +13,8 @@
 import UIKit
 
 protocol ProfileRoutingLogic {
-    func routeBack(segue: UIStoryboardSegue?)
-    func routeToBottomSheet(segue: UIStoryboardSegue?)
+    func signOutFromProfile()
+    func routeToBottomSheet()
 }
 
 protocol ProfileDataPassing {
@@ -29,12 +29,16 @@ final class ProfileRouter: NSObject, ProfileDataPassing {
 extension ProfileRouter: ProfileRoutingLogic {
     
     //  MARK:- Routing
-    func routeToBottomSheet(segue: UIStoryboardSegue?) {
+    func routeToBottomSheet() {
         let destinationVC = BottomSheetViewController()
         present(source: viewController!, destination: destinationVC)
     }
-    func routeBack(segue: UIStoryboardSegue?) {
-        dissmisProfile(source: viewController!)
+    func signOutFromProfile() {
+        guard let viewController = self.viewController else { return }
+        popToWelcomePage(source: viewController, destination: nil)
+    }
+    private func popToWelcomePage(source: ProfileViewController, destination: UIViewController?) {
+        source.navigationController?.popToRootViewController(animated: true)
     }
     
     //  MARK:- Navigation

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ComingSoonRoutingLogic {
-    func routeToDetailsVc(segue: UIStoryboardSegue?)
+    func routeToDetailsVc()
 }
 
 protocol ComingSoonDataPassing {
@@ -24,7 +24,7 @@ final class ComingSoonRouter: NSObject, ComingSoonDataPassing {
 extension ComingSoonRouter: ComingSoonRoutingLogic {
     
     //  MARK: Routing
-    func routeToDetailsVc(segue: UIStoryboardSegue?) {
+    func routeToDetailsVc() {
         let destinationVC = DetailsViewController()
         destinationVC.modalPresentationStyle = .fullScreen
         guard var destinationDS = destinationVC.router?.dataStore else { return }
