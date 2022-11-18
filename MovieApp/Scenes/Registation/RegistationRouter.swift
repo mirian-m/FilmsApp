@@ -13,7 +13,7 @@
 import UIKit
 
 @objc protocol RegistationRoutingLogic {
-    func routeToHomeVC(segue: UIStoryboardSegue?)
+    func routeToHomeVC()
 }
 
 protocol RegistrationDataPassing {
@@ -26,7 +26,7 @@ final class RegistationRouter: NSObject, RegistationRoutingLogic, RegistrationDa
     
     // MARK: Routing
     
-    func routeToHomeVC(segue: UIStoryboardSegue?) {
+    func routeToHomeVC() {
         guard let destinationVC = UIStoryboard(name: "Main", bundle: nil)
                 .instantiateViewController(withIdentifier: "TabBarController")
                 as? UITabBarController,

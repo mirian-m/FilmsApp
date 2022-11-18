@@ -13,9 +13,9 @@
 import UIKit
 
 protocol HomeRoutingLogic {
-    func routeToProfile(segue: UIStoryboardSegue?)
-    func routeToWelcomePage(segue: UIStoryboardSegue?)
-    func routToDetailsVc(segue: UIStoryboardSegue?)
+    func routeToProfile()
+    func routeToWelcomePage()
+    func routToDetailsVc()
 }
 
 protocol HomeDataPassing {
@@ -30,17 +30,17 @@ final class HomeRouter: NSObject, HomeDataPassing {
 extension HomeRouter: HomeRoutingLogic {
     
     //  MARK: Routing
-    func routeToProfile(segue: UIStoryboardSegue?) {
+    func routeToProfile() {
         let destinationVC = ProfileViewController()
         present(destination: destinationVC)
     }
     
-    func routeToWelcomePage(segue: UIStoryboardSegue?) {
+    func routeToWelcomePage() {
         guard let viewController = self.viewController else { return }
         popToWelcomePage(source: viewController, destination: nil)
     }
     
-    func routToDetailsVc(segue: UIStoryboardSegue?) {
+    func routToDetailsVc() {
         let destinationVC = DetailsViewController()
         destinationVC.modalPresentationStyle = .fullScreen
         guard var destinationDS = destinationVC.router?.dataStore,

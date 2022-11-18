@@ -1,8 +1,6 @@
 //  User.swift
 //  Netflix
 
-
-import Foundation
 import UIKit
 
 struct UserData {

@@ -117,7 +117,7 @@ extension RegistrationViewController: RegistrationDisplayLogic {
     }
     
     func displayHome(viewModel: Registration.SigInUser.ViewModel) {
-        router?.routeToHomeVC(segue: nil)
+        router?.routeToHomeVC()
     }
 }
 

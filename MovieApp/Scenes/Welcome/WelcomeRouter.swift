@@ -13,7 +13,7 @@
 import UIKit
 
 protocol WelcomeRoutingLogic {
-    func routeToRegistration(segue: UIStoryboardSegue?)
+    func routeToRegistration()
 }
 
 protocol WelcomeDataPassing {
@@ -30,7 +30,7 @@ final class WelcomeRouter: NSObject, WelcomeDataPassing {
 extension WelcomeRouter: WelcomeRoutingLogic {
     
     //  MARK: Routing
-    func routeToRegistration(segue: UIStoryboardSegue?) {
+    func routeToRegistration() {
         guard let destinationVC = UIStoryboard.init(name: "Main", bundle: nil)
                 .instantiateViewController(withIdentifier: RegistrationViewController.identifier)
                 as? RegistrationViewController else { return }

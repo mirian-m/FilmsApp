@@ -95,11 +95,11 @@ final class HomeViewController: BackgroundViewControlller {
     
     // MARK: Routing
     @objc private func goToProfile() {
-        router?.routeToProfile(segue: nil)
+        router?.routeToProfile()
     }
     
     @objc private func signOutFromProfile() {
-        router?.routeToWelcomePage(segue: nil)
+        router?.routeToWelcomePage()
     }
     
 }
@@ -166,7 +166,7 @@ extension HomeViewController: HomeDisplayLogic {
     }
     
     func displaySelectedMovie(viewModel: Home.GetSelectedMovie.ViewModel) {
-        router?.routToDetailsVc(segue: nil)
+        router?.routToDetailsVc()
     }
 }
 
@@ -178,6 +178,6 @@ extension HomeViewController: CollectionViewTableViewCelldelegate {
     }
     
     func backToRootViewController() {
-        router?.routeToWelcomePage(segue: nil)
+        router?.routeToWelcomePage()
     }
 }

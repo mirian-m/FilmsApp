@@ -84,7 +84,7 @@ final class WelcomeViewController: BackgroundViewControlller , WelcomeDisplayLog
     @IBAction func moveToRegitrationPage(_ sender: Any) {
         guard let tag = (sender as? UIButton)?.tag else { return }
         interactor?.getTappeddButtonTag(requset: Welcome.Save.Request(buttonTag: tag))
-        router?.routeToRegistration(segue: nil)
+        router?.routeToRegistration()
     }
 }
 

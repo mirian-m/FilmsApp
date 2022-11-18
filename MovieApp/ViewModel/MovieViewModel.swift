@@ -4,8 +4,6 @@
 //
 //  Created by Admin on 9/7/22.
 //
-
-import Foundation
 import UIKit
 
 struct MovieViewModel: Hashable {
