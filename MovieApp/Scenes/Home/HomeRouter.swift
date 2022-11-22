@@ -14,7 +14,6 @@ import UIKit
 
 protocol HomeRoutingLogic {
     func routeToProfile()
-    func routeToWelcomePage()
     func routToDetailsVc()
 }
 
@@ -35,10 +34,6 @@ extension HomeRouter: HomeRoutingLogic {
         present(destination: destinationVC)
     }
     
-    func routeToWelcomePage() {
-        guard let viewController = self.viewController else { return }
-        popToWelcomePage(source: viewController, destination: nil)
-    }
     
     func routToDetailsVc() {
         let destinationVC = DetailsViewController()

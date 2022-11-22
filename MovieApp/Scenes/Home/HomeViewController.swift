@@ -85,20 +85,7 @@ final class HomeViewController: BackgroundViewControlller {
         let image = Constants.Design.Image.Logo.LogoImageOne?.withRenderingMode(.alwaysOriginal)
         tabBarController?.navigationItem.leftBarButtonItem  = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
     }
-<<<<<<< HEAD
-    
-    
-    // MARK: Routing
-    @objc private func goToProfile() {
-        router?.routeToProfile()
-    }
-    
-    @objc private func signOutFromProfile() {
-        router?.routeToWelcomePage()
-    }
-    
-=======
->>>>>>> VIP
+
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -173,11 +160,4 @@ extension HomeViewController: CollectionViewTableViewCelldelegate {
     func collectionViewTableViewCellDidTap(movieId: Int) {
         interactor?.getSelectedMovieDetails(requset: Home.GetSelectedMovie.Request(selectedMovieId: movieId))
     }
-<<<<<<< HEAD
-    
-    func backToRootViewController() {
-        router?.routeToWelcomePage()
-    }
-=======
->>>>>>> VIP
 }

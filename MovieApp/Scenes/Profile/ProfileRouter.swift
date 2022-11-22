@@ -13,7 +13,6 @@
 import UIKit
 
 protocol ProfileRoutingLogic {
-    func routeBack()
     func signOutFromProfile()
     func routeToBottomSheet()
 }
@@ -34,9 +33,6 @@ extension ProfileRouter: ProfileRoutingLogic {
         let destinationVC = BottomSheetViewController()
         guard let viewController = viewController else { return }
         present(source: viewController, destination: destinationVC)
-    }
-    func routeBack() {
-        dissmisProfile()
     }
     func signOutFromProfile() {
         guard let viewController = self.viewController else { return }
