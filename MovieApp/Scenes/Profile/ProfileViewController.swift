@@ -68,15 +68,12 @@ final class ProfileViewController: UIViewController {
     }
     //  MARK:- Button Action
     @objc private func dissmisProfile() {
-<<<<<<< HEAD
         router?.routeBack()
     }
     @objc private func signOutFromProfile() {
-=======
         router?.signOutFromProfile()
     }
     @objc private func presentBottomSheet() {
->>>>>>> VIP
         router?.routeToBottomSheet()
     }
     @objc private func chooseImage() {

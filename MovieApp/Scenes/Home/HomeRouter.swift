@@ -13,11 +13,8 @@
 import UIKit
 
 protocol HomeRoutingLogic {
-<<<<<<< HEAD
     func routeToProfile()
     func routeToWelcomePage()
-=======
->>>>>>> VIP
     func routToDetailsVc()
 }
 
@@ -33,7 +30,6 @@ final class HomeRouter: NSObject, HomeDataPassing {
 extension HomeRouter: HomeRoutingLogic {
     
     //  MARK: Routing
-<<<<<<< HEAD
     func routeToProfile() {
         let destinationVC = ProfileViewController()
         present(destination: destinationVC)
@@ -44,9 +40,6 @@ extension HomeRouter: HomeRoutingLogic {
         popToWelcomePage(source: viewController, destination: nil)
     }
     
-=======
-    
->>>>>>> VIP
     func routToDetailsVc() {
         let destinationVC = DetailsViewController()
         destinationVC.modalPresentationStyle = .fullScreen
