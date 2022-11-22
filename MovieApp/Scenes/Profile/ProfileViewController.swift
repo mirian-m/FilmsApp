@@ -59,17 +59,24 @@ final class ProfileViewController: UIViewController {
     
     private func setUpViewController() {
         self.view.addSubview(profileView)
-        NotificationCenter.default.addObserver(self, selector: #selector(signOutFromProfile), name: .signOutButtonDidTapped, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(dissmisProfile), name: .cancelButtonDidTapped, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentBottomSheet), name: .signOutButtonDidTapped, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(dissmisProfile), name: .yesButtonWasClickedOnTheBottomSheet, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(chooseImage), name: .imageDidTapped, object: nil)
+        tabBarItem.image = Constants.Design.Image.DefaultProfileImage?.withRenderingMode(.automatic)
+        tabBarItem.title = "Profile"
         
     }
     //  MARK:- Button Action
     @objc private func dissmisProfile() {
+<<<<<<< HEAD
         router?.routeBack()
     }
     @objc private func signOutFromProfile() {
+=======
+        router?.signOutFromProfile()
+    }
+    @objc private func presentBottomSheet() {
+>>>>>>> VIP
         router?.routeToBottomSheet()
     }
     @objc private func chooseImage() {

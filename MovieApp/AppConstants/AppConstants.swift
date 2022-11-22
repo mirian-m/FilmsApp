@@ -30,7 +30,7 @@ enum Constants {
         
         enum Image {
             static let DefaultMovieImage = UIImage(named: "defaultImage")
-            static let DefaultProfileImage = UIImage(systemName: "person.fill")
+            static let DefaultProfileImage = UIImage(systemName: "person")
             
             enum Logo {
                 static let LogoImageOne = UIImage(named: "Netflix-new")

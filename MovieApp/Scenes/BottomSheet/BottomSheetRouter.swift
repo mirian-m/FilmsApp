@@ -30,6 +30,15 @@ extension BottomSheetRouter:  BottomSheetRoutingLogic {
     
     //  MARK:- Route
     func routeBack() {
+<<<<<<< HEAD
         self.viewController?.dismiss(animated: true, completion: nil)
+=======
+        dismiss(source: viewController!)
+    }
+    
+    //  MARK:- Navigate
+    private func dismiss(source: BottomSheetViewController) {
+        source.dismiss(animated: true, completion: nil)
+>>>>>>> VIP
     }
 }

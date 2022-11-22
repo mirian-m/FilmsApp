@@ -13,7 +13,11 @@
 import UIKit
 
 protocol ProfileRoutingLogic {
+<<<<<<< HEAD
     func routeBack()
+=======
+    func signOutFromProfile()
+>>>>>>> VIP
     func routeToBottomSheet()
 }
 
@@ -34,8 +38,17 @@ extension ProfileRouter: ProfileRoutingLogic {
         guard let viewController = viewController else { return }
         present(source: viewController, destination: destinationVC)
     }
+<<<<<<< HEAD
     func routeBack() {
         dissmisProfile()
+=======
+    func signOutFromProfile() {
+        guard let viewController = self.viewController else { return }
+        popToWelcomePage(source: viewController, destination: nil)
+    }
+    private func popToWelcomePage(source: ProfileViewController, destination: UIViewController?) {
+        source.navigationController?.popToRootViewController(animated: true)
+>>>>>>> VIP
     }
     
     //  MARK:- Navigation

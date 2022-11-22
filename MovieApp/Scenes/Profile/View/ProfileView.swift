@@ -9,18 +9,6 @@ import UIKit
 
 final class ProfileView: UIView {
     
-    private lazy var cancelBtn: UIButton = {
-        let btn = UIButton()
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        let configImage = UIImage.SymbolConfiguration(pointSize: 20, weight: .thin, scale: .large)
-        let image = UIImage(systemName:"multiply",
-                            withConfiguration: configImage)?.withTintColor(Constants.Design.Color.Primary.White, renderingMode: .alwaysOriginal)
-        
-        btn.setImage(image, for: .normal)
-        btn.addTarget(self, action: #selector(cancelBtnTapped), for: .touchUpInside)
-        self.addSubview(btn)
-        return btn
-    }()
     
     private lazy var profileImg: UIImageView = {
         let imageView = UIImageView()
@@ -139,16 +127,12 @@ final class ProfileView: UIView {
     }
     
     private func adjustConstraints() {
-        let cancelBtnConstraints = [
-            cancelBtn.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
-            cancelBtn.topAnchor.constraint(equalTo: self.topAnchor, constant: 20)
-        ]
         
         let profileImgConstraints = [
             profileImg.heightAnchor.constraint(equalToConstant: 100),
             profileImg.widthAnchor.constraint(equalTo: profileImg.heightAnchor),
             profileImg.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            profileImg.topAnchor.constraint(equalTo: self.topAnchor, constant: 30)
+            profileImg.topAnchor.constraint(equalTo: self.topAnchor, constant: 70)
         ]
         
         let stackViewConstraints = [
@@ -170,7 +154,7 @@ final class ProfileView: UIView {
         ]
         
         //  MARK:- Activate contraints
-        NSLayoutConstraint.activate(cancelBtnConstraints)
+//        NSLayoutConstraint.activate(cancelBtnConstraints)
         NSLayoutConstraint.activate(profileImgConstraints)
         NSLayoutConstraint.activate(stackViewConstraints)
         NSLayoutConstraint.activate(signOutConstraints)

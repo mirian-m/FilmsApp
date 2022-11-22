@@ -38,7 +38,6 @@ final class HomeViewController: BackgroundViewControlller {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        getUserProfileImage()
         controllerSetup()
     }
     
@@ -67,7 +66,6 @@ final class HomeViewController: BackgroundViewControlller {
     }
     
     private func controllerSetup() {
-        NotificationCenter.default.addObserver(self, selector: #selector(signOutFromProfile), name: .yesButtonWasClickedOnTheBottomSheet, object: nil)
         tabBarController?.navigationItem.hidesBackButton = true
         tabBarController?.navigationController?.navigationBar.isHidden = false
         tabBarItem.badgeColor = .label
@@ -86,11 +84,8 @@ final class HomeViewController: BackgroundViewControlller {
     private func setNavBarItems() {
         let image = Constants.Design.Image.Logo.LogoImageOne?.withRenderingMode(.alwaysOriginal)
         tabBarController?.navigationItem.leftBarButtonItem  = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
-        tabBarController?.navigationItem.rightBarButtonItem =
-            UIBarButtonItem(
-                image: Constants.Design.Image.DefaultProfileImage?
-                    .withTintColor(.white, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(goToProfile))
     }
+<<<<<<< HEAD
     
     
     // MARK: Routing
@@ -102,6 +97,8 @@ final class HomeViewController: BackgroundViewControlller {
         router?.routeToWelcomePage()
     }
     
+=======
+>>>>>>> VIP
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -176,8 +173,11 @@ extension HomeViewController: CollectionViewTableViewCelldelegate {
     func collectionViewTableViewCellDidTap(movieId: Int) {
         interactor?.getSelectedMovieDetails(requset: Home.GetSelectedMovie.Request(selectedMovieId: movieId))
     }
+<<<<<<< HEAD
     
     func backToRootViewController() {
         router?.routeToWelcomePage()
     }
+=======
+>>>>>>> VIP
 }
