@@ -51,5 +51,4 @@ extension HomeRouter: HomeRoutingLogic {
     private func passDataToDetailsVc(source: HomeDataStore, destination: inout DetailsDataStore) {
         destination.movieId = source.selectedMovieId
     }
-    
 }
