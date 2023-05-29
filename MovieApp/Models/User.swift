@@ -13,15 +13,7 @@ struct UserData {
     var seenMoviesList: [Int]
     
     
-    init(
-        firstName: String,
-        lastName: String,
-        email: String,
-        password: String = "",
-        confirmedPassword: String = "",
-        profileImageUrl: String = "",
-        seenMoviesList: [Int] = [])
-    {
+    init(firstName: String, lastName: String, email: String, password: String = "", confirmedPassword: String = "", profileImageUrl: String = "", seenMoviesList: [Int] = []) {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email

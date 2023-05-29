@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 
 extension String {
@@ -34,6 +33,7 @@ extension Notification.Name {
 
 
 extension UIViewController {
+    //  Alert Func For View Controllers
     func showAlertWith(title: String, text: String) {
         let alert = UIAlertController(title: title, message: "\n\(text)", preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)

@@ -17,16 +17,7 @@ struct MovieViewModel: Hashable {
     var runTime: Int
     var vote: Int
     
-    init(id: Int,
-         title: String,
-         genres: [Genres],
-         imageUrl: String,
-         rate: Double,
-         overview: String,
-         releaseDate: String,
-         runTime: Int,
-         vote: Int)
-    {
+    init(id: Int, title: String, genres: [Genres], imageUrl: String, rate: Double, overview: String, releaseDate: String, runTime: Int, vote: Int) {
         self.id = id
         self.title = title
         self.imageUrl = imageUrl
@@ -49,20 +40,6 @@ struct MovieViewModel: Hashable {
             releaseDate: model.releaseDate ?? "",
             runTime: model.runtime ?? 0,
             vote: model.voteCount ?? 0
-        )
-    }
-    
-    init() {
-        self.init(
-            id: 0,
-            title: "",
-            genres: [],
-            imageUrl: "",
-            rate: 0.0,
-            overview: "",
-            releaseDate: "",
-            runTime: 0,
-            vote: 0
         )
     }
 }

@@ -17,7 +17,6 @@ struct MovieDetails: Decodable {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
-    
     var genres: [Genres]?
     var id: Int?
     var originalLanguage: String?

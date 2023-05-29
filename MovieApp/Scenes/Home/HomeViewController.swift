@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseStorage
 
+
 protocol HomeDisplayLogic: AnyObject {
     func displayMovies(viewModel: Home.MovieInfo.ViewModel)
     func displayAlert(viewModel: Home.Error.ViewModel)

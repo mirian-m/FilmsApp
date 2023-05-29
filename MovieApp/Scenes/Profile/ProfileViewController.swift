@@ -93,7 +93,7 @@ final class ProfileViewController: UIViewController {
         present(actionSheet, animated: true, completion: nil)
     }
     //  MARK:- Get user Details from dataBase
-    func getUserInfo() {
+    private func getUserInfo() {
         let request = Profile.GetUserData.Request()
         interactor?.getUserData(request: request)
     }
@@ -124,7 +124,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         present(imagePickerController, animated: true, completion: nil)
     }
     
-     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         interactor?.updateProfileImage(request: Profile.UpdateProfileImage.Request(info: info))
         dismiss(animated: true, completion: nil)
     }

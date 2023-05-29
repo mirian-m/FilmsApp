@@ -40,7 +40,11 @@ final class DetailsViewController: BackgroundViewControlller {
     }()
     
     private lazy var headerView = Poster(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height * 0.55))
-    private var movieViewModel = MovieViewModel()
+    private var movieViewModel: MovieViewModel? {
+        didSet {
+            detailsTableView.reloadData()
+        }
+    }
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -86,7 +90,8 @@ final class DetailsViewController: BackgroundViewControlller {
     
     //  MARK:- Buttons Action
     @objc private func playTrailer() {
-        interactor?.updateUserWatchedList(request: Details.UpdateUserData.Request(movieId: movieViewModel.id))
+        guard let viewModel = movieViewModel else { return }
+        interactor?.updateUserWatchedList(request: Details.UpdateUserData.Request(movieId: viewModel.id))
         router?.routeToTraileVc()
     }
     @objc private func moveBack() {
@@ -108,7 +113,6 @@ extension DetailsViewController: DetailsDisplayLogic {
     func displayMovieDetails(viewModel: Details.GetMovie.ViewModel) {
         headerView.configure(with: viewModel.movieViewModel.imageUrl, buttonsIsHidden: false)
         self.movieViewModel = viewModel.movieViewModel
-        detailsTableView.reloadData()
     }
 }
 
@@ -118,18 +122,19 @@ extension DetailsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 3 }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let viewModel = movieViewModel else { return UITableViewCell()}
         switch indexPath.row {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailsCell.identifier, for: indexPath) as? DetailsCell else { return UITableViewCell() }
-            cell.configure(with: movieViewModel)
+            cell.configure(with: viewModel)
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MoreDetailsTableViewCell.identifier, for: indexPath) as? MoreDetailsTableViewCell else { return UITableViewCell() }
-            cell.configure(with: movieViewModel)
+            cell.configure(with: viewModel)
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: Overview.identifier, for: indexPath) as? Overview else { return UITableViewCell() }
-            cell.configur(with: movieViewModel)
+            cell.configur(with: viewModel)
             return cell
         default:
             break
