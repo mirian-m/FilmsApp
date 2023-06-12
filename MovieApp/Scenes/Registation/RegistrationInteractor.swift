@@ -1,6 +1,5 @@
 //
 //  RegistationInteractor.swift
-//  Netflix
 //
 //  Created by Admin on 8/19/22.
 //  Copyright (c) 2022 ___ORGANIZATIONNAME___. All rights reserved.
@@ -25,7 +24,6 @@ protocol RegistationDataStore {
 }
 
 final class RegistrationInteractor: RegistationDataStore {
-    
     var presenter: RegistrationPresentationLogic?
     var worker = RegistrationWorker()
     var tag: Int = 0

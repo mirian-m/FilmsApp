@@ -1,6 +1,6 @@
 //
 //  DetailsInteractor.swift
-//  Netflix
+//  
 //
 //  Created by Admin on 9/8/22.
 //  Copyright (c) 2022 ___ORGANIZATIONNAME___. All rights reserved.

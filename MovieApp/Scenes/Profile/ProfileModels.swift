@@ -1,6 +1,6 @@
 //
 //  ProfileModels.swift
-//  Netflix
+//  
 //
 //  Created by Admin on 9/16/22.
 //  Copyright (c) 2022 ___ORGANIZATIONNAME___. All rights reserved.

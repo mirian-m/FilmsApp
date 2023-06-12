@@ -1,5 +1,5 @@
 //  RegistrationView.swift
-//  Netflix
+//  
 //  Created by Admin on 7/30/22.
 
 import UIKit

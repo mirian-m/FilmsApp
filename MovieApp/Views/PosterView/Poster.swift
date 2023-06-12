@@ -60,7 +60,7 @@ final class Poster: UIView {
         posterView.getImageFromWeb(by: url)
     }
     
-    //  MARK:- Button Metods
+    //  MARK:- Button Methods
     @objc private func postNotification() {
         NotificationCenter.default.post(name: .playButtonWasClicked, object: self)
     }
@@ -92,7 +92,6 @@ extension Poster {
             playButton.widthAnchor.constraint(equalToConstant: 64),
             playButton.heightAnchor.constraint(equalTo: playButton.widthAnchor, multiplier: 1)
         ]
-        
         let backBtnConstraints = [
             backBtn.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
             backBtn.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),

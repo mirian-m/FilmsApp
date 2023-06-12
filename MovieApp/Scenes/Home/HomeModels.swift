@@ -1,6 +1,6 @@
 //
 //  HomeModels.swift
-//  Netflix
+//  
 //
 //  Created by Admin on 8/22/22.
 //  Copyright (c) 2022 ___ORGANIZATIONNAME___. All rights reserved.
@@ -49,7 +49,7 @@ enum Home {
         }
         struct ViewModel {
             var section: Int
-            var moviesViewModel: [MovieViewModel]?
+            var movies: [MovieViewModel]?
         }
     }
     

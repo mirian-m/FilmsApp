@@ -1,6 +1,6 @@
 //
 //  App.swift
-//  Netflix
+//  
 //
 //  Created by Admin on 9/12/22.
 //

@@ -1,6 +1,6 @@
 //
 //  MoreDetailsTableViewCell.swift
-//  Netflix
+//  
 //
 //  Created by Admin on 9/11/22.
 //

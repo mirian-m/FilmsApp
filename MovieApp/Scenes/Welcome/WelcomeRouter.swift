@@ -1,6 +1,5 @@
 //
 //  WelcomeRouter.swift
-//  Netflix
 //
 //  Created by Admin on 8/19/22.
 //  Copyright (c) 2022 ___ORGANIZATIONNAME___. All rights reserved.

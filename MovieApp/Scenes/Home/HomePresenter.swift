@@ -1,6 +1,6 @@
 //
 //  HomePresenter.swift
-//  Netflix
+//  
 //
 //  Created by Admin on 8/22/22.
 //  Copyright (c) 2022 ___ORGANIZATIONNAME___. All rights reserved.
@@ -32,7 +32,7 @@ extension HomePresenter: HomePresentationLogic {
             viewController?.displayAlert(viewModel: Home.Error.ViewModel(errorModel: ErrorViewModel(title: AlerTitle.Error.error, message: response.error!.rawValue)))
             return
         }
-        viewController?.displayMovies(viewModel: Home.MovieInfo.ViewModel(section: response.section, moviesViewModel: response.movies?.details.convert()))
+        viewController?.displayMovies(viewModel: Home.MovieInfo.ViewModel(section: response.section, movies: response.movies?.details.convert()))
     }
     
     func presentSelectedMovie(response: Home.GetSelectedMovie.Response) {

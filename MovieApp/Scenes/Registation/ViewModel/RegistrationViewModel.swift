@@ -1,6 +1,6 @@
 //
 //  RegistrationViewModel.swift
-//  Netflix
+//  
 //
 //  Created by Admin on 9/15/22.
 //
